@@ -3,13 +3,17 @@ import { Theme } from "./theme";
 import { Environment } from "./environment";
 
 export interface Dive {
-  id: number;
+  id: string;
+  user: string;
+  createdAt: Date;
+  updatedAt: Date;
   date: Date;
   gas: Gas[];
-  themes: Theme[];
+  themes: Theme[] | [];
+  role: string | undefined;
   maxDepth: number;
   totalTime: number;
-  status: string | undefined;
   temperature: string | undefined;
   environment: Environment;
+  spot: undefined;
 }
