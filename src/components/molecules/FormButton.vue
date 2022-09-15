@@ -4,7 +4,7 @@ export default { name: "FormButton" };
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { FormButtonInterface } from "@/types/forms/form_authentication";
+import { FormButtonInterface } from "@/types/components/form";
 
 const props = defineProps<{
   button: FormButtonInterface;

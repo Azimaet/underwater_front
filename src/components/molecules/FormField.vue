@@ -4,7 +4,7 @@ export default { name: "FormField" };
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { FormFieldInterface } from "@/types/forms/form_authentication";
+import { FormFieldInterface } from "@/types/components/form";
 
 const props = defineProps<{
   field: FormFieldInterface;

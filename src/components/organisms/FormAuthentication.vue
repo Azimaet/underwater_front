@@ -1,36 +1,31 @@
 <script lang="ts">
-declare var require: any;
 export default { name: "FormAuthentication" };
 </script>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { FormInterface } from "@/types/forms/form_authentication";
+import { FormInterface } from "@/types/components/form";
 import FormField from "@/components/molecules/FormField.vue";
 import FormButton from "@/components/molecules/FormButton.vue";
+import { authenticatorService } from "@/composables/authenticator";
 
 const props = defineProps<{
   form: FormInterface;
 }>();
 
 const isValid = ref(props.form.valid);
-const axios = require("axios").default;
 
-const submitLogin = () => {
-  axios
-    .create({
-      baseURL: "http://127.0.0.1:8000/api/",
+const onClickLogin = () => {
+  authenticatorService
+    .login({
+      email: props.form.fields?.[0].model,
+      password: props.form.fields?.[1].model,
     })
-    .post("/login", {
-      email: props.form.fields[0].model,
-      password: props.form.fields[1].model,
+    .then((res) => {
+      console.log(res.data);
+      authenticatorService.saveTokens(res.data.token, res.data.refresh_token);
     })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    .catch((err) => console.log(err));
 };
 </script>
 
@@ -45,7 +40,7 @@ const submitLogin = () => {
     />
     <FormButton
       v-for="(button, index) in form.buttons"
-      @click="submitLogin"
+      @click="onClickLogin"
       :disabled="isValid"
       :key="index"
       :button="button"

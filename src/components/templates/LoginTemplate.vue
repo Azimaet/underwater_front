@@ -4,13 +4,12 @@ export default { name: "LoginTemplate" };
 
 <script setup lang="ts">
 import FormAuthentication from "@/components/organisms/FormAuthentication.vue";
-import { useFormAuthentication } from "@/composables/formAuthentication";
-import { FormActions, FormInterface } from "@/types/forms/form_authentication";
+import { useFormBuilder } from "@/composables/formBuilder";
+import { FormActions, FormInterface } from "@/types/components/form";
 
-const form: FormInterface = useFormAuthentication(FormActions.LOGIN);
+const form: FormInterface = useFormBuilder(FormActions.LOGIN);
 </script>
 
 <template>
-  <p>En cours</p>
   <FormAuthentication :form="form" />
 </template>

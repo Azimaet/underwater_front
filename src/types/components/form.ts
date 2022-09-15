@@ -3,6 +3,11 @@ export enum FormActions {
   SIGNUP = "form_action_signup",
 }
 
+export interface FormLoginCredentials {
+  email?: FormFieldInterface["model"];
+  password?: FormFieldInterface["model"];
+}
+
 export interface FormFieldInterface {
   model: string;
   rules: any[];
@@ -13,7 +18,6 @@ export interface FormFieldInterface {
 export interface FormButtonInterface {
   label: string;
   color: string;
-  request: any;
 }
 
 export interface FormInterface {

@@ -1,5 +1,5 @@
-import { FormActions } from "@/types/forms/form_authentication";
-import { FormInterface } from "@/types/forms/form_authentication";
+import { FormActions, FormInterface } from "@/types/components/form";
+
 import { reactive } from "vue";
 import { translations } from "@/i18n/index";
 
@@ -13,21 +13,21 @@ const form: FormInterface = reactive({
 });
 
 /**
- * Global Form Authentication Builder
+ * Global Form Builder
  * @param {FormActions} action FormActions
  */
-export function useFormAuthentication(action: FormActions) {
+export function useFormBuilder(action: FormActions) {
   /**
    * Map Form object to build it in Vue
    * @param {FormActions} action FormActions
    * @returns {FormInterface} FormInterface
    */
-  function buildForm(action: FormActions, form: FormInterface): FormInterface {
+  function setForm(action: FormActions, form: FormInterface): FormInterface {
     switch (action) {
       case FormActions.LOGIN:
         form.fields = [
           {
-            model: "email",
+            model: "",
             rules: [
               (v: any) => !!v || RULE_IS_REQUIRED,
               (v: any) => /.+@.+/.test(v) || RULE_BE_VALID,
@@ -36,7 +36,7 @@ export function useFormAuthentication(action: FormActions) {
             required: true,
           },
           {
-            model: "password",
+            model: "",
             rules: [],
             label: PASSWORD,
             required: true,
@@ -46,7 +46,6 @@ export function useFormAuthentication(action: FormActions) {
         form.buttons = [
           {
             label: LOGIN,
-            request: "any",
             color: "success",
           },
         ];
@@ -59,7 +58,7 @@ export function useFormAuthentication(action: FormActions) {
     return form;
   }
 
-  buildForm(action, form);
+  setForm(action, form);
 
   return form;
 }
