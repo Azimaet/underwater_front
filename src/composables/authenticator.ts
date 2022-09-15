@@ -9,6 +9,10 @@ const logout = () => {
   localStorage.removeItem("token");
 };
 
+const getToken = () => {
+  return !!localStorage.getItem("token");
+};
+
 const saveTokens = (token: string, refresh_token: string) => {
   localStorage.setItem("token", token);
   localStorage.setItem("refresh_token", refresh_token);
@@ -22,6 +26,7 @@ const isLogged = () => {
 export const authenticatorService = {
   login,
   logout,
+  getToken,
   saveTokens,
   isLogged,
 };
