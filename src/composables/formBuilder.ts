@@ -15,50 +15,40 @@ const form: FormInterface = reactive({
 /**
  * Global Form Builder
  * @param {FormActions} action FormActions
+ * @return {FormInterface} form FormInterface
  */
-export function useFormBuilder(action: FormActions) {
-  /**
-   * Map Form object to build it in Vue
-   * @param {FormActions} action FormActions
-   * @returns {FormInterface} FormInterface
-   */
-  const setForm = (action: FormActions, form: FormInterface): FormInterface => {
-    switch (action) {
-      case FormActions.LOGIN:
-        form.fields = [
-          {
-            model: "",
-            rules: [
-              (v: any) => !!v || RULE_IS_REQUIRED,
-              (v: any) => /.+@.+/.test(v) || RULE_BE_VALID,
-            ],
-            label: EMAIL,
-            required: true,
-          },
-          {
-            model: "",
-            rules: [],
-            label: PASSWORD,
-            required: true,
-          },
-        ];
+export function useFormBuilder(action: FormActions): FormInterface {
+  switch (action) {
+    case FormActions.LOGIN:
+      form.fields = [
+        {
+          model: "",
+          rules: [
+            (v: unknown) => !!v || RULE_IS_REQUIRED,
+            (v: string) => /.+@.+/.test(v) || RULE_BE_VALID,
+          ],
+          label: EMAIL,
+          required: true,
+        },
+        {
+          model: "",
+          rules: [],
+          label: PASSWORD,
+          required: true,
+        },
+      ];
 
-        form.buttons = [
-          {
-            label: LOGIN,
-            color: "success",
-          },
-        ];
-        break;
+      form.buttons = [
+        {
+          label: LOGIN,
+          color: "success",
+        },
+      ];
+      break;
 
-      default:
-        break;
-    }
-
-    return form;
-  };
-
-  setForm(action, form);
+    default:
+      break;
+  }
 
   return form;
 }

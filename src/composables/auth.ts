@@ -6,8 +6,11 @@ import { useJWTParser } from "./jwtParser";
 /**
  * Global Authentication Login function
  * @param {FormLoginCredentials} credentials FormLoginCredentials
+ * @return {Promise<void>} Promise<void>
  */
-export async function useAuthLogin(credentials: FormLoginCredentials) {
+export async function useAuthLogin(
+  credentials: FormLoginCredentials
+): Promise<void> {
   try {
     const response = await Axios.post("/login", credentials);
 
@@ -28,11 +31,20 @@ export async function useAuthLogin(credentials: FormLoginCredentials) {
 
 /**
  * Global Authentication Logout function
+ * @return {<void>} <void>
  */
-export async function useAuthLogout() {
+export function useAuthLogout(): void {
   store.commit("setUserToken", null);
   store.commit("setRefreshUserToken", null);
   store.commit("setUserEmail", null);
   store.commit("setUserRoles", []);
   store.commit("setUserRoles", null);
+}
+
+/**
+ * Simple util bool isLogged to manage display
+ * @return {boolean} boolean
+ */
+export function isLogged(): boolean {
+  return !!store.state.user.token;
 }

@@ -5,7 +5,7 @@ const user: StoreUserInterface = {
   data: {
     email: null,
     roles: [],
-    name: null,
+    username: null,
   },
   token: null,
   refresh_token: null,
@@ -41,7 +41,7 @@ export default createStore({
       state.user.data.roles = data;
     },
     setUserName(state, data) {
-      state.user.data.name = data;
+      state.user.data.username = data;
     },
     setUserToken(state, token) {
       state.user.token = token;

@@ -1,8 +1,10 @@
+import { StoreUserDataInterface } from "@/types/components/storeUser";
 /**
  * JWT Parsing Utilitary function
  * @param {string} token string
+ * @returns {StoreUserInterface}
  */
-export function useJWTParser(token: string) {
+export function useJWTParser(token: string): StoreUserDataInterface {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
   const jsonPayload = decodeURIComponent(

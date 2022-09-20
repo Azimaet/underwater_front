@@ -10,7 +10,7 @@ export interface FormLoginCredentials {
 
 export interface FormFieldInterface {
   model: string;
-  rules: any[];
+  rules: unknown[];
   label: string;
   required: boolean;
 }
