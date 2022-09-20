@@ -7,26 +7,13 @@ import { ref } from "vue";
 import { FormInterface } from "@/types/components/form";
 import FormField from "@/components/molecules/FormField.vue";
 import FormButton from "@/components/molecules/FormButton.vue";
-import { authenticatorService } from "@/composables/authenticator";
+import { useAuthLogin } from "@/composables/auth";
 
 const props = defineProps<{
   form: FormInterface;
 }>();
 
 const isValid = ref(props.form.valid);
-
-const onClickLogin = () => {
-  authenticatorService
-    .login({
-      email: props.form.fields?.[0].model,
-      password: props.form.fields?.[1].model,
-    })
-    .then((res) => {
-      console.log(res.data);
-      authenticatorService.saveTokens(res.data.token, res.data.refresh_token);
-    })
-    .catch((err) => console.log(err));
-};
 </script>
 
 <template>
@@ -40,7 +27,12 @@ const onClickLogin = () => {
     />
     <FormButton
       v-for="(button, index) in form.buttons"
-      @click="onClickLogin"
+      @click="
+        useAuthLogin({
+          email: props.form.fields?.[0].model,
+          password: props.form.fields?.[1].model,
+        })
+      "
       :disabled="isValid"
       :key="index"
       :button="button"

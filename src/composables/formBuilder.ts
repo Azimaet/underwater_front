@@ -22,7 +22,7 @@ export function useFormBuilder(action: FormActions) {
    * @param {FormActions} action FormActions
    * @returns {FormInterface} FormInterface
    */
-  function setForm(action: FormActions, form: FormInterface): FormInterface {
+  const setForm = (action: FormActions, form: FormInterface): FormInterface => {
     switch (action) {
       case FormActions.LOGIN:
         form.fields = [
@@ -56,7 +56,7 @@ export function useFormBuilder(action: FormActions) {
     }
 
     return form;
-  }
+  };
 
   setForm(action, form);
 
