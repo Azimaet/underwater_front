@@ -1,6 +1,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import store from "@/store";
+import { provide } from "vue";
+import { DefaultApolloClient } from "@vue/apollo-composable";
+import { Apollo } from "@/plugins/apollo";
 
 export default defineComponent({
   name: "App",
@@ -8,9 +11,10 @@ export default defineComponent({
     store.commit("initStore");
   },
   data() {
-    return {
-      //
-    };
+    return {};
+  },
+  setup() {
+    provide(DefaultApolloClient, Apollo);
   },
 });
 </script>

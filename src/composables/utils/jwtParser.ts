@@ -1,4 +1,5 @@
 import { StoreUserDataInterface } from "@/types/components/storeUser";
+
 /**
  * JWT Parsing Utilitary function
  * @param {string} token string

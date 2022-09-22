@@ -1,7 +1,7 @@
 import Axios from "@/plugins/axios";
 import { FormLoginCredentials } from "@/types/components/form";
 import store from "@/store";
-import { useJWTParser } from "./jwtParser";
+import { useJWTParser } from "./utils/jwtParser";
 
 /**
  * Global Authentication Login function

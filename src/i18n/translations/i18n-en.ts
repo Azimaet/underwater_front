@@ -8,4 +8,12 @@ export const en = {
     RULE_IS_REQUIRED: "E-mail is required",
     RULE_BE_VALID: "E-mail must be valid",
   },
+  FORM_DIVING: {
+    DATE: "Date",
+    TOTALTIME: "Total time (in mn.)",
+    MAXDEPTH: "Max depths (in mt.)",
+    DIVINGTYPES: "Diving types",
+    DIVINGROLE: "Diving role",
+    DIVINGENV: "Diving environment",
+  },
 };

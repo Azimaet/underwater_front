@@ -10,7 +10,7 @@ import vuetify from "./plugins/vuetify";
 loadFonts();
 
 const i18n = createI18n({
-  locale: "fr",
+  locale: "en",
   fallbackLocale: "en",
   translations,
 });

@@ -1,6 +1,7 @@
 export enum FormActions {
   LOGIN = "form_action_login",
   SIGNUP = "form_action_signup",
+  ADDADIVE = "form_action_add_dive",
 }
 
 export interface FormLoginCredentials {

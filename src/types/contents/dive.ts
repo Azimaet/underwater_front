@@ -1,19 +1,17 @@
+import { DivingTheme } from "./divingTheme";
 import { Gas } from "./gas";
-import { Theme } from "./theme";
-import { Environment } from "./environment";
 
 export interface Dive {
-  id: string;
-  user: string;
-  createdAt: Date;
-  updatedAt: Date;
+  readonly id?: number;
+  readonly uuid?: string;
+  readonly createdAt?: Date;
+  readonly updatedAt?: Date;
   date: Date;
-  gas: Gas[];
-  themes: Theme[] | [];
-  role: string | undefined;
-  maxDepth: number;
   totalTime: number;
-  temperature: string | undefined;
-  environment: Environment;
-  spot: undefined;
+  maxDepth: number;
+  gas: Gas[];
+  divingType: DivingTheme[] | [];
+  divingEnvironment: DivingTheme;
+  divingRole: DivingTheme;
+  user: object;
 }
