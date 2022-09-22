@@ -3,16 +3,20 @@ export default { name: "FormAddDive" };
 </script>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { FormInterface } from "@/types/components/form";
 import FormField from "@/components/molecules/FormField.vue";
 import FormButton from "@/components/molecules/FormButton.vue";
 import { queryDivingRoles } from "@/composables/graphql/queryDivingRoles";
+import { useDive } from "@/composables/dive";
 
 const props = defineProps<{
   form: FormInterface;
 }>();
 
+console.log("usedive");
+const dive = useDive();
+console.log(dive);
 const isValid = ref(props.form.valid);
 
 const getDivingRoles = () => {
@@ -37,9 +41,9 @@ const getDivingRoles = () => {
       :key="index"
       :field="field"
       :ref="field.model" />
-    <v-col class="d-flex" cols="12" sm="6">
+    <!-- <v-col class="d-flex" cols="12" sm="6">
       <v-select :items="getDivingRoles()" label="Select Diving Role"></v-select>
-    </v-col>
+    </v-col> -->
     <!-- 
     <v-card flat>
       <v-card-text>

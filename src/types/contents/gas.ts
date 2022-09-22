@@ -1,4 +1,4 @@
-export interface Gas {
+export interface GasInterface {
   gasMix: {
     helium: number;
     oxygen: number;
