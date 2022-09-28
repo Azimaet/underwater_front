@@ -3,7 +3,7 @@ import { FormActions, FormInterface } from "@/types/components/form";
 import { reactive } from "vue";
 import { translations } from "@/i18n/index";
 
-const { EMAIL, PASSWORD, SUBMIT, RULE_IS_REQUIRED, RULE_BE_VALID, LOGIN } =
+const { EMAIL, PASSWORD, SUBMIT, RULE_IS_REQUIRED, RULE_BE_EMAIL, LOGIN } =
   translations.en.FORM_WORDING;
 
 const { DATE, TOTALTIME, MAXDEPTH, DIVINGENV, DIVINGROLE, DIVINGTYPES } =
@@ -27,7 +27,7 @@ export function useFormBuilder(action: FormActions): FormInterface {
         model: "",
         rules: [
           (v: unknown) => !!v || RULE_IS_REQUIRED,
-          (v: string) => /.+@.+/.test(v) || RULE_BE_VALID,
+          (v: string) => /.+@.+/.test(v) || RULE_BE_EMAIL,
         ],
         label: EMAIL,
         required: true,
@@ -100,7 +100,7 @@ export function useFormBuilder(action: FormActions): FormInterface {
     case FormActions.LOGIN:
       buildLoginForm();
       break;
-    case FormActions.ADDADIVE:
+    case FormActions.DIVE_CREATE:
       buildDiveForm();
       break;
 

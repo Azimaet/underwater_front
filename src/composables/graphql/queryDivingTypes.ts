@@ -1,3 +1,4 @@
+import { computed } from "vue";
 import gql from "graphql-tag";
 import { useQuery } from "@vue/apollo-composable";
 
@@ -22,5 +23,11 @@ export function queryDivingTypes(): any {
 
   const { result } = useQuery(QUERY_DIVING_TYPES);
 
-  return result;
+  const types = computed(
+    () =>
+      result.value?.divingTypes.edges
+        .map((type: { node: unknown }) => type.node)
+        .map((i: { label: any }) => i.label) ?? []
+  );
+  return types;
 }

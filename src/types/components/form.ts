@@ -1,9 +1,43 @@
+export interface Form {
+  title: string;
+  controls: FormControl[];
+}
+
+export interface FormControl {
+  id: string;
+  props: FormControlProps | null;
+}
+
+export interface FormControlProps {
+  name: string;
+  label: string;
+  hint?: string;
+  rules?: any[];
+  options?: any;
+}
+
+export enum FormPropWritable {
+  _id = 0,
+  _uuid = 0,
+  _createdAt = 0,
+  _updatedAt = 0,
+  _date = 1,
+  _totalTime = 1,
+  _maxDepth = 1,
+  _gas = 1,
+  _divingType = 1,
+  _divingEnvironment = 1,
+  _divingRole = 1,
+  _user = 0,
+}
+
 export enum FormActions {
   LOGIN = "form_action_login",
   SIGNUP = "form_action_signup",
-  ADDADIVE = "form_action_add_dive",
+  DIVE_CREATE = "FORM_ACTION_DIVE_CREATE",
 }
 
+/* TODO SOME CLEANING BELOW, NOT SURE USED YET !! */
 export interface FormLoginCredentials {
   email?: FormFieldInterface["model"];
   password?: FormFieldInterface["model"];

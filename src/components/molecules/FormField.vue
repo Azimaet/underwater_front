@@ -20,13 +20,13 @@ function updateValue(value: string | null) {
 
 <template>
   <v-col cols="12" md="4">
-    <v-text-field
+    <!-- <v-text-field
       :placeholder="field.model"
       :value="props.modelValue"
       v-on:input="updateValue(($event.target as HTMLTextAreaElement).value)"
       :rules="field.rules"
       :label="field.label"
       required="{{ field.required }}"
-    ></v-text-field>
+    ></v-text-field> -->
   </v-col>
 </template>

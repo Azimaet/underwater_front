@@ -1,3 +1,4 @@
+import { computed } from "vue";
 import gql from "graphql-tag";
 import { useQuery } from "@vue/apollo-composable";
 
@@ -22,5 +23,11 @@ export function queryDivingEnvironments(): any {
 
   const { result } = useQuery(QUERY_DIVING_ENVIRONMENTS);
 
-  return result;
+  const environments = computed(
+    () =>
+      result.value?.divingEnvironments.edges
+        .map((environment: { node: unknown }) => environment.node)
+        .map((i: { label: any }) => i.label) ?? []
+  );
+  return environments;
 }
