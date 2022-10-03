@@ -1,15 +1,19 @@
 <script lang="ts">
-export default { name: "FormMComboBoxField" };
+export default { name: "FormControlComboBox" };
 </script>
 
 <script setup lang="ts">
 import { queryDivingTypes } from "@/composables/graphql/queryDivingTypes";
 import { ref } from "vue";
+import { Dive } from "../../types/contents/dive";
 
 const props = defineProps<{
   id: string;
   label: string;
+  index?: number;
+  rules?: [];
   options?: any;
+  instance: Dive;
 }>();
 
 const types = ref([]);

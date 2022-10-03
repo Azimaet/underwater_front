@@ -5,6 +5,7 @@ export interface Form {
 
 export interface FormControl {
   id: string;
+  isMultipliable: boolean;
   props: FormControlProps | null;
 }
 
@@ -24,7 +25,7 @@ export enum FormPropWritable {
   _date = 1,
   _totalTime = 1,
   _maxDepth = 1,
-  _gas = 1,
+  _gasTanks = 1,
   _divingType = 1,
   _divingEnvironment = 1,
   _divingRole = 1,

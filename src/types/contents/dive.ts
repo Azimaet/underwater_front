@@ -1,15 +1,15 @@
 import { DivingThemeInterface } from "./divingTheme";
-import { GasInterface } from "./gas";
+import { GasTank } from "./gasTank";
 
 export class Dive {
   private _id: number | null;
   private _uuid: string | null;
   private _createdAt: Date | null;
   private _updatedAt: Date | null;
-  private _date: Date | null;
-  private _totalTime: number | null;
-  private _maxDepth: number | null;
-  private _gas: GasInterface[];
+  private _date: Date;
+  private _totalTime: number;
+  private _maxDepth: number;
+  private _gasTanks: GasTank[];
   private _divingType: DivingThemeInterface[];
   private _divingEnvironment: DivingThemeInterface | null;
   private _divingRole: DivingThemeInterface | null;
@@ -20,10 +20,10 @@ export class Dive {
     this._uuid = null;
     this._createdAt = null;
     this._updatedAt = null;
-    this._date = null;
-    this._totalTime = null;
-    this._maxDepth = null;
-    this._gas = [];
+    this._date = new Date();
+    this._totalTime = 0;
+    this._maxDepth = 0;
+    this._gasTanks = [new GasTank()];
     this._divingType = [];
     this._divingEnvironment = null;
     this._divingRole = null;
@@ -34,6 +34,7 @@ export class Dive {
     return Object.getOwnPropertyNames(instance);
   }
 
+  /* Getters and Setters */
   public get id(): number | null {
     return this._id;
   }
@@ -62,32 +63,32 @@ export class Dive {
     this._updatedAt = date;
   }
 
-  public get date(): Date | null {
+  public get date(): Date {
     return this._date;
   }
-  public set date(date: Date | null) {
+  public set date(date: Date) {
     this._date = date;
   }
 
-  public get totalTime(): number | null {
+  public get totalTime(): number {
     return this._totalTime;
   }
-  public set totalTime(time: number | null) {
+  public set totalTime(time: number) {
     this._totalTime = time;
   }
 
-  public get maxDepth(): number | null {
+  public get maxDepth(): number {
     return this._maxDepth;
   }
-  public set maxDepth(depth: number | null) {
+  public set maxDepth(depth: number) {
     this._maxDepth = depth;
   }
 
-  public get gas(): GasInterface[] {
-    return this._gas;
+  public get gasTanks(): GasTank[] {
+    return this._gasTanks;
   }
-  public set gas(tank) {
-    // TODO
+  public set gasTanks(gasTanks) {
+    this._gasTanks = gasTanks;
   }
 
   public get divingType(): DivingThemeInterface[] {
@@ -118,30 +119,28 @@ export class Dive {
     // TODO
   }
 
+  /* Custom Methods */
+
   /**
-   * Get GasTank Method (target one tank in Collection)
+   * Get GasTank item Method (target one tank in Collection)
    * @param {number} index number
-   * @return {GasInterface} GasInterface
+   * @return {GasTank} GasTank
    */
-  public getGasTank(index: number): GasInterface {
-    return this._gas[index];
+  public getGasTank(index: number): GasTank {
+    return this.gasTanks[index];
   }
+
   /**
    * Set GasTank Method (target one tank in Collection)
    * @param {number} index number
-   * @param {GasInterface} tank GasInterface
+   * @param {GasTank} gasTank GasTank
    * @return {void} void
    */
-  public setGasTank(index: number, tank: GasInterface): void {
-    try {
-      tank.gasMix.helium + tank.gasMix.nitrogen + tank.gasMix.oxygen !== 100;
-    } catch (error) {
-      console.log("Addition of GasMix fractions is not equal to 100!");
-    }
-    if (this.gas.length < index) {
-      this.gas.push(tank);
+  public setGasTank(index: number, gasTank: GasTank): void {
+    if (this.gasTanks.length < index) {
+      this.gasTanks.push(gasTank);
     } else {
-      this._gas[index] = tank;
+      this.gasTanks[index] = gasTank;
     }
   }
 }

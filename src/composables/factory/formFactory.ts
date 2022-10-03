@@ -32,10 +32,10 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
    * Get Date Field Props.
    * @return {FormControlProps} FormControlProps
    */
-  function getDateField(): FormControlProps {
+  function getControlDate(): FormControlProps {
     //TODO: utiliser la dernière date renseignée pour une dive dans le storage (dev coté store a faire)
     return {
-      name: "FormDateField",
+      name: "FormControlDate",
       label: "",
     };
   }
@@ -45,15 +45,15 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
    * @param {string} context string
    * @return {FormControlProps} FormControlProps
    */
-  function getNumberField(context: string): FormControlProps {
+  function getControlNumber(context: string): FormControlProps {
     return {
-      name: "FormNumberField",
-      rules: [
-        (v: string) =>
-          v.toString().match(/^[0-9]*\.?[0-9]*$/) ||
-          FORM_WORDING.RULE_BE_NUMBER,
-        (v: string) => v.toString().length > 0 || FORM_WORDING.RULE_IS_REQUIRED,
-      ],
+      name: "FormControlNumber",
+      // rules: [
+      //   (v: number) =>
+      //     v.toString().match(/^[0-9]*\.?[0-9]*$/) ||
+      //     FORM_WORDING.RULE_BE_NUMBER,
+      //   (v: number) => v.toString().length > 0 || FORM_WORDING.RULE_IS_REQUIRED,
+      // ],
       label:
         context === "_maxDepth"
           ? FORM_DIVING.MAXDEPTH
@@ -68,16 +68,16 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
    * @param {string} context string
    * @return {FormControlProps} FormControlProps
    */
-  function getSelectField(context: string): FormControlProps {
+  function getControlSelect(context: string): FormControlProps {
     if (context === "_divingEnvironment") {
       return {
-        name: "FormSelectField",
+        name: "FormControlSelect",
         label: FORM_DIVING.SELECT_DIVING_ENV,
         options: GraphqlActions.DIVING_ENVIRONMENTS,
       };
     } else if (context === "_divingRole") {
       return {
-        name: "FormSelectField",
+        name: "FormControlSelect",
         label: FORM_DIVING.SELECT_DIVING_ROLES,
         options: GraphqlActions.DIVING_ROLES,
       };
@@ -94,10 +94,10 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
    * @param {string} context string
    * @return {FormControlProps} FormControlProps
    */
-  function getComboBoxField(context: string): FormControlProps {
+  function getControlComboBox(context: string): FormControlProps {
     if (context === "_divingType") {
       return {
-        name: "FormComboBoxField",
+        name: "FormControlComboBox",
         label: FORM_DIVING.SELECT_DIVING_TYPES,
         options: GraphqlActions.DIVING_TYPES,
       };
@@ -114,10 +114,10 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
    * @param {string} context string
    * @return {FormControlProps} FormControlProps
    */
-  function getMultiSlidersField(context: string): FormControlProps {
-    if (context === "_gas") {
+  function getControlMultiSliders(context: string): FormControlProps {
+    if (context === "_gasTanks") {
       return {
-        name: "FormMultiSlidersField",
+        name: "FormControlMultiSliders",
         label: FORM_DIVING.SELECT_GAS_TANK,
       };
     } else {
@@ -136,17 +136,17 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
   function buildProps(propId: string): FormControlProps {
     switch (propId) {
       case "_date":
-        return getDateField();
+        return getControlDate();
       case "_totalTime":
       case "_maxDepth":
-        return getNumberField(propId);
-      case "_gas":
-        return getMultiSlidersField(propId);
+        return getControlNumber(propId);
+      case "_gasTanks":
+        return getControlMultiSliders(propId);
       case "_divingType":
-        return getComboBoxField(propId);
+        return getControlComboBox(propId);
       case "_divingEnvironment":
       case "_divingRole":
-        return getSelectField(propId);
+        return getControlSelect(propId);
       default:
         return {
           name: "",
@@ -173,6 +173,7 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
         if (isWritable(propId)) {
           const control: FormControl = {
             id: propId,
+            isMultipliable: propId === "_gasTanks" ? true : false,
             props: null,
           };
 

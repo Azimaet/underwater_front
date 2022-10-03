@@ -22,4 +22,14 @@ export const en = {
     SELECT_DIVING_ROLES: "Select diving roles",
     SELECT_DIVING_ENV: "Select diving environments",
   },
+  GAS: {
+    OXYGEN: "Oxygen",
+    NITROGEN: "Nitrogen",
+    HELIUM: "Helium",
+    AIR: "Air",
+    NITROX: "Nitrox",
+    TRIMIX: "Trimix",
+    HELIOX: "Heliox",
+    UNBREATHABLE: "Unbreathable gas",
+  },
 };

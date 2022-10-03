@@ -3,9 +3,9 @@ export default { name: "AddDiveTemplate" };
 </script>
 
 <script setup lang="ts">
-import FormAddDive from "@/components/organisms/FormAddDive.vue";
+import FormDiveCreate from "@/components/organisms/FormDiveCreate.vue";
 </script>
 
 <template>
-  <FormAddDive />
+  <FormDiveCreate />
 </template>

@@ -1,22 +1,68 @@
 <script lang="ts">
-export default { name: "FormMultiSlidersField" };
+export default { name: "FormControlMultiSliders" };
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { useReadablePropName } from "@/composables/utils/stringsResolvers";
+import { Dive } from "@/types/contents/dive";
+import { reactive, ref, watchEffect, computed } from "vue";
+import { GasMix, GasTank } from "../../types/contents/gasTank";
 
 const props = defineProps<{
   id: string;
   label: string;
+  index?: number;
+  rules?: [];
   options?: any;
+  instance: Dive;
 }>();
 
-const oxygen = ref(21);
-const nitrogen = ref(79);
-const helium = ref(0);
+const emit = defineEmits<{
+  (e: string, id: string, value: any, index?: number): void;
+}>();
+
+const gasTank = reactive({
+  value:
+    props.instance[
+      useReadablePropName(props.id) as keyof typeof props.instance
+    ]?.[props.index as keyof typeof props.index],
+});
+
+// const oxygen = ref(gasTank.value?.gasMix.oxygen);
+const oxygen = computed(() => {
+  return gasTank.value?.gasMix.oxygen;
+});
+
+const nitrogen = computed(() => {
+  return gasTank.value?.gasMix.nitrogen;
+});
+
+const helium = computed(() => {
+  return gasTank.value?.gasMix.helium;
+});
+
+// const nitrogen = ref(gasTank.value?.gasMix.nitrogen);
+
+// const helium = ref(gasTank.value?.gasMix.helium);
+
+const handleChange = (value: any, propId: string) => {
+  gasTank.value.gasMix[propId as keyof typeof gasTank] = value;
+  gasTank.value.setGasMix(gasTank.value.gasMix, propId);
+
+  console.log(props.instance);
+
+  // emit(
+  //   "formInputChange",
+  //   useReadablePropName(props.id),
+  //   gasTank.value,
+  //   props.index
+  // );
+};
 
 const currentGasMix = () => {
-  return "TODO";
+  return props.instance.gasTanks[
+    props.index as keyof typeof props.index
+  ].getGasName();
 };
 </script>
 
@@ -26,15 +72,15 @@ const currentGasMix = () => {
       {{ currentGasMix() }}
       <v-slider
         v-model="oxygen"
+        @update:model-value="handleChange(oxygen, 'oxygen')"
         :max="100"
         :step="1"
-        label="R"
-        hide-details
         class="ma-4"
       >
         <template v-slot:append>
           <v-text-field
             v-model="oxygen"
+            @change="handleChange(oxygen, 'oxygen')"
             type="number"
             style="width: 80px"
             density="compact"
@@ -46,6 +92,7 @@ const currentGasMix = () => {
 
       <v-slider
         v-model="nitrogen"
+        @change="handleChange(nitrogen, 'nitrogen')"
         :max="100"
         :step="1"
         label="G"
@@ -55,6 +102,7 @@ const currentGasMix = () => {
         <template v-slot:append>
           <v-text-field
             v-model="nitrogen"
+            @change="handleChange(nitrogen, 'nitrogen')"
             type="number"
             style="width: 80px"
             density="compact"
@@ -66,6 +114,7 @@ const currentGasMix = () => {
 
       <v-slider
         v-model="helium"
+        @change="handleChange(helium, 'helium')"
         :max="100"
         :step="1"
         label="B"
@@ -75,6 +124,7 @@ const currentGasMix = () => {
         <template v-slot:append>
           <v-text-field
             v-model="helium"
+            @change="handleChange(helium, 'helium')"
             type="number"
             style="width: 80px"
             density="compact"

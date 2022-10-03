@@ -1,18 +1,46 @@
 <script lang="ts">
-export default { name: "FormDateField" };
+export default { name: "FormControlDate" };
 </script>
 
 <script setup lang="ts">
+import { useReadablePropName } from "@/composables/utils/stringsResolvers";
+import { Dive } from "@/types/contents/dive";
+import { reactive } from "vue";
+
 const props = defineProps<{
   id: string;
   label: string;
+  index?: number;
+  rules?: [];
   options?: any;
+  instance: Dive;
 }>();
+
+const emit = defineEmits<{
+  (e: string, id: string, value: string, index?: number): void;
+}>();
+
+const date = reactive({ value: props.instance.date });
+
+const handleChange = (event: any) => {
+  emit(
+    "formInputChange",
+    useReadablePropName(props.id),
+    event.target.value,
+    props.index
+  );
+};
 </script>
 
 <template>
   {{ label }}
-  <input type="date" name="dateofbirth" id="dateofbirth" />
+  <input
+    v-model="date"
+    @change="handleChange"
+    type="date"
+    name="dateofbirth"
+    id="dateofbirth"
+  />
 </template>
 
 <style scoped>

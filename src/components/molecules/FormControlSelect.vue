@@ -1,18 +1,22 @@
 <script lang="ts">
-export default { name: "FormSelectField" };
+export default { name: "FormControlSelect" };
 </script>
 
 <script setup lang="ts">
 import { queryDivingEnvironments } from "@/composables/graphql/queryDivingEnvironments";
 import { queryDivingRoles } from "@/composables/graphql/queryDivingRoles";
+import { Dive } from "@/types/contents/dive";
 
 const props = defineProps<{
   id: string;
   label: string;
+  index?: number;
+  rules?: [];
   options?: any;
+  instance: Dive;
 }>();
 
-let items;
+let items: any;
 switch (props.options) {
   case "QUERY_DIVING_ENVIRONMENTS":
     items = queryDivingEnvironments();
