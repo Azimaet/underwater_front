@@ -1,4 +1,4 @@
-import { FormActions, FormInterface } from "@/types/components/form";
+import { FormActions, FormInterface } from "@/composables/types/form";
 
 import { reactive } from "vue";
 import { translations } from "@/i18n/index";

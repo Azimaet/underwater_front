@@ -1,5 +1,5 @@
 import Axios from "@/plugins/axios";
-import { FormLoginCredentials } from "@/types/components/form";
+import { FormLoginCredentials } from "@/composables/types/form";
 import store from "@/store";
 import { useJWTParser } from "./utils/jwtParser";
 

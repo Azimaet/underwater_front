@@ -1,4 +1,4 @@
-import { StoreUserInterface } from "../types/components/storeUser";
+import { StoreUserInterface } from "@/composables/types/storeUser";
 import { createStore } from "vuex";
 
 const user: StoreUserInterface = {

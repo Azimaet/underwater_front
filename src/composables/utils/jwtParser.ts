@@ -1,4 +1,4 @@
-import { StoreUserDataInterface } from "@/types/components/storeUser";
+import { StoreUserDataInterface } from "@/composables/types/storeUser";
 
 /**
  * JWT Parsing Utilitary function

@@ -1,5 +1,5 @@
-import { DivingThemeInterface } from "./divingTheme";
-import { GasTank } from "./gasTank";
+import { DivingThemeInterface } from "@/composables/types/divingTheme";
+import { GasTank } from "@/composables/classes/gasTank";
 
 export class Dive {
   private _id: number | null;

@@ -4,13 +4,13 @@ import {
   FormControl,
   FormControlProps,
   FormPropWritable,
-} from "@/types/components/form";
+} from "@/composables/types/form";
 
-import { Dive } from "@/types/contents/dive";
-import { GraphqlActions } from "../../types/components/graphql";
+import { Dive } from "@/composables/classes/dive";
+import { GraphqlActions } from "@/composables/types/graphql";
 import { translations } from "@/i18n/index";
 
-const { FORM_DIVING, FORM_WORDING } = translations.en;
+const { FORM_DIVING } = translations.en;
 
 /**
  * Dive Form Factory

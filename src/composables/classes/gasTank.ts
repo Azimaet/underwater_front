@@ -1,3 +1,4 @@
+import { GasMix } from "@/composables/types/gas";
 import { translations } from "@/i18n/index";
 
 const MINIMUM_SUM_GAS = 0;
@@ -5,12 +6,6 @@ const MAXIMUM_SUM_GAS = 100;
 const EQUALIZABLES_GAS = ["helium", "oxygen", "nitrogen"];
 const { OXYGEN, AIR, NITROX, TRIMIX, HELIOX, UNBREATHABLE } =
   translations.en.GAS;
-
-export interface GasMix {
-  helium: number;
-  oxygen: number;
-  nitrogen: number;
-}
 
 export class GasTank {
   private _gasMix: GasMix;

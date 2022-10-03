@@ -7,3 +7,9 @@ export interface GasInterface {
   pressureStart: number;
   pressureEnd: number;
 }
+
+export interface GasMix {
+  helium: number;
+  oxygen: number;
+  nitrogen: number;
+}

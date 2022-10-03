@@ -4,11 +4,10 @@ export default { name: "FormDiveCreate" };
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { Dive } from "@/types/contents/dive";
-import { useFormFactory } from "../../composables/factory/formFactory";
-import { FormActions } from "@/types/components/form";
+import { Dive } from "@/composables/classes/dive";
+import { useFormFactory } from "@/composables/factory/formFactory";
+import { FormActions } from "@/composables/types/form";
 import FormControl from "@/components/molecules/FormControl.vue";
-import { useReadablePropName } from "@/composables/utils/stringsResolvers";
 
 const valid = ref(false);
 
