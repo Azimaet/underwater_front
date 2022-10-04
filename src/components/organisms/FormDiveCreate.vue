@@ -3,7 +3,7 @@ export default { name: "FormDiveCreate" };
 </script>
 
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { ref } from "vue";
 import { Dive } from "@/composables/classes/dive";
 import { useFormFactory } from "@/composables/factory/formFactory";
 import { FormActions } from "@/composables/types/form";

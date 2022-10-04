@@ -23,6 +23,7 @@ const emit = defineEmits<{
 const date = reactive({ value: props.instance.date });
 
 const handleChange = (event: any) => {
+  console.log(props.instance);
   emit(
     "formInputChange",
     useReadablePropName(props.id),

@@ -10,8 +10,6 @@ const props = defineProps<{
   id: string;
   label: string;
   index: number;
-  rules?: [];
-  options?: any;
   instance: Dive;
 }>();
 
@@ -37,7 +35,7 @@ const state = reactive({
   disabledGas: lockedGas,
 });
 
-const handleChange = (value: any, propId: string) => {
+const handleChange = (value: number, propId: string) => {
   let newMix = { ...props.instance.gasTanks[props.index].gasMix };
   newMix[propId as keyof typeof newMix] = value;
   props.instance.gasTanks[props.index].updateGasMix(newMix, state.disabledGas);
@@ -46,6 +44,8 @@ const handleChange = (value: any, propId: string) => {
   state.nitrogen = props.instance.gasTanks[props.index].gasMix.nitrogen;
   state.helium = props.instance.gasTanks[props.index].gasMix.helium;
   state.name = props.instance.gasTanks[props.index].getGasName();
+
+  console.log(props.instance);
 };
 
 const checkChange = (value, context) => {
@@ -155,11 +155,5 @@ const checkChange = (value, context) => {
         </template>
       </v-slider>
     </v-card-text>
-
-    <v-btn rounded="pill" color="primary"> Oxygen </v-btn>
-
-    <v-btn rounded="pill" color="primary"> Air </v-btn>
-
-    <v-btn rounded="pill" color="primary"> Nitrox36 </v-btn>
   </v-card>
 </template>

@@ -119,8 +119,6 @@ export class Dive {
     // TODO
   }
 
-  /* Custom Methods */
-
   /**
    * Get GasTank item Method (target one tank in Collection)
    * @param {number} index number

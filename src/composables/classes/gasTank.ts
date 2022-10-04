@@ -1,9 +1,9 @@
-import { GasMix } from "@/composables/types/gas";
+import { GAS_LIST, GasMix } from "@/composables/types/gas";
+
 import { translations } from "@/i18n/index";
 
 const MINIMUM_SUM_GAS = 0;
 const MAXIMUM_SUM_GAS = 100;
-const GAS_LIST = ["oxygen", "nitrogen", "helium"];
 const {
   OXYGEN,
   AIR,
