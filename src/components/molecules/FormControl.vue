@@ -3,9 +3,9 @@ export default { name: "FormControl" };
 </script>
 
 <script setup lang="ts">
-import { FormControl } from "../../types/components/form";
-import { Dive } from "../../types/contents/dive";
-import { defineAsyncComponent, watchEffect } from "vue";
+import { FormControl } from "@/composables/types/form";
+import { Dive } from "@/composables/classes/dive";
+import { defineAsyncComponent } from "vue";
 
 const FormControlDate = defineAsyncComponent(
   () => import("@/components/molecules/FormControlDate.vue")

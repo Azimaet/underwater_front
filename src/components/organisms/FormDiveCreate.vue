@@ -3,7 +3,7 @@ export default { name: "FormDiveCreate" };
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 import { Dive } from "@/composables/classes/dive";
 import { useFormFactory } from "@/composables/factory/formFactory";
 import { FormActions } from "@/composables/types/form";
@@ -11,31 +11,29 @@ import FormControl from "@/components/molecules/FormControl.vue";
 
 const valid = ref(false);
 
-/* DIVE MANAGER */
 const dive = new Dive();
 
 const form = useFormFactory(FormActions.DIVE_CREATE, dive);
 
-const handleChange = (id: string, value: any, index?: number) => {
-  console.log(event);
-  switch (id) {
-    case "date":
-      dive.date = value;
-      break;
-    case "maxDepth":
-      dive.maxDepth = value;
-      break;
-    case "totalTime":
-      dive.totalTime = value;
-      break;
-    case "gasTanks":
-      dive.setGasTank(index, value);
-      break;
-    default:
-      break;
-  }
-  console.log(dive);
-};
+// const handleChange = (id: string, value: any, index?: number) => {
+//   switch (id) {
+//     case "date":
+//       dive.date = value;
+//       break;
+//     case "maxDepth":
+//       dive.maxDepth = value;
+//       break;
+//     case "totalTime":
+//       dive.totalTime = value;
+//       break;
+//     // case "gasTanks":
+//     //   dive.setGasTank(index, value);
+//     // break;
+//     default:
+//       break;
+//   }
+//   console.log(dive);
+// };
 </script>
 
 <template>
@@ -46,7 +44,6 @@ const handleChange = (id: string, value: any, index?: number) => {
         :key="index"
         :component="component"
         :instance="dive"
-        @form-input-change="handleChange"
       ></FormControl>
     </v-form>
   </div>

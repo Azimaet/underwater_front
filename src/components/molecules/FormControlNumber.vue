@@ -4,7 +4,7 @@ export default { name: "FormControlNumber" };
 
 <script setup lang="ts">
 import { useReadablePropName } from "@/composables/utils/stringsResolvers";
-import { Dive } from "@/types/contents/dive";
+import { Dive } from "@/composables/classes/dive";
 import { ref } from "vue";
 
 const props = defineProps<{

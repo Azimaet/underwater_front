@@ -3,15 +3,22 @@ import { translations } from "@/i18n/index";
 
 const MINIMUM_SUM_GAS = 0;
 const MAXIMUM_SUM_GAS = 100;
-const EQUALIZABLES_GAS = ["helium", "oxygen", "nitrogen"];
-const { OXYGEN, AIR, NITROX, TRIMIX, HELIOX, UNBREATHABLE } =
-  translations.en.GAS;
+const GAS_LIST = ["oxygen", "nitrogen", "helium"];
+const {
+  OXYGEN,
+  AIR,
+  NITROX,
+  TRIMIX_HYPEROX,
+  TRIMIX_HYPOX,
+  TRIMIX_NORMOX,
+  HELIOX,
+  UNBREATHABLE,
+} = translations.en.GAS;
 
 export class GasTank {
   private _gasMix: GasMix;
   private _pressureStart: number;
   private _pressureEnd: number;
-  private _lastGasUpdated: string | null;
 
   constructor() {
     this._gasMix = {
@@ -21,7 +28,6 @@ export class GasTank {
     };
     this._pressureStart = 200;
     this._pressureEnd = 50;
-    this._lastGasUpdated = "helium";
   }
 
   public static describe(instance: any): Array<string> {
@@ -50,14 +56,20 @@ export class GasTank {
     this._pressureEnd = pressureEnd;
   }
 
-  public get lastGasUpdated(): string | null {
-    return this._lastGasUpdated;
+  /**
+   * Validate expected values
+   * @param {GasMix} mix {GasMix}
+   * @returns {string}
+   */
+  private findModifiedGas(mix: GasMix): string {
+    return this.gasMix.oxygen !== mix.oxygen
+      ? "oxygen"
+      : this.gasMix.nitrogen !== mix.nitrogen
+      ? "nitrogen"
+      : this.gasMix.helium !== mix.helium
+      ? "helium"
+      : "";
   }
-  public set lastGasUpdated(lastGasUpdated: string | null) {
-    this._lastGasUpdated = lastGasUpdated;
-  }
-
-  /* Custom Methods */
 
   /**
    * Validate expected values
@@ -96,25 +108,25 @@ export class GasTank {
 
   /**
    * Get the Gas To Equalize
-   * @param {string} gasToModify {string}
+   * @param {string[]} protectedGas {string[]}
    * @param {number} operationToEqualize {number}
+   * @param {GasMix} mix {GasMix}
    * @returns {string}
    */
   private getGasToEqualize(
-    gasToModify: string,
-    operationToEqualize: number
+    protectedGas: string[],
+    operationToEqualize: number,
+    mix: GasMix
   ): string {
-    let gasToEqualize: string[];
-
-    gasToEqualize = EQUALIZABLES_GAS.filter((gasProp) => {
-      return gasProp !== gasToModify;
-    });
+    let gasToEqualize: string[] = GAS_LIST.filter(
+      (gasName) => !protectedGas.includes(gasName)
+    );
 
     gasToEqualize.forEach((gasName) => {
       if (
-        this.gasMix[gasName as keyof typeof this.gasMix] + operationToEqualize <
+        mix[gasName as keyof typeof this.gasMix] + operationToEqualize <
           MINIMUM_SUM_GAS ||
-        this.gasMix[gasName as keyof typeof this.gasMix] + operationToEqualize >
+        mix[gasName as keyof typeof this.gasMix] + operationToEqualize >
           MAXIMUM_SUM_GAS
       ) {
         gasToEqualize = gasToEqualize.filter((gasProp) => {
@@ -123,36 +135,35 @@ export class GasTank {
       }
     });
 
-    if (gasToEqualize.length > 1) {
-      gasToEqualize = gasToEqualize.filter((gasProp) => {
-        return gasProp !== this.lastGasUpdated;
-      });
-    }
-
     const [string] = gasToEqualize;
     return string;
   }
 
   /**
-   * Set Gas Mix method
+   * Update Gas Mix method
    * @param {GasMix} newMix {GasMix}
-   * @param {string} gasToModify {string}
+   * @param {string} lockedGas {string}
    * @returns {void}
    */
-  public setGasMix(newMix: GasMix, gasToModify: string): void {
+  public updateGasMix(newMix: GasMix, lockedGas: string): void {
     newMix = this.validateExpectedValues(newMix);
 
+    const protectedGas: string[] = [this.findModifiedGas(newMix), lockedGas];
     let delta = this.getDeltaOfGasMix(newMix);
 
-    while (delta !== 0) {
+    while (delta > 0 || delta < 0) {
       const operationToEqualize = Math.sign(-delta);
       const gasToEqualize = this.getGasToEqualize(
-        gasToModify,
-        operationToEqualize
+        protectedGas,
+        operationToEqualize,
+        newMix
       );
 
-      newMix[gasToEqualize as keyof typeof newMix] += operationToEqualize;
+      if (!gasToEqualize) {
+        return;
+      }
 
+      newMix[gasToEqualize as keyof typeof newMix] += operationToEqualize;
       delta = delta + operationToEqualize;
     }
 
@@ -187,11 +198,24 @@ export class GasTank {
     ) {
       gasName = HELIOX;
     } else if (
-      this.gasMix.oxygen > 0 &&
+      this.gasMix.oxygen > 17 &&
+      this.gasMix.oxygen < 22 &&
       this.gasMix.helium > 0 &&
       this.gasMix.nitrogen > 0
     ) {
-      gasName = TRIMIX;
+      gasName = TRIMIX_NORMOX;
+    } else if (
+      this.gasMix.oxygen > 21 &&
+      this.gasMix.helium > 0 &&
+      this.gasMix.nitrogen > 0
+    ) {
+      gasName = TRIMIX_HYPEROX;
+    } else if (
+      this.gasMix.oxygen < 18 &&
+      this.gasMix.helium > 0 &&
+      this.gasMix.nitrogen > 0
+    ) {
+      gasName = TRIMIX_HYPOX;
     } else {
       gasName = UNBREATHABLE;
     }
