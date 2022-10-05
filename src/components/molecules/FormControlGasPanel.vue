@@ -1,5 +1,5 @@
 <script lang="ts">
-export default { name: "FormControlMultiSliders" };
+export default { name: "FormControlGasPanel" };
 </script>
 
 <script setup lang="ts">
@@ -7,9 +7,8 @@ import { Dive } from "@/composables/classes/dive";
 import { computed, reactive, ref } from "vue";
 
 const props = defineProps<{
-  id: string;
   label: string;
-  index: number;
+  index?: any;
   instance: Dive;
 }>();
 
@@ -48,7 +47,7 @@ const handleChange = (value: number, propId: string) => {
   console.log(props.instance);
 };
 
-const checkChange = (value, context) => {
+const checkChange = (value: boolean, context: string) => {
   if (!value) return;
 
   if (context === "oxygen") {

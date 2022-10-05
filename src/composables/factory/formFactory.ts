@@ -110,14 +110,14 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
   }
 
   /**
-   * Get Multiple Selects Field Props.
+   * Get Multiple Selects Field Props for Gas Group.
    * @param {string} context string
    * @return {FormControlProps} FormControlProps
    */
-  function getControlMultiSliders(context: string): FormControlProps {
+  function getControlGasGroup(context: string): FormControlProps {
     if (context === "_gasTanks") {
       return {
-        name: "FormControlMultiSliders",
+        name: "FormControlGasGroup",
         label: FORM_DIVING.SELECT_GAS_TANK,
       };
     } else {
@@ -141,7 +141,7 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
       case "_maxDepth":
         return getControlNumber(propId);
       case "_gasTanks":
-        return getControlMultiSliders(propId);
+        return getControlGasGroup(propId);
       case "_divingType":
         return getControlComboBox(propId);
       case "_divingEnvironment":

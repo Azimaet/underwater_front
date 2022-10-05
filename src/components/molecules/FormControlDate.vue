@@ -4,7 +4,7 @@ export default { name: "FormControlDate" };
 
 <script setup lang="ts">
 import { useReadablePropName } from "@/composables/utils/stringsResolvers";
-import { Dive } from "@/types/contents/dive";
+import { Dive } from "@/composables/classes/dive";
 import { reactive } from "vue";
 
 const props = defineProps<{
@@ -24,6 +24,7 @@ const date = reactive({ value: props.instance.date });
 
 const handleChange = (event: any) => {
   console.log(props.instance);
+
   emit(
     "formInputChange",
     useReadablePropName(props.id),

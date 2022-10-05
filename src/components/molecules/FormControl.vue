@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 export default { name: "FormControl" };
 </script>
 
@@ -7,21 +7,21 @@ import { FormControl } from "@/composables/types/form";
 import { Dive } from "@/composables/classes/dive";
 import { defineAsyncComponent } from "vue";
 
-const FormControlDate = defineAsyncComponent(
-  () => import("@/components/molecules/FormControlDate.vue")
-);
-const FormControlSelect = defineAsyncComponent(
-  () => import("@/components/molecules/FormControlSelect.vue")
-);
-const FormControlComboBox = defineAsyncComponent(
-  () => import("@/components/molecules/FormControlComboBox.vue")
-);
-const FormControlMultiSliders = defineAsyncComponent(
-  () => import("@/components/molecules/FormControlMultiSliders.vue")
-);
-const FormControlNumber = defineAsyncComponent(
-  () => import("@/components/molecules/FormControlNumber.vue")
-);
+// const FormControlDate = defineAsyncComponent(
+//   () => import("@/components/molecules/FormControlDate.vue")
+// );
+// const FormControlSelect = defineAsyncComponent(
+//   () => import("@/components/molecules/FormControlSelect.vue")
+// );
+// const FormControlComboBox = defineAsyncComponent(
+//   () => import("@/components/molecules/FormControlComboBox.vue")
+// );
+// const FormControlGasGroup = defineAsyncComponent(
+//   () => import("@/components/molecules/FormControlGasGroup.vue")
+// );
+// const FormControlNumber = defineAsyncComponent(
+//   () => import("@/components/molecules/FormControlNumber.vue")
+// );
 
 const props = defineProps<{
   component: FormControl;
@@ -40,8 +40,8 @@ const props = defineProps<{
           ? FormControlSelect
           : component.props?.name === 'FormControlComboBox'
           ? FormControlComboBox
-          : component.props?.name === 'FormControlMultiSliders'
-          ? FormControlMultiSliders
+          : component.props?.name === 'FormControlGasGroup'
+          ? FormControlGasGroup
           : component.props?.name === 'FormControlNumber'
           ? FormControlNumber
           : ''
@@ -64,8 +64,8 @@ const props = defineProps<{
           ? FormControlSelect
           : component.props?.name === 'FormControlComboBox'
           ? FormControlComboBox
-          : component.props?.name === 'FormControlMultiSliders'
-          ? FormControlMultiSliders
+          : component.props?.name === 'FormControlGasGroup'
+          ? FormControlGasGroup
           : component.props?.name === 'FormControlNumber'
           ? FormControlNumber
           : ''
@@ -77,4 +77,4 @@ const props = defineProps<{
       :instance="props.instance"
     ></component>
   </template>
-</template>
+</template> -->
