@@ -8,7 +8,7 @@ import { computed, reactive, ref } from "vue";
 
 const props = defineProps<{
   label: string;
-  index?: any;
+  index: number;
   instance: Dive;
 }>();
 

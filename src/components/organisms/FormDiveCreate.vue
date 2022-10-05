@@ -8,6 +8,8 @@ import { Dive } from "@/composables/classes/dive";
 import { useFormFactory } from "@/composables/factory/formFactory";
 import { FormActions } from "@/composables/types/form";
 import { defineAsyncComponent } from "vue";
+import { useReadablePropName } from "@/composables/utils/stringsResolvers";
+import { GasTank } from "@/composables/classes/gasTank";
 
 const FormControlDate = defineAsyncComponent(
   () => import("@/components/molecules/FormControlDate.vue")
@@ -31,21 +33,20 @@ const dive = new Dive();
 
 const form = useFormFactory(FormActions.DIVE_CREATE, dive);
 
-const handleChange = (id: string, value: any) => {
-  switch (id) {
-    case "date":
-      dive.date = value;
-      break;
-    case "maxDepth":
-      dive.maxDepth = value;
-      break;
-    case "totalTime":
-      dive.totalTime = value;
-      break;
-    default:
-      break;
+const handleChange = (id: string, value: any, index: number, subId: string) => {
+  console.log(id);
+  if (useReadablePropName(id) === "date") {
+    dive.date = value;
+  } else if (useReadablePropName(id) === "maxDepth") {
+    dive.maxDepth = parseInt(value);
+  } else if (useReadablePropName(id) === "totalTime") {
+    dive.totalTime = parseInt(value);
+  } else if (useReadablePropName(id) === "gasTanks") {
+    const tank: GasTank = dive.gasTanks[index as number];
+    const prop: string = useReadablePropName(subId);
+
+    tank[prop as keyof typeof tank] = value;
   }
-  console.log(dive);
 };
 </script>
 

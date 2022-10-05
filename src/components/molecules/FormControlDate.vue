@@ -16,32 +16,19 @@ const props = defineProps<{
   instance: Dive;
 }>();
 
-const emit = defineEmits<{
-  (e: string, id: string, value: string, index?: number): void;
-}>();
-
 const date = reactive({ value: props.instance.date });
-
-const handleChange = (event: any) => {
-  console.log(props.instance);
-
-  emit(
-    "formInputChange",
-    useReadablePropName(props.id),
-    event.target.value,
-    props.index
-  );
-};
 </script>
 
 <template>
   {{ label }}
   <input
     v-model="date"
-    @change="handleChange"
     type="date"
     name="dateofbirth"
     id="dateofbirth"
+    @change="
+      $emit('formInputChange', useReadablePropName(props.id), date, props.index)
+    "
   />
 </template>
 

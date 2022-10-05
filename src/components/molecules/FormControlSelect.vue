@@ -5,7 +5,8 @@ export default { name: "FormControlSelect" };
 <script setup lang="ts">
 import { queryDivingEnvironments } from "@/composables/graphql/queryDivingEnvironments";
 import { queryDivingRoles } from "@/composables/graphql/queryDivingRoles";
-import { Dive } from "@/types/contents/dive";
+import { Dive } from "@/composables/classes/dive";
+import { ref } from "vue";
 
 const props = defineProps<{
   id: string;
@@ -28,10 +29,18 @@ switch (props.options) {
     items = [];
     break;
 }
+
+const value = ref();
 </script>
 
 <template>
   <v-col cols="12" sm="6">
-    <v-select :items="items" :label="label" variant="outlined"></v-select>
+    <v-select
+      v-model="value"
+      :items="items"
+      :label="label"
+      variant="outlined"
+      @change="$emit('formInputChange', props.id, value)"
+    ></v-select>
   </v-col>
 </template>

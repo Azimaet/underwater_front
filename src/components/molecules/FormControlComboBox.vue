@@ -5,7 +5,7 @@ export default { name: "FormControlComboBox" };
 <script setup lang="ts">
 import { queryDivingTypes } from "@/composables/graphql/queryDivingTypes";
 import { ref } from "vue";
-import { Dive } from "../../types/contents/dive";
+import { Dive } from "@/composables/classes/dive";
 
 const props = defineProps<{
   id: string;
@@ -28,6 +28,7 @@ const items = queryDivingTypes();
       :label="label"
       multiple
       chips
+      @change="$emit('formInputChange', props.id, types)"
     ></v-combobox>
   </v-col>
 </template>

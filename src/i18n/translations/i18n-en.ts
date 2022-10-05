@@ -34,5 +34,7 @@ export const en = {
     TRIMIX_HYPOX: "Trimix Hypox.",
     HELIOX: "Heliox",
     UNBREATHABLE: "Unbreathable gas",
+    PRESSURE_START: "Start pressure (in. bar)",
+    PRESSURE_END: "End pressure (in. bar)",
   },
 };
