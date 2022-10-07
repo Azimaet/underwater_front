@@ -10,6 +10,7 @@ import { FormActions } from "@/composables/types/form";
 import { defineAsyncComponent } from "vue";
 import { useReadablePropName } from "@/composables/utils/stringsResolvers";
 import { GasTank } from "@/composables/classes/gasTank";
+import FormInput from "@/components/atoms/FormInput.vue";
 
 const FormControlDate = defineAsyncComponent(
   () => import("@/components/molecules/FormControlDate.vue")
@@ -34,7 +35,6 @@ const dive = new Dive();
 const form = useFormFactory(FormActions.DIVE_CREATE, dive);
 
 const handleChange = (id: string, value: any, index: number, subId: string) => {
-  console.log(dive);
   if (useReadablePropName(id) === "date") {
     dive.date = value;
   } else if (useReadablePropName(id) === "maxDepth") {
@@ -52,7 +52,6 @@ const handleChange = (id: string, value: any, index: number, subId: string) => {
   } else if (useReadablePropName(id) === "divingType") {
     dive.divingType = value;
   }
-  console.log(dive);
 };
 </script>
 
@@ -82,6 +81,12 @@ const handleChange = (id: string, value: any, index: number, subId: string) => {
         :instance="dive"
         @form-input-change="handleChange"
       ></component>
+      <FormInput
+        v-for="(input, index) in form.inputs"
+        :key="index"
+        :label="input.label"
+        :action="input.action"
+      ></FormInput>
     </v-form>
   </div>
 </template>

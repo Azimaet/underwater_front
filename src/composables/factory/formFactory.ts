@@ -10,7 +10,7 @@ import { Dive } from "@/composables/classes/dive";
 import { GraphqlActions } from "@/composables/types/graphql";
 import { translations } from "@/i18n/index";
 
-const { FORM_DIVING } = translations.en;
+const { FORM_DIVING, FORM_WORDING } = translations.en;
 
 /**
  * Dive Form Factory
@@ -163,6 +163,7 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
     const form: Form = {
       title: "",
       controls: [],
+      inputs: [],
     };
 
     if (action === FormActions.DIVE_CREATE && dive) {
@@ -173,7 +174,6 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
         if (isWritable(propId)) {
           const control: FormControl = {
             id: propId,
-            isMultipliable: propId === "_gasTanks" ? true : false,
             props: null,
           };
 
@@ -183,6 +183,12 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
       });
     }
 
+    form.inputs.push({
+      label: FORM_WORDING.SUBMIT,
+      action: FormActions.DIVE_CREATE,
+    });
+
+    console.log(form);
     return form;
   }
 

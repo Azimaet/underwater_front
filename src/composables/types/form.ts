@@ -1,12 +1,17 @@
 export interface Form {
   title: string;
   controls: FormControl[];
+  inputs: FormInput[];
 }
 
 export interface FormControl {
   id: string;
-  isMultipliable: boolean;
   props: FormControlProps | null;
+}
+
+export interface FormInput {
+  label: string;
+  action: FormActions;
 }
 
 export interface FormControlProps {
@@ -38,7 +43,6 @@ export enum FormActions {
   DIVE_CREATE = "FORM_ACTION_DIVE_CREATE",
 }
 
-/* TODO SOME CLEANING BELOW, NOT SURE USED YET !! */
 export interface FormLoginCredentials {
   email?: FormFieldInterface["model"];
   password?: FormFieldInterface["model"];
