@@ -1,5 +1,5 @@
 <script lang="ts">
-export default { name: "AddDiveTemplate" };
+export default { name: "DiveFormTemplate" };
 </script>
 
 <script setup lang="ts">

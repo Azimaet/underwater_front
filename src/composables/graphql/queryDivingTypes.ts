@@ -14,7 +14,6 @@ export function queryDivingTypes(): any {
           node {
             id
             label
-            token
           }
         }
       }
@@ -27,7 +26,9 @@ export function queryDivingTypes(): any {
     () =>
       result.value?.divingTypes.edges
         .map((type: { node: unknown }) => type.node)
-        .map((i: { label: any }) => i.label) ?? []
+        .map((i: { label: any; id: any }) => ({ label: i.label, id: i.id })) ??
+      []
   );
+
   return types;
 }

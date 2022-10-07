@@ -1,21 +1,21 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import AddDiveTemplate from "@/components/templates/AddDiveTemplate.vue";
+import DiveFormTemplate from "@/components/templates/DiveFormTemplate.vue";
 import HeaderBar from "@/components/organisms/HeaderBar.vue";
 
 @Options({
   components: {
     HeaderBar,
-    AddDiveTemplate,
+    DiveFormTemplate,
   },
 })
-export default class LoginView extends Vue {}
+export default class DiveFormView extends Vue {}
 </script>
 
 <template>
   <HeaderBar />
 
   <div>
-    <AddDiveTemplate />
+    <DiveFormTemplate />
   </div>
 </template>

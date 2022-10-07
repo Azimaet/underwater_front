@@ -38,9 +38,14 @@ const value = ref();
     <v-select
       v-model="value"
       :items="items"
+      :item-title="'label'"
+      :item-value="'id'"
       :label="label"
       variant="outlined"
-      @change="$emit('formInputChange', props.id, value)"
+      persistent-hint
+      return-object
+      single-line
+      @update:modelValue="$emit('formInputChange', props.id, value.id)"
     ></v-select>
   </v-col>
 </template>

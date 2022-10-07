@@ -95,21 +95,21 @@ export class Dive {
     return this._divingType;
   }
   public set divingType(type) {
-    // TODO
+    this._divingType = type;
   }
 
   public get divingEnvironment(): DivingThemeInterface | null {
     return this._divingEnvironment;
   }
   public set divingEnvironment(env) {
-    // TODO
+    this._divingEnvironment = env;
   }
 
   public get divingRole(): DivingThemeInterface | null {
     return this._divingRole;
   }
   public set divingRole(role) {
-    // TODO
+    this._divingRole = role;
   }
 
   public get user() {

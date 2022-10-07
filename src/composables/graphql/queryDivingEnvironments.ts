@@ -14,7 +14,6 @@ export function queryDivingEnvironments(): any {
           node {
             id
             label
-            token
           }
         }
       }
@@ -27,7 +26,9 @@ export function queryDivingEnvironments(): any {
     () =>
       result.value?.divingEnvironments.edges
         .map((environment: { node: unknown }) => environment.node)
-        .map((i: { label: any }) => i.label) ?? []
+        .map((i: { label: any; id: any }) => ({ label: i.label, id: i.id })) ??
+      []
   );
+
   return environments;
 }

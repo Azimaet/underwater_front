@@ -16,7 +16,7 @@ const props = defineProps<{
   instance: Dive;
 }>();
 
-const types = ref([]);
+const types = ref();
 const items = queryDivingTypes();
 </script>
 
@@ -25,10 +25,18 @@ const items = queryDivingTypes();
     <v-combobox
       v-model="types"
       :items="items"
+      :item-title="'label'"
+      :item-value="'id'"
       :label="label"
       multiple
       chips
-      @change="$emit('formInputChange', props.id, types)"
+      @update:modelValue="
+        $emit(
+          'formInputChange',
+          props.id,
+          types.map((type: any) => type.id)
+        )
+      "
     ></v-combobox>
   </v-col>
 </template>

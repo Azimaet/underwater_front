@@ -34,7 +34,7 @@ const dive = new Dive();
 const form = useFormFactory(FormActions.DIVE_CREATE, dive);
 
 const handleChange = (id: string, value: any, index: number, subId: string) => {
-  console.log(id);
+  console.log(dive);
   if (useReadablePropName(id) === "date") {
     dive.date = value;
   } else if (useReadablePropName(id) === "maxDepth") {
@@ -44,9 +44,15 @@ const handleChange = (id: string, value: any, index: number, subId: string) => {
   } else if (useReadablePropName(id) === "gasTanks") {
     const tank: GasTank = dive.gasTanks[index as number];
     const prop: string = useReadablePropName(subId);
-
     tank[prop as keyof typeof tank] = value;
+  } else if (useReadablePropName(id) === "divingEnvironment") {
+    dive.divingEnvironment = value;
+  } else if (useReadablePropName(id) === "divingRole") {
+    dive.divingRole = value;
+  } else if (useReadablePropName(id) === "divingType") {
+    dive.divingType = value;
   }
+  console.log(dive);
 };
 </script>
 

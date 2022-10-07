@@ -16,7 +16,7 @@ export default defineComponent({
       links_logged_on: [
         {
           text: "Add A Dive",
-          href: "/add_dive",
+          href: "/dive_form",
         },
       ],
     };

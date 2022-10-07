@@ -13,7 +13,6 @@ export function queryDivingRoles() {
           node {
             id
             label
-            token
           }
         }
       }
@@ -26,7 +25,8 @@ export function queryDivingRoles() {
     () =>
       result.value?.divingRoles.edges
         .map((role: { node: unknown }) => role.node)
-        .map((i: { label: any }) => i.label) ?? []
+        .map((i: { label: any; id: any }) => ({ label: i.label, id: i.id })) ??
+      []
   );
   return roles;
 }

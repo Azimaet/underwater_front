@@ -15,10 +15,10 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "about" */ "../views/LoginView.vue"),
   },
   {
-    path: "/add_dive",
-    name: "add_dive",
+    path: "/dive_form",
+    name: "dive_form",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AddDiveView.vue"),
+      import(/* webpackChunkName: "about" */ "../views/DiveFormView.vue"),
   },
 ];
 
