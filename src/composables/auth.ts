@@ -22,6 +22,7 @@ export async function useAuthLogin(
       store.commit("setUserEmail", parsedToken.email);
       store.commit("setUserRoles", parsedToken.roles);
       store.commit("setUserName", parsedToken.username);
+      store.commit("setUserId", parsedToken.id);
     }
   } catch (err) {
     return console.log(err);
@@ -37,7 +38,7 @@ export function useAuthLogout(): void {
   store.commit("setRefreshUserToken", null);
   store.commit("setUserEmail", null);
   store.commit("setUserRoles", []);
-  store.commit("setUserRoles", null);
+  store.commit("setUserId", null);
 }
 
 /**
