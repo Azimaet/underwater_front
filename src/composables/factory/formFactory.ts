@@ -12,6 +12,10 @@ import { translations } from "@/i18n/index";
 
 const { FORM_DIVING, FORM_WORDING } = translations.en;
 
+interface State {
+  form: Form;
+}
+
 /**
  * Dive Form Factory
  * @param {FormActions} action FormActions
@@ -33,7 +37,6 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
    * @return {FormControlProps} FormControlProps
    */
   function getControlDate(): FormControlProps {
-    //TODO: utiliser la dernière date renseignée pour une dive dans le storage (dev coté store a faire)
     return {
       name: "FormControlDate",
       label: "",
@@ -45,15 +48,27 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
    * @param {string} context string
    * @return {FormControlProps} FormControlProps
    */
+  function getControlText(context: string): FormControlProps {
+    return {
+      name: "FormControlText",
+      model: "",
+      label:
+        context === "_email"
+          ? FORM_WORDING.EMAIL
+          : context === "_password"
+          ? FORM_WORDING.PASSWORD
+          : "",
+    };
+  }
+
+  /**
+   * Get Number Field Props.
+   * @param {string} context string
+   * @return {FormControlProps} FormControlProps
+   */
   function getControlNumber(context: string): FormControlProps {
     return {
       name: "FormControlNumber",
-      // rules: [
-      //   (v: number) =>
-      //     v.toString().match(/^[0-9]*\.?[0-9]*$/) ||
-      //     FORM_WORDING.RULE_BE_NUMBER,
-      //   (v: number) => v.toString().length > 0 || FORM_WORDING.RULE_IS_REQUIRED,
-      // ],
       label:
         context === "_maxDepth"
           ? FORM_DIVING.MAXDEPTH
@@ -135,6 +150,10 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
    */
   function buildProps(propId: string): FormControlProps {
     switch (propId) {
+      case "_email":
+        return getControlText(propId);
+      case "_password":
+        return getControlText(propId);
       case "_date":
         return getControlDate();
       case "_totalTime":
@@ -181,14 +200,27 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
           form.controls.push(control);
         }
       });
+    } else if (action === FormActions.LOGIN) {
+      form.title = FORM_WORDING.LOGIN;
+
+      const diveProps: string[] = ["_email", "_password"];
+
+      diveProps.forEach((propId) => {
+        const control: FormControl = {
+          id: propId,
+          props: null,
+        };
+
+        control.props = buildProps(propId);
+        form.controls.push(control);
+      });
     }
 
     form.inputs.push({
       label: FORM_WORDING.SUBMIT,
-      action: FormActions.DIVE_CREATE,
+      action: action,
     });
 
-    console.log(form);
     return form;
   }
 

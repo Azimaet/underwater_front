@@ -23,7 +23,6 @@ export async function useAuthLogin(
       store.commit("setUserRoles", parsedToken.roles);
       store.commit("setUserName", parsedToken.username);
     }
-    return console.log(store.state.user.token);
   } catch (err) {
     return console.log(err);
   }

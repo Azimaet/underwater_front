@@ -13,6 +13,7 @@ const props = defineProps<{
 
 const color = computed(() => {
   switch (props.action) {
+    case FormActions.LOGIN:
     case FormActions.DIVE_CREATE:
       return "success";
     default:

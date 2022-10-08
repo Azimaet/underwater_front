@@ -14,9 +14,11 @@ export interface FormInput {
   action: FormActions;
 }
 
+// export interface FormFieldInterface
 export interface FormControlProps {
   name: string;
   label: string;
+  model?: string; // TODO: rendre ça mandatory pour dive form
   hint?: string;
   rules?: any[];
   options?: any;
@@ -38,14 +40,14 @@ export enum FormPropWritable {
 }
 
 export enum FormActions {
-  LOGIN = "form_action_login",
+  LOGIN = "FORM_ACTION_LOGIN",
   SIGNUP = "form_action_signup",
   DIVE_CREATE = "FORM_ACTION_DIVE_CREATE",
 }
 
 export interface FormLoginCredentials {
-  email?: FormFieldInterface["model"];
-  password?: FormFieldInterface["model"];
+  email: string;
+  password: string;
 }
 
 export interface FormFieldInterface {

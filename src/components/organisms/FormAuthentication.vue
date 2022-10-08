@@ -3,39 +3,47 @@ export default { name: "FormAuthentication" };
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { FormInterface } from "@/types/components/form";
-import FormField from "@/components/molecules/FormField.vue";
-import FormButton from "@/components/molecules/FormButton.vue";
+import { ref, reactive } from "vue";
+import { FormActions, FormLoginCredentials } from "@/composables/types/form";
 import { useAuthLogin } from "@/composables/auth";
+import { useFormFactory } from "@/composables/factory/formFactory";
+import FormInput from "@/components/atoms/FormInput.vue";
+import FormControlText from "@/components/molecules/FormControlText.vue";
+import { useReadablePropName } from "@/composables/utils/stringsResolvers";
 
-const props = defineProps<{
-  form: FormInterface;
-}>();
+const valid = ref(false);
 
-const isValid = ref(props.form.valid);
+const form = useFormFactory(FormActions.LOGIN);
+
+const credentials: FormLoginCredentials = reactive({
+  email: "",
+  password: "",
+});
+
+const handleChange = (id: string, text: string) => {
+  if (useReadablePropName(id) === "email") {
+    credentials.email = text;
+  } else if (useReadablePropName(id) === "password") {
+    credentials.password = text;
+  }
+};
 </script>
 
 <template>
-  <v-form ref="form" v-model="isValid" lazy-validation>
-    <FormField
-      v-for="(field, index) in form.fields"
-      v-model="field.model"
+  <v-form v-model="valid" lazy-validation>
+    <FormControlText
+      v-for="(component, index) in form.controls"
       :key="index"
-      :field="field"
-      :ref="field.model"
-    />
-    <FormButton
-      v-for="(button, index) in form.buttons"
-      @click="
-        useAuthLogin({
-          email: props.form.fields?.[0].model,
-          password: props.form.fields?.[1].model,
-        })
-      "
-      :disabled="isValid"
+      :id="component.id"
+      :label="component.props!.label"
+      @form-input-change="handleChange"
+    ></FormControlText>
+    <FormInput
+      v-for="(input, index) in form.inputs"
       :key="index"
-      :button="button"
-    />
+      :label="input.label"
+      :action="input.action"
+      @click="useAuthLogin(credentials)"
+    ></FormInput>
   </v-form>
 </template>

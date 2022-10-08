@@ -3,6 +3,7 @@ import { createStore } from "vuex";
 
 const user: StoreUserInterface = {
   data: {
+    id: null,
     email: null,
     roles: [],
     username: null,
@@ -33,6 +34,9 @@ export default createStore({
           )
         );
       }
+    },
+    setUserId(state, data) {
+      state.user.data.id = data;
     },
     setUserEmail(state, data) {
       state.user.data.email = data;

@@ -11,6 +11,9 @@ import { defineAsyncComponent } from "vue";
 import { useReadablePropName } from "@/composables/utils/stringsResolvers";
 import { GasTank } from "@/composables/classes/gasTank";
 import FormInput from "@/components/atoms/FormInput.vue";
+// import { mutationCreateDive } from "@/composables/graphql/mutationCreateDive";
+// import { useMutation } from "@vue/apollo-composable";
+import store from "@/store";
 
 const FormControlDate = defineAsyncComponent(
   () => import("@/components/molecules/FormControlDate.vue")
@@ -53,6 +56,19 @@ const handleChange = (id: string, value: any, index: number, subId: string) => {
     dive.divingType = value;
   }
 };
+
+console.log(store.state.user);
+// @click="
+//           createDive({
+//             totalTime: dive.totalTime,
+//             maxDepth: dive.maxDepth,
+//             date: dive.date,
+//             divingType: dive.divingType,
+//             divingRole: dive.divingRole,
+//             divingEnvironment: dive.divingEnvironment,
+//           })
+//         "
+// const { mutate: createDive } = useMutation(gql``);
 </script>
 
 <template>
