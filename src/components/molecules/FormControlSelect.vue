@@ -39,7 +39,7 @@ const value = ref();
       v-model="value"
       :items="items"
       :item-title="'label'"
-      :item-value="'id'"
+      :item-value="'value'"
       :label="label"
       variant="outlined"
       persistent-hint

@@ -43,8 +43,6 @@ const handleChange = (value: number, propId: string) => {
   state.nitrogen = props.instance.gasTanks[props.index].gasMix.nitrogen;
   state.helium = props.instance.gasTanks[props.index].gasMix.helium;
   state.name = props.instance.gasTanks[props.index].getGasName();
-
-  console.log(props.instance);
 };
 
 const checkChange = (value: boolean, context: string) => {

@@ -13,7 +13,7 @@ export class Dive {
   private _divingType: DivingThemeInterface[];
   private _divingEnvironment: DivingThemeInterface | null;
   private _divingRole: DivingThemeInterface | null;
-  private _user: object | null;
+  private _owner: string | null;
 
   constructor() {
     this._id = null;
@@ -27,7 +27,7 @@ export class Dive {
     this._divingType = [];
     this._divingEnvironment = null;
     this._divingRole = null;
-    this._user = null;
+    this._owner = null;
   }
 
   public static describe(instance: any): Array<string> {
@@ -112,11 +112,11 @@ export class Dive {
     this._divingRole = role;
   }
 
-  public get user() {
-    return this._user;
+  public get owner() {
+    return this._owner;
   }
-  public set user(user) {
-    // TODO
+  public set owner(owner) {
+    this._owner = owner;
   }
 
   /**

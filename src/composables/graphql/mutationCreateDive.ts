@@ -8,9 +8,9 @@
 //  * @return {any} any
 //  */
 // export function mutationCreateDive(dive: Dive): any {
-//   const $totalTime = 45;
+
 //   const MUTATION_CREATE_DIVE = gql`
-//     mutation createDive($totalTime: number = 45) {
+//     mutation {
 //       createDive(
 //         dive: {
 //           totalTime: $totalTime

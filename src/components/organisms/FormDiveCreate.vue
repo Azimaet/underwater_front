@@ -3,7 +3,7 @@ export default { name: "FormDiveCreate" };
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { Dive } from "@/composables/classes/dive";
 import { useFormFactory } from "@/composables/factory/formFactory";
 import { FormActions } from "@/composables/types/form";
@@ -11,9 +11,8 @@ import { defineAsyncComponent } from "vue";
 import { useReadablePropName } from "@/composables/utils/stringsResolvers";
 import { GasTank } from "@/composables/classes/gasTank";
 import FormInput from "@/components/atoms/FormInput.vue";
-// import { mutationCreateDive } from "@/composables/graphql/mutationCreateDive";
-// import { useMutation } from "@vue/apollo-composable";
-import store from "@/store";
+import { useMutation } from "@vue/apollo-composable";
+import gql from "graphql-tag";
 
 const FormControlDate = defineAsyncComponent(
   () => import("@/components/molecules/FormControlDate.vue")
@@ -55,20 +54,56 @@ const handleChange = (id: string, value: any, index: number, subId: string) => {
   } else if (useReadablePropName(id) === "divingType") {
     dive.divingType = value;
   }
+
+  divePayload.date = dive.date;
+  divePayload.totalTime = dive.totalTime;
+  divePayload.maxDepth = dive.maxDepth;
+  divePayload.gasTanks = dive.gasTanks;
+  divePayload.divingType = dive.divingType;
+  divePayload.divingEnvironment = dive.divingEnvironment;
+  divePayload.divingRole = dive.divingRole;
+
+  const gasTanksMapped: any[] = [];
+
+  dive.gasTanks.forEach((gasTank) => {
+    gasTanksMapped.push(
+      Object.fromEntries(
+        Object.entries(gasTank).map(([propName, i]) => [
+          useReadablePropName(propName),
+          i,
+        ])
+      )
+    );
+  });
+
+  divePayload.gasTanks = gasTanksMapped;
 };
 
-console.log(store.state.user);
-// @click="
-//           createDive({
-//             totalTime: dive.totalTime,
-//             maxDepth: dive.maxDepth,
-//             date: dive.date,
-//             divingType: dive.divingType,
-//             divingRole: dive.divingRole,
-//             divingEnvironment: dive.divingEnvironment,
-//           })
-//         "
-// const { mutate: createDive } = useMutation(gql``);
+const divePayload = reactive({
+  date: dive.date,
+  totalTime: dive.totalTime,
+  maxDepth: dive.maxDepth,
+  gasTanks: dive.gasTanks,
+  divingType: dive.divingType,
+  divingEnvironment: dive.divingEnvironment,
+  divingRole: dive.divingRole,
+});
+
+const MUTATION_CREATE_DIVE = gql`
+  mutation createDive($input: createDiveInput!) {
+    createDive(input: $input) {
+      dive {
+        id
+      }
+    }
+  }
+`;
+
+const { mutate: createDive } = useMutation(MUTATION_CREATE_DIVE, {
+  variables: {
+    input: divePayload,
+  },
+});
 </script>
 
 <template>
@@ -102,6 +137,7 @@ console.log(store.state.user);
         :key="index"
         :label="input.label"
         :action="input.action"
+        @click="createDive"
       ></FormInput>
     </v-form>
   </div>

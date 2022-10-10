@@ -28,5 +28,6 @@ export function queryDivingRoles() {
         .map((i: { label: any; id: any }) => ({ label: i.label, id: i.id })) ??
       []
   );
+
   return roles;
 }
