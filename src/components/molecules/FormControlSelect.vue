@@ -3,10 +3,11 @@ export default { name: "FormControlSelect" };
 </script>
 
 <script setup lang="ts">
-import { queryDivingEnvironments } from "@/composables/graphql/queryDivingEnvironments";
-import { queryDivingRoles } from "@/composables/graphql/queryDivingRoles";
 import { Dive } from "@/composables/classes/dive";
 import { ref } from "vue";
+import { useGqlQueryManager } from "@/composables/gqlQueryManager";
+import { GraphqlActions } from "@/composables/types/graphql";
+import { useGQLFormatter } from "../../composables/utils/gqlResultFormatter";
 
 const props = defineProps<{
   id: string;
@@ -17,18 +18,18 @@ const props = defineProps<{
   instance: Dive;
 }>();
 
-let items: any;
-switch (props.options) {
-  case "QUERY_DIVING_ENVIRONMENTS":
-    items = queryDivingEnvironments();
-    break;
-  case "QUERY_DIVING_ROLES":
-    items = queryDivingRoles();
-    break;
-  default:
-    items = [];
-    break;
-}
+const key: string =
+  props.options === GraphqlActions.DIVING_ROLES
+    ? "divingRoles"
+    : props.options === GraphqlActions.DIVING_ENVIRONMENTS
+    ? "divingEnvironments"
+    : props.options === GraphqlActions.DIVING_TYPES
+    ? "divingTypes"
+    : "";
+
+const items = await useGqlQueryManager(props.options).then((result) => {
+  return useGQLFormatter(result, key);
+});
 
 const value = ref();
 </script>

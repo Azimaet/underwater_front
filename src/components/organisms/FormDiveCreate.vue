@@ -5,14 +5,15 @@ export default { name: "FormDiveCreate" };
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { Dive } from "@/composables/classes/dive";
-import { useFormFactory } from "@/composables/factory/formFactory";
+import { useFormFactory } from "@/composables/formFactory";
 import { FormActions } from "@/composables/types/form";
 import { defineAsyncComponent } from "vue";
 import { useReadablePropName } from "@/composables/utils/stringsResolvers";
 import { GasTank } from "@/composables/classes/gasTank";
 import FormInput from "@/components/atoms/FormInput.vue";
 import { useMutation } from "@vue/apollo-composable";
-import gql from "graphql-tag";
+
+import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
 
 const FormControlDate = defineAsyncComponent(
   () => import("@/components/molecules/FormControlDate.vue")
@@ -89,16 +90,6 @@ const divePayload = reactive({
   divingRole: dive.divingRole,
 });
 
-const MUTATION_CREATE_DIVE = gql`
-  mutation createDive($input: createDiveInput!) {
-    createDive(input: $input) {
-      dive {
-        id
-      }
-    }
-  }
-`;
-
 const { mutate: createDive } = useMutation(MUTATION_CREATE_DIVE, {
   variables: {
     input: divePayload,
@@ -109,29 +100,31 @@ const { mutate: createDive } = useMutation(MUTATION_CREATE_DIVE, {
 <template>
   <div>
     <v-form v-model="valid" lazy-validation>
-      <component
-        v-for="(component, index) in form.controls"
-        :key="index"
-        :is="
-          component.props?.name === 'FormControlDate'
-            ? FormControlDate
-            : component.props?.name === 'FormControlSelect'
-            ? FormControlSelect
-            : component.props?.name === 'FormControlComboBox'
-            ? FormControlComboBox
-            : component.props?.name === 'FormControlGasGroup'
-            ? FormControlGasGroup
-            : component.props?.name === 'FormControlNumber'
-            ? FormControlNumber
-            : ''
-        "
-        :id="component.id"
-        :label="component.props?.label"
-        :rules="component.props?.rules"
-        :options="component.props?.options"
-        :instance="dive"
-        @form-input-change="handleChange"
-      ></component>
+      <Suspense>
+        <component
+          v-for="(component, index) in form.controls"
+          :key="index"
+          :is="
+            component.props?.name === 'FormControlDate'
+              ? FormControlDate
+              : component.props?.name === 'FormControlSelect'
+              ? FormControlSelect
+              : component.props?.name === 'FormControlComboBox'
+              ? FormControlComboBox
+              : component.props?.name === 'FormControlGasGroup'
+              ? FormControlGasGroup
+              : component.props?.name === 'FormControlNumber'
+              ? FormControlNumber
+              : ''
+          "
+          :id="component.id"
+          :label="component.props?.label"
+          :rules="component.props?.rules"
+          :options="component.props?.options"
+          :instance="dive"
+          @form-input-change="handleChange"
+        ></component>
+      </Suspense>
       <FormInput
         v-for="(input, index) in form.inputs"
         :key="index"

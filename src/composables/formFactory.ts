@@ -12,10 +12,6 @@ import { translations } from "@/i18n/index";
 
 const { FORM_DIVING, FORM_WORDING } = translations.en;
 
-interface State {
-  form: Form;
-}
-
 /**
  * Dive Form Factory
  * @param {FormActions} action FormActions

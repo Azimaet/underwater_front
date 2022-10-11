@@ -6,7 +6,7 @@ export default { name: "FormAuthentication" };
 import { ref, reactive } from "vue";
 import { FormActions, FormLoginCredentials } from "@/composables/types/form";
 import { useAuthLogin } from "@/composables/auth";
-import { useFormFactory } from "@/composables/factory/formFactory";
+import { useFormFactory } from "@/composables/formFactory";
 import FormInput from "@/components/atoms/FormInput.vue";
 import FormControlText from "@/components/molecules/FormControlText.vue";
 import { useReadablePropName } from "@/composables/utils/stringsResolvers";

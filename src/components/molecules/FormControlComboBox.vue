@@ -3,9 +3,11 @@ export default { name: "FormControlComboBox" };
 </script>
 
 <script setup lang="ts">
-import { queryDivingTypes } from "@/composables/graphql/queryDivingTypes";
 import { ref } from "vue";
 import { Dive } from "@/composables/classes/dive";
+import { GraphqlActions } from "@/composables/types/graphql";
+import { useGqlQueryManager } from "@/composables/gqlQueryManager";
+import { useGQLFormatter } from "@/composables/utils/gqlResultFormatter";
 
 const props = defineProps<{
   id: string;
@@ -16,8 +18,20 @@ const props = defineProps<{
   instance: Dive;
 }>();
 
+const key: string =
+  props.options === GraphqlActions.DIVING_ROLES
+    ? "divingRoles"
+    : props.options === GraphqlActions.DIVING_ENVIRONMENTS
+    ? "divingEnvironments"
+    : props.options === GraphqlActions.DIVING_TYPES
+    ? "divingTypes"
+    : "";
+
+const items = await useGqlQueryManager(props.options).then((result) => {
+  return useGQLFormatter(result, key);
+});
+
 const types = ref();
-const items = queryDivingTypes();
 </script>
 
 <template>
