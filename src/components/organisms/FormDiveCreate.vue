@@ -130,7 +130,7 @@ const { mutate: createDive } = useMutation(MUTATION_CREATE_DIVE, {
         :key="index"
         :label="input.label"
         :action="input.action"
-        @click="createDive"
+        @click="handleChange, createDive"
       ></FormInput>
     </v-form>
   </div>

@@ -5,14 +5,16 @@ import { GraphqlActions } from "@/composables/types/graphql";
 import { QUERY_DIVING_ENVIRONMENTS } from "@/graphql/queries/queryDivingEnvironment";
 import { QUERY_DIVING_ROLES } from "@/graphql/queries/queryDivingRole";
 import { QUERY_DIVING_TYPES } from "@/graphql/queries/queryDivingType";
+import { QUERY_GASTANKS_BY_DIVES } from "@/graphql/queries/queryDives";
 import { ref } from "vue";
 import { useQuery } from "@vue/apollo-composable";
 
 /**
  * GraphQL Requests Factory
  * @param {GraphqlActions} action GraphqlActions
+ * @param {object} variables object
  */
-export function useGqlQueryManager(action: GraphqlActions) {
+export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
   /**
    * Process Query function helper
    * @param {DocumentNode} gqlAction {DocumentNode}
@@ -35,7 +37,7 @@ export function useGqlQueryManager(action: GraphqlActions) {
       onResult,
       loading: queryLoading,
       onError,
-    } = useQuery(gqlAction, () => ({
+    } = useQuery(gqlAction, variables ? variables : {}, () => ({
       enabled: enableQuery.value,
       notifyOnNetworkStatusChange: false,
     }));
@@ -79,6 +81,8 @@ export function useGqlQueryManager(action: GraphqlActions) {
         ? QUERY_DIVING_ENVIRONMENTS
         : action === GraphqlActions.DIVING_ROLES
         ? QUERY_DIVING_ROLES
+        : action === GraphqlActions.GAS_BY_DIVES
+        ? QUERY_GASTANKS_BY_DIVES
         : null;
 
     if (
