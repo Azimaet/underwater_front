@@ -4,6 +4,7 @@ export default { name: "FormControlGasPanel" };
 
 <script setup lang="ts">
 import { Dive } from "@/composables/classes/dive";
+import { useGasNameProvider } from "@/composables/gasNameProvider";
 import { computed, reactive, ref } from "vue";
 
 const props = defineProps<{
@@ -30,7 +31,7 @@ const state = reactive({
   oxygen: props.instance.gasTanks[props.index].gasMix.oxygen,
   nitrogen: props.instance.gasTanks[props.index].gasMix.nitrogen,
   helium: props.instance.gasTanks[props.index].gasMix.helium,
-  name: props.instance.gasTanks[props.index].getGasName(),
+  name: useGasNameProvider(props.instance.gasTanks[props.index].gasMix),
   disabledGas: lockedGas,
 });
 
@@ -42,7 +43,7 @@ const handleChange = (value: number, propId: string) => {
   state.oxygen = props.instance.gasTanks[props.index].gasMix.oxygen;
   state.nitrogen = props.instance.gasTanks[props.index].gasMix.nitrogen;
   state.helium = props.instance.gasTanks[props.index].gasMix.helium;
-  state.name = props.instance.gasTanks[props.index].getGasName();
+  state.name = useGasNameProvider(props.instance.gasTanks[props.index].gasMix);
 };
 
 const checkChange = (value: boolean, context: string) => {
