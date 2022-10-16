@@ -29,7 +29,7 @@ import { isLogged } from "@/composables/auth";
 </script>
 
 <template>
-  <v-container>
+  <v-container class="test">
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
@@ -79,3 +79,5 @@ import { isLogged } from "@/composables/auth";
     </v-row>
   </v-container>
 </template>
+
+<style lang="scss"></style>

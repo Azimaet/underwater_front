@@ -1,19 +1,7 @@
 import { GAS_LIST, GasMix } from "@/composables/types/gas";
 
-import { translations } from "@/i18n/index";
-
 const MINIMUM_SUM_GAS = 0;
 const MAXIMUM_SUM_GAS = 100;
-const {
-  OXYGEN,
-  AIR,
-  NITROX,
-  TRIMIX_HYPEROX,
-  TRIMIX_HYPOX,
-  TRIMIX_NORMOX,
-  HELIOX,
-  UNBREATHABLE,
-} = translations.en.GAS;
 
 export class GasTank {
   private _gasMix: GasMix;

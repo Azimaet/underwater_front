@@ -20,9 +20,15 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-app>
+  <v-app id="build">
     <v-main>
       <router-view />
     </v-main>
   </v-app>
 </template>
+
+<style lang="scss">
+#build {
+  background-color: red;
+}
+</style>
