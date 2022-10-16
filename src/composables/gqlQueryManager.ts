@@ -1,3 +1,8 @@
+import {
+  QUERY_DEPTH_AND_TIME_BY_DIVES,
+  QUERY_GASTANKS_BY_DIVES,
+} from "@/graphql/queries/queryDives";
+
 import { ApolloQueryResult } from "@apollo/client";
 import { DocumentNode } from "graphql";
 import { DocumentParameter } from "@vue/apollo-composable/dist/useQuery";
@@ -5,7 +10,6 @@ import { GraphqlActions } from "@/composables/types/graphql";
 import { QUERY_DIVING_ENVIRONMENTS } from "@/graphql/queries/queryDivingEnvironment";
 import { QUERY_DIVING_ROLES } from "@/graphql/queries/queryDivingRole";
 import { QUERY_DIVING_TYPES } from "@/graphql/queries/queryDivingType";
-import { QUERY_GASTANKS_BY_DIVES } from "@/graphql/queries/queryDives";
 import { ref } from "vue";
 import { useQuery } from "@vue/apollo-composable";
 
@@ -15,16 +19,6 @@ import { useQuery } from "@vue/apollo-composable";
  * @param {object} variables object
  */
 export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
-  /**
-   * Process Query function helper
-   * @param {DocumentNode} gqlAction {DocumentNode}
-   */
-  function processQuery(gqlAction: DocumentNode) {
-    const { result } = useQuery(gqlAction);
-
-    return result;
-  }
-
   /**
    * Process Promise Query function helper
    * @param {DocumentNode} gqlAction {DocumentNode}
@@ -83,6 +77,8 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
         ? QUERY_DIVING_ROLES
         : action === GraphqlActions.GAS_BY_DIVES
         ? QUERY_GASTANKS_BY_DIVES
+        : action === GraphqlActions.DEPTH_TIME_BY_DIVES
+        ? QUERY_DEPTH_AND_TIME_BY_DIVES
         : null;
 
     if (

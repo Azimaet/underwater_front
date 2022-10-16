@@ -1,4 +1,3 @@
-import store from '@/store';
 <script lang="ts">
 export default { name: "ProfileTemplate" };
 </script>
@@ -6,6 +5,7 @@ export default { name: "ProfileTemplate" };
 <script setup lang="ts">
 import store from "@/store";
 import StrateGasCharts from "@/components/organisms/StrateGasCharts.vue";
+import StrateDepthTimeCharts from "@/components/organisms/StrateDepthTimeCharts.vue";
 </script>
 
 <template>
@@ -15,5 +15,8 @@ import StrateGasCharts from "@/components/organisms/StrateGasCharts.vue";
 
   <Suspense>
     <StrateGasCharts />
+  </Suspense>
+  <Suspense>
+    <StrateDepthTimeCharts />
   </Suspense>
 </template>

@@ -25,3 +25,17 @@ export const QUERY_GASTANKS_BY_DIVES = gql`
     }
   }
 `;
+
+export const QUERY_DEPTH_AND_TIME_BY_DIVES = gql`
+  query ($owner: String) {
+    dives(owner: $owner) {
+      edges {
+        node {
+          maxDepth
+          totalTime
+          date
+        }
+      }
+    }
+  }
+`;

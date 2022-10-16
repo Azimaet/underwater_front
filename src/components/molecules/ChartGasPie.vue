@@ -3,7 +3,7 @@ export default { name: "ChartGasPie" };
 </script>
 
 <script setup lang="ts">
-import { useGasChartDataProvider } from "@/composables/gasChartDataProvider";
+import { useChartGasDataProvider } from "@/composables/chartGasDataProvider";
 import { ApolloQueryResult } from "@apollo/client";
 import { Pie } from "vue-chartjs";
 import {
@@ -19,7 +19,7 @@ const props = defineProps<{
   divesCollection: ApolloQueryResult<any>;
 }>();
 
-const gasChartData = useGasChartDataProvider(props.divesCollection);
+const gasChartData = useChartGasDataProvider(props.divesCollection);
 
 const chartData = {
   labels: gasChartData?.chart.labels,

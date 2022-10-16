@@ -22,9 +22,6 @@ export function useGQLFormatter(entry: ApolloQueryResult<any>, key: string) {
    * GasTanks Collection Formatter
    */
   function formateDiveCollection(collection: any) {
-    console.log("collection");
-    console.log(collection);
-
     const items: any[] = [];
 
     const gasTanks: [] =

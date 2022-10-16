@@ -16,7 +16,6 @@ interface PieDataSet {
 
 interface PieChart {
   labels: string[];
-  tooltips: [];
   datasets: PieDataSet[];
 }
 
@@ -45,7 +44,7 @@ interface State {
  * GraphQL Requests Factory
  * @param {ApolloQueryResult} entry ApolloQueryResult
  */
-export function useGasChartDataProvider(entry: ApolloQueryResult<any>) {
+export function useChartGasDataProvider(entry: ApolloQueryResult<any>) {
   /**
    * Computed Data setter function
    */
@@ -161,7 +160,6 @@ export function useGasChartDataProvider(entry: ApolloQueryResult<any>) {
     data: {
       chart: {
         labels: [],
-        tooltips: [],
         datasets: [
           {
             backgroundColor: [],
