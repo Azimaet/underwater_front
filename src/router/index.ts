@@ -1,6 +1,6 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
 
-import HomeView from "../views/HomeView.vue";
+import HomeView from "@/components/views/HomeView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,19 +12,25 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "login",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/LoginView.vue"),
+      import(
+        /* webpackChunkName: "about" */ "@/components/views/LoginView.vue"
+      ),
   },
   {
     path: "/dive_form",
     name: "dive_form",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/DiveFormView.vue"),
+      import(
+        /* webpackChunkName: "about" */ "@/components/views/DiveFormView.vue"
+      ),
   },
   {
     path: "/profile",
     name: "profile",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ProfileView.vue"),
+      import(
+        /* webpackChunkName: "about" */ "@/components/views/ProfileView.vue"
+      ),
   },
 ];
 
