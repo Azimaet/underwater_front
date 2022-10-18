@@ -27,6 +27,7 @@ export default createStore({
   mutations: {
     initStore(state) {
       if (localStorage.getItem("store") !== null) {
+        console.log(localStorage.getItem("store"));
         this.replaceState(
           Object.assign(
             state,

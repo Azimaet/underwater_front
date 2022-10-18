@@ -3,6 +3,7 @@ export default { name: "HeaderBar" };
 </script>
 
 <script setup lang="ts">
+import MenuBurger from "@/components/organisms/MenuBurger.vue";
 import { isLogged, useAuthLogout } from "@/composables/auth";
 import store from "@/store";
 </script>
@@ -10,7 +11,7 @@ import store from "@/store";
 <template>
   <v-app-bar :elevation="1">
     <template v-slot:prepend>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <MenuBurger />
     </template>
     <v-app-bar-title>
       <router-link to="/" class="subheading mx-3"> Underwwwater </router-link>
