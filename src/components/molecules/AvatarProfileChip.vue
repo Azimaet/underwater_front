@@ -2,15 +2,8 @@
 export default { name: "AvatarProfileChip" };
 </script>
 
-<script setup lang="ts">
-import {onMounted} from 'vue';
-
-onMounted(() => {
-
-}),
-</script>
-
 <template>
-  Hello
-  <v-avatar></v-avatar>
+  <v-badge dot color="success">
+    <v-avatar :image="require('@/assets/avatars/009.svg')"> </v-avatar>
+  </v-badge>
 </template>

@@ -6,6 +6,9 @@ export default { name: "HeaderBar" };
 import MenuBurger from "@/components/organisms/MenuBurger.vue";
 import { isLogged, useAuthLogout } from "@/composables/auth";
 import store from "@/store";
+import AvatarProfileChip from "@/components/molecules/AvatarProfileChip.vue";
+import ButtonElement from "@/components/atoms/ButtonElement.vue";
+import { ButtonActions } from "@/composables/types/buttons";
 </script>
 
 <template>
@@ -16,14 +19,16 @@ import store from "@/store";
     <v-app-bar-title>
       <router-link to="/" class="subheading mx-3"> Underwwwater </router-link>
     </v-app-bar-title>
-    <template v-slot:append>
-      <v-btn icon="mdi-heart"></v-btn>
-
-      <v-btn icon="mdi-magnify"></v-btn>
-
-      <v-btn icon="mdi-dots-vertical"></v-btn>
-
-      <v-btn icon="mdi-account"></v-btn>
+    <template v-slot:append v-if="isLogged()">
+      <div class="d-flex justify-center align-center">
+        <AvatarProfileChip />
+        <div v-html="store.state.user.data.username" class="mx-5" />
+        <ButtonElement
+          :action="ButtonActions.GOTO_LOGOUT"
+          :label="'Logout'"
+          v-on:click="useAuthLogout"
+        />
+      </div>
     </template>
   </v-app-bar>
 

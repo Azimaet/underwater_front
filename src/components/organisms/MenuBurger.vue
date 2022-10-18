@@ -7,12 +7,7 @@ import { ref } from "vue";
 import { isLogged, useAuthLogout } from "@/composables/auth";
 import store from "@/store";
 
-const fav = ref(true);
 const menu = ref(false);
-const message = ref(false);
-const hints = ref(true);
-
-console.log(store.state.user);
 </script>
 
 <template>
@@ -23,11 +18,11 @@ console.log(store.state.user);
       </template>
 
       <v-card min-width="300">
-        <v-list>
+        <v-list v-if="isLogged()">
           <v-list-item
             :prepend-avatar="require('@/assets/avatars/009.svg')"
-            title="John Leider"
-            subtitle="Founder of Vuetify"
+            :title="store.state.user.data.username!"
+            subtitle="Diver"
           >
             <template v-slot:append> </template>
           </v-list-item>
@@ -35,23 +30,32 @@ console.log(store.state.user);
 
         <v-divider></v-divider>
 
-        <v-list>
+        <v-list v-if="isLogged()">
           <v-list-item>
-            <v-switch
-              v-model="message"
-              color="purple"
-              label="Enable messages"
-              hide-details
-            ></v-switch>
+            <router-link :to="'/'"> Home </router-link>
           </v-list-item>
-
           <v-list-item>
-            <v-switch
-              v-model="hints"
-              color="purple"
-              label="Enable hints"
-              hide-details
-            ></v-switch>
+            <router-link :to="'profile'"> Profile </router-link>
+          </v-list-item>
+          <v-list-item>
+            <router-link :to="'account'"> Account </router-link>
+          </v-list-item>
+          <v-list-item>
+            <router-link :to="'dive_log'"> Dive Log </router-link>
+          </v-list-item>
+          <v-list-item>
+            <router-link :to="'dive_form'"> Add a Dive! </router-link>
+          </v-list-item>
+        </v-list>
+        <v-list v-else>
+          <v-list-item>
+            <router-link :to="'/'"> Home </router-link>
+          </v-list-item>
+          <v-list-item>
+            <router-link :to="'login'"> Login </router-link>
+          </v-list-item>
+          <v-list-item>
+            <router-link :to="'register'"> Register </router-link>
           </v-list-item>
         </v-list>
 

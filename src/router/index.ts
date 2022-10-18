@@ -17,11 +17,11 @@ const routes: Array<RouteRecordRaw> = [
       ),
   },
   {
-    path: "/dive_form",
-    name: "dive_form",
+    path: "/register",
+    name: "register",
     component: () =>
       import(
-        /* webpackChunkName: "about" */ "@/components/views/DiveFormView.vue"
+        /* webpackChunkName: "about" */ "@/components/views/RegisterView.vue"
       ),
   },
   {
@@ -30,6 +30,30 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(
         /* webpackChunkName: "about" */ "@/components/views/ProfileView.vue"
+      ),
+  },
+  {
+    path: "/account",
+    name: "account",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "@/components/views/AccountView.vue"
+      ),
+  },
+  {
+    path: "/dive_log",
+    name: "dive_log",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "@/components/views/DiveLogView.vue"
+      ),
+  },
+  {
+    path: "/dive_form",
+    name: "dive_form",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "@/components/views/DiveFormView.vue"
       ),
   },
 ];

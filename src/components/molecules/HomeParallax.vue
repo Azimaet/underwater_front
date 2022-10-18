@@ -41,6 +41,7 @@ const navClasses = ["mt-15"];
           :label="'Register'"
         />
         <ButtonElement :action="ButtonActions.GOTO_LOGIN" :label="'Login'" />
+        <!-- $router.push('login') -->
       </nav>
     </div>
   </v-parallax>
