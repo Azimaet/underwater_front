@@ -9,6 +9,8 @@ import { computed } from "vue";
 const props = defineProps<{
   label: string;
   action: ButtonActions;
+  href?: string;
+  icon?: string;
 }>();
 
 const color = computed(() => {
@@ -19,8 +21,10 @@ const color = computed(() => {
       return "success";
     case ButtonActions.GOTO_REGISTER:
       return "primary";
+    case ButtonActions.GOTO_GITHUB:
+      return undefined;
     default:
-      return "warning";
+      return undefined;
   }
 });
 
@@ -58,7 +62,13 @@ const spanClasses = ["font-weight-bold", "text-button"];
     </span>
   </v-btn>
 
-  <router-link v-else :to="route">
+  <router-link
+    v-else-if="
+      action === ButtonActions.GOTO_LOGIN ||
+      action === ButtonActions.GOTO_REGISTER
+    "
+    :to="route"
+  >
     <v-btn
       :color="color"
       size="x-large"
@@ -73,4 +83,10 @@ const spanClasses = ["font-weight-bold", "text-button"];
       </span>
     </v-btn></router-link
   >
+
+  <v-btn v-else :href="href">
+    <v-icon v-if="icon">{{ icon }}</v-icon>
+
+    Visit my Github
+  </v-btn>
 </template>
