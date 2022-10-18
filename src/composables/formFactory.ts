@@ -6,6 +6,7 @@ import {
   FormPropWritable,
 } from "@/composables/types/form";
 
+import { ButtonActions } from "./types/buttons";
 import { Dive } from "@/composables/classes/dive";
 import { GraphqlActions } from "@/composables/types/graphql";
 import { translations } from "@/i18n/index";
@@ -196,6 +197,11 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
           form.controls.push(control);
         }
       });
+
+      form.inputs.push({
+        label: FORM_WORDING.SUBMIT,
+        action: ButtonActions.SUBMIT_DIVE_CREATE,
+      });
     } else if (action === FormActions.LOGIN) {
       form.title = FORM_WORDING.LOGIN;
 
@@ -210,12 +216,12 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
         control.props = buildProps(propId);
         form.controls.push(control);
       });
-    }
 
-    form.inputs.push({
-      label: FORM_WORDING.SUBMIT,
-      action: action,
-    });
+      form.inputs.push({
+        label: FORM_WORDING.SUBMIT,
+        action: ButtonActions.SUBMIT_LOGIN,
+      });
+    }
 
     return form;
   }

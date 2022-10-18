@@ -10,7 +10,7 @@ import { FormActions } from "@/composables/types/form";
 import { defineAsyncComponent } from "vue";
 import { useReadablePropName } from "@/composables/utils/stringsResolvers";
 import { GasTank } from "@/composables/classes/gasTank";
-import FormInput from "@/components/atoms/FormInput.vue";
+import ButtonElement from "@/components/atoms/ButtonElement.vue";
 import { useMutation } from "@vue/apollo-composable";
 
 import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
@@ -125,13 +125,13 @@ const { mutate: createDive } = useMutation(MUTATION_CREATE_DIVE, {
           @form-input-change="handleChange"
         ></component>
       </Suspense>
-      <FormInput
+      <ButtonElement
         v-for="(input, index) in form.inputs"
         :key="index"
         :label="input.label"
         :action="input.action"
         @click="handleChange, createDive"
-      ></FormInput>
+      ></ButtonElement>
     </v-form>
   </div>
 </template>

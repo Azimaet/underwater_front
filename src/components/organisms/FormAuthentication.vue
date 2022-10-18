@@ -7,7 +7,7 @@ import { ref, reactive } from "vue";
 import { FormActions, FormLoginCredentials } from "@/composables/types/form";
 import { useAuthLogin } from "@/composables/auth";
 import { useFormFactory } from "@/composables/formFactory";
-import FormInput from "@/components/atoms/FormInput.vue";
+import ButtonElement from "@/components/atoms/ButtonElement.vue";
 import FormControlText from "@/components/molecules/FormControlText.vue";
 import { useReadablePropName } from "@/composables/utils/stringsResolvers";
 
@@ -38,12 +38,12 @@ const handleChange = (id: string, text: string) => {
       :label="component.props!.label"
       @form-input-change="handleChange"
     ></FormControlText>
-    <FormInput
+    <ButtonElement
       v-for="(input, index) in form.inputs"
       :key="index"
       :label="input.label"
       :action="input.action"
       @click="useAuthLogin(credentials)"
-    ></FormInput>
+    ></ButtonElement>
   </v-form>
 </template>

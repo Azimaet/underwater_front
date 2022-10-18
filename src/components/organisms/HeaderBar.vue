@@ -8,7 +8,25 @@ import store from "@/store";
 </script>
 
 <template>
-  <v-app-bar>
+  <v-app-bar :elevation="1">
+    <template v-slot:prepend>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    </template>
+    <v-app-bar-title>
+      <router-link to="/" class="subheading mx-3"> Underwwwater </router-link>
+    </v-app-bar-title>
+    <template v-slot:append>
+      <v-btn icon="mdi-heart"></v-btn>
+
+      <v-btn icon="mdi-magnify"></v-btn>
+
+      <v-btn icon="mdi-dots-vertical"></v-btn>
+
+      <v-btn icon="mdi-account"></v-btn>
+    </template>
+  </v-app-bar>
+
+  <!-- <v-app-bar>
     <template v-slot:image>
       <v-img
         gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
@@ -35,5 +53,5 @@ import store from "@/store";
         Login
       </v-btn>
     </div>
-  </v-app-bar>
+  </v-app-bar> -->
 </template>

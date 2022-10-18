@@ -1,3 +1,4 @@
+import { ButtonActions } from "@/composables/types/buttons";
 export interface Form {
   title: string;
   controls: FormControl[];
@@ -11,7 +12,7 @@ export interface FormControl {
 
 export interface FormInput {
   label: string;
-  action: FormActions;
+  action: ButtonActions;
 }
 
 // export interface FormFieldInterface
@@ -41,7 +42,6 @@ export enum FormPropWritable {
 
 export enum FormActions {
   LOGIN = "FORM_ACTION_LOGIN",
-  SIGNUP = "form_action_signup",
   DIVE_CREATE = "FORM_ACTION_DIVE_CREATE",
 }
 

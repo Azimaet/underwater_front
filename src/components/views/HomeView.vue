@@ -84,11 +84,3 @@ const subtitle =
     </v-container>
   </v-main>
 </template>
-
-<style lang="scss">
-.v-main {
-  // background-image: url("@/assets/bg_homepage.jpg");
-  // background-size: cover;
-  // background-position: center;
-}
-</style>

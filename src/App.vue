@@ -20,7 +20,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-app class="bg-grey-dark5">
+  <v-app>
     <router-view />
   </v-app>
 </template>
