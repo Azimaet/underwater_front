@@ -7,7 +7,7 @@ import MenuBurger from "@/components/organisms/MenuBurger.vue";
 import { isLogged, useAuthLogout } from "@/composables/auth";
 import store from "@/store";
 import AvatarProfileChip from "@/components/molecules/AvatarProfileChip.vue";
-import ButtonElement from "@/components/atoms/ButtonElement.vue";
+import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { ButtonActions } from "@/composables/types/buttons";
 </script>
 
@@ -23,10 +23,11 @@ import { ButtonActions } from "@/composables/types/buttons";
       <div class="d-flex justify-center align-center">
         <AvatarProfileChip />
         <div v-html="store.state.user.data.username" class="mx-5" />
-        <ButtonElement
-          :action="ButtonActions.GOTO_LOGOUT"
+        <ButtonComponent
           :label="'Logout'"
-          v-on:click="useAuthLogout"
+          :color="'error'"
+          :size="'x-large'"
+          @click="useAuthLogout"
         />
       </div>
     </template>

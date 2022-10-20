@@ -3,7 +3,12 @@ export default { name: "FooterBar" };
 </script>
 
 <script setup lang="ts">
-import ButtonElement from "@/components/atoms/ButtonElement.vue";
+import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
+
+const githubIcon = {
+  name: "mdi-github",
+  placement: "prepend",
+};
 
 const legalsClasses = [
   "d-flex",
@@ -22,10 +27,12 @@ const legalsClasses = [
       <v-icon>mdi-graphql</v-icon>
     </span>
 
-    <ButtonElement
-      :icon="'mdi-github'"
+    <ButtonComponent
+      :icon="githubIcon"
+      :size="'small'"
       :href="'https://github.com/Azimaet'"
       :label="'Visit my Github'"
+      :btn-classes="['d-flex']"
     />
   </v-bottom-navigation>
 </template>

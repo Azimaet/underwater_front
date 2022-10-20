@@ -6,6 +6,7 @@ export default { name: "MenuBurger" };
 import { ref } from "vue";
 import { isLogged, useAuthLogout } from "@/composables/auth";
 import store from "@/store";
+import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 
 const menu = ref(false);
 </script>
@@ -32,19 +33,64 @@ const menu = ref(false);
 
         <v-list v-if="isLogged()">
           <v-list-item>
-            <router-link :to="'/'"> Home </router-link>
+            <ButtonComponent
+              :block="true"
+              :icon="{
+                name: 'mdi-home',
+                placement: 'prepend',
+              }"
+              :size="'large'"
+              label="Home"
+              @click="$router.push('home')"
+            />
           </v-list-item>
           <v-list-item>
-            <router-link :to="'profile'"> Profile </router-link>
+            <ButtonComponent
+              :block="true"
+              :icon="{
+                name: 'mdi-diving-scuba',
+                placement: 'prepend',
+              }"
+              :size="'large'"
+              label="Profile"
+              @click="$router.push('profile')"
+            />
           </v-list-item>
           <v-list-item>
-            <router-link :to="'account'"> Account </router-link>
+            <ButtonComponent
+              :block="true"
+              :icon="{
+                name: 'mdi-account',
+                placement: 'prepend',
+              }"
+              :size="'large'"
+              label="Account"
+              @click="$router.push('account')"
+            />
           </v-list-item>
           <v-list-item>
-            <router-link :to="'dive_log'"> Dive Log </router-link>
+            <ButtonComponent
+              :block="true"
+              :icon="{
+                name: 'mdi-check',
+                placement: 'prepend',
+              }"
+              :size="'large'"
+              label="Dive Log"
+              @click="$router.push('dive_log')"
+            />
           </v-list-item>
           <v-list-item>
-            <router-link :to="'dive_form'"> Add a Dive! </router-link>
+            <ButtonComponent
+              :block="true"
+              :icon="{
+                name: 'mdi-plus',
+                placement: 'prepend',
+              }"
+              :size="'large'"
+              label="Add Dive"
+              @click="$router.push('dive_form')"
+            />
           </v-list-item>
         </v-list>
         <v-list v-else>

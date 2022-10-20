@@ -5,6 +5,7 @@ export default { name: "HomeParallax" };
 <script setup lang="ts">
 import ButtonElement from "@/components/atoms/ButtonElement.vue";
 import { ButtonActions } from "@/composables/types/buttons";
+import ButtonComponent from "../atoms/ButtonComponent.vue";
 
 const props = defineProps<{
   title: string;
@@ -36,12 +37,20 @@ const navClasses = ["mt-15"];
       <h4 :class="subtitleClasses">{{ props.subtitle }}</h4>
 
       <nav :class="navClasses">
-        <ButtonElement
-          :action="ButtonActions.GOTO_REGISTER"
+        <ButtonComponent
           :label="'Register'"
+          :color="'primary'"
+          :size="'x-large'"
+          :btn-classes="['my-5', 'mx-5']"
+          @click="$router.push('register')"
         />
-        <ButtonElement :action="ButtonActions.GOTO_LOGIN" :label="'Login'" />
-        <!-- $router.push('login') -->
+        <ButtonComponent
+          :label="'Login'"
+          :color="'success'"
+          :size="'x-large'"
+          :btn-classes="['my-5', 'mx-5']"
+          @click="$router.push('login')"
+        />
       </nav>
     </div>
   </v-parallax>
