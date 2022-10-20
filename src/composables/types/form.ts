@@ -26,18 +26,18 @@ export interface FormControlProps {
 }
 
 export enum FormPropWritable {
-  _id = 0,
-  _uuid = 0,
-  _createdAt = 0,
-  _updatedAt = 0,
-  _date = 1,
-  _totalTime = 1,
-  _maxDepth = 1,
-  _gasTanks = 1,
-  _divingType = 1,
-  _divingEnvironment = 1,
-  _divingRole = 1,
-  _user = 0,
+  id = 0,
+  uuid = 0,
+  createdAt = 0,
+  updatedAt = 0,
+  date = 1,
+  totalTime = 1,
+  maxDepth = 1,
+  gasTanks = 1,
+  divingType = 1,
+  divingEnvironment = 1,
+  divingRole = 1,
+  user = 0,
 }
 
 export enum FormActions {

@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from "@apollo/client";
-import { GasTank } from "./classes/gasTank";
+import { GasTank } from "@/composables/types/gas";
 import { useGasColorGenerator } from "./gasColorGenerator";
 import { useGasNameProvider } from "./gasNameProvider";
 

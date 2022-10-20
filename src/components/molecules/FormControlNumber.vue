@@ -3,51 +3,44 @@ export default { name: "FormControlNumber" };
 </script>
 
 <script setup lang="ts">
-import { useReadablePropName } from "@/composables/utils/stringsResolvers";
-import { Dive } from "@/composables/classes/dive";
-import { computed, ref } from "vue";
+import { reactive } from "vue";
 
 const props = defineProps<{
   id: string;
-  subId?: string;
   label: string;
+  value: number;
   index?: number;
-  instance: Dive;
 }>();
 
-const numberValue = computed(() => {
-  if (
-    props.id === "_gasTanks" &&
-    props.subId !== undefined &&
-    props.index !== undefined
-  ) {
-    let value: any =
-      props.instance[
-        useReadablePropName(props.id) as keyof typeof props.instance
-      ];
+// const numberValue = computed(() => {
+//   if (
+//     props.id === "_gasTanks" &&
+//     props.subId !== undefined &&
+//     props.index !== undefined
+//   ) {
+//     return props.instance[props.id as keyof typeof props.instance][props.index][
+//       props.subId
+//     ];
+//   } else {
+//     return props.instance[props.id as keyof typeof props.instance];
+//   }
+// });
 
-    value = value[props.index][props.subId];
-    return value;
-  } else {
-    return props.instance[
-      useReadablePropName(props.id) as keyof typeof props.instance
-    ];
-  }
+// const number = ref(numberValue.value);
+
+const number = reactive({
+  value: props.value,
 });
-
-const number = ref(numberValue.value);
 </script>
 
 <template>
   <v-col cols="12" sm="6">
     <v-text-field
-      v-model.number="number"
+      v-model.number="number.value"
       :label="label"
       persistent-hint
       variant="outlined"
-      @change="
-        $emit('formInputChange', props.id, number, props.index, props.subId)
-      "
+      @change="$emit('formInputChange', props.id, number.value, props.index)"
     ></v-text-field>
   </v-col>
 </template>

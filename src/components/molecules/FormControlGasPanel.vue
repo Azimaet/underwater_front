@@ -3,14 +3,20 @@ export default { name: "FormControlGasPanel" };
 </script>
 
 <script setup lang="ts">
-import { Dive } from "@/composables/classes/dive";
 import { useGasNameProvider } from "@/composables/gasNameProvider";
 import { computed, reactive, ref } from "vue";
+import { GasMix } from "@/composables/types/gas";
+import { useGasMixUpdater } from "@/composables/gasMixUpdater";
 
 const props = defineProps<{
+  id: string;
   label: string;
+  value: GasMix;
   index: number;
-  instance: Dive;
+}>();
+
+const emit = defineEmits<{
+  (e: string, id: string, value: GasMix, index?: number, subId?: string): void;
 }>();
 
 let oxygenIsLocked = ref(false);
@@ -28,22 +34,27 @@ const lockedGas = computed(() => {
 });
 
 const state = reactive({
-  oxygen: props.instance.gasTanks[props.index].gasMix.oxygen,
-  nitrogen: props.instance.gasTanks[props.index].gasMix.nitrogen,
-  helium: props.instance.gasTanks[props.index].gasMix.helium,
-  name: useGasNameProvider(props.instance.gasTanks[props.index].gasMix),
+  oxygen: props.value.oxygen,
+  nitrogen: props.value.nitrogen,
+  helium: props.value.helium,
+  name: useGasNameProvider(props.value),
   disabledGas: lockedGas,
 });
 
 const handleChange = (value: number, propId: string) => {
-  let newMix = { ...props.instance.gasTanks[props.index].gasMix };
+  let newMix: GasMix = {
+    helium: state.helium,
+    oxygen: state.oxygen,
+    nitrogen: state.nitrogen,
+  };
   newMix[propId as keyof typeof newMix] = value;
-  props.instance.gasTanks[props.index].updateGasMix(newMix, state.disabledGas);
+  newMix = useGasMixUpdater(newMix, propId, state.disabledGas);
+  state.oxygen = newMix.oxygen;
+  state.nitrogen = newMix.nitrogen;
+  state.helium = newMix.helium;
+  state.name = useGasNameProvider(newMix);
 
-  state.oxygen = props.instance.gasTanks[props.index].gasMix.oxygen;
-  state.nitrogen = props.instance.gasTanks[props.index].gasMix.nitrogen;
-  state.helium = props.instance.gasTanks[props.index].gasMix.helium;
-  state.name = useGasNameProvider(props.instance.gasTanks[props.index].gasMix);
+  emit("formInputChange", props.id, newMix, props.index);
 };
 
 const checkChange = (value: boolean, context: string) => {

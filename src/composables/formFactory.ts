@@ -7,7 +7,7 @@ import {
 } from "@/composables/types/form";
 
 import { ButtonActions } from "./types/buttons";
-import { Dive } from "@/composables/classes/dive";
+import { DiveInterface } from "@/composables/types/dive";
 import { GraphqlActions } from "@/composables/types/graphql";
 import { translations } from "@/i18n/index";
 
@@ -16,10 +16,13 @@ const { FORM_DIVING, FORM_WORDING } = translations.en;
 /**
  * Dive Form Factory
  * @param {FormActions} action FormActions
- * @param {Dive} dive Dive
+ * @param {DiveInterface} dive DiveInterface
  * @return {Form} form Form
  */
-export function useFormFactory(action: FormActions, dive?: Dive): Form {
+export function useFormFactory(
+  action: FormActions,
+  dive?: DiveInterface
+): Form {
   /**
    * Define if form prop need a field which user can interact with.
    * @param {string} prop string
@@ -67,9 +70,9 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
     return {
       name: "FormControlNumber",
       label:
-        context === "_maxDepth"
+        context === "maxDepth"
           ? FORM_DIVING.MAXDEPTH
-          : context === "_totalTime"
+          : context === "totalTime"
           ? FORM_DIVING.TOTALTIME
           : "",
     };
@@ -81,13 +84,13 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
    * @return {FormControlProps} FormControlProps
    */
   function getControlSelect(context: string): FormControlProps {
-    if (context === "_divingEnvironment") {
+    if (context === "divingEnvironment") {
       return {
         name: "FormControlSelect",
         label: FORM_DIVING.SELECT_DIVING_ENV,
         options: GraphqlActions.DIVING_ENVIRONMENTS,
       };
-    } else if (context === "_divingRole") {
+    } else if (context === "divingRole") {
       return {
         name: "FormControlSelect",
         label: FORM_DIVING.SELECT_DIVING_ROLES,
@@ -107,7 +110,7 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
    * @return {FormControlProps} FormControlProps
    */
   function getControlComboBox(context: string): FormControlProps {
-    if (context === "_divingType") {
+    if (context === "divingType") {
       return {
         name: "FormControlComboBox",
         label: FORM_DIVING.SELECT_DIVING_TYPES,
@@ -127,7 +130,7 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
    * @return {FormControlProps} FormControlProps
    */
   function getControlGasGroup(context: string): FormControlProps {
-    if (context === "_gasTanks") {
+    if (context === "gasTanks") {
       return {
         name: "FormControlGasGroup",
         label: FORM_DIVING.SELECT_GAS_TANK,
@@ -151,17 +154,17 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
         return getControlText(propId);
       case "_password":
         return getControlText(propId);
-      case "_date":
+      case "date":
         return getControlDate();
-      case "_totalTime":
-      case "_maxDepth":
+      case "totalTime":
+      case "maxDepth":
         return getControlNumber(propId);
-      case "_gasTanks":
+      case "gasTanks":
         return getControlGasGroup(propId);
-      case "_divingType":
+      case "divingType":
         return getControlComboBox(propId);
-      case "_divingEnvironment":
-      case "_divingRole":
+      case "divingEnvironment":
+      case "divingRole":
         return getControlSelect(propId);
       default:
         return {
@@ -184,7 +187,7 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
 
     if (action === FormActions.DIVE_CREATE && dive) {
       form.title = FORM_DIVING.TITLE;
-      const diveProps: string[] = Dive.describe(dive);
+      const diveProps: string[] = Object.getOwnPropertyNames(dive);
 
       diveProps.forEach((propId) => {
         if (isWritable(propId)) {
@@ -194,6 +197,7 @@ export function useFormFactory(action: FormActions, dive?: Dive): Form {
           };
 
           control.props = buildProps(propId);
+          console.log(control.props);
           form.controls.push(control);
         }
       });

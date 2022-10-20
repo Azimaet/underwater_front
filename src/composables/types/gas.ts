@@ -11,3 +11,9 @@ export interface GasMix {
   oxygen: number;
   nitrogen: number;
 }
+
+export interface GasTank {
+  gasMix: GasMix;
+  pressureStart: number;
+  pressureEnd: number;
+}
