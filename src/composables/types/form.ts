@@ -19,7 +19,8 @@ export interface FormInput {
 export interface FormControlProps {
   name: string;
   label: string;
-  model?: string; // TODO: rendre ça mandatory pour dive form
+  model?: string;
+  type?: string;
   hint?: string;
   rules?: any[];
   options?: any;
@@ -42,6 +43,7 @@ export enum FormPropWritable {
 
 export enum FormActions {
   LOGIN = "FORM_ACTION_LOGIN",
+  REGISTER = "FORM_ACTION_REGISTER",
   DIVE_CREATE = "FORM_ACTION_DIVE_CREATE",
 }
 

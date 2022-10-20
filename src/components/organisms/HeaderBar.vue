@@ -8,7 +8,8 @@ import { isLogged, useAuthLogout } from "@/composables/auth";
 import store from "@/store";
 import AvatarProfileChip from "@/components/molecules/AvatarProfileChip.vue";
 import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
-import { ButtonActions } from "@/composables/types/buttons";
+import { FormActions } from "@/composables/types/form";
+import UserFormModal from "../organisms/UserFormModal.vue";
 </script>
 
 <template>
@@ -19,8 +20,8 @@ import { ButtonActions } from "@/composables/types/buttons";
     <v-app-bar-title>
       <router-link to="/" class="subheading mx-3"> Underwwwater </router-link>
     </v-app-bar-title>
-    <template v-slot:append v-if="isLogged()">
-      <div class="d-flex justify-center align-center">
+    <template v-slot:append>
+      <div v-if="isLogged()" class="d-flex justify-center align-center">
         <AvatarProfileChip />
         <div v-html="store.state.user.data.username" class="mx-5" />
         <ButtonComponent
@@ -30,35 +31,9 @@ import { ButtonActions } from "@/composables/types/buttons";
           @click="useAuthLogout"
         />
       </div>
+      <div v-else class="d-flex justify-center align-center">
+        <UserFormModal :action="FormActions.LOGIN" />
+      </div>
     </template>
   </v-app-bar>
-
-  <!-- <v-app-bar>
-    <template v-slot:image>
-      <v-img
-        gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
-      ></v-img>
-    </template>
-
-    <template v-slot:prepend>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-    </template>
-
-    <v-app-bar-title>
-      <router-link to="/" class="subheading mx-3"> Underwwwater </router-link>
-    </v-app-bar-title>
-
-    <v-spacer></v-spacer>
-    <div v-if="isLogged()">
-      <span>{{ store.state.user.data.username }}</span>
-      <v-btn :color="'error'" class="mr-4" v-on:click="useAuthLogout">
-        Logout
-      </v-btn>
-    </div>
-    <div v-else>
-      <v-btn :color="'success'" class="mr-4" @click="$router.push('login')">
-        Login
-      </v-btn>
-    </div>
-  </v-app-bar> -->
 </template>

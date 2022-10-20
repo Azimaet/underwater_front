@@ -3,9 +3,9 @@ export default { name: "HomeParallax" };
 </script>
 
 <script setup lang="ts">
-import ButtonElement from "@/components/atoms/ButtonElement.vue";
-import { ButtonActions } from "@/composables/types/buttons";
-import ButtonComponent from "../atoms/ButtonComponent.vue";
+import UserFormModal from "../organisms/UserFormModal.vue";
+import { FormActions } from "@/composables/types/form";
+import { isLogged } from "../../composables/auth";
 
 const props = defineProps<{
   title: string;
@@ -23,7 +23,7 @@ const blockClasses = [
 
 const titleClasses = ["text-h2", "font-weight-bold", "mb-4"];
 const subtitleClasses = ["text-h5", "font-weight-light"];
-const navClasses = ["mt-15"];
+const navClasses = ["mt-15 d-flex"];
 </script>
 
 <template>
@@ -37,20 +37,8 @@ const navClasses = ["mt-15"];
       <h4 :class="subtitleClasses">{{ props.subtitle }}</h4>
 
       <nav :class="navClasses">
-        <ButtonComponent
-          :label="'Register'"
-          :color="'primary'"
-          :size="'x-large'"
-          :btn-classes="['my-5', 'mx-5']"
-          @click="$router.push('register')"
-        />
-        <ButtonComponent
-          :label="'Login'"
-          :color="'success'"
-          :size="'x-large'"
-          :btn-classes="['my-5', 'mx-5']"
-          @click="$router.push('login')"
-        />
+        <UserFormModal v-if="!isLogged()" :action="FormActions.REGISTER" />
+        <UserFormModal v-if="!isLogged()" :action="FormActions.LOGIN" />
       </nav>
     </div>
   </v-parallax>

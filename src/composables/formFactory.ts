@@ -52,6 +52,7 @@ export function useFormFactory(
     return {
       name: "FormControlText",
       model: "",
+      type: context === "_password" ? "password" : "",
       label:
         context === "_email"
           ? FORM_WORDING.EMAIL
