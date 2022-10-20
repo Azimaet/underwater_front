@@ -47,9 +47,10 @@ export enum FormActions {
   DIVE_CREATE = "FORM_ACTION_DIVE_CREATE",
 }
 
-export interface FormLoginCredentials {
+export interface FormUserCredentials {
   email: string;
   password: string;
+  username?: string;
 }
 
 export interface FormFieldInterface {

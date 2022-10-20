@@ -54,10 +54,12 @@ export function useFormFactory(
       model: "",
       type: context === "_password" ? "password" : "",
       label:
-        context === "_email"
+        context === "email"
           ? FORM_WORDING.EMAIL
-          : context === "_password"
+          : context === "password"
           ? FORM_WORDING.PASSWORD
+          : context === "username"
+          ? FORM_WORDING.USERNAME
           : "",
     };
   }
@@ -151,9 +153,9 @@ export function useFormFactory(
    */
   function buildProps(propId: string): FormControlProps {
     switch (propId) {
-      case "_email":
-        return getControlText(propId);
-      case "_password":
+      case "email":
+      case "username":
+      case "password":
         return getControlText(propId);
       case "date":
         return getControlDate();
@@ -188,9 +190,9 @@ export function useFormFactory(
 
     if (action === FormActions.DIVE_CREATE && dive) {
       form.title = FORM_DIVING.TITLE;
-      const diveProps: string[] = Object.getOwnPropertyNames(dive);
+      const formProps: string[] = Object.getOwnPropertyNames(dive);
 
-      diveProps.forEach((propId) => {
+      formProps.forEach((propId) => {
         if (isWritable(propId)) {
           const control: FormControl = {
             id: propId,
@@ -210,9 +212,9 @@ export function useFormFactory(
     } else if (action === FormActions.LOGIN) {
       form.title = FORM_WORDING.LOGIN;
 
-      const diveProps: string[] = ["_email", "_password"];
+      const formProps: string[] = ["email", "password"];
 
-      diveProps.forEach((propId) => {
+      formProps.forEach((propId) => {
         const control: FormControl = {
           id: propId,
           props: null,
@@ -221,10 +223,19 @@ export function useFormFactory(
         control.props = buildProps(propId);
         form.controls.push(control);
       });
+    } else if (action === FormActions.REGISTER) {
+      form.title = FORM_WORDING.REGISTER;
 
-      form.inputs.push({
-        label: FORM_WORDING.SUBMIT,
-        action: ButtonActions.SUBMIT_LOGIN,
+      const formProps: string[] = ["email", "password", "username"];
+
+      formProps.forEach((propId) => {
+        const control: FormControl = {
+          id: propId,
+          props: null,
+        };
+
+        control.props = buildProps(propId);
+        form.controls.push(control);
       });
     }
 

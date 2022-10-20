@@ -7,35 +7,53 @@ import { ref } from "vue";
 import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 
 import { reactive } from "vue";
-import { FormActions, FormLoginCredentials } from "@/composables/types/form";
+import { FormActions, FormUserCredentials } from "@/composables/types/form";
 import { useAuthLogin } from "@/composables/auth";
 import { useFormFactory } from "@/composables/formFactory";
 import FormControlText from "@/components/molecules/FormControlText.vue";
-import { useReadablePropName } from "@/composables/utils/stringsResolvers";
+import { MUTATION_CREATE_USER } from "@/graphql/mutations/createUser";
+import { useMutation } from "@vue/apollo-composable";
 
 const props = defineProps<{
   action: FormActions;
 }>();
+
+const form = useFormFactory(props.action);
 
 const label = props.action === FormActions.LOGIN ? "Login" : "Register";
 
 const color = props.action === FormActions.LOGIN ? "success" : "primary";
 
 const dialog = ref(false);
-const form = useFormFactory(FormActions.LOGIN);
 
-const credentials: FormLoginCredentials = reactive({
-  email: "",
-  password: "",
-});
+const credentials: FormUserCredentials = reactive(
+  props.action === FormActions.LOGIN
+    ? {
+        email: "",
+        password: "",
+      }
+    : {
+        email: "",
+        password: "",
+        username: "",
+      }
+);
 
 const handleChange = (id: string, text: string) => {
-  if (useReadablePropName(id) === "email") {
+  if (id === "email") {
     credentials.email = text;
-  } else if (useReadablePropName(id) === "password") {
+  } else if (id === "password") {
     credentials.password = text;
+  } else if (id === "username") {
+    credentials.username = text;
   }
 };
+
+const { mutate: createUser } = useMutation(MUTATION_CREATE_USER, {
+  variables: {
+    input: credentials,
+  },
+});
 </script>
 
 <template>
@@ -81,11 +99,20 @@ const handleChange = (id: string, text: string) => {
             Close
           </v-btn>
           <ButtonComponent
-            :label="'Login'"
-            :color="'success'"
+            v-if="props.action === FormActions.LOGIN"
+            :label="label"
+            :color="color"
             :size="'x-large'"
             :btn-classes="['my-5', 'mx-5']"
             @click="useAuthLogin(credentials), (dialog = false)"
+          />
+          <ButtonComponent
+            v-else
+            :label="label"
+            :color="color"
+            :size="'x-large'"
+            :btn-classes="['my-5', 'mx-5']"
+            @click="createUser(), (dialog = false)"
           />
         </v-card-actions>
       </v-card>

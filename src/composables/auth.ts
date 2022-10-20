@@ -1,5 +1,5 @@
 import Axios from "@/plugins/axios";
-import { FormLoginCredentials } from "@/composables/types/form";
+import { FormUserCredentials } from "@/composables/types/form";
 import store from "@/store";
 import { useJWTParser } from "./utils/jwtParser";
 
@@ -9,7 +9,7 @@ import { useJWTParser } from "./utils/jwtParser";
  * @return {Promise<void>} Promise<void>
  */
 export async function useAuthLogin(
-  credentials: FormLoginCredentials
+  credentials: FormUserCredentials
 ): Promise<void> {
   try {
     const response = await Axios.post("/login", credentials);

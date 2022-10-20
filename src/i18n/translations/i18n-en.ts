@@ -1,10 +1,11 @@
 export const en = {
   FORM_WORDING: {
     EMAIL: "E-mail",
+    USERNAME: "Username",
     PASSWORD: "Password",
     SUBMIT: "Submit",
     LOGIN: "Login",
-    SIGNUP: "Sign-up",
+    REGISTER: "Register",
     RULE_IS_REQUIRED: "Field is required",
     RULE_BE_NUMBER: "Field must be number",
     RULE_BE_EMAIL: "Field must be email",
