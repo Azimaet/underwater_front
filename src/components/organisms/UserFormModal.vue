@@ -8,12 +8,13 @@ import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 
 import { reactive } from "vue";
 import { FormActions, FormUserCredentials } from "@/composables/types/form";
-import { useAuthLogin } from "@/composables/auth";
+import { useAuthLogin, useAuthLogout } from "@/composables/auth";
 import { useFormFactory } from "@/composables/formFactory";
 import FormControlText from "@/components/molecules/FormControlText.vue";
 import { MUTATION_CREATE_USER } from "@/graphql/mutations/createUser";
 import { useMutation } from "@vue/apollo-composable";
 import router from "@/router";
+import store from "@/store";
 
 const props = defineProps<{
   action: FormActions;
@@ -50,10 +51,21 @@ const handleChange = (id: string, text: string) => {
   }
 };
 
-const { mutate: createUser } = useMutation(MUTATION_CREATE_USER, {
+const { mutate, onDone, onError } = useMutation(MUTATION_CREATE_USER, {
   variables: {
     input: credentials,
   },
+});
+
+onError((error) => {
+  store.commit("setAlert", { type: "error", message: error.toString() });
+});
+
+onDone(() => {
+  store.commit("setAlert", {
+    type: "success",
+    message: "A new user have been created!",
+  });
 });
 </script>
 
@@ -113,7 +125,7 @@ const { mutate: createUser } = useMutation(MUTATION_CREATE_USER, {
             :color="color"
             :size="'x-large'"
             :btn-classes="['my-5', 'mx-5']"
-            @click="createUser(), (dialog = false)"
+            @click="mutate(), (dialog = false)"
           />
         </v-card-actions>
       </v-card>

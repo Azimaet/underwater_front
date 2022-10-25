@@ -1,3 +1,4 @@
+import { AlertInterface } from "./../composables/types/storeUser";
 import { StoreUserInterface } from "@/composables/types/storeUser";
 import { createStore } from "vuex";
 
@@ -13,12 +14,15 @@ const user: StoreUserInterface = {
   refresh_token: null,
 };
 
+const alerts: AlertInterface[] = [];
+
 /**
  * Store builder
  */
 export default createStore({
   state: {
     user: user,
+    alerts: alerts,
   },
   getters: {
     getUserToken(state) {
@@ -28,7 +32,6 @@ export default createStore({
   mutations: {
     initStore(state) {
       if (localStorage.getItem("store") !== null) {
-        console.log(localStorage.getItem("store"));
         this.replaceState(
           Object.assign(
             state,
@@ -54,6 +57,15 @@ export default createStore({
     },
     setRefreshUserToken(state, token) {
       state.user.refresh_token = token;
+    },
+    setAlert(state, { type, message }) {
+      state.alerts.push({
+        type: type,
+        message: message,
+      });
+    },
+    removeAlert(state, index) {
+      state.alerts.splice(index, 1);
     },
   },
   actions: {},
