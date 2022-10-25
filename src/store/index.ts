@@ -7,6 +7,7 @@ const user: StoreUserInterface = {
     email: null,
     roles: [],
     username: null,
+    avatar: null,
   },
   token: null,
   refresh_token: null,

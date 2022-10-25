@@ -13,6 +13,7 @@ import { useFormFactory } from "@/composables/formFactory";
 import FormControlText from "@/components/molecules/FormControlText.vue";
 import { MUTATION_CREATE_USER } from "@/graphql/mutations/createUser";
 import { useMutation } from "@vue/apollo-composable";
+import router from "@/router";
 
 const props = defineProps<{
   action: FormActions;

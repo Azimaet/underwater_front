@@ -9,14 +9,6 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView,
   },
   {
-    path: "/register",
-    name: "register",
-    component: () =>
-      import(
-        /* webpackChunkName: "about" */ "@/components/views/RegisterView.vue"
-      ),
-  },
-  {
     path: "/profile",
     name: "profile",
     component: () =>
@@ -25,11 +17,11 @@ const routes: Array<RouteRecordRaw> = [
       ),
   },
   {
-    path: "/account",
-    name: "account",
+    path: "/settings",
+    name: "settings",
     component: () =>
       import(
-        /* webpackChunkName: "about" */ "@/components/views/AccountView.vue"
+        /* webpackChunkName: "about" */ "@/components/views/SettingsView.vue"
       ),
   },
   {

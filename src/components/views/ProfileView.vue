@@ -1,21 +1,31 @@
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import ProfileTemplate from "@/components/templates/ProfileTemplate.vue";
-import HeaderBar from "@/components/organisms/HeaderBar.vue";
+import { defineComponent } from "vue";
+import BaseTemplate from "@/components/templates/BaseTemplate.vue";
+import StrateGasCharts from "@/components/organisms/StrateGasCharts.vue";
+import StrateDepthTimeCharts from "@/components/organisms/StrateDepthTimeCharts.vue";
 
-@Options({
-  components: {
-    HeaderBar,
-    ProfileTemplate,
-  },
-})
-export default class ProfileView extends Vue {}
+export default defineComponent({
+  name: "ProfileView",
+});
+</script>
+
+<script setup lang="ts">
+const containerClasses = ["mt-15"];
 </script>
 
 <template>
-  <HeaderBar />
-
-  <div>
-    <ProfileTemplate />
-  </div>
+  <BaseTemplate>
+    <template #main>
+      <v-container style="max-width: 960px" :class="containerClasses">
+        <section>
+          <Suspense>
+            <StrateGasCharts />
+          </Suspense>
+          <Suspense>
+            <StrateDepthTimeCharts />
+          </Suspense>
+        </section>
+      </v-container>
+    </template>
+  </BaseTemplate>
 </template>

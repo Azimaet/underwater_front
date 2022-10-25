@@ -21,7 +21,7 @@ const menu = ref(false);
       <v-card min-width="300">
         <v-list v-if="isLogged()">
           <v-list-item
-            :prepend-avatar="require('@/assets/avatars/009.svg')"
+            :prepend-avatar="require('@/assets/avatars/avatar9.svg')"
             :title="store.state.user.data.username!"
             subtitle="Diver"
           >

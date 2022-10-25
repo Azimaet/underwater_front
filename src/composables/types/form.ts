@@ -44,6 +44,7 @@ export enum FormPropWritable {
 export enum FormActions {
   LOGIN = "FORM_ACTION_LOGIN",
   REGISTER = "FORM_ACTION_REGISTER",
+  ACCOUNT_UPDATE = "ACCOUNT_UPDATE",
   DIVE_CREATE = "FORM_ACTION_DIVE_CREATE",
 }
 

@@ -9,4 +9,5 @@ export interface StoreUserDataInterface {
   email: string | null;
   roles: [];
   username: string | null;
+  avatar: string | null;
 }

@@ -2,13 +2,17 @@ export const en = {
   FORM_WORDING: {
     EMAIL: "E-mail",
     USERNAME: "Username",
+    USERNAME_RENEW: "Change username",
     PASSWORD: "Password",
+    PASSWORD_RENEW: "Renew password",
     SUBMIT: "Submit",
     LOGIN: "Login",
     REGISTER: "Register",
+    UPDATE_ACCOUNT: "Update Account",
     RULE_IS_REQUIRED: "Field is required",
     RULE_BE_NUMBER: "Field must be number",
     RULE_BE_EMAIL: "Field must be email",
+    SELECT_AVATAR: "Select avatar",
   },
   FORM_DIVING: {
     TITLE: "Add a new Dive!",

@@ -1,5 +1,7 @@
 import Axios from "@/plugins/axios";
 import { FormUserCredentials } from "@/composables/types/form";
+import { StoreUserDataInterface } from "./types/storeUser";
+import router from "@/router";
 import store from "@/store";
 import { useJWTParser } from "./utils/jwtParser";
 
@@ -15,7 +17,9 @@ export async function useAuthLogin(
     const response = await Axios.post("/login", credentials);
 
     if (response.data.token) {
-      const parsedToken = useJWTParser(response.data.token);
+      const parsedToken: StoreUserDataInterface = useJWTParser(
+        response.data.token
+      );
 
       store.commit("setUserToken", response.data.token);
       store.commit("setRefreshUserToken", response.data.refresh_token);
@@ -23,6 +27,8 @@ export async function useAuthLogin(
       store.commit("setUserRoles", parsedToken.roles);
       store.commit("setUserName", parsedToken.username);
       store.commit("setUserId", parsedToken.id);
+
+      router.replace({ query: undefined });
     }
   } catch (err) {
     return console.log(err);
@@ -39,6 +45,8 @@ export function useAuthLogout(): void {
   store.commit("setUserEmail", null);
   store.commit("setUserRoles", []);
   store.commit("setUserId", null);
+
+  router.push({ name: "home", query: { redirection_context: "logout" } });
 }
 
 /**

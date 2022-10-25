@@ -8,6 +8,8 @@ const props = defineProps<{
   btnClasses?: string[];
   size?: string;
   color?: string;
+  disabled?: boolean;
+  loading?: boolean;
   variant?:
     | "flat"
     | "text"

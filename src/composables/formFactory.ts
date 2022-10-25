@@ -52,14 +52,21 @@ export function useFormFactory(
     return {
       name: "FormControlText",
       model: "",
-      type: context === "_password" ? "password" : "",
+      type:
+        context === "password" || context === "password_renew"
+          ? "password"
+          : "",
       label:
         context === "email"
           ? FORM_WORDING.EMAIL
           : context === "password"
           ? FORM_WORDING.PASSWORD
+          : context === "password_renew"
+          ? FORM_WORDING.PASSWORD_RENEW
           : context === "username"
           ? FORM_WORDING.USERNAME
+          : context === "username_renew"
+          ? FORM_WORDING.USERNAME_RENEW
           : "",
     };
   }
@@ -147,6 +154,25 @@ export function useFormFactory(
   }
 
   /**
+   * Get Control Radio List function.
+   * @param {string} context string
+   * @return {FormControlProps} FormControlProps
+   */
+  function getControlRadioList(context: string): FormControlProps {
+    if (context === "avatar") {
+      return {
+        name: "FormControlRadioList",
+        label: FORM_WORDING.SELECT_AVATAR,
+      };
+    } else {
+      return {
+        name: "",
+        label: "",
+      };
+    }
+  }
+
+  /**
    * Generic Build Field Props function.
    * @param {string} propId string
    * @return {FormControlProps} FormControlProps
@@ -155,7 +181,9 @@ export function useFormFactory(
     switch (propId) {
       case "email":
       case "username":
+      case "username_renew":
       case "password":
+      case "password_renew":
         return getControlText(propId);
       case "date":
         return getControlDate();
@@ -169,6 +197,8 @@ export function useFormFactory(
       case "divingEnvironment":
       case "divingRole":
         return getControlSelect(propId);
+      case "avatar":
+        return getControlRadioList(propId);
       default:
         return {
           name: "",
@@ -179,7 +209,7 @@ export function useFormFactory(
 
   /**
    * Form Constructor
-   * @returns {Form}
+   * @return {Form}
    */
   function __construct(): Form {
     const form: Form = {
@@ -235,6 +265,27 @@ export function useFormFactory(
         };
 
         control.props = buildProps(propId);
+        form.controls.push(control);
+      });
+    } else if (action === FormActions.ACCOUNT_UPDATE) {
+      form.title = FORM_WORDING.UPDATE_ACCOUNT;
+
+      const formProps: string[] = [
+        "password_renew",
+        "password_renew",
+        "username_renew",
+        "avatar",
+      ];
+
+      formProps.forEach((propId) => {
+        const control: FormControl = {
+          id: propId,
+          props: null,
+        };
+
+        control.props = buildProps(propId);
+
+        console.log(control.props);
         form.controls.push(control);
       });
     }
