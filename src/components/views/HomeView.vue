@@ -24,19 +24,6 @@ const h2Classes = ["mb-5"];
 <template>
   <BaseTemplate>
     <template #main>
-      <v-alert
-        v-if="
-          route.query.redirection_context &&
-          route.query.redirection_context === 'logout'
-        "
-        closable
-        position="fixed"
-        width="100%"
-        type="success"
-        :style="'z-index: 1;'"
-      >
-        Your account settings have been updated. Please re-login!
-      </v-alert>
       <HomeParallax :title="title" :subtitle="subtitle" />
       <v-container style="max-width: 960px" :class="containerClasses">
         <section>

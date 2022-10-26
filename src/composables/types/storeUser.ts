@@ -5,6 +5,8 @@ export interface StoreUserInterface {
 }
 
 export interface StoreUserDataInterface {
+  iat: number | null;
+  exp: number | null;
   id: string | null;
   email: string | null;
   roles: [];

@@ -8,6 +8,7 @@ import { reactive } from "vue";
 const props = defineProps<{
   id: string;
   label: string;
+  type?: string;
   value: Date;
 }>();
 
@@ -24,7 +25,7 @@ const date = reactive({
   {{ label }}
   <input
     v-model="date.value"
-    type="datetime-local"
+    :type="props.type"
     @change="
       $emit('formInputChange', props.id, new Date(Date.parse(date.value)))
     "

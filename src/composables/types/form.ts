@@ -1,4 +1,5 @@
 import { ButtonActions } from "@/composables/types/buttons";
+import { ValidationRule } from "graphql/validation";
 export interface Form {
   title: string;
   controls: FormControl[];
@@ -22,7 +23,7 @@ export interface FormControlProps {
   model?: string;
   type?: string;
   hint?: string;
-  rules?: any[];
+  rules?: ValidationRule[];
   options?: any;
 }
 

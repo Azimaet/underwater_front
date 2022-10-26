@@ -8,11 +8,13 @@ import { ref, reactive } from "vue";
 import { Form, FormActions } from "@/composables/types/form";
 import { useFormFactory } from "@/composables/formFactory";
 import FormControlText from "@/components/molecules/FormControlText.vue";
+import FormControlDoubleText from "@/components/molecules/FormControlDoubleText.vue";
 import FormControlRadioList from "@/components/molecules/FormControlRadioList.vue";
 import { MUTATION_UPDATE_USER } from "@/graphql/mutations/updateUser";
 import { useMutation } from "@vue/apollo-composable";
 import store from "@/store";
 import { useAuthLogout } from "@/composables/auth";
+import router from "@/router";
 
 const form: Form = useFormFactory(FormActions.ACCOUNT_UPDATE);
 
@@ -43,13 +45,17 @@ const { mutate, onDone, onError } = useMutation(MUTATION_UPDATE_USER, {
 });
 
 onError((error) => {
-  console.log(error);
+  store.commit("setAlert", { type: "error", message: error.toString() });
 });
 
 onDone(() => {
-  console.log("done");
   dialog.value = false;
   useAuthLogout();
+  store.commit("setAlert", {
+    type: "success",
+    message: "Your account settings have been updated. Please re-login!",
+  });
+  router.push({ name: "home" });
 });
 
 const cardClasses = ["px-15"];
@@ -86,6 +92,8 @@ const progressBarClasses = ["mb-0"];
                   ? FormControlRadioList
                   : component.props?.name === 'FormControlText'
                   ? FormControlText
+                  : component.props?.name === 'FormControlDoubleText'
+                  ? FormControlDoubleText
                   : ''
               "
               :id="component.id"

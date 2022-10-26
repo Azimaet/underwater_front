@@ -9,24 +9,9 @@ const props = defineProps<{
   id: string;
   label: string;
   value: number;
+  type: string;
   index?: number;
 }>();
-
-// const numberValue = computed(() => {
-//   if (
-//     props.id === "_gasTanks" &&
-//     props.subId !== undefined &&
-//     props.index !== undefined
-//   ) {
-//     return props.instance[props.id as keyof typeof props.instance][props.index][
-//       props.subId
-//     ];
-//   } else {
-//     return props.instance[props.id as keyof typeof props.instance];
-//   }
-// });
-
-// const number = ref(numberValue.value);
 
 const number = reactive({
   value: props.value,
@@ -37,7 +22,8 @@ const number = reactive({
   <v-col cols="12" sm="6">
     <v-text-field
       v-model.number="number.value"
-      :label="label"
+      :label="props.label"
+      :type="props.type"
       persistent-hint
       variant="outlined"
       @change="$emit('formInputChange', props.id, number.value, props.index)"

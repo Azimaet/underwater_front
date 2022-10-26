@@ -15,54 +15,49 @@ const { FORM_DIVING, FORM_WORDING } = translations.en;
 
 /**
  * Dive Form Factory
- * @param {FormActions} action FormActions
- * @param {DiveInterface} dive DiveInterface
- * @return {Form} form Form
+ * @param {FormActions} action
+ * @param {DiveInterface} dive
+ * @return {Form}
  */
 export function useFormFactory(
   action: FormActions,
   dive?: DiveInterface
 ): Form {
   /**
-   * Define if form prop need a field which user can interact with.
-   * @param {string} prop string
-   * @return {boolean} boolean
+   * Is Writable helper.
+   * @param {string} prop
+   * @return {boolean}
    */
   function isWritable(prop: string): boolean {
     return !!FormPropWritable[prop as keyof typeof FormPropWritable];
   }
 
   /**
-   * Get Date Field Props.
-   * @return {FormControlProps} FormControlProps
+   * Get Date field.
+   * @return {FormControlProps}
    */
   function getControlDate(): FormControlProps {
     return {
       name: "FormControlDate",
-      label: "",
+      label: "Date of the dive",
+      type: "datetime-local",
     };
   }
 
   /**
-   * Get Number Field Props.
-   * @param {string} context string
-   * @return {FormControlProps} FormControlProps
+   * Get Text field.
+   * @param {string} context
+   * @return {FormControlProps}
    */
   function getControlText(context: string): FormControlProps {
     return {
       name: "FormControlText",
-      model: "",
-      type:
-        context === "password" || context === "password_renew"
-          ? "password"
-          : "",
+      type: context === "password" ? "password" : "text",
       label:
         context === "email"
           ? FORM_WORDING.EMAIL
           : context === "password"
           ? FORM_WORDING.PASSWORD
-          : context === "password_renew"
-          ? FORM_WORDING.PASSWORD_RENEW
           : context === "username"
           ? FORM_WORDING.USERNAME
           : context === "username_renew"
@@ -72,13 +67,26 @@ export function useFormFactory(
   }
 
   /**
-   * Get Number Field Props.
-   * @param {string} context string
-   * @return {FormControlProps} FormControlProps
+   * Get Double Text field.
+   * @return {FormControlProps}
+   */
+  function getControlDoubleText(): FormControlProps {
+    return {
+      name: "FormControlDoubleText",
+      type: "password",
+      label: FORM_WORDING.PASSWORD_RENEW,
+    };
+  }
+
+  /**
+   * Get Number field.
+   * @param {string} context
+   * @return {FormControlProps}
    */
   function getControlNumber(context: string): FormControlProps {
     return {
       name: "FormControlNumber",
+      type: "number",
       label:
         context === "maxDepth"
           ? FORM_DIVING.MAXDEPTH
@@ -89,9 +97,9 @@ export function useFormFactory(
   }
 
   /**
-   * Get Select Field Props.
-   * @param {string} context string
-   * @return {FormControlProps} FormControlProps
+   * Get Select field.
+   * @param {string} context
+   * @return {FormControlProps}
    */
   function getControlSelect(context: string): FormControlProps {
     if (context === "divingEnvironment") {
@@ -115,9 +123,9 @@ export function useFormFactory(
   }
 
   /**
-   * Get Multiple Selects Field Props.
-   * @param {string} context string
-   * @return {FormControlProps} FormControlProps
+   * Get Multiple Selects field.
+   * @param {string} context
+   * @return {FormControlProps}
    */
   function getControlComboBox(context: string): FormControlProps {
     if (context === "divingType") {
@@ -135,9 +143,9 @@ export function useFormFactory(
   }
 
   /**
-   * Get Multiple Selects Field Props for Gas Group.
-   * @param {string} context string
-   * @return {FormControlProps} FormControlProps
+   * Get Gas Group manager.
+   * @param {string} context
+   * @return {FormControlProps}
    */
   function getControlGasGroup(context: string): FormControlProps {
     if (context === "gasTanks") {
@@ -154,9 +162,9 @@ export function useFormFactory(
   }
 
   /**
-   * Get Control Radio List function.
-   * @param {string} context string
-   * @return {FormControlProps} FormControlProps
+   * Get Control Radio List field.
+   * @param {string} context
+   * @return {FormControlProps}
    */
   function getControlRadioList(context: string): FormControlProps {
     if (context === "avatar") {
@@ -174,8 +182,8 @@ export function useFormFactory(
 
   /**
    * Generic Build Field Props function.
-   * @param {string} propId string
-   * @return {FormControlProps} FormControlProps
+   * @param {string} propId
+   * @return {FormControlProps}
    */
   function buildProps(propId: string): FormControlProps {
     switch (propId) {
@@ -183,8 +191,9 @@ export function useFormFactory(
       case "username":
       case "username_renew":
       case "password":
-      case "password_renew":
         return getControlText(propId);
+      case "password_renew":
+        return getControlDoubleText();
       case "date":
         return getControlDate();
       case "totalTime":
@@ -230,7 +239,6 @@ export function useFormFactory(
           };
 
           control.props = buildProps(propId);
-          console.log(control.props);
           form.controls.push(control);
         }
       });
@@ -272,7 +280,6 @@ export function useFormFactory(
 
       const formProps: string[] = [
         "password_renew",
-        "password_renew",
         "username_renew",
         "avatar",
       ];
@@ -284,8 +291,6 @@ export function useFormFactory(
         };
 
         control.props = buildProps(propId);
-
-        console.log(control.props);
         form.controls.push(control);
       });
     }

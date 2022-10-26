@@ -160,6 +160,7 @@ watch(dive, async () => {
               : ''
           "
           :id="component.id"
+          :type="component.props?.type"
           :label="component.props?.label"
           :value="dive[component.id as keyof typeof dive]"
           :action="component.props?.options"

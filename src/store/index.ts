@@ -4,6 +4,8 @@ import { createStore } from "vuex";
 
 const user: StoreUserInterface = {
   data: {
+    iat: null,
+    exp: null,
     id: null,
     email: null,
     roles: [],
@@ -42,21 +44,27 @@ export default createStore({
     },
     setUserId(state, data) {
       state.user.data.id = data;
+      localStorage.setItem("store", JSON.stringify(state));
     },
     setUserEmail(state, data) {
       state.user.data.email = data;
+      localStorage.setItem("store", JSON.stringify(state));
     },
     setUserRoles(state, data) {
       state.user.data.roles = data;
+      localStorage.setItem("store", JSON.stringify(state));
     },
     setUserName(state, data) {
       state.user.data.username = data;
+      localStorage.setItem("store", JSON.stringify(state));
     },
     setUserToken(state, token) {
       state.user.token = token;
+      localStorage.setItem("store", JSON.stringify(state));
     },
     setRefreshUserToken(state, token) {
       state.user.refresh_token = token;
+      localStorage.setItem("store", JSON.stringify(state));
     },
     setAlert(state, { type, message }) {
       state.alerts.push({

@@ -58,6 +58,7 @@ const { mutate, onDone, onError } = useMutation(MUTATION_CREATE_USER, {
 });
 
 onError((error) => {
+  console.log(error);
   store.commit("setAlert", { type: "error", message: error.toString() });
 });
 
@@ -71,7 +72,7 @@ onDone(() => {
 
 <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" persistent>
+    <v-dialog v-model="dialog" persistent transition="dialog-bottom-transition">
       <template v-slot:activator="{ props }">
         <ButtonComponent
           :label="label"
