@@ -10,6 +10,7 @@ import AvatarProfileChip from "@/components/molecules/AvatarProfileChip.vue";
 import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { FormActions } from "@/composables/types/form";
 import UserFormModal from "../organisms/UserFormModal.vue";
+import { useAlertFactory } from "@/composables/alertFactory";
 </script>
 
 <template>
@@ -28,7 +29,10 @@ import UserFormModal from "../organisms/UserFormModal.vue";
           :label="'Logout'"
           :color="'error'"
           :size="'x-large'"
-          @click="useAuthLogout"
+          @click="
+            useAuthLogout(),
+              useAlertFactory('success', 'You have been correctly logout.')
+          "
         />
       </div>
       <div v-else class="d-flex justify-center align-center">

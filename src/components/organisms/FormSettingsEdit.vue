@@ -15,6 +15,7 @@ import { useMutation } from "@vue/apollo-composable";
 import store from "@/store";
 import { useAuthLogout } from "@/composables/auth";
 import router from "@/router";
+import { useAlertFactory } from "@/composables/alertFactory";
 
 const form: Form = useFormFactory(FormActions.ACCOUNT_UPDATE);
 
@@ -26,7 +27,7 @@ const payload = reactive({
   username: store.state.user.data.email,
 });
 
-const dialog = ref(false);
+const loading = ref(false);
 
 const handleChange = (id: string, value: string) => {
   if (id === "avatar") {
@@ -44,17 +45,21 @@ const { mutate, onDone, onError } = useMutation(MUTATION_UPDATE_USER, {
   },
 });
 
+const load = () => {
+  loading.value = true;
+  setTimeout(() => (loading.value = false), 5000);
+};
+
 onError((error) => {
-  store.commit("setAlert", { type: "error", message: error.toString() });
+  useAlertFactory("error", error.toString());
 });
 
 onDone(() => {
-  dialog.value = false;
   useAuthLogout();
-  store.commit("setAlert", {
-    type: "success",
-    message: "Your account settings have been updated. Please re-login!",
-  });
+  useAlertFactory(
+    "success",
+    "Your account settings have been updated. Please re-login!"
+  );
   router.push({ name: "home" });
 });
 
@@ -69,8 +74,6 @@ const titleClasses = [
 ];
 
 const btnClasses = ["my-5", "mx-5"];
-
-const progressBarClasses = ["mb-0"];
 </script>
 
 <template>
@@ -111,24 +114,10 @@ const progressBarClasses = ["mb-0"];
           :color="'success'"
           :size="'x-large'"
           :btn-classes="btnClasses"
-          :loading="dialog"
-          :disabled="dialog"
-          @click="mutate(), (dialog = true)"
+          :loading="loading"
+          :disabled="loading"
+          @click="mutate(), load()"
         />
-        <v-dialog v-model="dialog" hide-overlay persistent>
-          <v-card color="success">
-            <v-card-text>
-              <p>Processing server request...</p>
-              <p>Imminent redirection to home.</p>
-              <br />
-              <v-progress-linear
-                indeterminate
-                color="white"
-                :class="progressBarClasses"
-              ></v-progress-linear>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
       </v-card-actions>
     </v-card>
   </v-row>

@@ -45,6 +45,8 @@ const spanClasses = ["font-weight-bold", "text-button"];
     :append-icon="
       props.icon?.placement === 'append' ? props.icon.name : undefined
     "
+    :loading="loading"
+    :disabled="disabled"
     rounded="true"
     density="comfortable"
     max-width="100%"

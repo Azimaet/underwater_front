@@ -1,7 +1,9 @@
 import Axios from "@/plugins/axios";
 import { FormUserCredentials } from "@/composables/types/form";
 import { StoreUserDataInterface } from "./types/storeUser";
+import router from "@/router";
 import store from "@/store";
+import { useAlertFactory } from "./alertFactory";
 import { useJWTParser } from "./utils/jwtParser";
 
 /**
@@ -26,9 +28,27 @@ export async function useAuthLogin(
       store.commit("setUserRoles", parsedToken.roles);
       store.commit("setUserName", parsedToken.username);
       store.commit("setUserId", parsedToken.id);
+
+      useAlertFactory(
+        "success",
+        "You are logged, welcome back " + parsedToken.username + "!"
+      );
+
+      router.push({ name: "home" });
     }
-  } catch (err) {
-    return console.log(err);
+  } catch (error: any) {
+    const message =
+      error.response.status == 401
+        ? "Error 401: Invalid credentials. Try to login again."
+        : "Error " +
+          error.response.status +
+          ": Undefined error. Please contact admin";
+
+    const type = error.response.status == 401 ? "warning" : "error";
+
+    useAlertFactory(type, message);
+
+    router.push({ name: "home" });
   }
 }
 
@@ -41,6 +61,7 @@ export function useAuthLogout(): void {
   store.commit("setRefreshUserToken", null);
   store.commit("setUserEmail", null);
   store.commit("setUserRoles", []);
+  store.commit("setUserName", null);
   store.commit("setUserId", null);
 }
 
@@ -49,5 +70,5 @@ export function useAuthLogout(): void {
  * @return {boolean}
  */
 export function isLogged(): boolean {
-  return !!store.state.user.token;
+  return !!(store.state.user.token && store.state.user.refresh_token);
 }

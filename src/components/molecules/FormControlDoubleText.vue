@@ -58,7 +58,6 @@ const matchingPasswords = () => {
 // });
 
 // watchEffect(() => {
-//   console.log(isIdentical.value);
 
 //   if (text.value !== text_verifier.value) {
 //     isIdentical.value = false;
@@ -66,6 +65,8 @@ const matchingPasswords = () => {
 //     isIdentical.value = true;
 //   }
 // });
+
+const regex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
 </script>
 
 <template>
@@ -76,7 +77,8 @@ const matchingPasswords = () => {
     :type="type"
     @change="emit('formInputChange', props.id, text)"
     :rules="[
-      (v: string) => !!v || 'Field is required', 
+      (v: string) => !!v || 'Field is required',
+      (v: string) => regex.test(v) || 'Password should contain at 8-32chars, at least a symbol, a number, and upper and lower case letters.',
       ]"
     variant="outlined"
   >
@@ -88,10 +90,18 @@ const matchingPasswords = () => {
     :label="props.label"
     :type="type"
     :rules="[
-      (v: string) => !!v || 'Field is required', 
+      (v: string) => !!v || 'Field is required',
+      (v: string) => regex.test(v) || 'Password should contain at 8-32chars, at least a symbol, a number, and upper and lower case letters.',
       matchingPasswords,
       ]"
     variant="outlined"
   >
   </v-text-field>
+
+  <p class="text-center mt-5">
+    To update your account settings, please enter your current password, or
+    renew it.
+  </p>
+
+  <v-divider :class="'my-10'"></v-divider>
 </template>
