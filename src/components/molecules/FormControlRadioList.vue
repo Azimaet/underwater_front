@@ -1,3 +1,4 @@
+import store from '@/store';
 <script lang="ts">
 export default { name: "FormControlRadioList" };
 </script>
@@ -7,32 +8,30 @@ const props = defineProps<{
   id: string;
   label: string;
 }>();
-
-const titleClasses = ["font-weight-medium", "text-subtitle-1", "mb-5"];
-
-const radioGroupClasses = ["d-flex", "align-center", "justify-center"];
-
-const radioOuter = [
-  "d-flex",
-  "flex-column-reverse",
-  "justify-center",
-  "align-center",
-  "mx-10",
-];
-
-const radioClasses = ["mt-2", "mb-5"];
 </script>
 
 <template>
   <v-col>
-    <h4 :class="titleClasses">{{ props.label }}</h4>
+    <h4 :class="['font-weight-medium', 'text-subtitle-1', 'mb-5']">
+      {{ props.label }}
+    </h4>
     <v-radio-group
       @update:modelValue="$emit('formInputChange', props.id, $event)"
-      :class="radioGroupClasses"
+      :class="['d-flex', 'align-center', 'justify-center']"
       inline
     >
-      <div v-for="index in 13" :key="index" :class="radioOuter">
-        <v-radio :value="index" :class="radioClasses"></v-radio>
+      <div
+        v-for="index in 13"
+        :key="index"
+        :class="[
+          'd-flex',
+          'flex-column-reverse',
+          'justify-center',
+          'align-center',
+          'mx-10',
+        ]"
+      >
+        <v-radio :value="index" :class="['mt-2', 'mb-5']"></v-radio>
         <v-avatar
           :image="require('@/assets/avatars/avatar' + index + '.svg')"
           size="75"

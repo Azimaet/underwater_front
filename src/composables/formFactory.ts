@@ -3,10 +3,8 @@ import {
   FormActions,
   FormControl,
   FormControlProps,
-  FormPropWritable,
 } from "@/composables/types/form";
 
-import { ButtonActions } from "./types/buttons";
 import { DiveInterface } from "@/composables/types/dive";
 import { GraphqlActions } from "@/composables/types/graphql";
 import { translations } from "@/i18n/index";
@@ -24,15 +22,6 @@ export function useFormFactory(
   dive?: DiveInterface
 ): Form {
   /**
-   * Is Writable helper.
-   * @param {string} prop
-   * @return {boolean}
-   */
-  function isWritable(prop: string): boolean {
-    return !!FormPropWritable[prop as keyof typeof FormPropWritable];
-  }
-
-  /**
    * Get Date field.
    * @return {FormControlProps}
    */
@@ -47,11 +36,21 @@ export function useFormFactory(
   /**
    * Get Text field.
    * @param {string} context
+   * @param {FormActions} action
    * @return {FormControlProps}
    */
-  function getControlText(context: string): FormControlProps {
+  function getControlText(
+    context: string,
+    action: FormActions
+  ): FormControlProps {
+    const regexPassword =
+      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
+
     return {
-      name: "FormControlText",
+      name:
+        action === FormActions.ACCOUNT_UPDATE && context === "password"
+          ? "FormControlDoubleText"
+          : "FormControlText",
       type: context === "password" ? "password" : "text",
       label:
         context === "email"
@@ -60,21 +59,32 @@ export function useFormFactory(
           ? FORM_WORDING.PASSWORD
           : context === "username"
           ? FORM_WORDING.USERNAME
-          : context === "username_renew"
-          ? FORM_WORDING.USERNAME_RENEW
+          : context === "security_passphrase"
+          ? "Are you sure to delete your account ?"
           : "",
-    };
-  }
-
-  /**
-   * Get Double Text field.
-   * @return {FormControlProps}
-   */
-  function getControlDoubleText(): FormControlProps {
-    return {
-      name: "FormControlDoubleText",
-      type: "password",
-      label: FORM_WORDING.PASSWORD_RENEW,
+      icon: context === "password" ? "mdi-lock-outline" : null,
+      rules: [
+        action === FormActions.ACCOUNT_UPDATE && context === "password"
+          ? (v: string) => !!v || "Field is required"
+          : null,
+        context === "password"
+          ? (v: string) =>
+              regexPassword.test(v) ||
+              "Password should contain at 8-32chars, at least a symbol, a number, and upper and lower case letters."
+          : null,
+        context === "username"
+          ? (v: string) =>
+              (v.length > 3 && v.length < 33) ||
+              "Username should contain between 4 and 32chars."
+          : action === FormActions.ACCOUNT_DELETE
+          ? (v: string) =>
+              v === "DELETE" || "Field is required and to be equal 'DELETE'"
+          : null,
+      ],
+      subtitle:
+        action === FormActions.ACCOUNT_UPDATE && context === "password"
+          ? " To update your account settings, please enter your current password, or renew it. "
+          : "",
     };
   }
 
@@ -106,13 +116,13 @@ export function useFormFactory(
       return {
         name: "FormControlSelect",
         label: FORM_DIVING.SELECT_DIVING_ENV,
-        options: GraphqlActions.DIVING_ENVIRONMENTS,
+        query: GraphqlActions.DIVING_ENVIRONMENTS,
       };
     } else if (context === "divingRole") {
       return {
         name: "FormControlSelect",
         label: FORM_DIVING.SELECT_DIVING_ROLES,
-        options: GraphqlActions.DIVING_ROLES,
+        query: GraphqlActions.DIVING_ROLES,
       };
     } else {
       return {
@@ -132,7 +142,7 @@ export function useFormFactory(
       return {
         name: "FormControlComboBox",
         label: FORM_DIVING.SELECT_DIVING_TYPES,
-        options: GraphqlActions.DIVING_TYPES,
+        query: GraphqlActions.DIVING_TYPES,
       };
     } else {
       return {
@@ -183,17 +193,16 @@ export function useFormFactory(
   /**
    * Generic Build Field Props function.
    * @param {string} propId
+   * @param {FormActions} action
    * @return {FormControlProps}
    */
-  function buildProps(propId: string): FormControlProps {
+  function buildProps(propId: string, action: FormActions): FormControlProps {
     switch (propId) {
       case "email":
       case "username":
-      case "username_renew":
       case "password":
-        return getControlText(propId);
-      case "password_renew":
-        return getControlDoubleText();
+      case "security_passphrase":
+        return getControlText(propId, action);
       case "date":
         return getControlDate();
       case "totalTime":
@@ -222,79 +231,44 @@ export function useFormFactory(
    */
   function __construct(): Form {
     const form: Form = {
-      title: "",
+      title:
+        action === FormActions.DIVE_CREATE && dive
+          ? FORM_DIVING.TITLE
+          : action === FormActions.LOGIN
+          ? FORM_WORDING.LOGIN
+          : action === FormActions.REGISTER
+          ? FORM_WORDING.REGISTER
+          : action === FormActions.ACCOUNT_UPDATE
+          ? FORM_WORDING.UPDATE_ACCOUNT
+          : action === FormActions.ACCOUNT_DELETE
+          ? "Delete Account"
+          : "",
       controls: [],
       inputs: [],
     };
 
-    if (action === FormActions.DIVE_CREATE && dive) {
-      form.title = FORM_DIVING.TITLE;
-      const formProps: string[] = Object.getOwnPropertyNames(dive);
+    const formProps: string[] =
+      action === FormActions.DIVE_CREATE && dive
+        ? Object.getOwnPropertyNames(dive)
+        : action === FormActions.LOGIN
+        ? ["email", "password"]
+        : action === FormActions.REGISTER
+        ? ["email", "password", "username"]
+        : action === FormActions.ACCOUNT_UPDATE
+        ? ["password", "username", "avatar"]
+        : action === FormActions.ACCOUNT_DELETE
+        ? ["security_passphrase"]
+        : [];
 
-      formProps.forEach((propId) => {
-        if (isWritable(propId)) {
-          const control: FormControl = {
-            id: propId,
-            props: null,
-          };
+    formProps.forEach((propId) => {
+      const control: FormControl = {
+        id: propId,
+        props: null,
+      };
 
-          control.props = buildProps(propId);
-          form.controls.push(control);
-        }
-      });
-
-      form.inputs.push({
-        label: FORM_WORDING.SUBMIT,
-        action: ButtonActions.SUBMIT_DIVE_CREATE,
-      });
-    } else if (action === FormActions.LOGIN) {
-      form.title = FORM_WORDING.LOGIN;
-
-      const formProps: string[] = ["email", "password"];
-
-      formProps.forEach((propId) => {
-        const control: FormControl = {
-          id: propId,
-          props: null,
-        };
-
-        control.props = buildProps(propId);
-        form.controls.push(control);
-      });
-    } else if (action === FormActions.REGISTER) {
-      form.title = FORM_WORDING.REGISTER;
-
-      const formProps: string[] = ["email", "password", "username"];
-
-      formProps.forEach((propId) => {
-        const control: FormControl = {
-          id: propId,
-          props: null,
-        };
-
-        control.props = buildProps(propId);
-        form.controls.push(control);
-      });
-    } else if (action === FormActions.ACCOUNT_UPDATE) {
-      form.title = FORM_WORDING.UPDATE_ACCOUNT;
-
-      const formProps: string[] = [
-        "password_renew",
-        "username_renew",
-        "avatar",
-      ];
-
-      formProps.forEach((propId) => {
-        const control: FormControl = {
-          id: propId,
-          props: null,
-        };
-
-        control.props = buildProps(propId);
-        form.controls.push(control);
-      });
-    }
-
+      control.props = buildProps(propId, action);
+      form.controls.push(control);
+    });
     return form;
   }
 

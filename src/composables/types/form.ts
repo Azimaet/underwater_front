@@ -1,5 +1,6 @@
 import { ButtonActions } from "@/composables/types/buttons";
-import { ValidationRule } from "graphql/validation";
+import { GraphqlActions } from "./graphql";
+
 export interface Form {
   title: string;
   controls: FormControl[];
@@ -20,11 +21,11 @@ export interface FormInput {
 export interface FormControlProps {
   name: string;
   label: string;
-  model?: string;
   type?: string;
-  hint?: string;
-  rules?: ValidationRule[];
-  options?: any;
+  subtitle?: string;
+  icon?: string | null;
+  rules?: any[];
+  query?: GraphqlActions;
 }
 
 export enum FormPropWritable {
@@ -46,6 +47,7 @@ export enum FormActions {
   LOGIN = "FORM_ACTION_LOGIN",
   REGISTER = "FORM_ACTION_REGISTER",
   ACCOUNT_UPDATE = "ACCOUNT_UPDATE",
+  ACCOUNT_DELETE = "ACCOUNT_DELETE",
   DIVE_CREATE = "FORM_ACTION_DIVE_CREATE",
 }
 

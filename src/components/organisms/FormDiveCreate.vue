@@ -163,7 +163,7 @@ watch(dive, async () => {
           :type="component.props?.type"
           :label="component.props?.label"
           :value="dive[component.id as keyof typeof dive]"
-          :action="component.props?.options"
+          :action="component.props?.query"
           @form-input-change="handleChange"
         ></component>
       </Suspense>

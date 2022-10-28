@@ -58,6 +58,10 @@ export default createStore({
       state.user.data.username = data;
       localStorage.setItem("store", JSON.stringify(state));
     },
+    setUserAvatar(state, data) {
+      state.user.data.avatar = data;
+      localStorage.setItem("store", JSON.stringify(state));
+    },
     setUserToken(state, token) {
       state.user.token = token;
       localStorage.setItem("store", JSON.stringify(state));

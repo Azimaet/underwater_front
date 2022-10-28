@@ -4,21 +4,30 @@ export default { name: "FormControlText" };
 
 <script setup lang="ts">
 import { ref } from "vue";
+import store from "@/store";
 
 const props = defineProps<{
   id: string;
   label: string;
+  rules?: any[];
 }>();
+
+console.log(props);
 
 const emit = defineEmits(["formInputChange"]);
 
-const text = ref("");
+const text = ref(
+  props.id === "username" && store.state.user.data.username
+    ? store.state.user.data.username
+    : ""
+);
 </script>
 
 <template>
   <v-text-field
     v-model="text"
     :label="props.label"
+    :rules="props.rules"
     @change="emit('formInputChange', props.id, text)"
     variant="outlined"
   ></v-text-field>

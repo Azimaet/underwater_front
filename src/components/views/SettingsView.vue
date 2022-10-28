@@ -2,7 +2,7 @@
 import { defineComponent } from "vue";
 import BaseTemplate from "@/components/templates/BaseTemplate.vue";
 import FormSettingsEdit from "@/components/organisms/FormSettingsEdit.vue";
-import { FormActions } from "@/composables/types/form";
+import FormSettingsDelete from "@/components/organisms/FormSettingsDelete.vue";
 
 export default defineComponent({
   name: "SettingsView",
@@ -19,6 +19,8 @@ const containerClasses = ["mt-15"];
       <v-container style="max-width: 960px" :class="containerClasses">
         <section>
           <FormSettingsEdit />
+          <v-divider :class="'my-10'"></v-divider>
+          <FormSettingsDelete />
         </section>
       </v-container>
     </template>

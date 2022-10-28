@@ -26,6 +26,7 @@ export async function useAuthLogin(
       store.commit("setRefreshUserToken", response.data.refresh_token);
       store.commit("setUserEmail", parsedToken.email);
       store.commit("setUserRoles", parsedToken.roles);
+      store.commit("setUserAvatar", parsedToken.avatar);
       store.commit("setUserName", parsedToken.username);
       store.commit("setUserId", parsedToken.id);
 
@@ -61,6 +62,7 @@ export function useAuthLogout(): void {
   store.commit("setRefreshUserToken", null);
   store.commit("setUserEmail", null);
   store.commit("setUserRoles", []);
+  store.commit("setUserAvatar", null);
   store.commit("setUserName", null);
   store.commit("setUserId", null);
 }
