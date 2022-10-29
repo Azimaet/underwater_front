@@ -12,8 +12,6 @@ const props = defineProps<{
   rules?: any[];
 }>();
 
-console.log(props);
-
 const emit = defineEmits(["formInputChange"]);
 
 const text = ref(

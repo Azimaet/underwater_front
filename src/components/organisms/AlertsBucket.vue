@@ -5,7 +5,6 @@ export default { name: "AlertsBucket" };
 <script setup lang="ts">
 import store from "@/store";
 
-//Your account settings have been updated. Please re-login!
 const divClasses = ["alerts--container"];
 const alertClasses = ["px-4", "py-4"];
 </script>

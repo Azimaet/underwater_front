@@ -7,5 +7,10 @@ import store from "@/store";
  * @return {void}
  */
 export function useAlertFactory(type: string, message: string): void {
+  const index = store.state.alerts.length;
   store.commit("setAlert", { type: type, message: message });
+
+  setTimeout(() => {
+    store.commit("removeAlert", index);
+  }, 5000);
 }
