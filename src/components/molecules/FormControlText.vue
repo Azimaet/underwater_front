@@ -9,6 +9,8 @@ import store from "@/store";
 const props = defineProps<{
   id: string;
   label: string;
+  type: string;
+  icon?: string | null;
   rules?: any[];
 }>();
 
@@ -24,8 +26,10 @@ const text = ref(
 <template>
   <v-text-field
     v-model="text"
+    :prepend-icon="icon"
     :label="props.label"
     :rules="props.rules"
+    :type="type"
     @change="emit('formInputChange', props.id, text)"
     variant="outlined"
   ></v-text-field>

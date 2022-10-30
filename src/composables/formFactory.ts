@@ -46,12 +46,20 @@ export function useFormFactory(
     const regexPassword =
       /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
 
+    const regexEmail =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     return {
       name:
         action === FormActions.ACCOUNT_UPDATE && context === "password"
           ? "FormControlDoubleText"
           : "FormControlText",
-      type: context === "password" ? "password" : "text",
+      type:
+        context === "password"
+          ? "password"
+          : context === "email"
+          ? "email"
+          : "text",
       label:
         context === "email"
           ? FORM_WORDING.EMAIL
@@ -72,7 +80,11 @@ export function useFormFactory(
               regexPassword.test(v) ||
               "Password should contain at 8-32chars, at least a symbol, a number, and upper and lower case letters."
           : null,
-        context === "username"
+        context === "email"
+          ? (v: string) =>
+              regexEmail.test(v) ||
+              "Field must be of type email: 'example@something.com' ."
+          : context === "username"
           ? (v: string) =>
               (v.length > 3 && v.length < 33) ||
               "Username should contain between 4 and 32chars."

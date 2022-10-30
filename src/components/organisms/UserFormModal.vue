@@ -97,6 +97,8 @@ onDone(() => {
                   :id="component.id"
                   :label="component.props!.label + '*'"
                   :type="component.props!.type"
+                  :rules="component.props?.rules"
+                  :icon="component.props?.icon"
                   @form-input-change="handleChange"
                   required
                 >
