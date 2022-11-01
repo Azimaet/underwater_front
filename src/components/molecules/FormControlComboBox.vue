@@ -27,22 +27,21 @@ const types = ref();
 </script>
 
 <template>
-  <v-col cols="12">
-    <v-combobox
-      v-model="types"
-      :items="items"
-      :item-title="'label'"
-      :item-value="'id'"
-      :label="label"
-      multiple
-      chips
-      @update:modelValue="
-        $emit(
-          'formInputChange',
-          props.id,
-          types.map((type: any) => type.id)
-        )
-      "
-    ></v-combobox>
-  </v-col>
+  <v-combobox
+    v-model="types"
+    :items="items"
+    :item-title="'label'"
+    :item-value="'id'"
+    :label="label"
+    multiple
+    chips
+    @update:modelValue="
+      $emit(
+        'formInputChange',
+        props.id,
+        types.map((type: any) => type.id)
+      )
+    "
+    :class="['pb-5']"
+  ></v-combobox>
 </template>

@@ -3,7 +3,7 @@ export default { name: "HomeParallax" };
 </script>
 
 <script setup lang="ts">
-import UserFormModal from "../organisms/UserFormModal.vue";
+import FormUserModal from "../organisms/FormUserModal.vue";
 import { FormActions } from "@/composables/types/form";
 import { isLogged } from "../../composables/auth";
 
@@ -37,8 +37,8 @@ const navClasses = ["mt-15 d-flex"];
       <h4 :class="subtitleClasses">{{ props.subtitle }}</h4>
 
       <nav :class="navClasses">
-        <UserFormModal v-if="!isLogged()" :action="FormActions.REGISTER" />
-        <UserFormModal v-if="!isLogged()" :action="FormActions.LOGIN" />
+        <FormUserModal v-if="!isLogged()" :action="FormActions.REGISTER" />
+        <FormUserModal v-if="!isLogged()" :action="FormActions.LOGIN" />
       </nav>
     </div>
   </v-parallax>

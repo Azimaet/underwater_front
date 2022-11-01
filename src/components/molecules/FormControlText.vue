@@ -9,7 +9,7 @@ import store from "@/store";
 const props = defineProps<{
   id: string;
   label: string;
-  type: string;
+  type?: string;
   icon?: string | null;
   rules?: any[];
 }>();

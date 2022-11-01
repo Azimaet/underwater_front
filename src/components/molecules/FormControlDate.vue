@@ -22,12 +22,48 @@ const date = reactive({
 </script>
 
 <template>
-  {{ label }}
-  <input
-    v-model="date.value"
-    :type="props.type"
-    @change="
-      $emit('formInputChange', props.id, new Date(Date.parse(date.value)))
-    "
-  />
+  <div width="100%" :class="['position-relative', 'pb-10']">
+    <span
+      :class="[
+        'position-absolute',
+        'bg-grey900',
+        'text-caption',
+        'color-grey-light1',
+        'mx-5',
+        'px-1',
+      ]"
+    >
+      {{ props.label }}
+    </span>
+    <input
+      v-model="date.value"
+      :type="props.type"
+      @change="
+        $emit('formInputChange', props.id, new Date(Date.parse(date.value)))
+      "
+    />
+  </div>
 </template>
+
+<style lang="scss" scoped>
+span {
+  top: -10px;
+  &:active {
+    color: white;
+  }
+}
+
+input {
+  border: 1px solid $color-grey-600;
+  border-radius: 5px;
+  padding: 17.5px;
+  width: 100%;
+  transition: 0.5s;
+
+  &:active,
+  &:hover {
+    border: 1px solid white;
+    transition: 0.5s;
+  }
+}
+</style>

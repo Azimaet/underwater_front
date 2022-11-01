@@ -72,7 +72,10 @@ export function useFormFactory(
           : "",
       icon: context === "password" ? "mdi-lock-outline" : null,
       rules: [
-        action === FormActions.ACCOUNT_UPDATE && context === "password"
+        (action === FormActions.DIVE_CREATE && context === "totalTime") ||
+        (action === FormActions.DIVE_CREATE && context === "maxDepth")
+          ? (v: string) => !!v || "Field is required"
+          : action === FormActions.ACCOUNT_UPDATE && context === "password"
           ? (v: string) => !!v || "Field is required"
           : null,
         context === "password"

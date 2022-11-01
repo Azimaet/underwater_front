@@ -9,7 +9,7 @@ import store from "@/store";
 import AvatarProfileChip from "@/components/molecules/AvatarProfileChip.vue";
 import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { FormActions } from "@/composables/types/form";
-import UserFormModal from "../organisms/UserFormModal.vue";
+import FormUserModal from "./FormUserModal.vue";
 import { useAlertFactory } from "@/composables/alertFactory";
 </script>
 
@@ -36,7 +36,7 @@ import { useAlertFactory } from "@/composables/alertFactory";
         />
       </div>
       <div v-else class="d-flex justify-center align-center">
-        <UserFormModal :action="FormActions.LOGIN" />
+        <FormUserModal :action="FormActions.LOGIN" />
       </div>
     </template>
   </v-app-bar>

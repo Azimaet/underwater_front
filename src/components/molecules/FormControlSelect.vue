@@ -31,18 +31,17 @@ const value = ref();
 </script>
 
 <template>
-  <v-col cols="12" sm="6">
-    <v-select
-      v-model="value"
-      :items="items"
-      :item-title="'label'"
-      :item-value="'value'"
-      :label="label"
-      variant="outlined"
-      persistent-hint
-      return-object
-      single-line
-      @update:modelValue="$emit('formInputChange', props.id, value.id)"
-    ></v-select>
-  </v-col>
+  <v-select
+    v-model="value"
+    :items="items"
+    :item-title="'label'"
+    :item-value="'value'"
+    :label="label"
+    variant="outlined"
+    persistent-hint
+    return-object
+    single-line
+    @update:modelValue="$emit('formInputChange', props.id, value.id)"
+    :class="['pb-5']"
+  ></v-select>
 </template>

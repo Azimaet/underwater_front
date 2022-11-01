@@ -3,11 +3,11 @@ export default { name: "FormDiveCreate" };
 </script>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from "vue";
+import { ref, reactive, watch, Suspense } from "vue";
 import { useFormFactory } from "@/composables/formFactory";
 import { FormActions } from "@/composables/types/form";
 import { defineAsyncComponent } from "vue";
-import ButtonElement from "@/components/atoms/ButtonElement.vue";
+import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { useMutation } from "@vue/apollo-composable";
 
 import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
@@ -15,6 +15,7 @@ import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
 import { DiveInterface } from "@/composables/types/dive";
 import { DivingThemeInterface } from "@/composables/types/divingTheme";
 import { GasMix } from "@/composables/types/gas";
+import { useAlertFactory } from "@/composables/alertFactory";
 
 const FormControlDate = defineAsyncComponent(
   () => import("@/components/molecules/FormControlDate.vue")
@@ -33,6 +34,8 @@ const FormControlGasGroup = defineAsyncComponent(
 );
 
 const valid = ref(false);
+
+const loading = ref(false);
 
 const dive: DiveInterface = reactive({
   id: null,
@@ -122,10 +125,26 @@ const handleChange = (
   }
 };
 
-const { mutate: createDive } = useMutation(MUTATION_CREATE_DIVE, {
+const { mutate, onDone, onError } = useMutation(MUTATION_CREATE_DIVE, {
   variables: {
     input: payload,
   },
+});
+
+const load = () => {
+  loading.value = true;
+  setTimeout(() => (loading.value = false), 5000);
+};
+
+onError((error) => {
+  useAlertFactory("error", error.toString());
+});
+
+onDone(() => {
+  useAlertFactory(
+    "success",
+    "Your account settings have been updated. Please re-login!"
+  );
 });
 
 watch(dive, async () => {
@@ -140,40 +159,73 @@ watch(dive, async () => {
 </script>
 
 <template>
-  <div class="py-15">
-    <v-form v-model="valid" lazy-validation>
-      <Suspense>
-        <component
-          v-for="(component, index) in form.controls"
-          :key="index"
-          :is="
-            component.props?.name === 'FormControlDate'
-              ? FormControlDate
-              : component.props?.name === 'FormControlNumber'
-              ? FormControlNumber
-              : component.props?.name === 'FormControlSelect'
-              ? FormControlSelect
-              : component.props?.name === 'FormControlComboBox'
-              ? FormControlComboBox
-              : component.props?.name === 'FormControlGasGroup'
-              ? FormControlGasGroup
-              : ''
-          "
-          :id="component.id"
-          :type="component.props?.type"
-          :label="component.props?.label"
-          :value="dive[component.id as keyof typeof dive]"
-          :action="component.props?.query"
-          @form-input-change="handleChange"
-        ></component>
-      </Suspense>
-      <ButtonElement
-        v-for="(input, index) in form.inputs"
-        :key="index"
-        :label="input.label"
-        :action="input.action"
-        @click="createDive"
-      ></ButtonElement>
-    </v-form>
-  </div>
+  <Suspense>
+    <v-row justify="center">
+      <v-col cols="12">
+        <v-form v-model="valid" lazy-validation>
+          <v-card width="100%" :class="['px-15']" :color="'grey900'" rounded>
+            <v-card-title>
+              <div
+                :class="[
+                  'text-h4',
+                  'font-weight-medium',
+                  'text-center',
+                  'mt-5',
+                  'mb-10',
+                ]"
+              >
+                {{ form.title }}
+              </div>
+            </v-card-title>
+            <v-card-text>
+              <component
+                v-for="(component, index) in form.controls"
+                :key="index"
+                :is="
+                  component.props?.name === 'FormControlDate'
+                    ? FormControlDate
+                    : component.props?.name === 'FormControlNumber'
+                    ? FormControlNumber
+                    : component.props?.name === 'FormControlSelect'
+                    ? FormControlSelect
+                    : component.props?.name === 'FormControlComboBox'
+                    ? FormControlComboBox
+                    : component.props?.name === 'FormControlGasGroup'
+                    ? FormControlGasGroup
+                    : ''
+                "
+                :id="component.id"
+                :value="dive[component.id as keyof typeof dive]"
+                :label="component.props?.label"
+                :query="component.props?.query"
+                :type="component.props?.type"
+                :rules="component.props?.rules"
+                :icon="component.props?.icon"
+                :subtitle="component.props?.subtitle"
+                :action="component.props?.query"
+                @form-input-change="handleChange"
+              ></component>
+            </v-card-text>
+            <v-card-actions>
+              <ButtonComponent
+                :label="'Add dive'"
+                :color="'success'"
+                :size="'x-large'"
+                :btn-classes="['my-5', 'mx-5']"
+                :loading="loading"
+                :disabled="loading"
+                @click="mutate(), load()"
+              />
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </v-col>
+    </v-row>
+  </Suspense>
 </template>
+
+<!-- :id="component.id"
+:type="component.props?.type"
+:label="component.props?.label"
+:value="dive[component.id as keyof typeof dive]"
+:action="component.props?.query" -->

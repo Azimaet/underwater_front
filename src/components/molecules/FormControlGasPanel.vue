@@ -74,9 +74,12 @@ const checkChange = (value: boolean, context: string) => {
 </script>
 
 <template>
-  <v-card width="400" style="margin: auto">
-    {{ state.name }}
-    <v-card-text>
+  <v-card-subtitle>
+    Current Gas: {{ state.name.title }} {{ state.name.subtitle }}
+  </v-card-subtitle>
+  <v-card-text>
+    <div>
+      <div :class="['text-center']">Oxygen</div>
       <v-slider
         v-model="state.oxygen"
         @update:model-value="handleChange(state.oxygen, 'oxygen')"
@@ -105,7 +108,10 @@ const checkChange = (value: boolean, context: string) => {
           ></v-checkbox>
         </template>
       </v-slider>
+    </div>
 
+    <div>
+      <div :class="['text-center']">Nitrogen</div>
       <v-slider
         v-model="state.nitrogen"
         @update:model-value="handleChange(state.nitrogen, 'nitrogen')"
@@ -134,7 +140,10 @@ const checkChange = (value: boolean, context: string) => {
           ></v-checkbox>
         </template>
       </v-slider>
+    </div>
 
+    <div>
+      <div :class="['text-center']">Helium</div>
       <v-slider
         v-model="state.helium"
         @update:model-value="handleChange(state.helium, 'helium')"
@@ -163,6 +172,6 @@ const checkChange = (value: boolean, context: string) => {
           ></v-checkbox>
         </template>
       </v-slider>
-    </v-card-text>
-  </v-card>
+    </div>
+  </v-card-text>
 </template>
