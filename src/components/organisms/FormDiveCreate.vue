@@ -3,7 +3,7 @@ export default { name: "FormDiveCreate" };
 </script>
 
 <script setup lang="ts">
-import { ref, reactive, watch, Suspense } from "vue";
+import { ref, reactive, watch } from "vue";
 import { useFormFactory } from "@/composables/formFactory";
 import { FormActions } from "@/composables/types/form";
 import { defineAsyncComponent } from "vue";
@@ -162,7 +162,7 @@ watch(dive, async () => {
   <Suspense>
     <v-row justify="center">
       <v-col cols="12">
-        <v-form v-model="valid" lazy-validation>
+        <v-form v-model="valid">
           <v-card width="100%" :class="['px-15']" :color="'grey900'" rounded>
             <v-card-title>
               <div
@@ -178,33 +178,36 @@ watch(dive, async () => {
               </div>
             </v-card-title>
             <v-card-text>
-              <component
+              <template
                 v-for="(component, index) in form.controls"
                 :key="index"
-                :is="
-                  component.props?.name === 'FormControlDate'
-                    ? FormControlDate
-                    : component.props?.name === 'FormControlNumber'
-                    ? FormControlNumber
-                    : component.props?.name === 'FormControlSelect'
-                    ? FormControlSelect
-                    : component.props?.name === 'FormControlComboBox'
-                    ? FormControlComboBox
-                    : component.props?.name === 'FormControlGasGroup'
-                    ? FormControlGasGroup
-                    : ''
-                "
-                :id="component.id"
-                :value="dive[component.id as keyof typeof dive]"
-                :label="component.props?.label"
-                :query="component.props?.query"
-                :type="component.props?.type"
-                :rules="component.props?.rules"
-                :icon="component.props?.icon"
-                :subtitle="component.props?.subtitle"
-                :action="component.props?.query"
-                @form-input-change="handleChange"
-              ></component>
+              >
+                <template v-if="component.props?.name">
+                  <component
+                    :is="
+                      component.props?.name === 'FormControlDate'
+                        ? FormControlDate
+                        : component.props?.name === 'FormControlNumber'
+                        ? FormControlNumber
+                        : component.props?.name === 'FormControlSelect'
+                        ? FormControlSelect
+                        : component.props?.name === 'FormControlComboBox'
+                        ? FormControlComboBox
+                        : FormControlGasGroup
+                    "
+                    :id="component.id"
+                    :value="dive[component.id as keyof typeof dive]"
+                    :label="component.props?.label"
+                    :query="component.props?.query"
+                    :type="component.props?.type"
+                    :rules="component.props?.rules"
+                    :icon="component.props?.icon"
+                    :subtitle="component.props?.subtitle"
+                    :action="component.props?.query"
+                    @form-input-change="handleChange"
+                  ></component>
+                </template>
+              </template>
             </v-card-text>
             <v-card-actions>
               <ButtonComponent
@@ -223,9 +226,3 @@ watch(dive, async () => {
     </v-row>
   </Suspense>
 </template>
-
-<!-- :id="component.id"
-:type="component.props?.type"
-:label="component.props?.label"
-:value="dive[component.id as keyof typeof dive]"
-:action="component.props?.query" -->
