@@ -3,7 +3,7 @@ export default { name: "ChartDepthLine" };
 </script>
 
 <script setup lang="ts">
-import { useChartDepthTimeDataProvider } from "@/composables/chartDepthTimeDataProvider";
+import { useChartDepthDataProvider } from "@/composables/chartDepthDataProvider";
 import { ApolloQueryResult } from "@apollo/client";
 import { Line } from "vue-chartjs";
 import {
@@ -21,7 +21,10 @@ const props = defineProps<{
   divesCollection: ApolloQueryResult<any>;
 }>();
 
-const depthChartData = useChartDepthTimeDataProvider(props.divesCollection);
+const depthChartData = useChartDepthDataProvider(
+  props.divesCollection,
+  "lines"
+);
 
 console.log(depthChartData);
 const chartData = {

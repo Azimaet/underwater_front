@@ -1,5 +1,5 @@
 <script lang="ts">
-export default { name: "StrateDepthTimeCharts" };
+export default { name: "StrateDepthCharts" };
 </script>
 
 <script setup lang="ts">
@@ -8,6 +8,7 @@ import { GraphqlActions } from "@/composables/types/graphql";
 import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
 import ChartDepthTimeLines from "@/components/molecules/ChartDepthTimeLines.vue";
+import ChartDepthPie from "@/components/molecules/ChartDepthPie.vue";
 
 const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
   GraphqlActions.DEPTH_TIME_BY_DIVES,
@@ -20,5 +21,12 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
 </script>
 
 <template>
-  <ChartDepthTimeLines :dives-collection="divesCollection" />
+  <v-row>
+    <v-col cols="5">
+      <ChartDepthPie :dives-collection="divesCollection" />
+    </v-col>
+    <v-col cols="7">
+      <ChartDepthTimeLines :dives-collection="divesCollection" />
+    </v-col>
+  </v-row>
 </template>
