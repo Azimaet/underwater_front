@@ -25,7 +25,7 @@ const h2Classes = ["mb-5"];
   <BaseTemplate>
     <template #main>
       <HomeParallax :title="title" :subtitle="subtitle" />
-      <v-container style="max-width: 960px" :class="containerClasses">
+      <v-container style="max-width: 1080px" :class="containerClasses">
         <section>
           <v-row :class="rowClasses">
             <v-col>

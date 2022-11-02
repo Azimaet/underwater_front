@@ -1,6 +1,9 @@
 import {
   QUERY_DEPTH_AND_TIME_BY_DIVES,
+  QUERY_DIVES_BY_DATES,
+  QUERY_FIRST_DIVE,
   QUERY_GASTANKS_BY_DIVES,
+  QUERY_LAST_DIVE,
 } from "@/graphql/queries/queryDives";
 
 import { ApolloQueryResult } from "@apollo/client";
@@ -77,8 +80,14 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
         ? QUERY_DIVING_ROLES
         : action === GraphqlActions.GAS_BY_DIVES
         ? QUERY_GASTANKS_BY_DIVES
+        : action === GraphqlActions.DIVES_BY_DATES
+        ? QUERY_DIVES_BY_DATES
         : action === GraphqlActions.DEPTH_TIME_BY_DIVES
         ? QUERY_DEPTH_AND_TIME_BY_DIVES
+        : action === GraphqlActions.FIRST_DIVE
+        ? QUERY_FIRST_DIVE
+        : action === GraphqlActions.LAST_DIVE
+        ? QUERY_LAST_DIVE
         : null;
 
     if (

@@ -11,7 +11,7 @@ import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { useMutation } from "@vue/apollo-composable";
 
 import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
-
+import router from "@/router";
 import { DiveInterface } from "@/composables/types/dive";
 import { DivingThemeInterface } from "@/composables/types/divingTheme";
 import { GasMix } from "@/composables/types/gas";
@@ -141,10 +141,8 @@ onError((error) => {
 });
 
 onDone(() => {
-  useAlertFactory(
-    "success",
-    "Your account settings have been updated. Please re-login!"
-  );
+  useAlertFactory("success", "New dive added!");
+  router.push({ name: "dive_form" });
 });
 
 watch(dive, async () => {

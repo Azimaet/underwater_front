@@ -1,12 +1,48 @@
 import gql from "graphql-tag";
 
+export const QUERY_FIRST_DIVE = gql`
+  query ($owner: String) {
+    dives(owner: $owner, order: { date: "DESC" }, last: 1) {
+      edges {
+        node {
+          date
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_LAST_DIVE = gql`
+  query ($owner: String) {
+    dives(owner: $owner, order: { date: "DESC" }, first: 1) {
+      edges {
+        node {
+          date
+        }
+      }
+    }
+  }
+`;
+
 export const QUERY_DIVES = gql`
-  query ($input: String) {
+  query ($owner: String) {
     dives(owner: $owner) {
       edges {
         node {
           id
           label
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_DIVES_BY_DATES = gql`
+  query ($owner: String) {
+    dives(owner: $owner) {
+      edges {
+        node {
+          date
         }
       }
     }

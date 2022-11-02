@@ -15,7 +15,6 @@ import {
   LinearScale,
   PointElement,
   CategoryScale,
-  Plugin,
 } from "chart.js";
 
 const props = defineProps<{
@@ -24,6 +23,7 @@ const props = defineProps<{
 
 const depthChartData = useChartDepthTimeDataProvider(props.divesCollection);
 
+console.log(depthChartData);
 const chartData = {
   labels: depthChartData?.chart.labels,
   datasets: depthChartData?.chart.datasets,
@@ -31,10 +31,10 @@ const chartData = {
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
-  interaction: {
-    mode: "index",
-    intersect: false,
-  },
+  // interaction: {
+  //   mode: "index",
+  //   intersect: false,
+  // },
   stacked: false,
   plugins: {
     tooltip: {
@@ -51,13 +51,15 @@ const chartOptions = {
       type: "linear",
       display: true,
       position: "right",
-
-      // grid line settings
-      grid: {
-        drawOnChartArea: false, // only want the grid lines for one axis to show up
-      },
     },
   },
+
+  //     // grid line settings
+  //     grid: {
+  //       drawOnChartArea: false, // only want the grid lines for one axis to show up
+  //     },
+  //   },
+  // },
 };
 
 ChartJS.register(

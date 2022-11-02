@@ -23,7 +23,11 @@ import { useAlertFactory } from "@/composables/alertFactory";
     </v-app-bar-title>
     <template v-slot:append>
       <div v-if="isLogged()" class="d-flex justify-center align-center">
-        <AvatarProfileChip />
+        <AvatarProfileChip
+          :avatar="store.state.user.data.avatar"
+          :badge="true"
+          :size="50"
+        />
         <div v-html="store.state.user.data.username" class="mx-5" />
         <ButtonComponent
           :label="'Logout'"

@@ -4,6 +4,8 @@ interface LineDataSet {
   label: string;
   id: string;
   backgroundColor: string[];
+  borderColor: string;
+  pointBackgroundColor: string;
   data: number[];
   yAxisID: string;
 }
@@ -66,14 +68,18 @@ export function useChartDepthTimeDataProvider(entry: ApolloQueryResult<any>) {
           {
             label: "Max depth. (in meters)",
             id: "maxDepth",
-            backgroundColor: [],
+            backgroundColor: ["#D62828"],
+            borderColor: "#D62828",
+            pointBackgroundColor: "#D62828",
             data: [],
             yAxisID: "y1",
           },
           {
             label: "Total time. (in minutes)",
             id: "totalTime",
-            backgroundColor: [],
+            backgroundColor: ["#003049"],
+            borderColor: "#003049",
+            pointBackgroundColor: "#003049",
             data: [],
             yAxisID: "y2",
           },
