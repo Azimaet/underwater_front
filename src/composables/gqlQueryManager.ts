@@ -4,6 +4,7 @@ import {
   QUERY_FIRST_DIVE,
   QUERY_GASTANKS_BY_DIVES,
   QUERY_LAST_DIVE,
+  THEMES_BY_DIVES,
 } from "@/graphql/queries/queryDives";
 
 import { ApolloQueryResult } from "@apollo/client";
@@ -88,6 +89,8 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
         ? QUERY_FIRST_DIVE
         : action === GraphqlActions.LAST_DIVE
         ? QUERY_LAST_DIVE
+        : action === GraphqlActions.THEMES_BY_DIVES
+        ? THEMES_BY_DIVES
         : null;
 
     if (

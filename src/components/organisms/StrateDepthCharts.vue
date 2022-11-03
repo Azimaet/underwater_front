@@ -22,10 +22,10 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
 
 <template>
   <v-row>
-    <v-col cols="5">
+    <v-col cols="4">
       <ChartDepthPie :dives-collection="divesCollection" />
     </v-col>
-    <v-col cols="7">
+    <v-col cols="8">
       <ChartDepthTimeLines :dives-collection="divesCollection" />
     </v-col>
   </v-row>

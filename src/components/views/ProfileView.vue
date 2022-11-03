@@ -4,6 +4,7 @@ import BaseTemplate from "@/components/templates/BaseTemplate.vue";
 // import StrateGasCharts from "@/components/organisms/StrateGasCharts.vue";
 import StrateDepthCharts from "@/components/organisms/StrateDepthCharts.vue";
 import CardResumeProfile from "../molecules/CardResumeProfile.vue";
+import StrateThemesCharts from "@/components/organisms/StrateThemesCharts.vue";
 
 export default defineComponent({
   name: "ProfileView",
@@ -34,6 +35,9 @@ const containerClasses = ["mt-15"];
             <StrateDepthCharts />
           </Suspense>
 
+          <Suspense>
+            <StrateThemesCharts />
+          </Suspense>
           <!-- <Suspense>
               <StrateGasCharts />
             </Suspense>

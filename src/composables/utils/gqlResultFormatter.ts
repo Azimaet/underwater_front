@@ -11,7 +11,8 @@ export function useGQLFormatter(entry: ApolloQueryResult<any>, key: string) {
    */
   function formateDivingThemeCollection(collection: any) {
     return (
-      collection.map((i: { label: any; id: any }) => ({
+      collection.map((i: { token: any; label: any; id: any }) => ({
+        token: i.token,
         label: i.label,
         id: i.id,
       })) ?? []

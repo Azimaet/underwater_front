@@ -7,6 +7,7 @@ export const QUERY_DIVING_ENVIRONMENTS = gql`
         node {
           id
           label
+          token
         }
       }
     }

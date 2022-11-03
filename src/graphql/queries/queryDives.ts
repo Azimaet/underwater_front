@@ -75,3 +75,27 @@ export const QUERY_DEPTH_AND_TIME_BY_DIVES = gql`
     }
   }
 `;
+
+export const THEMES_BY_DIVES = gql`
+  query ($owner: String) {
+    dives(owner: $owner, order: { date: "ASC" }) {
+      edges {
+        node {
+          divingType {
+            edges {
+              node {
+                token
+              }
+            }
+          }
+          divingEnvironment {
+            token
+          }
+          divingRole {
+            token
+          }
+        }
+      }
+    }
+  }
+`;

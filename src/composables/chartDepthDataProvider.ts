@@ -142,5 +142,7 @@ export function useChartDepthDataProvider(
 
   _init();
 
+  console.log("Depth Pie");
+  console.log(state.data);
   return state.data;
 }
