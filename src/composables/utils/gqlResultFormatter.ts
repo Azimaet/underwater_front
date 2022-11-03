@@ -1,11 +1,22 @@
 import { ApolloQueryResult } from "@apollo/client";
 
+export interface FormatedThemeQueryResult {
+  [x: string]: any;
+  id: string;
+  label: string;
+  token: string;
+}
+
 /**
  * GQL Query result Formatting Utilitary function
  * @param {ApolloQueryResult<any>} entry ApolloQueryResult<any>
  * @param {string} key string
+ * @return {FormatedThemeQueryResult}
  */
-export function useGQLFormatter(entry: ApolloQueryResult<any>, key: string) {
+export function useGQLFormatter(
+  entry: ApolloQueryResult<any>,
+  key: string
+): FormatedThemeQueryResult {
   /**
    * Diving Theme Collection Formatter
    */
@@ -24,11 +35,6 @@ export function useGQLFormatter(entry: ApolloQueryResult<any>, key: string) {
    */
   function formateDiveCollection(collection: any) {
     const items: any[] = [];
-
-    const gasTanks: [] =
-      collection.map((i: { gasTanks: any }) => ({
-        gasTanks: i.gasTanks,
-      })) ?? [];
 
     collection.forEach((element: any) => {
       const gasTanks = element.gasTanks;

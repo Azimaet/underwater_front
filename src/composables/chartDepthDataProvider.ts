@@ -1,4 +1,5 @@
 import { ApolloQueryResult } from "@apollo/client";
+import { GraphColors } from "./types/graphColors";
 
 interface DataSet {
   label?: string;
@@ -110,12 +111,12 @@ export function useChartDepthDataProvider(
       state.data.chart.datasets = [
         {
           backgroundColor: [
-            "#ade8f4",
-            "#00b4d8",
-            "#0e6ba8",
-            "#0a2472",
-            "#03045e",
-            "#00072d",
+            GraphColors.DEPTH_UPPER_20,
+            GraphColors.DEPTH_UPPER_30,
+            GraphColors.DEPTH_UPPER_40,
+            GraphColors.DEPTH_UPPER_50,
+            GraphColors.DEPTH_UPPER_60,
+            GraphColors.DEPTH_UNDER_60,
           ],
           data: [],
         },
@@ -142,7 +143,5 @@ export function useChartDepthDataProvider(
 
   _init();
 
-  console.log("Depth Pie");
-  console.log(state.data);
   return state.data;
 }

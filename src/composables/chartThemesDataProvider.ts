@@ -1,15 +1,17 @@
 import { ApolloQueryResult } from "@apollo/client";
+import { FormatedThemeQueryResult } from "./utils/gqlResultFormatter";
+import { GraphColors } from "./types/graphColors";
 
 /**
  * GraphQL Requests Factory
  * @param {ApolloQueryResult} entry ApolloQueryResult
- * @param {any} query any
- * @param {string} context string
+ * @param {FormatedThemeQueryResult} query FormatedThemeQueryResult
+ * @param {string} propName string
  */
 export function useThemesDataProvider(
   entry: ApolloQueryResult<any>,
-  query: any,
-  context: string
+  query: FormatedThemeQueryResult,
+  propName: string
 ) {
   function getLabels(data: object) {
     const labels: string[] = [];
@@ -23,8 +25,15 @@ export function useThemesDataProvider(
     return labels;
   }
 
-  function getColors() {
-    return ["#3FA796", "#FEC260", "#A10035", "#2A0944", "#9A1663", "#1D1CE5"];
+  function getColors(data: object) {
+    const values: string[] = [];
+
+    Object.keys(data).forEach((key) => {
+      const colorKey = "THEME_" + key.toUpperCase();
+      values.push(GraphColors[colorKey as keyof typeof GraphColors]);
+    });
+
+    return values;
   }
 
   function getDatas(data: object) {
@@ -44,7 +53,15 @@ export function useThemesDataProvider(
     entry[key as keyof typeof entry].edges
       .map((item: { node: unknown }) => item.node)
       .forEach((dive: any) => {
-        tokens.push(dive[context as keyof typeof dive].token);
+        if (dive[propName as keyof typeof dive].token) {
+          tokens.push(dive[propName as keyof typeof dive].token);
+        } else {
+          dive[propName as keyof typeof dive].edges
+            .map((item: { node: unknown }) => item.node)
+            .forEach((object: any) => {
+              tokens.push(object.token);
+            });
+        }
       });
 
     tokens.forEach((token: string) => {
@@ -64,7 +81,7 @@ export function useThemesDataProvider(
       labels: getLabels(data),
       datasets: [
         {
-          backgroundColor: getColors(),
+          backgroundColor: getColors(data),
           data: getDatas(data),
         },
       ],

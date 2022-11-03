@@ -16,11 +16,23 @@ const divingEnvironmentsItems = await useGqlQueryManager(
   return useGQLFormatter(result, "divingEnvironments");
 });
 
+console.log(divingEnvironmentsItems);
+
 const divingRolesItems = await useGqlQueryManager(
   GraphqlActions.DIVING_ROLES
 ).then((result) => {
   return useGQLFormatter(result, "divingRoles");
 });
+
+console.log(divingRolesItems);
+
+const divingTypesItems = await useGqlQueryManager(
+  GraphqlActions.DIVING_TYPES
+).then((result) => {
+  return useGQLFormatter(result, "divingTypes");
+});
+
+console.log(divingTypesItems);
 
 const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
   GraphqlActions.THEMES_BY_DIVES,
@@ -46,6 +58,13 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
         :dives-collection="divesCollection"
         :query="divingRolesItems"
         :context="'divingRole'"
+      />
+    </v-col>
+    <v-col cols="4">
+      <ChartThemePie
+        :dives-collection="divesCollection"
+        :query="divingTypesItems"
+        :context="'divingType'"
       />
     </v-col>
   </v-row>

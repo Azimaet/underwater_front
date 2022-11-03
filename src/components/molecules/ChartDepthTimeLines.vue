@@ -26,7 +26,6 @@ const depthChartData = useChartDepthDataProvider(
   "lines"
 );
 
-console.log(depthChartData);
 const chartData = {
   labels: depthChartData?.chart.labels,
   datasets: depthChartData?.chart.datasets,

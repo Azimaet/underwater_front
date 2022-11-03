@@ -14,10 +14,11 @@ import {
   ArcElement,
   CategoryScale,
 } from "chart.js";
+import { FormatedThemeQueryResult } from "@/composables/utils/gqlResultFormatter";
 
 const props = defineProps<{
   divesCollection: ApolloQueryResult<any>;
-  query: any;
+  query: FormatedThemeQueryResult;
   context: string;
 }>();
 
