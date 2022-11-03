@@ -17,7 +17,7 @@ const containerClasses = ["mt-15"];
 <template>
   <BaseTemplate>
     <template #main>
-      <v-container style="max-width: 1080px" :class="containerClasses">
+      <v-container style="max-width: 1280px" :class="containerClasses">
         <v-card width="100%" :class="['px-15']" :color="'grey900'" rounded>
           <v-row>
             <v-col cols="4">

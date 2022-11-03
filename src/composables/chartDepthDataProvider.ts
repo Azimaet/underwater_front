@@ -110,12 +110,12 @@ export function useChartDepthDataProvider(
       state.data.chart.datasets = [
         {
           backgroundColor: [
-            "#00a6fb",
-            "#00a6fb",
-            "#0582ca",
-            "#006494",
-            "#003554",
-            "#051923",
+            "#ade8f4",
+            "#00b4d8",
+            "#0e6ba8",
+            "#0a2472",
+            "#03045e",
+            "#00072d",
           ],
           data: [],
         },

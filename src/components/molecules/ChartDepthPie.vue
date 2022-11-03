@@ -34,8 +34,24 @@ const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
+    legend: {
+      position: "left" as const,
+    },
     tooltip: {
       enabled: true,
+      bodyFont: {
+        family: "Helvetica",
+      },
+      callbacks: {
+        title: (data: any) => {
+          return data[0].label + " zone:";
+        },
+        label: (data: any) => {
+          const unit =
+            data.dataset.data[data.dataIndex] > 1 ? " dives." : " dive.";
+          return data.dataset.data[data.dataIndex] + unit;
+        },
+      },
     },
   },
 };
@@ -48,7 +64,5 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
     :chart-options="chartOptions"
     :chart-data="chartData"
     :chart-id="'pie-chart'"
-    :width="400"
-    :height="400"
   />
 </template>

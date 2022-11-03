@@ -81,7 +81,5 @@ ChartJS.register(
     :chart-options="chartOptions"
     :chart-data="chartData"
     :chart-id="'line-chart'"
-    :width="400"
-    :height="400"
   />
 </template>
