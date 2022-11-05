@@ -1,7 +1,5 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import BaseTemplate from "@/components/templates/BaseTemplate.vue";
-import HomeParallax from "@/components/molecules/HomeParallax.vue";
 
 export default defineComponent({
   name: "HomeView",

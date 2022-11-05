@@ -7,7 +7,6 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import AvatarProfileChip from "./AvatarProfileChip.vue";
 import store from "@/store";
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { GraphqlActions } from "@/composables/types/graphql";

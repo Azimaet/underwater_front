@@ -3,9 +3,8 @@ export default { name: "HomeParallax" };
 </script>
 
 <script setup lang="ts">
-import FormUserModal from "../organisms/FormUserModal.vue";
 import { FormActions } from "@/composables/types/form";
-import { isLogged } from "../../composables/auth";
+import { isLogged } from "@/composables/auth";
 
 const props = defineProps<{
   title: string;

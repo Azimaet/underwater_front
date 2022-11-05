@@ -1,8 +1,5 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import BaseTemplate from "@/components/templates/BaseTemplate.vue";
-import FormSettingsEdit from "@/components/organisms/FormSettingsEdit.vue";
-import FormSettingsDelete from "@/components/organisms/FormSettingsDelete.vue";
 
 export default defineComponent({
   name: "SettingsView",

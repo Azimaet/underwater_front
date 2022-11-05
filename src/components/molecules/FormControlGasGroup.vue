@@ -3,8 +3,6 @@ export default { name: "FormControlGasGroup" };
 </script>
 
 <script setup lang="ts">
-import FormControlNumber from "@/components/molecules/FormControlNumber.vue";
-import FormControlGasPanel from "@/components/molecules/FormControlGasPanel.vue";
 import { translations } from "@/i18n/index";
 import { GasTank } from "@/composables/types/gas";
 import { GasMix } from "../../composables/types/gas";

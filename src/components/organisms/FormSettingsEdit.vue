@@ -3,7 +3,6 @@ export default { name: "FormSettingsEdit" };
 </script>
 
 <script setup lang="ts">
-import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { ref, reactive } from "vue";
 import { Form, FormActions } from "@/composables/types/form";
 import { useFormFactory } from "@/composables/formFactory";

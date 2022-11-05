@@ -4,9 +4,8 @@ export default { name: "MenuBurger" };
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { isLogged, useAuthLogout } from "@/composables/auth";
+import { isLogged } from "@/composables/auth";
 import store from "@/store";
-import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 
 const menu = ref(false);
 </script>

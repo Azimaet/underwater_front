@@ -4,12 +4,10 @@ export default { name: "FormUserModal" };
 
 <script setup lang="ts">
 import { ref } from "vue";
-import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { reactive } from "vue";
 import { FormActions, FormUserCredentials } from "@/composables/types/form";
 import { useAuthLogin } from "@/composables/auth";
 import { useFormFactory } from "@/composables/formFactory";
-import FormControlText from "@/components/molecules/FormControlText.vue";
 import { MUTATION_CREATE_USER } from "@/graphql/mutations/createUser";
 import { useMutation } from "@vue/apollo-composable";
 import router from "@/router";

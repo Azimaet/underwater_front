@@ -6,7 +6,7 @@ export default { name: "FormControlSelect" };
 import { ref } from "vue";
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { GraphqlActions } from "@/composables/types/graphql";
-import { useGQLFormatter } from "../../composables/utils/gqlResultFormatter";
+import { useGQLFormatter } from "@/composables/utils/gqlResultFormatter";
 import { DivingThemeInterface } from "@/composables/types/divingTheme";
 
 const props = defineProps<{

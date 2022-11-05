@@ -1,10 +1,5 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import BaseTemplate from "@/components/templates/BaseTemplate.vue";
-// import StrateGasCharts from "@/components/organisms/StrateGasCharts.vue";
-import StrateDepthCharts from "@/components/organisms/StrateDepthCharts.vue";
-import CardResumeProfile from "../molecules/CardResumeProfile.vue";
-import StrateThemesCharts from "@/components/organisms/StrateThemesCharts.vue";
 
 export default defineComponent({
   name: "ProfileView",

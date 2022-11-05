@@ -3,15 +3,10 @@ export default { name: "HeaderBar" };
 </script>
 
 <script setup lang="ts">
-import MenuBurger from "@/components/organisms/MenuBurger.vue";
 import { isLogged, useAuthLogout } from "@/composables/auth";
 import store from "@/store";
-import AvatarProfileChip from "@/components/molecules/AvatarProfileChip.vue";
-import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { FormActions } from "@/composables/types/form";
-import FormUserModal from "./FormUserModal.vue";
 import { useAlertFactory } from "@/composables/alertFactory";
-import LogoType from "@/components/atoms/LogoType.vue";
 import { onMounted, ref } from "vue";
 
 const scrollPosition = ref(0);

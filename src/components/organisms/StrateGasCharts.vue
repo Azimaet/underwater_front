@@ -7,7 +7,6 @@ import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { GraphqlActions } from "@/composables/types/graphql";
 import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
-import ChartGasPie from "@/components/molecules/ChartGasPie.vue";
 
 const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
   GraphqlActions.GAS_BY_DIVES,

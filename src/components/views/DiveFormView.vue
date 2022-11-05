@@ -1,7 +1,5 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import BaseTemplate from "@/components/templates/BaseTemplate.vue";
-import FormDiveCreate from "@/components/organisms/FormDiveCreate.vue";
 
 export default defineComponent({
   name: "DiveFormView",

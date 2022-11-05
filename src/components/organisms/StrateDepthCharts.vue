@@ -7,8 +7,6 @@ import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { GraphqlActions } from "@/composables/types/graphql";
 import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
-import ChartDepthTimeLines from "@/components/molecules/ChartDepthTimeLines.vue";
-import ChartDepthPie from "@/components/molecules/ChartDepthPie.vue";
 
 const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
   GraphqlActions.DEPTH_TIME_BY_DIVES,

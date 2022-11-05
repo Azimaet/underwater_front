@@ -7,9 +7,7 @@ import { ref, reactive, watch } from "vue";
 import { useFormFactory } from "@/composables/formFactory";
 import { FormActions } from "@/composables/types/form";
 import { defineAsyncComponent } from "vue";
-import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { useMutation } from "@vue/apollo-composable";
-
 import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
 import router from "@/router";
 import { DiveInterface } from "@/composables/types/dive";

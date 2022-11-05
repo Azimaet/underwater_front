@@ -7,7 +7,6 @@ import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { GraphqlActions } from "@/composables/types/graphql";
 import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
-import ChartThemePie from "@/components/molecules/ChartThemePie.vue";
 import { useGQLFormatter } from "@/composables/utils/gqlResultFormatter";
 
 const divingEnvironmentsItems = await useGqlQueryManager(

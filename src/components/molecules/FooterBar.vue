@@ -3,8 +3,6 @@ export default { name: "FooterBar" };
 </script>
 
 <script setup lang="ts">
-import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
-
 const githubIcon = {
   name: "mdi-github",
   placement: "prepend",
