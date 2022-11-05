@@ -13,7 +13,7 @@ const props = defineProps<{
 }>();
 
 const blockClasses = [
-  "gradient_black",
+  "blurred_gradient",
   "d-flex",
   "flex-column",
   "fill-height",
@@ -33,20 +33,26 @@ const navClasses = ["mt-15 d-flex"];
     height="650"
     :style="{ top: '-64px' }"
   >
-    <div
-      :class="blockClasses"
-      :style="{
-        background:
-          'linear-gradient( 0deg, rgba(0, 10, 25, 1) 0%, rgba(0, 10, 25, 0) 100%)',
-      }"
-    >
-      <h1 :class="titleClasses">{{ props.title }}</h1>
-      <h4 :class="subtitleClasses">{{ props.subtitle }}</h4>
+    <div :class="blockClasses">
+      <div :class="'text-center'" :style="{ maxWidth: '1280px' }">
+        <h1 :class="titleClasses">{{ props.title }}</h1>
+        <h4 :class="subtitleClasses">{{ props.subtitle }}</h4>
 
-      <nav :class="navClasses">
-        <FormUserModal v-if="!isLogged()" :action="FormActions.REGISTER" />
-        <FormUserModal v-if="!isLogged()" :action="FormActions.LOGIN" />
-      </nav>
+        <nav :class="navClasses">
+          <FormUserModal v-if="!isLogged()" :action="FormActions.REGISTER" />
+          <FormUserModal v-if="!isLogged()" :action="FormActions.LOGIN" />
+        </nav>
+      </div>
     </div>
   </v-parallax>
 </template>
+
+<style lang="scss">
+.blurred_gradient {
+  background: linear-gradient(
+    0deg,
+    rgba(0, 10, 25, 1) 0%,
+    rgba(0, 10, 25, 0) 100%
+  );
+}
+</style>
