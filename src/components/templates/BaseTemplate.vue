@@ -18,5 +18,6 @@ export default { name: "BaseTemplate" };
       <slot name="main"> </slot>
     </v-main>
     <FooterBar />
+    <MenuDrawer />
   </div>
 </template>

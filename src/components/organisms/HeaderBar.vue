@@ -8,6 +8,8 @@ import store from "@/store";
 import { FormActions } from "@/composables/types/form";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { onMounted, ref } from "vue";
+import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
+import { menu } from "@/store/menu";
 
 const scrollPosition = ref(0);
 
@@ -39,7 +41,11 @@ onMounted(() => {
       :class="['text-center', 'px-4', 'mx-auto']"
     >
       <template v-slot:prepend>
-        <MenuBurger />
+        <ButtonComponent
+          :variant="'plain'"
+          :icon="{ name: 'mdi-menu', placement: 'primary', size: 'x-large' }"
+          @click="menu.toggleAction()"
+        />
       </template>
       <v-app-bar-title>
         <LogoType />

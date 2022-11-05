@@ -10,6 +10,7 @@ const props = defineProps<{
   color?: string;
   disabled?: boolean;
   loading?: boolean;
+  density?: "default" | "comfortable" | "compact" | undefined;
   variant?:
     | "flat"
     | "text"
@@ -22,8 +23,9 @@ const props = defineProps<{
   block?: boolean;
   href?: string;
   icon?: {
-    name: string;
-    placement: string;
+    name?: string;
+    placement?: string;
+    size?: string;
   };
 }>();
 
@@ -48,11 +50,11 @@ const spanClasses = ["font-weight-bold", "text-button"];
     :loading="loading"
     :disabled="disabled"
     rounded="true"
-    density="comfortable"
+    :density="props.density"
     max-width="100%"
   >
     <span :class="spanClasses">
-      <v-icon v-if="icon && icon.placement === 'primary'">
+      <v-icon v-if="icon && icon.placement === 'primary'" :size="icon.size">
         {{ icon.name }}
       </v-icon>
       {{ props.label }}
