@@ -2,7 +2,6 @@
 import { defineComponent } from "vue";
 import BaseTemplate from "@/components/templates/BaseTemplate.vue";
 import HomeParallax from "@/components/molecules/HomeParallax.vue";
-import { useRoute } from "vue-router";
 
 export default defineComponent({
   name: "HomeView",
@@ -10,8 +9,6 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-const route = useRoute();
-
 const title = "Welcome to Underwwwater";
 const subtitle =
   "Underwwwater is a community dive log. Quickly reference your dives to get your global performances underwater as datas and charts.";
@@ -25,7 +22,7 @@ const h2Classes = ["mb-5"];
   <BaseTemplate>
     <template #main>
       <HomeParallax :title="title" :subtitle="subtitle" />
-      <v-container style="max-width: 1080px" :class="containerClasses">
+      <v-container style="max-width: 1280px" :class="containerClasses">
         <section>
           <v-row :class="rowClasses">
             <v-col>

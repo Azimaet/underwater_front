@@ -9,7 +9,11 @@ $color-grey-300: #e0e0e0;
 $color-grey-200: #eeeeee;
 $color-grey-100: #f5f5f5;
 
+$color-logo-green: #49B4A9;
+$color-background: #000A19;
+
 .color-black { color: black !important; }
+.color-logo-green { color: $color-logo-green !important; }
 .color-grey-dark5 { color: $color-grey-999 !important; }
 .color-grey-dark4 { color: $color-grey-900 !important; }
 .color-grey-dark3 { color: $color-grey-800 !important; }
@@ -31,3 +35,8 @@ $color-grey-100: #f5f5f5;
 .bg-grey-light2 { background-color: $color-grey-300 !important; }
 .bg-grey-light3 { background-color: $color-grey-200 !important; }
 .bg-grey-light4 { background-color: $color-grey-100 !important; }
+.bg-background { background-color: $color-background !important; }
+
+.bg-transition {
+    transition: background-color 0.25s;
+}

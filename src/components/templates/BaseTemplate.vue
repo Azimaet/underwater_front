@@ -1,4 +1,3 @@
-import HeaderBar from '@/components/organisms/HeaderBar.vue';
 <script lang="ts">
 export default { name: "BaseTemplate" };
 </script>
@@ -27,5 +26,3 @@ import AlertsBucket from "@/components/organisms/AlertsBucket.vue";
     <FooterBar />
   </div>
 </template>
-
-<style lang="scss" scoped></style>

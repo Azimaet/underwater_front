@@ -28,11 +28,18 @@ const navClasses = ["mt-15 d-flex"];
 
 <template>
   <v-parallax
-    :src="require('@/assets/bg_homepage.jpg')"
-    :scale="0.9"
-    height="500"
+    :src="require('@/assets/bg.jpg')"
+    :scale="0.8"
+    height="650"
+    :style="{ top: '-64px' }"
   >
-    <div :class="blockClasses">
+    <div
+      :class="blockClasses"
+      :style="{
+        background:
+          'linear-gradient( 0deg, rgba(0, 10, 25, 1) 0%, rgba(0, 10, 25, 0) 100%)',
+      }"
+    >
       <h1 :class="titleClasses">{{ props.title }}</h1>
       <h4 :class="subtitleClasses">{{ props.subtitle }}</h4>
 
@@ -43,14 +50,3 @@ const navClasses = ["mt-15 d-flex"];
     </div>
   </v-parallax>
 </template>
-
-<style lang="scss" scoped>
-.gradient_black {
-  background: rgb(0, 0, 0);
-  background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-</style>

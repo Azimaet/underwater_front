@@ -27,4 +27,22 @@ export default defineComponent({
 
 <style lang="scss">
 @import "@/scss/_index.scss";
+
+@font-face {
+  font-family: "Barlow-Condensed";
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  src: local("Barlow-Condensed"),
+    url(@/fonts/Barlow-Condensed/Barlow-Condensed-Regular.ttf)
+      format("truetype");
+}
+@font-face {
+  font-family: "Barlow-Condensed";
+  font-weight: 700;
+  font-style: bold;
+  font-display: auto;
+  src: local("Barlow-Condensed"),
+    url(@/fonts/Barlow-Condensed/Barlow-Condensed-Bold.ttf) format("truetype");
+}
 </style>
