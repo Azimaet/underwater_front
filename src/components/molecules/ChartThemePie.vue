@@ -42,7 +42,8 @@ const chartOptions = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
-      position: "left" as const,
+      position: "bottom" as const,
+      align: "start" as const,
     },
     tooltip: {
       enabled: true,
@@ -71,5 +72,6 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
     :chart-options="chartOptions"
     :chart-data="chartData"
     :chart-id="'pie-chart'"
+    id="chart"
   />
 </template>

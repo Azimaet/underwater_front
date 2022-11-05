@@ -10,10 +10,22 @@ import AlertsBucket from "@/components/organisms/AlertsBucket.vue";
 </script>
 
 <template>
-  <HeaderBar />
-  <AlertsBucket />
-  <v-main>
-    <slot name="main"> </slot>
-  </v-main>
-  <FooterBar />
+  <div
+    id="template"
+    :style="{
+      'background-image':
+        'url(' + require(`@/assets/background-animate.svg`) + ')',
+      'background-size': 'cover',
+      'background-position': 'top',
+    }"
+  >
+    <HeaderBar />
+    <AlertsBucket />
+    <v-main>
+      <slot name="main"> </slot>
+    </v-main>
+    <FooterBar />
+  </div>
 </template>
+
+<style lang="scss" scoped></style>
