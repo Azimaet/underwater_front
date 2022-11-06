@@ -36,21 +36,24 @@ const containerClasses = ["mt-15"];
 
           <v-container fluid>
             <Suspense>
-              <StrateDateLocation
+              <StrateCalendar
                 :title="'Dates'"
                 :subtitle="'Here is the calendar of your recent dives, and more data.'"
+                :icon="'mdi-calendar'"
               />
             </Suspense>
             <Suspense>
               <StrateDepthCharts
                 :title="'Depths'"
                 :subtitle="'Data of yours dives depth.'"
+                :icon="'mdi-chart-bell-curve-cumulative'"
               />
             </Suspense>
             <Suspense>
               <StrateThemesCharts
                 :title="'Themes'"
                 :subtitle="'Data of the types of dives you made.'"
+                :icon="'mdi-shape'"
               />
             </Suspense>
           </v-container>

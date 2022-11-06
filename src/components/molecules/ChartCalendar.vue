@@ -7,18 +7,14 @@ const props = defineProps<{
   divesCollection: ApolloQueryResult<any>;
 }>();
 
-console.log(props.divesCollection);
-
 const datesChartData = useChartCalendatDataProvider(props.divesCollection);
-
-console.log(datesChartData);
 const endDate = new Date();
 </script>
 
 <template>
   <calendar-heatmap
     :values="datesChartData"
-    :range-color="['#000000', '#9be9a8', '#40c463', '#30a14e', '#216e39']"
+    :range-color="['#001A1A', '#002222', '#296262', '#99B8B8', '#FFFFFF']"
     :end-date="endDate"
     :round="5"
     :max="4"

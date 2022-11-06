@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     ChartDepthPie: typeof import('./src/components/molecules/ChartDepthPie.vue')['default']
     ChartDepthTimeLines: typeof import('./src/components/molecules/ChartDepthTimeLines.vue')['default']
     ChartGasPie: typeof import('./src/components/molecules/ChartGasPie.vue')['default']
+    ChartPanel: typeof import('./src/components/molecules/ChartPanel.vue')['default']
     ChartThemePie: typeof import('./src/components/molecules/ChartThemePie.vue')['default']
     CreditsImages: typeof import('./src/components/atoms/CreditsImages.vue')['default']
     DiveFormView: typeof import('./src/components/views/DiveFormView.vue')['default']

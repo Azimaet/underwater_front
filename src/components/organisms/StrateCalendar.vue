@@ -18,10 +18,12 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
   <StrateTemplate>
     <template #strate>
       <v-row>
-        <v-col cols="8">
+        <v-col cols="9">
           <ChartCalendar :dives-collection="divesCollection" />
         </v-col>
-        <v-col cols="4"> </v-col>
+        <v-col cols="3">
+          <ChartPanel :dives-collection="divesCollection" />
+        </v-col>
       </v-row>
     </template>
   </StrateTemplate>
