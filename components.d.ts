@@ -44,9 +44,10 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SettingsView: typeof import('./src/components/views/SettingsView.vue')['default']
-    StrateDateLocation: typeof import('./src/components/organisms/StrateDateLocation.vue')['default']
+    StrateCalendar: typeof import('./src/components/organisms/StrateCalendar.vue')['default']
     StrateDepthCharts: typeof import('./src/components/organisms/StrateDepthCharts.vue')['default']
     StrateGasCharts: typeof import('./src/components/organisms/StrateGasCharts.vue')['default']
+    StrateTemplate: typeof import('./src/components/templates/StrateTemplate.vue')['default']
     StrateThemesCharts: typeof import('./src/components/organisms/StrateThemesCharts.vue')['default']
   }
 }

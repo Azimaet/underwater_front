@@ -1,5 +1,5 @@
 <script lang="ts">
-export default { name: "StrateDateLocation" };
+export default { name: "StrateCalendar" };
 </script>
 
 <script setup lang="ts">
@@ -19,10 +19,14 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
 </script>
 
 <template>
-  <v-row>
-    <v-col cols="8">
-      <ChartCalendar :dives-collection="divesCollection" />
-    </v-col>
-    <v-col cols="4"> </v-col>
-  </v-row>
+  <StrateTemplate>
+    <template #strate>
+      <v-row>
+        <v-col cols="8">
+          <ChartCalendar :dives-collection="divesCollection" />
+        </v-col>
+        <v-col cols="4"> </v-col>
+      </v-row>
+    </template>
+  </StrateTemplate>
 </template>

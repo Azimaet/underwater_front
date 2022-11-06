@@ -38,27 +38,31 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
 </script>
 
 <template>
-  <v-row>
-    <v-col cols="3">
-      <ChartThemePie
-        :dives-collection="divesCollection"
-        :query="divingEnvironmentsItems"
-        :context="'divingEnvironment'"
-      />
-    </v-col>
-    <v-col cols="3">
-      <ChartThemePie
-        :dives-collection="divesCollection"
-        :query="divingRolesItems"
-        :context="'divingRole'"
-      />
-    </v-col>
-    <v-col cols="6">
-      <ChartThemePie
-        :dives-collection="divesCollection"
-        :query="divingTypesItems"
-        :context="'divingType'"
-      />
-    </v-col>
-  </v-row>
+  <StrateTemplate>
+    <template #strate>
+      <v-row>
+        <v-col cols="3">
+          <ChartThemePie
+            :dives-collection="divesCollection"
+            :query="divingEnvironmentsItems"
+            :context="'divingEnvironment'"
+          />
+        </v-col>
+        <v-col cols="3">
+          <ChartThemePie
+            :dives-collection="divesCollection"
+            :query="divingRolesItems"
+            :context="'divingRole'"
+          />
+        </v-col>
+        <v-col cols="6">
+          <ChartThemePie
+            :dives-collection="divesCollection"
+            :query="divingTypesItems"
+            :context="'divingType'"
+          />
+        </v-col>
+      </v-row>
+    </template>
+  </StrateTemplate>
 </template>

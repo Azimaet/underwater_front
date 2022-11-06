@@ -60,14 +60,6 @@ import store from "@/store";
         link
         @click="$router.push('settings')"
       ></v-list-item>
-      <!-- <v-list-item
-        v-if="isLogged()"
-        prepend-icon="mdi-account"
-        title="Account"
-        value="account"
-        link
-        @click="$router.push('account')"
-      ></v-list-item> -->
     </v-list>
   </v-navigation-drawer>
 </template>
