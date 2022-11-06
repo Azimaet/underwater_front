@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "BaseTemplate" };
-</script>
-
 <template>
   <div
     id="template"

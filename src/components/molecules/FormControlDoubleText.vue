@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "FormControlDoubleText" };
-</script>
-
 <script setup lang="ts">
 import { ref } from "vue";
 

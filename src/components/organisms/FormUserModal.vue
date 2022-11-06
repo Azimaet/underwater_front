@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "FormUserModal" };
-</script>
-
 <script setup lang="ts">
 import { ref } from "vue";
 import { reactive } from "vue";

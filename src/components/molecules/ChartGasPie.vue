@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "ChartGasPie" };
-</script>
-
 <script setup lang="ts">
 import { useChartGasDataProvider } from "@/composables/chartGasDataProvider";
 import { ApolloQueryResult } from "@apollo/client";

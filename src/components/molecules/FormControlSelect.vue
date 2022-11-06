@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "FormControlSelect" };
-</script>
-
 <script setup lang="ts">
 import { ref } from "vue";
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";

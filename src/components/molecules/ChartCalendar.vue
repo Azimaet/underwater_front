@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "ChartCalendar" };
-</script>
-
 <script setup lang="ts">
 import { ApolloQueryResult } from "@apollo/client";
 import { CalendarHeatmap } from "vue3-calendar-heatmap";

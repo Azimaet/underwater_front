@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "FormSettingsDelete" };
-</script>
-
 <script setup lang="ts">
 import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { ref } from "vue";

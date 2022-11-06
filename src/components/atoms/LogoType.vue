@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "LogoType" };
-</script>
-
 <template>
   <router-link to="/" :class="['subheading', 'mx-3']">
     <div :class="['font-barlow', 'text-h5']">

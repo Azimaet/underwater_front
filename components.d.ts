@@ -11,8 +11,6 @@ declare module '@vue/runtime-core' {
     AvatarProfileChip: typeof import('./src/components/molecules/AvatarProfileChip.vue')['default']
     BaseTemplate: typeof import('./src/components/templates/BaseTemplate.vue')['default']
     ButtonComponent: typeof import('./src/components/atoms/ButtonComponent.vue')['default']
-    ButtonElement: typeof import('./src/components/atoms/ButtonElement.vue')['default']
-    CardResumeProfile: typeof import('./src/components/molecules/CardResumeProfile.vue')['default']
     ChartCalendar: typeof import('./src/components/molecules/ChartCalendar.vue')['default']
     ChartDepthPie: typeof import('./src/components/molecules/ChartDepthPie.vue')['default']
     ChartDepthTimeLines: typeof import('./src/components/molecules/ChartDepthTimeLines.vue')['default']

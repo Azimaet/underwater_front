@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "FormControlGasGroup" };
-</script>
-
 <script setup lang="ts">
 import { translations } from "@/i18n/index";
 import { GasTank } from "@/composables/types/gas";

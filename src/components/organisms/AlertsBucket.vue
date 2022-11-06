@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "AlertsBucket" };
-</script>
-
 <script setup lang="ts">
 import store from "@/store";
 

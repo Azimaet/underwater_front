@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "AvatarProfileChip" };
-</script>
-
 <script setup lang="ts">
 const props = defineProps<{
   avatar: string | null;

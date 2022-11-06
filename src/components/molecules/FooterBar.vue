@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "FooterBar" };
-</script>
-
 <script setup lang="ts">
 const githubIcon = {
   name: "mdi-github",

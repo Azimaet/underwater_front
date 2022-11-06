@@ -1,13 +1,3 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-import StrateDateLocation from "../organisms/StrateCalendar.vue";
-
-export default defineComponent({
-  name: "ProfileView",
-  components: { StrateDateLocation },
-});
-</script>
-
 <script setup lang="ts">
 import store from "@/store";
 const containerClasses = ["mt-15"];

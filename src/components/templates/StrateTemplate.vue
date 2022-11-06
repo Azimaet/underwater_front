@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "StrateTemplate" };
-</script>
-
 <script setup lang="ts">
 const props = defineProps<{
   title?: string;

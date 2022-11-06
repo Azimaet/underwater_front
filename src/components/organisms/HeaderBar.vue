@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "HeaderBar" };
-</script>
-
 <script setup lang="ts">
 import { isLogged, useAuthLogout } from "@/composables/auth";
 import store from "@/store";

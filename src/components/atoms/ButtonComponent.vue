@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "ButtonComponent" };
-</script>
-
 <script setup lang="ts">
 const props = defineProps<{
   label?: string;

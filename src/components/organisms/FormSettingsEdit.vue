@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "FormSettingsEdit" };
-</script>
-
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { Form, FormActions } from "@/composables/types/form";

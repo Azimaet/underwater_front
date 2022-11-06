@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "FormControlComboBox" };
-</script>
-
 <script setup lang="ts">
 import { ref } from "vue";
 import { GraphqlActions } from "@/composables/types/graphql";

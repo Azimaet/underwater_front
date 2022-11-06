@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "MenuDrawer" };
-</script>
-
 <script setup lang="ts">
 import { menu } from "@/store/menu";
 import { isLogged } from "@/composables/auth";

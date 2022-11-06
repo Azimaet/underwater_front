@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "FormDiveCreate" };
-</script>
-
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 import { useFormFactory } from "@/composables/formFactory";

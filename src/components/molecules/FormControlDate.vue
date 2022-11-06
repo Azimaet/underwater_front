@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "FormControlDate" };
-</script>
-
 <script setup lang="ts">
 import { reactive } from "vue";
 

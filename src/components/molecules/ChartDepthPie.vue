@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "ChartDepthPie" };
-</script>
-
 <script setup lang="ts">
 import { ApolloQueryResult } from "@apollo/client";
 import { useChartDepthDataProvider } from "@/composables/chartDepthDataProvider";

@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "HomeParallax" };
-</script>
-
 <script setup lang="ts">
 import { FormActions } from "@/composables/types/form";
 import { isLogged } from "@/composables/auth";

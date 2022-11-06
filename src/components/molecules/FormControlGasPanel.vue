@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "FormControlGasPanel" };
-</script>
-
 <script setup lang="ts">
 import { useGasNameProvider } from "@/composables/gasNameProvider";
 import { computed, reactive, ref } from "vue";

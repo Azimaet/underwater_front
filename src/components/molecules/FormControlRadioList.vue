@@ -1,8 +1,3 @@
-import store from '@/store';
-<script lang="ts">
-export default { name: "FormControlRadioList" };
-</script>
-
 <script setup lang="ts">
 const props = defineProps<{
   id: string;

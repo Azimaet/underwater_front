@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { name: "StrateThemeCharts" };
-</script>
-
 <script setup lang="ts">
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { GraphqlActions } from "@/composables/types/graphql";
