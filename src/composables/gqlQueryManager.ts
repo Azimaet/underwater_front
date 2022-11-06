@@ -1,4 +1,5 @@
 import {
+  QUERY_DATES_BY_DIVES,
   QUERY_DEPTH_AND_TIME_BY_DIVES,
   QUERY_DIVES_BY_DATES,
   QUERY_FIRST_DIVE,
@@ -91,6 +92,8 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
         ? QUERY_LAST_DIVE
         : action === GraphqlActions.THEMES_BY_DIVES
         ? THEMES_BY_DIVES
+        : action === GraphqlActions.DATES_BY_DIVES
+        ? QUERY_DATES_BY_DIVES
         : null;
 
     if (

@@ -76,6 +76,18 @@ export const QUERY_DEPTH_AND_TIME_BY_DIVES = gql`
   }
 `;
 
+export const QUERY_DATES_BY_DIVES = gql`
+  query ($owner: String) {
+    dives(owner: $owner, order: { date: "ASC" }) {
+      edges {
+        node {
+          date
+        }
+      }
+    }
+  }
+`;
+
 export const THEMES_BY_DIVES = gql`
   query ($owner: String) {
     dives(owner: $owner, order: { date: "ASC" }) {

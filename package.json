@@ -28,6 +28,7 @@
     "vue-eslint-parser": "^9.1.0",
     "vue-i18n": "9",
     "vue-router": "^4.0.3",
+    "vue3-calendar-heatmap": "^2.0.0",
     "vuetify": "^3.0.0",
     "vuex": "^4.0.0",
     "webfontloader": "^1.0.0"

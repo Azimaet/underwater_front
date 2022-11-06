@@ -21,10 +21,11 @@ const containerClasses = ["mt-15"];
                 <CardResumeProfile />
               </Suspense>
             </v-col>
-            <v-col cols="8" class="text-center pt-15">
-              Calendar in progress</v-col
-            >
           </v-row>
+
+          <Suspense>
+            <StrateDateLocation />
+          </Suspense>
 
           <Suspense>
             <StrateDepthCharts />

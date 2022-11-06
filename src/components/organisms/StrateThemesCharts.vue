@@ -15,23 +15,17 @@ const divingEnvironmentsItems = await useGqlQueryManager(
   return useGQLFormatter(result, "divingEnvironments");
 });
 
-console.log(divingEnvironmentsItems);
-
 const divingRolesItems = await useGqlQueryManager(
   GraphqlActions.DIVING_ROLES
 ).then((result) => {
   return useGQLFormatter(result, "divingRoles");
 });
 
-console.log(divingRolesItems);
-
 const divingTypesItems = await useGqlQueryManager(
   GraphqlActions.DIVING_TYPES
 ).then((result) => {
   return useGQLFormatter(result, "divingTypes");
 });
-
-console.log(divingTypesItems);
 
 const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
   GraphqlActions.THEMES_BY_DIVES,
