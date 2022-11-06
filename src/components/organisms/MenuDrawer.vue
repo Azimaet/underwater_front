@@ -52,6 +52,14 @@ import store from "@/store";
         link
         @click="$router.push('dive_form')"
       ></v-list-item>
+      <v-list-item
+        v-if="isLogged()"
+        prepend-icon="mdi-cog"
+        title="Settings"
+        value="settings"
+        link
+        @click="$router.push('settings')"
+      ></v-list-item>
       <!-- <v-list-item
         v-if="isLogged()"
         prepend-icon="mdi-account"

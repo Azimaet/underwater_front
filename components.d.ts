@@ -39,7 +39,6 @@ declare module '@vue/runtime-core' {
     HomeParallax: typeof import('./src/components/molecules/HomeParallax.vue')['default']
     HomeView: typeof import('./src/components/views/HomeView.vue')['default']
     LogoType: typeof import('./src/components/atoms/LogoType.vue')['default']
-    MenuBurger: typeof import('./src/components/organisms/MenuBurger.vue')['default']
     MenuDrawer: typeof import('./src/components/organisms/MenuDrawer.vue')['default']
     ProfileView: typeof import('./src/components/views/ProfileView.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
