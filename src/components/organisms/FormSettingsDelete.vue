@@ -38,56 +38,40 @@ onDone(() => {
 </script>
 
 <template>
-  <v-row justify="center">
-    <v-card width="100%" :class="['px-15']" :color="'grey900'" rounded>
-      <v-card-title>
-        <div
-          :class="[
-            'text-h4',
-            'font-weight-medium',
-            'text-center',
-            'mt-5',
-            'mb-10',
-          ]"
+  <v-form>
+    <v-card-title :class="['pb-8']">
+      {{ form.title }}
+    </v-card-title>
+    <v-card-text>
+      <v-row>
+        <v-col
+          v-for="(component, index) in form.controls"
+          cols="12"
+          :key="index"
         >
-          {{ form.title }}
-        </div>
-      </v-card-title>
-      <v-card-text>
-        <v-row>
-          <v-col
-            v-for="(component, index) in form.controls"
-            cols="12"
-            :key="index"
-          >
-            <component
-              :is="
-                component.props?.name === 'FormControlText'
-                  ? FormControlText
-                  : ''
-              "
-              :id="component.id"
-              :label="component.props?.label"
-              :action="component.props?.query"
-              :type="component.props?.type"
-              :rules="component.props?.rules"
-            ></component>
-          </v-col>
-        </v-row>
-      </v-card-text>
-      <v-card-actions>
-        <ButtonComponent
-          :label="'Delete'"
-          :color="'error'"
-          :size="'x-large'"
-          :btn-classes="['my-5', 'mx-5']"
-          :loading="loading"
-          :disabled="loading"
-          @click="mutate(), load()"
-        />
-      </v-card-actions>
-    </v-card>
-  </v-row>
+          <component
+            :is="
+              component.props?.name === 'FormControlText' ? FormControlText : ''
+            "
+            :id="component.id"
+            :label="component.props?.label"
+            :action="component.props?.query"
+            :type="component.props?.type"
+            :rules="component.props?.rules"
+          ></component>
+        </v-col>
+      </v-row>
+    </v-card-text>
+    <v-card-actions>
+      <ButtonComponent
+        :label="'Delete'"
+        :color="'error'"
+        :size="'x-large'"
+        :btn-classes="['my-5', 'mx-5']"
+        :loading="loading"
+        :disabled="loading"
+        @click="mutate(), load()"
+      />
+    </v-card-actions>
+  </v-form>
 </template>
-
-<script></script>

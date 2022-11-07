@@ -1,11 +1,13 @@
 <template>
   <BaseTemplate>
     <template #main>
-      <section>
-        <FormSettingsEdit />
-        <v-divider :class="'my-10'"></v-divider>
-        <FormSettingsDelete />
-      </section>
+      <CardTemplate>
+        <template #card>
+          <FormSettingsEdit />
+          <v-divider :class="'my-10'"></v-divider>
+          <FormSettingsDelete />
+        </template>
+      </CardTemplate>
     </template>
   </BaseTemplate>
 </template>

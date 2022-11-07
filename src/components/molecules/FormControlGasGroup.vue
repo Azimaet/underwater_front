@@ -31,7 +31,7 @@ const handleChange = (
 </script>
 
 <template>
-  <v-card :title="'Gas Mix'" border rounded>
+  <v-card :title="'Gas Mix'" border rounded :elevation="5">
     <v-row>
       <template v-for="(item, index) in value" :key="index">
         <v-col>
