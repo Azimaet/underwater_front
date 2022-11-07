@@ -21,10 +21,6 @@ export function useFormFactory(
   action: FormActions,
   dive?: DiveInterface
 ): Form {
-  /**
-   * Get Date field.
-   * @return {FormControlProps}
-   */
   function getControlDate(): FormControlProps {
     return {
       name: "FormControlDate",
@@ -33,12 +29,6 @@ export function useFormFactory(
     };
   }
 
-  /**
-   * Get Text field.
-   * @param {string} context
-   * @param {FormActions} action
-   * @return {FormControlProps}
-   */
   function getControlText(
     context: string,
     action: FormActions
@@ -103,11 +93,6 @@ export function useFormFactory(
     };
   }
 
-  /**
-   * Get Number field.
-   * @param {string} context
-   * @return {FormControlProps}
-   */
   function getControlNumber(context: string): FormControlProps {
     return {
       name: "FormControlNumber",
@@ -121,11 +106,6 @@ export function useFormFactory(
     };
   }
 
-  /**
-   * Get Select field.
-   * @param {string} context
-   * @return {FormControlProps}
-   */
   function getControlSelect(context: string): FormControlProps {
     if (context === "divingEnvironment") {
       return {
@@ -147,11 +127,6 @@ export function useFormFactory(
     }
   }
 
-  /**
-   * Get Multiple Selects field.
-   * @param {string} context
-   * @return {FormControlProps}
-   */
   function getControlComboBox(context: string): FormControlProps {
     if (context === "divingType") {
       return {
@@ -167,11 +142,6 @@ export function useFormFactory(
     }
   }
 
-  /**
-   * Get Gas Group manager.
-   * @param {string} context
-   * @return {FormControlProps}
-   */
   function getControlGasGroup(context: string): FormControlProps {
     if (context === "gasTanks") {
       return {
@@ -186,11 +156,6 @@ export function useFormFactory(
     }
   }
 
-  /**
-   * Get Control Radio List field.
-   * @param {string} context
-   * @return {FormControlProps}
-   */
   function getControlRadioList(context: string): FormControlProps {
     if (context === "avatar") {
       return {
@@ -205,12 +170,6 @@ export function useFormFactory(
     }
   }
 
-  /**
-   * Generic Build Field Props function.
-   * @param {string} propId
-   * @param {FormActions} action
-   * @return {FormControlProps}
-   */
   function buildProps(propId: string, action: FormActions): FormControlProps {
     switch (propId) {
       case "email":
@@ -218,18 +177,18 @@ export function useFormFactory(
       case "password":
       case "security_passphrase":
         return getControlText(propId, action);
-      case "date":
-        return getControlDate();
       case "totalTime":
       case "maxDepth":
         return getControlNumber(propId);
-      case "gasTanks":
-        return getControlGasGroup(propId);
-      case "divingType":
-        return getControlComboBox(propId);
       case "divingEnvironment":
       case "divingRole":
         return getControlSelect(propId);
+      case "divingType":
+        return getControlComboBox(propId);
+      case "date":
+        return getControlDate();
+      case "gasTanks":
+        return getControlGasGroup(propId);
       case "avatar":
         return getControlRadioList(propId);
       default:
@@ -240,10 +199,6 @@ export function useFormFactory(
     }
   }
 
-  /**
-   * Form Constructor
-   * @return {Form}
-   */
   function __construct(): Form {
     const form: Form = {
       title:
@@ -275,6 +230,8 @@ export function useFormFactory(
         ? ["security_passphrase"]
         : [];
 
+    console.log(formProps);
+
     formProps.forEach((propId) => {
       const control: FormControl = {
         id: propId,
@@ -283,6 +240,8 @@ export function useFormFactory(
 
       control.props = buildProps(propId, action);
       form.controls.push(control);
+
+      console.log(form.controls);
     });
     return form;
   }

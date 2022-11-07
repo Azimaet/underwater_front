@@ -70,20 +70,20 @@ const checkChange = (value: boolean, context: string) => {
 </script>
 
 <template>
-  <v-card-subtitle>
-    Current Gas: {{ state.name.title }} {{ state.name.subtitle }}
-  </v-card-subtitle>
-  <v-card-text>
-    <div>
-      <div :class="['text-center']">Oxygen</div>
+  <v-card>
+    <v-card-title :class="['d-inline']">Current Gas:</v-card-title>
+    <v-card-subtitle :class="['d-inline']">
+      {{ state.name.title + state.name.subtitle }}
+    </v-card-subtitle>
+    <v-card-text>
       <v-slider
         v-model="state.oxygen"
+        :label="'Oxygen'"
         @update:model-value="handleChange(state.oxygen, 'oxygen')"
         :readonly="oxygenIsLocked"
         :max="100"
         :min="0"
         :step="1"
-        class="ma-4"
       >
         <template v-slot:append>
           <v-text-field
@@ -104,18 +104,15 @@ const checkChange = (value: boolean, context: string) => {
           ></v-checkbox>
         </template>
       </v-slider>
-    </div>
 
-    <div>
-      <div :class="['text-center']">Nitrogen</div>
       <v-slider
         v-model="state.nitrogen"
+        :label="'Nitrogen'"
         @update:model-value="handleChange(state.nitrogen, 'nitrogen')"
         :readonly="nitrogenIsLocked"
         :max="100"
         :min="0"
         :step="1"
-        class="ma-4"
       >
         <template v-slot:append>
           <v-text-field
@@ -136,18 +133,15 @@ const checkChange = (value: boolean, context: string) => {
           ></v-checkbox>
         </template>
       </v-slider>
-    </div>
 
-    <div>
-      <div :class="['text-center']">Helium</div>
       <v-slider
         v-model="state.helium"
+        :label="'Helium'"
         @update:model-value="handleChange(state.helium, 'helium')"
         :readonly="heliumIsLocked"
         :max="100"
         :min="0"
         :step="1"
-        class="ma-4"
       >
         <template v-slot:append>
           <v-text-field
@@ -168,6 +162,6 @@ const checkChange = (value: boolean, context: string) => {
           ></v-checkbox>
         </template>
       </v-slider>
-    </div>
-  </v-card-text>
+    </v-card-text>
+  </v-card>
 </template>

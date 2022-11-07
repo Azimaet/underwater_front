@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import store from "@/store";
-const containerClasses = ["mt-15"];
 </script>
 
 <template>
   <BaseTemplate>
     <template #main>
-      <v-container style="max-width: 1280px" :class="containerClasses">
-        <v-card
-          width="100%"
-          :color="'primary'"
-          :border="true"
-          :elevation="10"
-          rounded
-        >
+      <CardTemplate>
+        <template #card>
           <v-img
             height="150"
             :src="require('@/assets/bg-card-profile.jpg')"
@@ -57,8 +50,8 @@ const containerClasses = ["mt-15"];
               />
             </Suspense>
           </v-container>
-        </v-card>
-      </v-container>
+        </template>
+      </CardTemplate>
     </template>
   </BaseTemplate>
 </template>

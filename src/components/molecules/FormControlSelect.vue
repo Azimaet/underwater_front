@@ -38,6 +38,5 @@ const value = ref();
     return-object
     single-line
     @update:modelValue="$emit('formInputChange', props.id, value.id)"
-    :class="['pb-5']"
   ></v-select>
 </template>

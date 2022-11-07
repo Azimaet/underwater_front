@@ -18,13 +18,13 @@ const date = reactive({
 </script>
 
 <template>
-  <div width="100%" :class="['position-relative', 'pb-10']">
+  <div :class="['position-relative', 'pb-5']">
     <span
       :class="[
         'position-absolute',
-        'bg-grey900',
+        'bg-primary',
         'text-caption',
-        'color-grey-light1',
+        'color-primary',
         'mx-5',
         'px-1',
       ]"

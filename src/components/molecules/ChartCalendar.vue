@@ -14,7 +14,7 @@ const endDate = new Date();
 <template>
   <calendar-heatmap
     :values="datesChartData"
-    :range-color="['#001A1A', '#002222', '#296262', '#99B8B8', '#FFFFFF']"
+    :range-color="['#0A2525', '#002222', '#296262', '#99B8B8', '#FFFFFF']"
     :end-date="endDate"
     :round="5"
     :max="4"

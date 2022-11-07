@@ -5,35 +5,35 @@ import { isLogged } from "@/composables/auth";
 const props = defineProps<{
   title: string;
   subtitle: string;
+  image: string;
 }>();
-
-const blockClasses = [
-  "blurred_gradient",
-  "d-flex",
-  "flex-column",
-  "fill-height",
-  "justify-center",
-  "align-center",
-];
-
-const titleClasses = ["text-h2", "font-weight-bold", "mb-4"];
-const subtitleClasses = ["text-h5", "font-weight-light"];
-const navClasses = ["mt-15 d-flex"];
 </script>
 
 <template>
   <v-parallax
-    :src="require('@/assets/bg.jpg')"
+    :src="props.image"
     :scale="0.8"
     height="650"
     :style="{ top: '-64px' }"
   >
-    <div :class="blockClasses">
+    <div
+      :class="[
+        'blurred_gradient',
+        'd-flex',
+        'flex-column',
+        'fill-height',
+        'justify-center',
+        'align-center',
+      ]"
+    >
       <div :class="'text-center'" :style="{ maxWidth: '1280px' }">
-        <h1 :class="titleClasses">{{ props.title }}</h1>
-        <h4 :class="subtitleClasses">{{ props.subtitle }}</h4>
-
-        <nav :class="navClasses">
+        <h1 :class="['text-h2', 'font-weight-bold', 'mb-4']">
+          {{ props.title }}
+        </h1>
+        <h2 :class="['text-h5', 'font-weight-light']">
+          {{ props.subtitle }}
+        </h2>
+        <nav :class="['mt-15 d-flex']">
           <FormUserModal v-if="!isLogged()" :action="FormActions.REGISTER" />
           <FormUserModal v-if="!isLogged()" :action="FormActions.LOGIN" />
         </nav>

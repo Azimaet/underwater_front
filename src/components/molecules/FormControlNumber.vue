@@ -21,6 +21,5 @@ const number = reactive({
     persistent-hint
     variant="outlined"
     @change="$emit('formInputChange', props.id, number.value, props.index)"
-    :class="['pb-5']"
   ></v-text-field>
 </template>

@@ -38,6 +38,5 @@ const types = ref();
         types.map((type: any) => type.id)
       )
     "
-    :class="['pb-5']"
   ></v-combobox>
 </template>

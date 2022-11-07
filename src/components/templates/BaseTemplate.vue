@@ -1,6 +1,5 @@
 <template>
   <div
-    id="template"
     :style="{
       'background-image':
         'url(' + require(`@/assets/background-animate.svg`) + ')',
@@ -11,7 +10,10 @@
     <HeaderBar />
     <AlertsBucket />
     <v-main>
-      <slot name="main"> </slot>
+      <slot name="parallax"> </slot>
+      <v-container :style="{ maxWidth: '1280px' }">
+        <slot name="main"> </slot>
+      </v-container>
     </v-main>
     <FooterBar />
     <MenuDrawer />
