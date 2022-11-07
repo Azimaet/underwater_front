@@ -5,27 +5,17 @@ import { ThemeDefinition, createVuetify } from "vuetify";
 
 import colors from "@/scss/_export.module.scss";
 
+const regex = /^#([0-9a-f]{3}){1,2}$/i;
+
+for (const key in colors) {
+  if (!regex.test(colors[key])) {
+    delete colors[key];
+  }
+}
+
 const darkTheme: ThemeDefinition = {
   dark: true,
-  colors: {
-    grey900: colors.grey900,
-    grey800: colors.grey800,
-    grey700: colors.grey700,
-    grey600: colors.grey600,
-    grey500: colors.grey500,
-    grey400: colors.grey400,
-    grey300: colors.grey300,
-    grey200: colors.grey200,
-    grey100: colors.grey100,
-    background: colors.background,
-    surface: colors.surface,
-    primary: colors.primary,
-    secondary: colors.secondary,
-    error: colors.error,
-    info: colors.info,
-    success: colors.success,
-    warning: colors.warning,
-  },
+  colors: colors,
 };
 
 export default createVuetify({

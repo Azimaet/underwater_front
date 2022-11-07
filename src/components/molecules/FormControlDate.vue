@@ -50,7 +50,7 @@ span {
 }
 
 input {
-  border: 1px solid map-get($colors, "color-grey-600");
+  border: 1px solid #757575;
   border-radius: 5px;
   padding: 17.5px;
   width: 100%;
