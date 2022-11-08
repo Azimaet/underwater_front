@@ -1,6 +1,6 @@
 import {
   QUERY_DATES_BY_DIVES,
-  QUERY_DEPTH_AND_TIME_BY_DIVES,
+  QUERY_DEPTH_BY_DIVES,
   QUERY_DIVES_BY_DATES,
   QUERY_FIRST_DIVE,
   QUERY_GASTANKS_BY_DIVES,
@@ -84,8 +84,8 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
         ? QUERY_GASTANKS_BY_DIVES
         : action === GraphqlActions.DIVES_BY_DATES
         ? QUERY_DIVES_BY_DATES
-        : action === GraphqlActions.DEPTH_TIME_BY_DIVES
-        ? QUERY_DEPTH_AND_TIME_BY_DIVES
+        : action === GraphqlActions.DEPTH_BY_DIVES
+        ? QUERY_DEPTH_BY_DIVES
         : action === GraphqlActions.FIRST_DIVE
         ? QUERY_FIRST_DIVE
         : action === GraphqlActions.LAST_DIVE

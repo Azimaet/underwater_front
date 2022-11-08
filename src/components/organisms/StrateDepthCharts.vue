@@ -5,7 +5,7 @@ import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
 
 const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
-  GraphqlActions.DEPTH_TIME_BY_DIVES,
+  GraphqlActions.DEPTH_BY_DIVES,
   {
     owner: "api/users/" + store.state.user.data.id,
   }
@@ -22,7 +22,7 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
           <ChartDepthPie :dives-collection="divesCollection" />
         </v-col>
         <v-col cols="8">
-          <ChartDepthTimeLines :dives-collection="divesCollection" />
+          <ChartDepthLine :dives-collection="divesCollection" />
         </v-col>
       </v-row>
     </template>

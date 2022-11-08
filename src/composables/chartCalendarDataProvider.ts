@@ -1,5 +1,4 @@
 import { ApolloQueryResult } from "@apollo/client";
-import { GraphColors } from "./types/graphColors";
 
 interface DateData {
   date: Date;

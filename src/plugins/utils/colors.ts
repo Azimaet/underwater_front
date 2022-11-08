@@ -7,7 +7,6 @@ function getThemeColors() {
   const regex = /^#([0-9a-f]{3}){1,2}$/i;
 
   for (const key in colors) {
-    console.log(key);
     if (!regex.test(colors[key])) {
       delete colors[key];
     }

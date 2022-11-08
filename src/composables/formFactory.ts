@@ -230,8 +230,6 @@ export function useFormFactory(
         ? ["security_passphrase"]
         : [];
 
-    console.log(formProps);
-
     formProps.forEach((propId) => {
       const control: FormControl = {
         id: propId,
@@ -240,8 +238,6 @@ export function useFormFactory(
 
       control.props = buildProps(propId, action);
       form.controls.push(control);
-
-      console.log(form.controls);
     });
     return form;
   }

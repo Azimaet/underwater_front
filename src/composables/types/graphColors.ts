@@ -1,10 +1,4 @@
 export enum GraphColors {
-  DEPTH_UPPER_20 = "#ade8f4",
-  DEPTH_UPPER_30 = "#00b4d8",
-  DEPTH_UPPER_40 = "#0e6ba8",
-  DEPTH_UPPER_50 = "#0a2472",
-  DEPTH_UPPER_60 = "#03045e",
-  DEPTH_UNDER_60 = "#00072d",
   THEME_POOL = "#00b4d8",
   THEME_SEA = "#ade8f4",
   THEME_LAKE = "#0077b6",

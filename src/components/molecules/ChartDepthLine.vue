@@ -2,9 +2,11 @@
 import { useChartDepthDataProvider } from "@/composables/chartDepthDataProvider";
 import { ApolloQueryResult } from "@apollo/client";
 import { Line } from "vue-chartjs";
+import { Colors } from "@/plugins/utils/colors";
 import {
   Chart as ChartJS,
   Title,
+  TimeScale,
   Tooltip,
   Legend,
   LineElement,
@@ -12,6 +14,7 @@ import {
   PointElement,
   CategoryScale,
 } from "chart.js";
+import Zoom from "chartjs-plugin-zoom";
 
 const props = defineProps<{
   divesCollection: ApolloQueryResult<any>;
@@ -29,35 +32,56 @@ const chartData = {
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
-  // interaction: {
-  //   mode: "index",
-  //   intersect: false,
-  // },
   stacked: false,
   plugins: {
+    subtitle: {
+      display: true,
+      text: "This chart display the last 15 dives. You can zoom or drag to view the ancient ones.",
+    },
     tooltip: {
       enabled: true,
     },
+    zoom: {
+      limits: {
+        x: { minRange: 10 },
+      },
+      pan: {
+        enabled: true,
+        mode: "x" as const,
+      },
+      zoom: {
+        wheel: {
+          enabled: true,
+        },
+        pinch: {
+          enabled: true,
+        },
+        mode: "x" as const,
+      },
+    },
   },
   scales: {
-    y1: {
-      type: "linear",
-      display: true,
-      position: "left",
+    x: {
+      min: chartData.labels.length - 15,
+      max: chartData.labels.length,
+      ticks: {
+        color: Colors.grey_02,
+      },
+      grid: {
+        display: false,
+      },
     },
-    y2: {
-      type: "linear",
+    y: {
+      type: "linear" as const,
       display: true,
-      position: "right",
+      ticks: {
+        color: Colors.grey_02,
+      },
+      grid: {
+        color: Colors.grey_05,
+      },
     },
   },
-
-  //     // grid line settings
-  //     grid: {
-  //       drawOnChartArea: false, // only want the grid lines for one axis to show up
-  //     },
-  //   },
-  // },
 };
 
 ChartJS.register(
@@ -66,8 +90,10 @@ ChartJS.register(
   Legend,
   LineElement,
   LinearScale,
+  CategoryScale,
   PointElement,
-  CategoryScale
+  Zoom,
+  TimeScale
 );
 </script>
 
@@ -76,5 +102,6 @@ ChartJS.register(
     :chart-options="chartOptions"
     :chart-data="chartData"
     :chart-id="'line-chart'"
+    :style="{ cursor: 'pointer' }"
   />
 </template>

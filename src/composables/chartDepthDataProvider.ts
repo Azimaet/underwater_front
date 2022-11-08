@@ -1,11 +1,12 @@
 import { ApolloQueryResult } from "@apollo/client";
-import { GraphColors } from "./types/graphColors";
+import { Colors } from "@/plugins/utils/colors";
+import { useDivesCollectionLoader } from "./utils/divesCollectionLoader";
 
 interface DataSet {
   label?: string;
   id?: string;
-  borderColor?: string;
-  pointBackgroundColor?: string;
+  borderColor?: string[];
+  pointBackgroundColor?: string[];
   yAxisID?: string;
   backgroundColor: string[];
   data: number[];
@@ -31,22 +32,6 @@ export function useChartDepthDataProvider(
   entry: ApolloQueryResult<any>,
   context: string
 ) {
-  /**
-   * Depth data loader
-   */
-  function depthDataLoader() {
-    const key = "dives";
-    const dives: any[] = [];
-
-    entry[key as keyof typeof entry].edges
-      .map((item: { node: unknown }) => item.node)
-      .forEach((dive: any) => {
-        dives.push(dive);
-      });
-
-    return dives;
-  }
-
   function getDepthGroups(dives: any[]): any[] {
     const depthGroup = [0, 0, 0, 0, 0, 0];
 
@@ -77,27 +62,27 @@ export function useChartDepthDataProvider(
         {
           label: "Max depth. (in meters)",
           id: "maxDepth",
-          backgroundColor: ["#D62828"],
-          borderColor: "#D62828",
-          pointBackgroundColor: "#D62828",
+          backgroundColor: [],
+          borderColor: [],
+          pointBackgroundColor: [],
           data: [],
-          yAxisID: "y1",
-        },
-        {
-          label: "Total time. (in minutes)",
-          id: "totalTime",
-          backgroundColor: ["#003049"],
-          borderColor: "#003049",
-          pointBackgroundColor: "#003049",
-          data: [],
-          yAxisID: "y2",
         },
       ];
 
       dives.forEach((dive) => {
         state.data.chart.datasets[0].data.push(-Math.abs(dive.maxDepth));
-        state.data.chart.datasets[1].data.push(dive.totalTime);
-        state.data.chart.labels.push(dive.date);
+        state.data.chart.labels.push(dive.date.split("T")[0]);
+      });
+
+      const highlight = Math.min(
+        ...Object.values(state.data.chart.datasets[0].data)
+      );
+
+      Object.values(state.data.chart.datasets[0].data).forEach((value) => {
+        const color = value === highlight ? Colors.warning : Colors.depth_02;
+        state.data.chart.datasets[0].pointBackgroundColor?.push(color);
+        state.data.chart.datasets[0].borderColor?.push(color);
+        state.data.chart.datasets[0].backgroundColor?.push(color);
       });
     } else if (context === "pie") {
       state.data.chart.labels = [
@@ -111,12 +96,12 @@ export function useChartDepthDataProvider(
       state.data.chart.datasets = [
         {
           backgroundColor: [
-            GraphColors.DEPTH_UPPER_20,
-            GraphColors.DEPTH_UPPER_30,
-            GraphColors.DEPTH_UPPER_40,
-            GraphColors.DEPTH_UPPER_50,
-            GraphColors.DEPTH_UPPER_60,
-            GraphColors.DEPTH_UNDER_60,
+            Colors.depth_01,
+            Colors.depth_02,
+            Colors.depth_03,
+            Colors.depth_04,
+            Colors.depth_05,
+            Colors.depth_06,
           ],
           data: [],
         },
@@ -136,7 +121,7 @@ export function useChartDepthDataProvider(
   };
 
   function _init() {
-    const dives = depthDataLoader();
+    const dives = useDivesCollectionLoader(entry);
 
     chartDataLoader(dives);
   }
