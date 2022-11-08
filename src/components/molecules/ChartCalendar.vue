@@ -1,29 +1,17 @@
 <script setup lang="ts">
-import { ApolloQueryResult } from "@apollo/client";
 import { CalendarHeatmap } from "vue3-calendar-heatmap";
-import { useChartCalendatDataProvider } from "@/composables/chartCalendarDataProvider";
-import { Colors } from "@/plugins/utils/colors";
 
 const props = defineProps<{
-  divesCollection: ApolloQueryResult<any>;
+  data: any;
 }>();
-
-const datesChartData = useChartCalendatDataProvider(props.divesCollection);
-const endDate = new Date();
 </script>
 
 <template>
   <div>Current Year</div>
   <calendar-heatmap
-    :values="datesChartData"
-    :range-color="[
-      Colors.heatmap_01,
-      Colors.heatmap_02,
-      Colors.heatmap_03,
-      Colors.heatmap_04,
-      Colors.heatmap_05,
-    ]"
-    :end-date="endDate"
+    :values="props.data.items"
+    :range-color="props.data.colors"
+    :end-date="props.data.endDate"
     :round="4"
     :max="4"
     :noDataText="false"

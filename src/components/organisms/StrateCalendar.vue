@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useCalendarDataProvider } from "@/composables/charts/calendarDataProvider";
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { GraphqlActions } from "@/composables/types/graphql";
 import store from "@/store";
@@ -12,6 +13,8 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
 ).then((result) => {
   return result;
 });
+
+const calendarChartDatas = useCalendarDataProvider(divesCollection);
 </script>
 
 <template>
@@ -19,10 +22,10 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
     <template #strate>
       <v-row>
         <v-col cols="8">
-          <ChartCalendar :dives-collection="divesCollection" />
+          <ChartCalendar :data="calendarChartDatas.heatmap" />
         </v-col>
         <v-col cols="4">
-          <ChartPanel :dives-collection="divesCollection" />
+          <PanelTemplate :data="calendarChartDatas.panel" />
         </v-col>
       </v-row>
     </template>

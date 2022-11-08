@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useChartGasDataProvider } from "@/composables/chartGasDataProvider";
-import { ApolloQueryResult } from "@apollo/client";
+import { GasData } from "@/types/charts/gas";
 import { Pie } from "vue-chartjs";
 import {
   Chart as ChartJS,
@@ -12,62 +11,30 @@ import {
 } from "chart.js";
 
 const props = defineProps<{
-  divesCollection: ApolloQueryResult<any>;
+  data: GasData["pie"];
 }>();
-
-const gasChartData = useChartGasDataProvider(props.divesCollection);
-
-const chartData = {
-  labels: gasChartData?.chart.labels,
-  datasets: [
-    {
-      backgroundColor: gasChartData?.chart.datasets[0].backgroundColor,
-      data: gasChartData?.chart.datasets[0].data,
-    },
-  ],
-};
-const chartOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    tooltip: {
-      enabled: true,
-    },
-  },
-};
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 </script>
 
 <template>
   <Pie
-    :chart-options="chartOptions"
-    :chart-data="chartData"
+    :chart-options="{
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'left',
+        },
+        tooltip: {
+          enabled: true,
+        },
+      },
+    }"
+    :chart-data="{
+      labels: props.data.labels,
+      datasets: props.data.datasets,
+    }"
     :chart-id="'pie-chart'"
-    :width="400"
-    :height="400"
   />
-  <div>
-    <span>
-      Average Consumption (bar per hour):
-      {{ gasChartData?.computedDatas.averageConsumption }}bar/hour
-    </span>
-    <br />
-    <span>
-      Highest Consumption (bar per hour):
-      {{
-        gasChartData?.computedDatas.highestConsumption.averageBarPerHour
-      }}bar/hour with
-      {{ gasChartData?.computedDatas.highestConsumption.label }}
-    </span>
-    <br />
-    <span>
-      Lowest Consumption (bar per hour):
-      {{
-        gasChartData?.computedDatas.lowestConsumption.averageBarPerHour
-      }}bar/hour with
-      {{ gasChartData?.computedDatas.lowestConsumption.label }}
-    </span>
-    <br />
-  </div>
 </template>
