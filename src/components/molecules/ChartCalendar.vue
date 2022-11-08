@@ -2,6 +2,7 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { CalendarHeatmap } from "vue3-calendar-heatmap";
 import { useChartCalendatDataProvider } from "@/composables/chartCalendarDataProvider";
+import { Colors } from "@/plugins/utils/colors";
 
 const props = defineProps<{
   divesCollection: ApolloQueryResult<any>;
@@ -15,10 +16,18 @@ const endDate = new Date();
   <div>Current Year</div>
   <calendar-heatmap
     :values="datesChartData"
-    :range-color="['#0A2525', '#002222', '#296262', '#99B8B8', '#FFFFFF']"
+    :range-color="[
+      Colors.heatmap_01,
+      Colors.heatmap_02,
+      Colors.heatmap_03,
+      Colors.heatmap_04,
+      Colors.heatmap_05,
+    ]"
     :end-date="endDate"
-    :round="5"
+    :round="4"
     :max="4"
+    :noDataText="false"
+    :tooltipUnit="'dives'"
   />
 </template>
 
@@ -49,11 +58,6 @@ svg.vch__wrapper {
   text.vch__day__label,
   .vch__legend__wrapper text {
     fill: #767676;
-  }
-  rect.vch__day__square:hover {
-    stroke: #555;
-    stroke-width: 2px;
-    paint-order: stroke;
   }
   rect.vch__day__square:focus {
     outline: none;
