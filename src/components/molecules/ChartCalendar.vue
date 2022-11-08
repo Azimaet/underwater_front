@@ -12,6 +12,7 @@ const endDate = new Date();
 </script>
 
 <template>
+  <div>Current Year</div>
   <calendar-heatmap
     :values="datesChartData"
     :range-color="['#0A2525', '#002222', '#296262', '#99B8B8', '#FFFFFF']"
