@@ -1,0 +1,38 @@
+<script setup lang="ts">
+import { Bar } from "vue-chartjs";
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+} from "chart.js";
+import Zoom from "chartjs-plugin-zoom";
+import { GasData } from "@/types/charts/gas";
+import { globalOptionsProvider } from "@/composables/charts/globalOptionsProvider";
+
+const props = defineProps<{
+  data: GasData["bar"];
+}>();
+
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Zoom
+);
+</script>
+
+<template>
+  <Bar
+    :chart-options="globalOptionsProvider('gas_bar', props.data.labels.length)"
+    :chart-data="data"
+    :chart-id="'bar'"
+    :style="{ cursor: 'pointer' }"
+  />
+</template>

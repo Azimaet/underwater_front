@@ -22,12 +22,13 @@ const gasChartData = useGasDataProvider(divesCollection);
     <template #strate>
       <v-row>
         <v-col cols="3" :align-self="'center'">
-          <v-row>
-            <v-col>
-              <PanelTemplate :data="gasChartData.panel" :class="['mb-4']" />
-              <ChartGasDoughnut :data="gasChartData.doughnut" />
-            </v-col>
-          </v-row>
+          <PanelTemplate :data="gasChartData.panel" :class="['mb-4']" />
+        </v-col>
+        <v-col cols="3" :align-self="'center'">
+          <ChartGasDoughnut :data="gasChartData.doughnut" />
+        </v-col>
+        <v-col cols="6" :align-self="'center'">
+          <ChartGasBar :data="gasChartData.bar" />
         </v-col>
       </v-row>
     </template>

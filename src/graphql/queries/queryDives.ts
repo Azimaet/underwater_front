@@ -56,6 +56,7 @@ export const QUERY_GASTANKS_BY_DIVES = gql`
         node {
           gasTanks
           totalTime
+          date
         }
       }
     }

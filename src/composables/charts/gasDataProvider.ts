@@ -5,6 +5,7 @@ import {
 } from "@/types/charts/gas";
 
 import { ApolloQueryResult } from "@apollo/client";
+import { Colors } from "@/plugins/utils/colors";
 import { GasTank } from "../types/gas";
 import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoader";
 import { useGasColorGenerator } from "../gasColorGenerator";
@@ -18,6 +19,45 @@ import { useGasNameProvider } from "../gasNameProvider";
 export function useGasDataProvider(
   collection: ApolloQueryResult<any>
 ): GasData {
+  function getConsumptions(dives: any[]): GasConsumptionItem[] {
+    const consumptions: GasConsumptionItem[] = [];
+
+    dives.forEach((dive) => {
+      const totalTime = dive.totalTime === 0 ? 1 : dive.totalTime;
+      const gasTanks = dive.gasTanks;
+      const consumption: GasConsumptionItem = {
+        startPressure: 0,
+        endPressure: 0,
+        pressure: 0,
+        label: "",
+        barPerHour: 0,
+        date: dive.date.split("T")[0],
+        tanks: 0,
+      };
+
+      gasTanks.forEach((tank: GasTank) => {
+        const gasName = useGasNameProvider(tank.gasMix);
+        const label = gasName.title + " " + gasName.subtitle;
+
+        consumption.tanks++;
+        consumption.label =
+          consumption.label === "" ? label : consumption.label + " & " + label;
+
+        consumption.startPressure += tank.pressureStart;
+        consumption.endPressure += tank.pressureEnd;
+        consumption.pressure += tank.pressureStart - tank.pressureEnd;
+      });
+
+      consumption.barPerHour = Math.floor(
+        (consumption.pressure / totalTime) * 60
+      );
+
+      consumptions.push(consumption);
+    });
+
+    return consumptions;
+  }
+
   function loadDoughnutData(gasTanks: GasTank[]) {
     const gasDoughnutItems: GasDoughnutItem[] = [];
     const data: number[] = [];
@@ -65,34 +105,36 @@ export function useGasDataProvider(
     };
   }
 
-  function loadPanelData(dives: any[]) {
-    const consumptions: GasConsumptionItem[] = [];
+  function loadBarData(consumptions: GasConsumptionItem[]) {
+    const labels: string[] = [];
+    const endPressure: number[] = [];
+    const startPressure: number[] = [];
 
-    dives.forEach((dive) => {
-      const totalTime = dive.totalTime === 0 ? 1 : dive.totalTime;
-      const gasTanks = dive.gasTanks;
-      const consumption: GasConsumptionItem = {
-        pressure: 0,
-        label: "",
-        barPerHour: 0,
-      };
-
-      gasTanks.forEach((tank: GasTank) => {
-        const gasName = useGasNameProvider(tank.gasMix);
-        const label = gasName.title + " " + gasName.subtitle;
-        consumption.label =
-          consumption.label === "" ? label : consumption.label + " & " + label;
-
-        consumption.pressure += tank.pressureStart - tank.pressureEnd;
-      });
-
-      consumption.barPerHour = Math.floor(
-        (consumption.pressure / totalTime) * 60
-      );
-
-      consumptions.push(consumption);
+    consumptions.forEach((consumption) => {
+      labels.push(consumption.date);
+      endPressure.push(consumption.endPressure);
+      startPressure.push(consumption.startPressure);
     });
 
+    return {
+      labels: labels,
+      datasets: [
+        {
+          label: "End dive pressure (in bar.)",
+          backgroundColor: [Colors.gas_end_pressure],
+          data: endPressure,
+        },
+        {
+          fill: false,
+          label: "Start dive pressure (in bar.)",
+          backgroundColor: [Colors.gas_start_pressure],
+          data: startPressure,
+        },
+      ],
+    };
+  }
+
+  function loadPanelData(consumptions: GasConsumptionItem[]) {
     const average =
       Math.floor(
         consumptions.reduce((total, next) => total + next.barPerHour, 0) /
@@ -148,10 +190,11 @@ export function useGasDataProvider(
 
   const dives = useDivesCollectionLoader(collection);
   const gasTanks = useDivesCollectionLoader(collection, "gasTanks");
+  const consumptions = getConsumptions(dives);
 
   return {
     doughnut: loadDoughnutData(gasTanks),
-    line: {},
-    panel: loadPanelData(dives),
+    bar: loadBarData(consumptions),
+    panel: loadPanelData(consumptions),
   };
 }
