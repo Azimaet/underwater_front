@@ -20,9 +20,7 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 
 <template>
   <Doughnut
-    :chart-options="
-      globalOptionsProvider('gas_doughnut', props.data.labels.length)
-    "
+    :chart-options="globalOptionsProvider('gas_doughnut', props.data)"
     :chart-data="props.data"
     :chart-id="'doughnut'"
   />

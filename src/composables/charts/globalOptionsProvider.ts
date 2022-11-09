@@ -1,25 +1,115 @@
 import { Colors } from "@/plugins/utils/colors";
 
-export function globalOptionsProvider(
-  context: string,
-  lengthItems: number
-): object {
+export function globalOptionsProvider(context: string, data: any): object {
   const itemsToDisplay = context === "gas_bar" ? 10 : 15;
 
-  function getSubtitle() {
+  function getTitle() {
     const wording =
       "This chart display the last " +
       itemsToDisplay +
       " dives. You can zoom or drag to view the ancient ones.";
 
-    return context === "gas_bar"
-      ? { display: true, text: wording }
-      : { display: false };
+    switch (context) {
+      case "gas_bar":
+      case "depth_line":
+        return { display: true, text: wording, color: Colors.grey_01 };
+      default:
+        return { display: false };
+    }
+  }
+
+  function getTooltip() {
+    return {
+      enabled: true,
+      bodyFont: {
+        family: "Helvetica",
+      },
+      callbacks: {
+        title: (item: any) => {
+          switch (context) {
+            case "depth_pie":
+              return item[0].label + " zone:";
+            case "depth_line":
+              return "Depth:";
+            case "gas_doughnut":
+              return item[0].label;
+            case "gas_bar":
+              return item[0].dataset.label;
+            default:
+              return "";
+          }
+        },
+        label: (item: any) => {
+          switch (context) {
+            case "depth_pie":
+              return (
+                " " +
+                (item.dataset.data[item.dataIndex] +
+                  (item.dataset.data[item.dataIndex] > 1
+                    ? " dives."
+                    : " dive."))
+              );
+            case "depth_line":
+              return " " + item.dataset.data[item.dataIndex] + "meters.";
+            case "gas_doughnut":
+              return (
+                " " +
+                (
+                  (item.dataset.data[item.dataIndex] * 100) /
+                  data.datasets[0].data.reduce(
+                    (partialSum: number, a: number) => partialSum + a,
+                    0
+                  )
+                ).toFixed(1) +
+                "% of total tanks you used."
+              );
+            case "gas_bar":
+              return " " + item.formattedValue + "bar.";
+            default:
+              return item.dataset.data[item.dataIndex] +
+                item.dataset.data[item.dataIndex] >
+                1
+                ? " dives."
+                : " dive.";
+          }
+        },
+        afterLabel: (item: any) => {
+          console.log(item);
+          console.log(data);
+          switch (context) {
+            case "gas_bar":
+              return (
+                "Pressure consumed: " +
+                data.datasets[item.datasetIndex].customData[item.dataIndex]
+                  .pressure +
+                "bar. " +
+                "\n" +
+                "Number of Tanks: " +
+                data.datasets[item.datasetIndex].customData[item.dataIndex]
+                  .tanks +
+                "\n" +
+                "Mix: " +
+                data.datasets[item.datasetIndex].customData[item.dataIndex]
+                  .label +
+                "\n" +
+                "Total Time: " +
+                data.datasets[item.datasetIndex].customData[item.dataIndex]
+                  .totalTime +
+                "mn."
+              );
+            default:
+              return null;
+          }
+        },
+      },
+    };
   }
 
   function getZoom() {
-    return context === "gas_bar"
-      ? {
+    switch (context) {
+      case "gas_bar":
+      case "depth_line":
+        return {
           limits: {
             x: { minRange: itemsToDisplay },
           },
@@ -36,16 +126,20 @@ export function globalOptionsProvider(
             },
             mode: "x" as const,
           },
-        }
-      : null;
+        };
+      default:
+        return null;
+    }
   }
 
   function getScales() {
-    return context === "gas_bar"
-      ? {
+    switch (context) {
+      case "gas_bar":
+      case "depth_line":
+        return {
           x: {
-            min: lengthItems - itemsToDisplay,
-            max: lengthItems,
+            min: data.labels.length - itemsToDisplay,
+            max: data.labels.length,
             ticks: {
               color: Colors.grey_02,
             },
@@ -64,20 +158,24 @@ export function globalOptionsProvider(
               color: Colors.grey_05,
             },
           },
-        }
-      : null;
+        };
+      default:
+        return null;
+    }
   }
+
   return {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "bottom",
+        position: context === "depth_pie" ? "left" : "bottom",
+        labels: {
+          color: Colors.grey_01,
+        },
       },
-      subtitle: getSubtitle(),
-      tooltip: {
-        enabled: true,
-      },
+      title: getTitle(),
+      tooltip: getTooltip(),
       zoom: getZoom(),
     },
     scales: getScales(),

@@ -30,8 +30,8 @@ ChartJS.register(
 
 <template>
   <Bar
-    :chart-options="globalOptionsProvider('gas_bar', props.data.labels.length)"
-    :chart-data="data"
+    :chart-options="globalOptionsProvider('gas_bar', props.data)"
+    :chart-data="props.data"
     :chart-id="'bar'"
     :style="{ cursor: 'pointer' }"
   />

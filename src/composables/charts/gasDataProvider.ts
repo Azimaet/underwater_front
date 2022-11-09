@@ -33,6 +33,7 @@ export function useGasDataProvider(
         barPerHour: 0,
         date: dive.date.split("T")[0],
         tanks: 0,
+        totalTime: dive.totalTime,
       };
 
       gasTanks.forEach((tank: GasTank) => {
@@ -109,11 +110,18 @@ export function useGasDataProvider(
     const labels: string[] = [];
     const endPressure: number[] = [];
     const startPressure: number[] = [];
+    const customData: object[] = [];
 
     consumptions.forEach((consumption) => {
       labels.push(consumption.date);
       endPressure.push(consumption.endPressure);
       startPressure.push(consumption.startPressure);
+      customData.push({
+        tanks: consumption.tanks,
+        pressure: consumption.pressure,
+        totalTime: consumption.totalTime,
+        label: consumption.label,
+      });
     });
 
     return {
@@ -123,12 +131,14 @@ export function useGasDataProvider(
           label: "End dive pressure (in bar.)",
           backgroundColor: [Colors.gas_end_pressure],
           data: endPressure,
+          customData: customData,
         },
         {
           fill: false,
           label: "Start dive pressure (in bar.)",
           backgroundColor: [Colors.gas_start_pressure],
           data: startPressure,
+          customData: customData,
         },
       ],
     };

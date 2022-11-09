@@ -1,3 +1,4 @@
+import { ChartData } from "./globalChart";
 import { PanelRow } from "./panel";
 
 export interface GasConsumptionItem {
@@ -8,6 +9,7 @@ export interface GasConsumptionItem {
   barPerHour: number;
   date: string;
   tanks: number;
+  totalTime: number;
 }
 
 export interface GasDoughnutItem {
@@ -15,22 +17,9 @@ export interface GasDoughnutItem {
   color: string;
   quantity: number;
 }
-
-export interface GasPieDatasets {
-  label?: string;
-  backgroundColor: string[];
-  data: number[];
-}
-
 export interface GasData {
-  doughnut: {
-    labels: string[];
-    datasets: GasPieDatasets[];
-  };
-  bar: {
-    labels: string[];
-    datasets: GasPieDatasets[];
-  };
+  doughnut: ChartData;
+  bar: ChartData;
   panel: {
     rows: PanelRow[];
   };
