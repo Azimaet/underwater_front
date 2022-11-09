@@ -1,4 +1,8 @@
-import { GasConsumptionItem, GasData, GasPieItem } from "@/types/charts/gas";
+import {
+  GasConsumptionItem,
+  GasData,
+  GasDoughnutItem,
+} from "@/types/charts/gas";
 
 import { ApolloQueryResult } from "@apollo/client";
 import { GasTank } from "../types/gas";
@@ -14,8 +18,8 @@ import { useGasNameProvider } from "../gasNameProvider";
 export function useGasDataProvider(
   collection: ApolloQueryResult<any>
 ): GasData {
-  function loadPieData(gasTanks: GasTank[]) {
-    const gasPieItems: GasPieItem[] = [];
+  function loadDoughnutData(gasTanks: GasTank[]) {
+    const gasDoughnutItems: GasDoughnutItem[] = [];
     const data: number[] = [];
     const labels: string[] = [];
     const backgroundColors: string[] = [];
@@ -26,13 +30,13 @@ export function useGasDataProvider(
       const color = useGasColorGenerator(tank.gasMix);
 
       if (
-        gasPieItems.length &&
-        gasPieItems.some((gas) => gas.label === label)
+        gasDoughnutItems.length &&
+        gasDoughnutItems.some((gas) => gas.label === label)
       ) {
-        const item = gasPieItems.find((gas) => gas.label === label);
+        const item = gasDoughnutItems.find((gas) => gas.label === label);
         item ? item.quantity++ : null;
       } else {
-        gasPieItems.push({
+        gasDoughnutItems.push({
           label: label,
           color: color,
           quantity: 1,
@@ -40,11 +44,11 @@ export function useGasDataProvider(
       }
     });
 
-    gasPieItems.sort((a, b) =>
+    gasDoughnutItems.sort((a, b) =>
       a.label > b.label ? 1 : b.label > a.label ? -1 : 0
     );
 
-    gasPieItems.forEach((gas) => {
+    gasDoughnutItems.forEach((gas) => {
       data.push(gas.quantity);
       backgroundColors.push(gas.color);
       labels.push(gas.label);
@@ -146,7 +150,7 @@ export function useGasDataProvider(
   const gasTanks = useDivesCollectionLoader(collection, "gasTanks");
 
   return {
-    pie: loadPieData(gasTanks),
+    doughnut: loadDoughnutData(gasTanks),
     line: {},
     panel: loadPanelData(dives),
   };

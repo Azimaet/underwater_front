@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { GasData } from "@/types/charts/gas";
-import { Pie } from "vue-chartjs";
+import { Doughnut } from "vue-chartjs";
 import {
   Chart as ChartJS,
   Title,
@@ -11,20 +11,20 @@ import {
 } from "chart.js";
 
 const props = defineProps<{
-  data: GasData["pie"];
+  data: GasData["doughnut"];
 }>();
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 </script>
 
 <template>
-  <Pie
+  <Doughnut
     :chart-options="{
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
       plugins: {
         legend: {
-          position: 'left',
+          position: 'bottom',
         },
         tooltip: {
           enabled: true,
@@ -35,6 +35,6 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
       labels: props.data.labels,
       datasets: props.data.datasets,
     }"
-    :chart-id="'pie-chart'"
+    :chart-id="'doughnut'"
   />
 </template>

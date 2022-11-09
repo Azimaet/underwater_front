@@ -6,7 +6,7 @@ export interface GasConsumptionItem {
   barPerHour: number;
 }
 
-export interface GasPieItem {
+export interface GasDoughnutItem {
   label: string;
   color: string;
   quantity: number;
@@ -18,7 +18,7 @@ export interface GasPieDatasets {
 }
 
 export interface GasData {
-  pie: {
+  doughnut: {
     labels: string[];
     datasets: GasPieDatasets[];
   };
