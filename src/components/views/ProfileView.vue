@@ -36,17 +36,17 @@ import store from "@/store";
               />
             </Suspense>
             <Suspense>
-              <StrateGasCharts
-                :title="'Gas & Consumption'"
-                :subtitle="'Data of gasTanks used.'"
-                :icon="'mdi-gas-cylinder'"
-              />
-            </Suspense>
-            <Suspense>
               <StrateDepthCharts
                 :title="'Depths'"
                 :subtitle="'Data of yours dives depth.'"
                 :icon="'mdi-chart-bell-curve-cumulative'"
+              />
+            </Suspense>
+            <Suspense>
+              <StrateGasCharts
+                :title="'Gas & Consumption'"
+                :subtitle="'Data of gasTanks used.'"
+                :icon="'mdi-gas-cylinder'"
               />
             </Suspense>
             <Suspense>

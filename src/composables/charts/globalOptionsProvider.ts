@@ -167,6 +167,12 @@ export function globalOptionsProvider(context: string, data: any): object {
   return {
     responsive: true,
     maintainAspectRatio: false,
+    layout: {
+      padding: {
+        top: 0,
+        bottom: 0,
+      },
+    },
     plugins: {
       legend: {
         position: context === "depth_pie" ? "left" : "bottom",

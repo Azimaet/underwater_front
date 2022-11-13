@@ -83,10 +83,49 @@ export function useDepthDataProvider(
     };
   }
 
+  function loadPanelData(dives: any) {
+    const deepestDive = dives.reduce((prev: any, current: any) => {
+      return prev.maxDepth > current.maxDepth ? prev : current;
+    });
+
+    const averageDepths = Math.floor(
+      dives.reduce((total: number, next: any) => total + next.maxDepth, 0) /
+        dives.length
+    );
+
+    return {
+      rows: [
+        {
+          cols: [
+            {
+              title: "Deepest Dive",
+              subtitle: [
+                "-" +
+                  deepestDive.maxDepth +
+                  "m : " +
+                  deepestDive.date.split("T")[0],
+              ],
+              highlight: true,
+            },
+          ],
+        },
+        {
+          cols: [
+            {
+              title: "Average Depths",
+              subtitle: ["-" + averageDepths + "m"],
+            },
+          ],
+        },
+      ],
+    };
+  }
+
   const dives = useDivesCollectionLoader(collection);
 
   return {
     pie: loadPieData(dives),
     line: loadLineData(dives),
+    panel: loadPanelData(dives),
   };
 }
