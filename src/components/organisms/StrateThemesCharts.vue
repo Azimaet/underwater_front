@@ -57,7 +57,8 @@ const themesChartData = useThemesDataProvider(divesCollection, [
           />
         </v-col>
         <v-col cols="6">
-          <ChartPie :data="themesChartData.pie" :context="'theme_pie'" />
+          <ChartProgress :data="themesChartData.progress" />
+          <!-- <ChartPie :data="themesChartData.pie" :context="'theme_pie'" /> -->
         </v-col>
       </v-row>
     </template>

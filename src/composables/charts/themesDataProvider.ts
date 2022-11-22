@@ -28,6 +28,16 @@ export function useThemesDataProvider(
     return labels;
   }
 
+  function getKeys(data: object) {
+    const keys: string[] = [];
+
+    Object.keys(data).forEach((key) => {
+      keys.push(key);
+    });
+
+    return keys;
+  }
+
   function getColors(data: object) {
     const values: string[] = [];
 
@@ -45,6 +55,19 @@ export function useThemesDataProvider(
     Object.keys(data).forEach((key) => {
       values.push(data[key as keyof typeof data]);
     });
+
+    return values;
+  }
+
+  function getProgressDatas(data: object) {
+    const values: number[] = [];
+    const sumValues = Object.values(data).reduce((a, b) => a + b, 0);
+
+    Object.keys(data).forEach((key) => {
+      const value = (data[key as keyof typeof data] * 100) / sumValues;
+      values.push(Math.floor(value));
+    });
+
     return values;
   }
 
@@ -72,13 +95,15 @@ export function useThemesDataProvider(
     };
   }
 
-  function loadPieData(data: any): ChartData {
+  function loadProgressData(data: any): ChartData {
     return {
       labels: getLabels(data, queries[2]),
       datasets: [
         {
           backgroundColor: getColors(data),
           data: getDatas(data),
+          percentage: getProgressDatas(data),
+          token: getKeys(data),
         },
       ],
     };
@@ -106,28 +131,32 @@ export function useThemesDataProvider(
     ];
   }
 
-  const dataEnvs = useDivesCollectionLoader(
-    collection,
-    "themesTokens",
-    "divingEnvironment"
+  const dataEnvs = Object.fromEntries(
+    Object.entries(
+      useDivesCollectionLoader(collection, "themesTokens", "divingEnvironment")
+    ).sort(([, a], [, b]) => b - a)
   );
-  const dataRoles = useDivesCollectionLoader(
-    collection,
-    "themesTokens",
-    "divingRole"
+
+  const dataRoles = Object.fromEntries(
+    Object.entries(
+      useDivesCollectionLoader(collection, "themesTokens", "divingRole")
+    ).sort(([, a], [, b]) => b - a)
   );
-  const dataTypes = useDivesCollectionLoader(
-    collection,
-    "themesTokens",
-    "divingType"
+
+  const dataTypes = Object.fromEntries(
+    Object.entries(
+      useDivesCollectionLoader(collection, "themesTokens", "divingType")
+    ).sort(([, a], [, b]) => b - a)
   );
+
+  console.log(collection);
 
   return {
     doughnuts: [
       loadDoughnutEnvironmentsData(dataEnvs),
       loadDoughnutRolesData(dataRoles),
     ],
-    pie: loadPieData(dataTypes),
+    progress: loadProgressData(dataTypes),
     panel: {
       rows: loadPanelData(dataTypes),
     },

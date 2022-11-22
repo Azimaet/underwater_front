@@ -3,7 +3,7 @@ import { PanelRow } from "./panel";
 
 export interface ThemesData {
   doughnuts: ChartData[];
-  pie: ChartData;
+  progress: ChartData;
   panel: {
     rows: PanelRow[];
   };

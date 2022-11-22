@@ -17,6 +17,7 @@ declare module '@vue/runtime-core' {
     ChartDoughnut: typeof import('./src/components/molecules/ChartDoughnut.vue')['default']
     ChartLine: typeof import('./src/components/molecules/ChartLine.vue')['default']
     ChartPie: typeof import('./src/components/molecules/ChartPie.vue')['default']
+    ChartProgress: typeof import('./src/components/molecules/ChartProgress.vue')['default']
     CreditsImages: typeof import('./src/components/atoms/CreditsImages.vue')['default']
     DiveFormView: typeof import('./src/components/views/DiveFormView.vue')['default']
     FooterBar: typeof import('./src/components/molecules/FooterBar.vue')['default']

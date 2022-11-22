@@ -74,8 +74,6 @@ export function globalOptionsProvider(context: string, data: any): object {
           }
         },
         afterLabel: (item: any) => {
-          console.log(item);
-          console.log(data);
           switch (context) {
             case "gas_bar":
               return (
