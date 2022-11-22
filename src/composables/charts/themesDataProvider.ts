@@ -84,28 +84,26 @@ export function useThemesDataProvider(
     };
   }
 
-  function loadPanelData(data: any) {
-    return {
-      rows: [
-        {
-          cols: [
-            {
-              title: "Deepest Dive",
-              subtitle: ["-"],
-              highlight: true,
-            },
-          ],
-        },
-        {
-          cols: [
-            {
-              title: "Average Depths",
-              subtitle: ["-m"],
-            },
-          ],
-        },
-      ],
-    };
+  function loadPanelData(data: any): PanelRow[] {
+    return [
+      {
+        cols: [
+          {
+            title: "Deepest Dive",
+            subtitle: ["-"],
+            highlight: true,
+          },
+        ],
+      },
+      {
+        cols: [
+          {
+            title: "Average Depths",
+            subtitle: ["-m"],
+          },
+        ],
+      },
+    ];
   }
 
   const dataEnvs = useDivesCollectionLoader(
@@ -130,6 +128,8 @@ export function useThemesDataProvider(
       loadDoughnutRolesData(dataRoles),
     ],
     pie: loadPieData(dataTypes),
-    panel: loadPanelData(dataTypes),
+    panel: {
+      rows: loadPanelData(dataTypes),
+    },
   };
 }

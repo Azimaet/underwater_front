@@ -7,6 +7,7 @@ import {
 import { ApolloQueryResult } from "@apollo/client";
 import { Colors } from "@/plugins/utils/colors";
 import { GasTank } from "../types/gas";
+import { PanelRow } from "@/types/charts/panel";
 import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoader";
 import { useGasColorGenerator } from "../gasColorGenerator";
 import { useGasNameProvider } from "../gasNameProvider";
@@ -144,7 +145,7 @@ export function useGasDataProvider(
     };
   }
 
-  function loadPanelData(consumptions: GasConsumptionItem[]) {
+  function loadPanelData(consumptions: GasConsumptionItem[]): PanelRow[] {
     const average =
       Math.floor(
         consumptions.reduce((total, next) => total + next.barPerHour, 0) /
@@ -167,35 +168,33 @@ export function useGasDataProvider(
       return consumption.barPerHour + "bar/hour, with " + consumption.label;
     };
 
-    return {
-      rows: [
-        {
-          cols: [
-            {
-              title: "Average Consumption",
-              subtitle: [average],
-            },
-          ],
-        },
-        {
-          cols: [
-            {
-              title: "Highest Consumption",
-              subtitle: [highest()],
-            },
-          ],
-        },
-        {
-          cols: [
-            {
-              title: "Lowest Consumption",
-              subtitle: [lowest()],
-              highlight: true,
-            },
-          ],
-        },
-      ],
-    };
+    return [
+      {
+        cols: [
+          {
+            title: "Average Consumption",
+            subtitle: [average],
+          },
+        ],
+      },
+      {
+        cols: [
+          {
+            title: "Highest Consumption",
+            subtitle: [highest()],
+          },
+        ],
+      },
+      {
+        cols: [
+          {
+            title: "Lowest Consumption",
+            subtitle: [lowest()],
+            highlight: true,
+          },
+        ],
+      },
+    ];
   }
 
   const dives = useDivesCollectionLoader(collection) as any[];
@@ -205,6 +204,8 @@ export function useGasDataProvider(
   return {
     doughnut: loadDoughnutData(gasTanks),
     bar: loadBarData(consumptions),
-    panel: loadPanelData(consumptions),
+    panel: {
+      rows: loadPanelData(consumptions),
+    },
   };
 }

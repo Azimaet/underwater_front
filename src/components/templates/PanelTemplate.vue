@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Colors } from "@/plugins/utils/colors";
+
 const props = defineProps<{
   data: any;
 }>();
@@ -9,11 +11,24 @@ const props = defineProps<{
     <v-list :style="{ overflow: 'hidden' }">
       <v-row v-for="row in props.data.rows" :key="row" dense>
         <v-col v-for="col in row.cols" :key="col">
-          <template v-if="col.subtitle.length === 1">
+          <template v-if="!col.dropdown">
             <v-list-item v-if="col.highlight" :title="col.title">
-              <v-list-item-subtitle>
-                <v-icon :icon="'mdi-star'" :size="16" :color="'gold'"></v-icon>
-                {{ col.subtitle[0] }}
+              <v-list-item-subtitle
+                v-for="(subtitle, index) in col.subtitle"
+                :key="index"
+              >
+                <v-icon
+                  :icon="'mdi-star'"
+                  :size="16"
+                  :color="
+                    index === 0
+                      ? Colors.gold
+                      : index === 1
+                      ? Colors.silver
+                      : Colors.bronze
+                  "
+                ></v-icon>
+                {{ subtitle }}
               </v-list-item-subtitle>
             </v-list-item>
             <v-list-item
