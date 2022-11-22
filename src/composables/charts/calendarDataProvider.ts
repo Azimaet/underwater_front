@@ -143,6 +143,7 @@ export function useCalendarDataProvider(
             {
               title: "Most Dived Year",
               subtitle: [mostDivedYear()],
+              highlight: true,
             },
           ],
         },
