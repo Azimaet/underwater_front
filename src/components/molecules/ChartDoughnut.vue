@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Pie } from "vue-chartjs";
+import { GasData } from "@/types/charts/gas";
+import { Doughnut } from "vue-chartjs";
 import {
   Chart as ChartJS,
   Title,
@@ -8,20 +9,20 @@ import {
   ArcElement,
   CategoryScale,
 } from "chart.js";
-import { DepthData } from "@/types/charts/depth";
 import { globalOptionsProvider } from "@/composables/charts/globalOptionsProvider";
 
 const props = defineProps<{
-  data: DepthData["pie"];
+  data: GasData["doughnut"];
+  context: string;
 }>();
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 </script>
 
 <template>
-  <Pie
-    :chart-options="globalOptionsProvider('depth_pie', props.data)"
+  <Doughnut
+    :chart-options="globalOptionsProvider(context, props.data)"
     :chart-data="props.data"
-    :chart-id="'pie-chart'"
+    :chart-id="'doughnut'"
   />
 </template>

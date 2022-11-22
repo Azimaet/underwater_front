@@ -22,11 +22,15 @@ const gasChartData = useDepthDataProvider(divesCollection);
     <template #strate>
       <v-row>
         <v-col cols="3">
-          <ChartDepthPie :data="gasChartData.pie" :height="277" />
+          <ChartPie
+            :data="gasChartData.pie"
+            :context="'depth_pie'"
+            :height="277"
+          />
           <PanelTemplate :data="gasChartData.panel" :class="['mb-4']" />
         </v-col>
         <v-col cols="9">
-          <ChartDepthLine :data="gasChartData.line" />
+          <ChartLine :data="gasChartData.line" :context="'depth_line'" />
         </v-col>
       </v-row>
     </template>

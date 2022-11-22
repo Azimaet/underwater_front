@@ -1,38 +1,43 @@
 <script setup lang="ts">
-import { Bar } from "vue-chartjs";
+import { Line } from "vue-chartjs";
 import {
   Chart as ChartJS,
   Title,
+  TimeScale,
   Tooltip,
   Legend,
-  BarElement,
-  CategoryScale,
+  LineElement,
   LinearScale,
+  PointElement,
+  CategoryScale,
 } from "chart.js";
 import Zoom from "chartjs-plugin-zoom";
-import { GasData } from "@/types/charts/gas";
+import { DepthData } from "@/types/charts/depth";
 import { globalOptionsProvider } from "@/composables/charts/globalOptionsProvider";
 
 const props = defineProps<{
-  data: GasData["bar"];
+  data: DepthData["line"];
+  context: string;
 }>();
 
 ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  BarElement,
-  CategoryScale,
+  LineElement,
   LinearScale,
-  Zoom
+  CategoryScale,
+  PointElement,
+  Zoom,
+  TimeScale
 );
 </script>
 
 <template>
-  <Bar
-    :chart-options="globalOptionsProvider('gas_bar', props.data)"
+  <Line
+    :chart-options="globalOptionsProvider(context, props.data)"
     :chart-data="props.data"
-    :chart-id="'bar'"
+    :chart-id="'line-chart'"
     :style="{ cursor: 'pointer' }"
   />
 </template>

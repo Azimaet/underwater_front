@@ -162,7 +162,7 @@ export function useCalendarDataProvider(
     };
   }
 
-  const dives = useDivesCollectionLoader(collection);
+  const dives = useDivesCollectionLoader(collection) as any[];
 
   return {
     heatmap: {

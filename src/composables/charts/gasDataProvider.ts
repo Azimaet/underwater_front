@@ -198,8 +198,8 @@ export function useGasDataProvider(
     };
   }
 
-  const dives = useDivesCollectionLoader(collection);
-  const gasTanks = useDivesCollectionLoader(collection, "gasTanks");
+  const dives = useDivesCollectionLoader(collection) as any[];
+  const gasTanks = useDivesCollectionLoader(collection, "gasTanks") as any[];
   const consumptions = getConsumptions(dives);
 
   return {

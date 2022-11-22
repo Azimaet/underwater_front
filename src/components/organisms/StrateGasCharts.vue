@@ -23,10 +23,14 @@ const gasChartData = useGasDataProvider(divesCollection);
       <v-row>
         <v-col cols="3" :align-self="'center'">
           <PanelTemplate :data="gasChartData.panel" :class="['mb-4']" />
-          <ChartGasDoughnut :data="gasChartData.doughnut" :height="277" />
+          <ChartDoughnut
+            :data="gasChartData.doughnut"
+            :context="'gas_doughnut'"
+            :height="277"
+          />
         </v-col>
         <v-col cols="9" :align-self="'center'">
-          <ChartGasBar :data="gasChartData.bar" />
+          <ChartBar :data="gasChartData.bar" :context="'gas_bar'" />
         </v-col>
       </v-row>
     </template>

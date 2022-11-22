@@ -4,6 +4,7 @@ import { GraphqlActions } from "@/composables/types/graphql";
 import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
 import { useGQLFormatter } from "@/composables/utils/gqlResultFormatter";
+import { useThemesDataProvider } from "@/composables/charts/themesDataProvider";
 
 const divingEnvironmentsItems = await useGqlQueryManager(
   GraphqlActions.DIVING_ENVIRONMENTS
@@ -31,6 +32,12 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
 ).then((result) => {
   return result;
 });
+
+const themesChartData = useThemesDataProvider(divesCollection, [
+  divingEnvironmentsItems,
+  divingRolesItems,
+  divingTypesItems,
+]);
 </script>
 
 <template>
@@ -38,25 +45,19 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
     <template #strate>
       <v-row>
         <v-col cols="3">
-          <ChartThemePie
-            :dives-collection="divesCollection"
-            :query="divingEnvironmentsItems"
-            :context="'divingEnvironment'"
+          <ChartDoughnut
+            :data="themesChartData.doughnuts[0]"
+            :context="'themes_doughnut'"
           />
         </v-col>
         <v-col cols="3">
-          <ChartThemePie
-            :dives-collection="divesCollection"
-            :query="divingRolesItems"
-            :context="'divingRole'"
+          <ChartDoughnut
+            :data="themesChartData.doughnuts[1]"
+            :context="'themes_doughnut'"
           />
         </v-col>
         <v-col cols="6">
-          <ChartThemePie
-            :dives-collection="divesCollection"
-            :query="divingTypesItems"
-            :context="'divingType'"
-          />
+          <ChartPie :data="themesChartData.pie" :context="'theme_pie'" />
         </v-col>
       </v-row>
     </template>
