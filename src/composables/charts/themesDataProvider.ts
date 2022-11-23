@@ -1,7 +1,7 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { ChartData } from "../../types/charts/globalChart";
+import { Colors } from "../../plugins/utils/colors";
 import { FormatedThemeQueryResult } from "../utils/gqlResultFormatter";
-import { GraphColors } from "../types/graphColors";
 import { PanelRow } from "../../types/charts/panel";
 import { ThemesData } from "@/types/charts/themes";
 import { useDivesCollectionLoader } from "../utils/divesCollectionLoader";
@@ -42,8 +42,8 @@ export function useThemesDataProvider(
     const values: string[] = [];
 
     Object.keys(data).forEach((key) => {
-      const colorKey = "THEME_" + key.toUpperCase();
-      values.push(GraphColors[colorKey as keyof typeof GraphColors]);
+      const colorKey = "theme_" + key;
+      values.push(Colors[colorKey as keyof typeof Colors]);
     });
 
     return values;

@@ -35,6 +35,8 @@ export function globalOptionsProvider(context: string, data: any): object {
               return item[0].label;
             case "gas_bar":
               return item[0].dataset.label;
+            case "themes_doughnut":
+              return item[0].label;
             default:
               return "";
           }
@@ -42,6 +44,7 @@ export function globalOptionsProvider(context: string, data: any): object {
         label: (item: any) => {
           switch (context) {
             case "depth_pie":
+            case "themes_doughnut":
               return (
                 " " +
                 (item.dataset.data[item.dataIndex] +

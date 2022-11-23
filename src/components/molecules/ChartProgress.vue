@@ -22,9 +22,15 @@ const height = computed(() => {
           :model-value="props.data.datasets[0].percentage[index]"
           :height="height"
           :id="'v-progress_' + token"
+          :color="props.data.datasets[0].backgroundColor[index]"
+          :bg-opacity="0.35"
+          rounded
+          rounded-bar
           :style="{
             'background-image':
-              'url(' + require(`@/assets/progress_banners/${token}.jpg`) + ')',
+              'url(' +
+              require(`@/assets/progress_banners/bar_${token}.png`) +
+              ')',
             'background-size': 'cover',
           }"
         >
@@ -47,6 +53,6 @@ const height = computed(() => {
 
 <style lang="scss">
 .v-progress-linear__determinate {
-  opacity: 0.1;
+  opacity: 0.7;
 }
 </style>
