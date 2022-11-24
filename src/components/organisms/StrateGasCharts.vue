@@ -4,6 +4,9 @@ import { GraphqlActions } from "@/composables/types/graphql";
 import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
 import { useGasDataProvider } from "@/composables/charts/gasDataProvider";
+import { ref } from "vue";
+
+const isDives = ref(false);
 
 const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
   GraphqlActions.GAS_BY_DIVES,
@@ -11,16 +14,17 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
     owner: "api/users/" + store.state.user.data.id,
   }
 ).then((result) => {
+  isDives.value = result.dives.edges.length;
   return result;
 });
 
-const gasChartData = useGasDataProvider(divesCollection);
+const gasChartData = isDives.value ? useGasDataProvider(divesCollection) : null;
 </script>
 
 <template>
   <StrateTemplate>
     <template #strate>
-      <v-row>
+      <v-row v-if="gasChartData">
         <v-col cols="3" :align-self="'center'">
           <PanelTemplate :data="gasChartData.panel" :class="['mb-4']" />
           <ChartDoughnut
@@ -33,6 +37,13 @@ const gasChartData = useGasDataProvider(divesCollection);
           <ChartBar :data="gasChartData.bar" :context="'gas_bar'" />
         </v-col>
       </v-row>
+      <v-card
+        v-else
+        title="Warning!"
+        subtitle="Missing Dives"
+        text="Impossible loading datas, because you didn't post dives yet."
+        variant="tonal"
+      ></v-card>
     </template>
   </StrateTemplate>
 </template>

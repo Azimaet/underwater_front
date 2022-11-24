@@ -5,6 +5,9 @@ import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
 import { useGQLFormatter } from "@/composables/utils/gqlResultFormatter";
 import { useThemesDataProvider } from "@/composables/charts/themesDataProvider";
+import { ref } from "vue";
+
+const isDives = ref(false);
 
 const divingEnvironmentsItems = await useGqlQueryManager(
   GraphqlActions.DIVING_ENVIRONMENTS
@@ -30,20 +33,23 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
     owner: "api/users/" + store.state.user.data.id,
   }
 ).then((result) => {
+  isDives.value = result.dives.edges.length;
   return result;
 });
 
-const themesChartData = useThemesDataProvider(divesCollection, [
-  divingEnvironmentsItems,
-  divingRolesItems,
-  divingTypesItems,
-]);
+const themesChartData = isDives.value
+  ? useThemesDataProvider(divesCollection, [
+      divingEnvironmentsItems,
+      divingRolesItems,
+      divingTypesItems,
+    ])
+  : null;
 </script>
 
 <template>
   <StrateTemplate>
     <template #strate>
-      <v-row>
+      <v-row v-if="themesChartData">
         <v-col cols="3">
           <ChartDoughnut
             :data="themesChartData.doughnuts[0]"
@@ -58,9 +64,15 @@ const themesChartData = useThemesDataProvider(divesCollection, [
         </v-col>
         <v-col cols="6">
           <ChartProgress :data="themesChartData.progress" />
-          <!-- <ChartPie :data="themesChartData.pie" :context="'theme_pie'" /> -->
         </v-col>
       </v-row>
+      <v-card
+        v-else
+        title="Warning!"
+        subtitle="Missing Dives"
+        text="Impossible loading datas, because you didn't post dives yet."
+        variant="tonal"
+      ></v-card>
     </template>
   </StrateTemplate>
 </template>
