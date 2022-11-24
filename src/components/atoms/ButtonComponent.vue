@@ -3,7 +3,6 @@ import { isMobile } from "@/composables/utils/isMobile";
 
 const props = defineProps<{
   label?: string;
-  btnClasses?: string[];
   size?: string;
   color?: string;
   disabled?: boolean;
@@ -34,7 +33,6 @@ const props = defineProps<{
     :size="!(props.responsive && isMobile.value) ? props.size : 'small'"
     :color="props.color"
     :variant="props.variant"
-    :class="btnClasses"
     :href="href"
     :target="href ? '_blank' : false"
     :block="block ? block : undefined"

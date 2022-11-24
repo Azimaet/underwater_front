@@ -22,7 +22,7 @@ onMounted(() => {
 <template>
   <div
     :class="[
-      scrollPosition > 64 ? 'bg-background' : 'bg-transparent',
+      scrollPosition > 0 ? 'bg-background' : 'bg-transparent',
       'bg-transition',
       'text-center',
       'px-4',

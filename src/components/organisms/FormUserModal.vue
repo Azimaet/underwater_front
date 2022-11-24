@@ -69,7 +69,7 @@ onDone(() => {
           :label="label"
           :color="color"
           :size="'x-large'"
-          :btn-classes="['my-5', 'mx-5']"
+          :class="['my-5', 'mx-5']"
           v-bind="props"
         />
       </template>
@@ -110,7 +110,7 @@ onDone(() => {
             :label="label"
             :color="color"
             :size="'x-large'"
-            :btn-classes="['my-5', 'mx-5']"
+            :class="['my-5', 'mx-5']"
             @click="useAuthLogin(credentials), (dialog = false)"
           />
           <ButtonComponent
@@ -118,7 +118,7 @@ onDone(() => {
             :label="label"
             :color="color"
             :size="'x-large'"
-            :btn-classes="['my-5', 'mx-5']"
+            :class="['my-5', 'mx-5']"
             @click="mutate(), (dialog = false)"
           />
         </v-card-actions>
