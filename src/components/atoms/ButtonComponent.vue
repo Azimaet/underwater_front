@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { isMobile } from "@/composables/utils/isMobile";
+
 const props = defineProps<{
   label?: string;
   btnClasses?: string[];
@@ -23,14 +25,13 @@ const props = defineProps<{
     placement?: string;
     size?: string;
   };
+  responsive?: boolean;
 }>();
-
-const spanClasses = ["font-weight-bold", "text-button"];
 </script>
 
 <template>
   <v-btn
-    :size="props.size"
+    :size="!(props.responsive && isMobile.value) ? props.size : 'small'"
     :color="props.color"
     :variant="props.variant"
     :class="btnClasses"
@@ -47,13 +48,23 @@ const spanClasses = ["font-weight-bold", "text-button"];
     :disabled="disabled"
     rounded="true"
     :density="props.density"
+    :icon="props.responsive && isMobile.value"
     max-width="100%"
   >
-    <span :class="spanClasses">
-      <v-icon v-if="icon && icon.placement === 'primary'" :size="icon.size">
+    <span :class="['font-weight-bold', 'text-button']">
+      <v-icon
+        v-if="
+          icon &&
+          (icon.placement === 'primary' || icon.placement === 'responsive')
+        "
+        :size="!(props.responsive && isMobile.value) ? icon.size : 'default'"
+        :class="icon.placement === 'responsive' ? ['d-sm-none'] : null"
+      >
         {{ icon.name }}
       </v-icon>
-      {{ props.label }}
+      <span :class="responsive === true ? ['d-none', 'd-sm-flex'] : null">
+        {{ props.label }}
+      </span>
     </span>
   </v-btn>
 </template>

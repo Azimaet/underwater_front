@@ -6,6 +6,7 @@ import { useAlertFactory } from "@/composables/alertFactory";
 import { onMounted, ref } from "vue";
 import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { menu } from "@/store/menu";
+import { isMobile } from "@/composables/utils/isMobile";
 
 const scrollPosition = ref(0);
 
@@ -40,6 +41,7 @@ onMounted(() => {
         <ButtonComponent
           :variant="'plain'"
           :icon="{ name: 'mdi-menu', placement: 'primary', size: 'x-large' }"
+          :responsive="true"
           @click="menu.toggleAction()"
         />
       </template>
@@ -48,23 +50,42 @@ onMounted(() => {
       </v-app-bar-title>
       <template v-slot:append>
         <div v-if="isLogged()" class="d-flex justify-center align-center">
-          <AvatarProfileChip
-            :avatar="store.state.user.data.avatar"
-            :badge="true"
-            :size="50"
+          <div
+            v-html="store.state.user.data.username"
+            :class="['d-none', 'd-sm-flex', 'mx-2']"
           />
-          <div v-html="store.state.user.data.username" class="mx-5" />
+          <v-badge dot color="success" :class="['mx-2']">
+            <v-avatar
+              v-if="store.state.user.data.avatar"
+              :image="
+                require('@/assets/avatars/avatar' +
+                  store.state.user.data.avatar +
+                  '.svg')
+              "
+              :size="isMobile.value ? 30 : 45"
+            >
+            </v-avatar>
+            <v-avatar v-else color="info" :size="isMobile.value ? 30 : 45">
+              <v-icon icon="mdi-account-circle"></v-icon>
+            </v-avatar>
+          </v-badge>
           <ButtonComponent
             :label="'Logout'"
             :color="'error'"
-            :size="'x-large'"
+            :icon="{
+              name: 'mdi-exit-to-app',
+              placement: 'responsive',
+              size: 'x-large',
+            }"
+            :responsive="true"
+            :class="['ml-2']"
             @click="
               useAuthLogout(),
                 useAlertFactory('success', 'You have been correctly logout.')
             "
           />
         </div>
-        <div v-else class="d-flex justify-center align-center">
+        <div v-else :class="['d-flex', 'justify-center', 'align-center']">
           <FormUserModal :action="FormActions.LOGIN" />
         </div>
       </template>

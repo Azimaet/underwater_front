@@ -8,7 +8,6 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AlertsBucket: typeof import('./src/components/organisms/AlertsBucket.vue')['default']
-    AvatarProfileChip: typeof import('./src/components/molecules/AvatarProfileChip.vue')['default']
     BaseTemplate: typeof import('./src/components/templates/BaseTemplate.vue')['default']
     ButtonComponent: typeof import('./src/components/atoms/ButtonComponent.vue')['default']
     CardTemplate: typeof import('./src/components/templates/CardTemplate.vue')['default']
