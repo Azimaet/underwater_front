@@ -2,6 +2,7 @@
 import { translations } from "@/i18n/index";
 import { GasTank } from "@/composables/types/gas";
 import { GasMix } from "../../composables/types/gas";
+import { isMobile } from "@/composables/utils/isMobile";
 
 const { PRESSURE_END, PRESSURE_START } = translations.en.GAS;
 
@@ -34,7 +35,7 @@ const handleChange = (
   <v-card :title="'Gas Mix'" border rounded :elevation="5">
     <v-row>
       <template v-for="(item, index) in value" :key="index">
-        <v-col>
+        <v-col :cols="isMobile.value ? 12 : 6">
           <v-card>
             <v-card-text>
               <FormControlNumber
@@ -56,7 +57,7 @@ const handleChange = (
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col>
+        <v-col :cols="isMobile.value ? 12 : 6">
           <FormControlGasPanel
             :id="'gasMix'"
             :index="index"

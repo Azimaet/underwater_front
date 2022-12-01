@@ -9,6 +9,7 @@ import { DiveInterface } from "@/composables/types/dive";
 import { DivingThemeInterface } from "@/composables/types/divingTheme";
 import { GasMix } from "@/composables/types/gas";
 import { useAlertFactory } from "@/composables/alertFactory";
+import { isMobile } from "@/composables/utils/isMobile";
 
 const FormControlDate = defineAsyncComponent(
   () => import("@/components/molecules/FormControlDate.vue")
@@ -166,10 +167,11 @@ watch(dive, async () => {
                   : 10
               "
               :cols="
-                component.props?.name === 'FormControlDate' ||
-                component.props?.name === 'FormControlNumber' ||
-                component.props?.name === 'FormControlSelect' ||
-                component.props?.name === 'FormControlComboBox'
+                !isMobile.value &&
+                (component.props?.name === 'FormControlDate' ||
+                  component.props?.name === 'FormControlNumber' ||
+                  component.props?.name === 'FormControlSelect' ||
+                  component.props?.name === 'FormControlComboBox')
                   ? 4
                   : 12
               "
