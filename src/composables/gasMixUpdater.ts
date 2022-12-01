@@ -8,7 +8,7 @@ const MAXIMUM_SUM_GAS = 100;
  * @param {GasMix} newMix {GasMix}
  * @param {string} modifiedGas {string}
  * @param {string} lockedGas {string}
- * @returns {GasMix} mix {GasMix}
+ * @return {GasMix} mix {GasMix}
  */
 export function useGasMixUpdater(
   newMix: GasMix,

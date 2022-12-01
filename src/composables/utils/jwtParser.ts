@@ -3,7 +3,7 @@ import { StoreUserDataInterface } from "@/types/models/storeUser";
 /**
  * JWT Parsing Utilitary function
  * @param {string} token string
- * @returns {StoreUserInterface}
+ * @return {StoreUserInterface}
  */
 export function useJWTParser(token: string): StoreUserDataInterface {
   const base64Url = token.split(".")[1];

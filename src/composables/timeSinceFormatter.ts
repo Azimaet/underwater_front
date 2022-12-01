@@ -1,6 +1,6 @@
 /**
- * @param {string} date {string}
- * @returns {string}
+ * @param {string | Date} date {string | Date}
+ * @return {string}
  */
 export function useTimeSinceFormatter(date: string | Date): any {
   function __process(deltaInMs: number) {

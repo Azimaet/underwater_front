@@ -1,19 +1,22 @@
 import { ApolloQueryResult } from "@apollo/client";
+import { DiveInterface } from "@/types/global/dive";
 import { GasTank } from "@/types/global/gas";
 
 /**
  * Dives Collection Loader util
  * @param {ApolloQueryResult} collection ApolloQueryResult
+ * @param {string} context string
+ * @param {string} subProp string
+ * @return {Partial<DiveInterface>[] | Record<string, number>}
  */
 export function useDivesCollectionLoader(
   collection: ApolloQueryResult<any>,
   context?: string,
   subProp?: string
-) {
+): Partial<DiveInterface>[] | GasTank[] | Record<string, number> {
   const key = "dives";
   const tokens: string[] = [];
-
-  const items: any[] = [];
+  const items: Partial<DiveInterface>[] | GasTank[] = [];
   const themesTokensItems: Record<string, any> = {};
 
   collection[key as keyof typeof collection].edges
