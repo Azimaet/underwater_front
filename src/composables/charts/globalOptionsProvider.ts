@@ -14,7 +14,7 @@ export function globalOptionsProvider(
 ): object {
   const itemsToDisplay = context === "gas_bar" ? 10 : 15;
 
-  function getTitle() {
+  function getTitle(): object {
     const wording =
       "This chart display the last " +
       itemsToDisplay +
@@ -29,7 +29,7 @@ export function globalOptionsProvider(
     }
   }
 
-  function getTooltip() {
+  function getTooltip(): object {
     return {
       enabled: true,
       bodyFont: {
@@ -122,7 +122,7 @@ export function globalOptionsProvider(
     };
   }
 
-  function getZoom() {
+  function getZoom(): object | null {
     switch (context) {
       case "gas_bar":
       case "depth_line":
@@ -149,7 +149,7 @@ export function globalOptionsProvider(
     }
   }
 
-  function getScales() {
+  function getScales(): object | null {
     switch (context) {
       case "gas_bar":
       case "depth_line":
