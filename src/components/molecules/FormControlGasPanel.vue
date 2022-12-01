@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useGasNameProvider } from "@/composables/gasNameProvider";
 import { computed, reactive, ref } from "vue";
-import { GasMix } from "@/composables/types/gas";
+import { GasMix } from "@/types/global/gas";
 import { useGasMixUpdater } from "@/composables/gasMixUpdater";
 
 const props = defineProps<{

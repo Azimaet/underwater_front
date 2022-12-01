@@ -6,7 +6,7 @@ import {
 
 import { ApolloQueryResult } from "@apollo/client";
 import { Colors } from "@/plugins/utils/colors";
-import { GasTank } from "../types/gas";
+import { GasTank } from "@/types/global/gas";
 import { PanelRow } from "@/types/charts/panel";
 import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoader";
 import { useGasColorGenerator } from "../gasColorGenerator";

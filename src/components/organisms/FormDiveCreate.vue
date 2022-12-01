@@ -6,8 +6,8 @@ import { useMutation } from "@vue/apollo-composable";
 import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
 import router from "@/router";
 import { DiveInterface } from "@/types/global/dive";
-import { DivingThemeInterface } from "@/composables/types/divingTheme";
-import { GasMix } from "@/composables/types/gas";
+import { DivingThemeInterface } from "@/types/global/divingTheme";
+import { GasMix } from "@/types/global/gas";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { isMobile } from "@/composables/utils/isMobile";
 

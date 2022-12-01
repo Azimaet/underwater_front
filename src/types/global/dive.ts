@@ -1,5 +1,5 @@
-import { DivingThemeInterface } from "@/composables/types/divingTheme";
-import { GasTank } from "@/composables/types/gas";
+import { DivingThemeInterface } from "@/types/global/divingTheme";
+import { GasTank } from "@/types/global/gas";
 
 export interface DiveInterface {
   id: number | null;

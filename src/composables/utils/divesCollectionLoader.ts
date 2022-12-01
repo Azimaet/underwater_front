@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from "@apollo/client";
-import { GasTank } from "../types/gas";
+import { GasTank } from "@/types/global/gas";
 
 /**
  * Dives Collection Loader util

@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { GraphqlActions } from "@/composables/types/graphql";
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { useGQLFormatter } from "@/composables/utils/gqlResultFormatter";
-import { DivingThemeInterface } from "@/composables/types/divingTheme";
+import { DivingThemeInterface } from "@/types/global/divingTheme";
 
 const props = defineProps<{
   id: string;

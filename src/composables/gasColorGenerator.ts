@@ -1,4 +1,4 @@
-import { GasMix } from "@/composables/types/gas";
+import { GasMix } from "@/types/global/gas";
 
 /**
  * Gas Color funny generator

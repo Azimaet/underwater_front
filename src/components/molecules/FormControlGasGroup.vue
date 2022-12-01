@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { translations } from "@/i18n/index";
-import { GasTank } from "@/composables/types/gas";
-import { GasMix } from "../../composables/types/gas";
+import { GasTank, GasMix } from "@/types/global/gas";
 import { isMobile } from "@/composables/utils/isMobile";
 
 const { PRESSURE_END, PRESSURE_START } = translations.en.GAS;
