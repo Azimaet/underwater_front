@@ -20,6 +20,11 @@ import { useTimeSinceFormatter } from "../timeSinceFormatter";
 export function useCalendarDataProvider(
   collection: ApolloQueryResult<any>
 ): CalendarData {
+  type ReduceAccumulator = Record<
+    string,
+    Record<string, Record<string, Pick<DiveInterface, "date">[]>>
+  >;
+
   function countPerDays(): DateItem[] {
     const items: DateItem[] = [];
 
@@ -53,32 +58,24 @@ export function useCalendarDataProvider(
     return items;
   }
 
-  function groupDates(): object {
-    type ReduceAccumulator = Record<
-      string,
-      Record<string, Record<string, Partial<DiveInterface>[]>>
-    >;
+  function groupDates(): ReduceAccumulator {
+    return dives.reduce((response: ReduceAccumulator, dive) => {
+      const date = new Date(dive.date);
+      const year = date.getFullYear();
+      const month = date.getMonth();
 
-    return dives.reduce(
-      (response: ReduceAccumulator, dive: Partial<DiveInterface>) => {
-        const date = new Date(dive.date!);
-        const year = date.getFullYear();
-        const month = date.getMonth();
+      response[year]
+        ? response[year][month]
+          ? response[year][month].data.push(dive)
+          : (response[year][month] = { data: [dive] })
+        : (response[year] = { [month]: { data: [dive] } });
 
-        response[year]
-          ? response[year][month]
-            ? response[year][month].data.push(dive)
-            : (response[year][month] = { data: [dive] })
-          : (response[year] = { [month]: { data: [dive] } });
-
-        return response;
-      },
-      {}
-    );
+      return response;
+    }, {});
   }
 
   function computeDivesPerMonth(): number {
-    const startDate = new Date(dives[0].date!);
+    const startDate = new Date(dives[0].date);
     const now = new Date();
 
     return (
@@ -140,11 +137,11 @@ export function useCalendarDataProvider(
         cols: [
           {
             title: "Last Dive",
-            subtitle: [useTimeSinceFormatter(dives[dives.length - 1].date!)],
+            subtitle: [useTimeSinceFormatter(dives[dives.length - 1].date)],
           },
           {
             title: "First Dive",
-            subtitle: [useTimeSinceFormatter(dives[0].date!)],
+            subtitle: [useTimeSinceFormatter(dives[0].date)],
           },
         ],
       },
@@ -178,11 +175,10 @@ export function useCalendarDataProvider(
     ];
   }
 
-  const dives = useDivesCollectionLoader(
-    collection
-  ) as Partial<DiveInterface>[];
-  console.log("dives");
-  console.log(dives);
+  const dives = useDivesCollectionLoader(collection) as Pick<
+    DiveInterface,
+    "date"
+  >[];
 
   return {
     heatmap: {

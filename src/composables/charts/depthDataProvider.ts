@@ -1,6 +1,8 @@
 import { ApolloQueryResult } from "@apollo/client";
+import { ChartData } from "../../types/charts/globalChart";
 import { Colors } from "@/plugins/utils/colors";
 import { DepthData } from "@/types/charts/depth";
+import { DiveInterface } from "@/types/global/dive";
 import { PanelRow } from "@/types/charts/panel";
 import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoader";
 
@@ -12,7 +14,7 @@ import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoa
 export function useDepthDataProvider(
   collection: ApolloQueryResult<any>
 ): DepthData {
-  function getDepthGroups(dives: any[]): any[] {
+  function getDepthGroups(): number[] {
     const depthGroup = [0, 0, 0, 0, 0, 0, 0];
 
     dives.forEach((dive) => {
@@ -34,7 +36,7 @@ export function useDepthDataProvider(
     return depthGroup;
   }
 
-  function loadPieData(dives: any) {
+  function loadPieData(): ChartData {
     return {
       labels: [
         "-10m",
@@ -56,21 +58,21 @@ export function useDepthDataProvider(
             Colors.depth_05,
             Colors.depth_06,
           ],
-          data: getDepthGroups(dives),
+          data: getDepthGroups(),
         },
       ],
     };
   }
 
-  function loadLineData(dives: any) {
+  function loadLineData(): ChartData {
     const data: number[] = [];
     const labels: string[] = [];
     const colors: string[] = [];
     let highlight: number | null = null;
 
-    dives.forEach((dive: any) => {
+    dives.forEach((dive) => {
       data.push(-Math.abs(dive.maxDepth));
-      labels.push(dive.date.split("T")[0]);
+      labels.push(dive.date.toString().split("T")[0]);
     });
 
     highlight = Math.min(...Object.values(data));
@@ -95,21 +97,23 @@ export function useDepthDataProvider(
     };
   }
 
-  function loadPanelData(dives: any): PanelRow[] {
+  function loadPanelData(): PanelRow[] {
     const averageDepths = Math.floor(
-      dives.reduce((total: number, next: any) => total + next.maxDepth, 0) /
+      dives.reduce((total: number, next) => total + next.maxDepth, 0) /
         dives.length
     );
 
     const deepestDives = () => {
       const top3 = dives
-        .sort((previous: any, next: any) => next.maxDepth - previous.maxDepth)
+        .sort((previous, next) => next.maxDepth - previous.maxDepth)
         .slice(0, 3);
 
       const subtitles: string[] = [];
 
-      top3.forEach((dive: any) => {
-        subtitles.push("-" + dive.maxDepth + "m : " + dive.date.split("T")[0]);
+      top3.forEach((dive) => {
+        subtitles.push(
+          "-" + dive.maxDepth + "m : " + dive.date.toString().split("T")[0]
+        );
       });
 
       return subtitles;
@@ -136,13 +140,16 @@ export function useDepthDataProvider(
     ];
   }
 
-  const dives = useDivesCollectionLoader(collection);
+  const dives = useDivesCollectionLoader(collection) as Pick<
+    DiveInterface,
+    "maxDepth" | "date"
+  >[];
 
   return {
-    pie: loadPieData(dives),
-    line: loadLineData(dives),
+    pie: loadPieData(),
+    line: loadLineData(),
     panel: {
-      rows: loadPanelData(dives),
+      rows: loadPanelData(),
     },
   };
 }
