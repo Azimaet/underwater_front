@@ -6,7 +6,9 @@ export interface ChartDatasets {
   borderColor?: string[];
   pointBackgroundColor?: string[];
   data: number[];
+  customData?: object[];
   percentage?: number[];
+  fill?: boolean;
 }
 
 export interface ChartData {

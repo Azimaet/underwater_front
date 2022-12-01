@@ -5,7 +5,9 @@ import {
 } from "@/types/charts/gas";
 
 import { ApolloQueryResult } from "@apollo/client";
+import { ChartData } from "@/types/charts/globalChart";
 import { Colors } from "@/plugins/utils/colors";
+import { DiveInterface } from "@/types/global/dive";
 import { GasTank } from "@/types/global/gas";
 import { PanelRow } from "@/types/charts/panel";
 import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoader";
@@ -20,7 +22,7 @@ import { useGasNameProvider } from "../gasNameProvider";
 export function useGasDataProvider(
   collection: ApolloQueryResult<any>
 ): GasData {
-  function getConsumptions(dives: any[]): GasConsumptionItem[] {
+  function getConsumptions(): GasConsumptionItem[] {
     const consumptions: GasConsumptionItem[] = [];
 
     dives.forEach((dive) => {
@@ -32,7 +34,7 @@ export function useGasDataProvider(
         pressure: 0,
         label: "",
         barPerHour: 0,
-        date: dive.date.split("T")[0],
+        date: dive.date.toString().split("T")[0],
         tanks: 0,
         totalTime: dive.totalTime,
       };
@@ -60,7 +62,7 @@ export function useGasDataProvider(
     return consumptions;
   }
 
-  function loadDoughnutData(gasTanks: GasTank[]) {
+  function loadDoughnutData(): ChartData {
     const gasDoughnutItems: GasDoughnutItem[] = [];
     const data: number[] = [];
     const labels: string[] = [];
@@ -107,7 +109,7 @@ export function useGasDataProvider(
     };
   }
 
-  function loadBarData(consumptions: GasConsumptionItem[]) {
+  function loadBarData(): ChartData {
     const labels: string[] = [];
     const endPressure: number[] = [];
     const startPressure: number[] = [];
@@ -145,7 +147,7 @@ export function useGasDataProvider(
     };
   }
 
-  function loadPanelData(consumptions: GasConsumptionItem[]): PanelRow[] {
+  function loadPanelData(): PanelRow[] {
     const average =
       Math.floor(
         consumptions.reduce((total, next) => total + next.barPerHour, 0) /
@@ -197,15 +199,23 @@ export function useGasDataProvider(
     ];
   }
 
-  const dives = useDivesCollectionLoader(collection) as any[];
-  const gasTanks = useDivesCollectionLoader(collection, "gasTanks") as any[];
-  const consumptions = getConsumptions(dives);
+  const dives = useDivesCollectionLoader(collection) as Pick<
+    DiveInterface,
+    "totalTime" | "gasTanks" | "date"
+  >[];
+
+  const gasTanks = useDivesCollectionLoader(
+    collection,
+    "gasTanks"
+  ) as GasTank[];
+
+  const consumptions = getConsumptions();
 
   return {
-    doughnut: loadDoughnutData(gasTanks),
-    bar: loadBarData(consumptions),
+    doughnut: loadDoughnutData(),
+    bar: loadBarData(),
     panel: {
-      rows: loadPanelData(consumptions),
+      rows: loadPanelData(),
     },
   };
 }
