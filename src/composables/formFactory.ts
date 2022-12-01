@@ -214,7 +214,6 @@ export function useFormFactory(
           ? "Delete Account"
           : "",
       controls: [],
-      inputs: [],
     };
 
     const formProps: string[] =

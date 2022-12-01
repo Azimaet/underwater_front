@@ -6,7 +6,7 @@ export interface DiveInterface {
   uuid: string | null;
   createdAt: Date | null;
   updatedAt: Date | null;
-  date: Date;
+  date: Date | string;
   totalTime: number;
   maxDepth: number;
   gasTanks: GasTank[];
@@ -14,4 +14,18 @@ export interface DiveInterface {
   divingEnvironment: DivingThemeInterface | null;
   divingRole: DivingThemeInterface | null;
   owner: string | null;
+}
+
+// type DiveDeserialized = Partial<DiveInterface> & {
+//   __typename: string;
+// };
+
+interface DiveEdge {
+  __typename: string;
+  node: Partial<DiveInterface>;
+}
+
+export interface DivesCollection {
+  __typename: string;
+  edges: DiveEdge[];
 }

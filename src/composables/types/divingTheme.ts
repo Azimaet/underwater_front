@@ -1,5 +1,5 @@
 export interface DivingThemeInterface {
-  readonly id?: number; //URI
+  readonly id?: number;
   label: string;
   token: string;
 }

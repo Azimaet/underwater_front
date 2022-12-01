@@ -1,10 +1,9 @@
-import { ButtonActions } from "@/composables/types/buttons";
+// import { ButtonActions } from "@/composables/types/buttons";
 import { GraphqlActions } from "./graphql";
 
 export interface Form {
   title: string;
   controls: FormControl[];
-  inputs: FormInput[];
 }
 
 export interface FormControl {
@@ -12,12 +11,6 @@ export interface FormControl {
   props: FormControlProps | null;
 }
 
-export interface FormInput {
-  label: string;
-  action: ButtonActions;
-}
-
-// export interface FormFieldInterface
 export interface FormControlProps {
   name: string;
   label: string;

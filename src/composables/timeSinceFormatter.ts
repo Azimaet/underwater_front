@@ -2,7 +2,7 @@
  * @param {string} date {string}
  * @returns {string}
  */
-export function useTimeSinceFormatter(date: string): any {
+export function useTimeSinceFormatter(date: string | Date): any {
   function __process(deltaInMs: number) {
     const seconds = Math.floor(deltaInMs / 1000);
 

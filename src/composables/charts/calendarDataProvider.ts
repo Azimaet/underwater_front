@@ -6,6 +6,7 @@ import {
 
 import { ApolloQueryResult } from "@apollo/client";
 import { Colors } from "@/plugins/utils/colors";
+import { DiveInterface } from "../types/dive";
 import { PanelRow } from "@/types/charts/panel";
 import { months } from "@/types/utils/months";
 import { useDivesCollectionLoader } from "../utils/divesCollectionLoader";
@@ -19,53 +20,67 @@ import { useTimeSinceFormatter } from "../timeSinceFormatter";
 export function useCalendarDataProvider(
   collection: ApolloQueryResult<any>
 ): CalendarData {
-  function countPerDays(dives: any[]): DateItem[] {
+  function countPerDays(): DateItem[] {
     const items: DateItem[] = [];
 
     dives.forEach((dive) => {
-      const date = dive.date.split("T")[0];
+      if (dive.date) {
+        const date = dive.date.toString().split("T")[0];
 
-      const isFound = items.some((element) => {
-        if (element.date === date) {
-          return element;
-        }
+        const isFound = items.some((element) => {
+          if (element.date.toString() === date) {
+            return element;
+          }
 
-        return false;
-      });
-
-      if (isFound) {
-        const item = items.find((item) => item.date === date);
-        if (item) item.count++;
-      } else {
-        items.push({
-          date: date,
-          count: 1,
+          return false;
         });
+
+        if (isFound) {
+          const item = items.find((item) => item.date.toString() === date);
+
+          if (item) {
+            item.count++;
+          }
+        } else {
+          items.push({
+            date: date,
+            count: 1,
+          });
+        }
       }
     });
 
     return items;
   }
 
-  function groupDates(dives: any): object {
-    return dives.reduce((response: any, dive: any) => {
-      const date = new Date(dive.date);
-      const year = date.getFullYear();
-      const month = date.getMonth();
+  function groupDates(): object {
+    type ReduceAccumulator = Record<
+      string,
+      Record<string, Record<string, Partial<DiveInterface>[]>>
+    >;
 
-      response[year]
-        ? response[year][month]
-          ? response[year][month].data.push(dive)
-          : (response[year][month] = { data: [dive] })
-        : (response[year] = { [month]: { data: [dive] } });
+    return dives.reduce(
+      (response: ReduceAccumulator, dive: Partial<DiveInterface>) => {
+        const date = new Date(dive.date!);
+        const year = date.getFullYear();
+        const month = date.getMonth();
 
-      return response;
-    }, {});
+        response[year]
+          ? response[year][month]
+            ? response[year][month].data.push(dive)
+            : (response[year][month] = { data: [dive] })
+          : (response[year] = { [month]: { data: [dive] } });
+
+        return response;
+      },
+      {}
+    );
   }
 
   function computeDivesPerMonth(): number {
-    const startDate = new Date(dives[0].date);
+    const startDate = new Date(dives[0].date!);
     const now = new Date();
+
     return (
       dives.length /
       (now.getMonth() -
@@ -74,9 +89,9 @@ export function useCalendarDataProvider(
     );
   }
 
-  function loadPanelData(dives: any): PanelRow[] {
+  function loadPanelData(): PanelRow[] {
     const statYears: CalendarHighlightItem[] = [];
-    const datesGroups = groupDates(dives);
+    const datesGroups = groupDates();
     const highlightMonth: CalendarHighlightItem = {
       title: "",
       subtitle: 0,
@@ -125,11 +140,11 @@ export function useCalendarDataProvider(
         cols: [
           {
             title: "Last Dive",
-            subtitle: [useTimeSinceFormatter(dives[dives.length - 1].date)],
+            subtitle: [useTimeSinceFormatter(dives[dives.length - 1].date!)],
           },
           {
             title: "First Dive",
-            subtitle: [useTimeSinceFormatter(dives[0].date)],
+            subtitle: [useTimeSinceFormatter(dives[0].date!)],
           },
         ],
       },
@@ -163,11 +178,15 @@ export function useCalendarDataProvider(
     ];
   }
 
-  const dives = useDivesCollectionLoader(collection) as any[];
+  const dives = useDivesCollectionLoader(
+    collection
+  ) as Partial<DiveInterface>[];
+  console.log("dives");
+  console.log(dives);
 
   return {
     heatmap: {
-      items: countPerDays(dives),
+      items: countPerDays(),
       endDate: new Date(),
       colors: [
         Colors.heatmap_01,
@@ -178,7 +197,7 @@ export function useCalendarDataProvider(
       ],
     },
     panel: {
-      rows: loadPanelData(dives),
+      rows: loadPanelData(),
     },
   };
 }

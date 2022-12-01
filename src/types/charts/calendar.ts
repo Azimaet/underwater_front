@@ -2,7 +2,7 @@ import { PanelRow } from "./panel";
 
 /** Locals Items */
 export interface DateItem {
-  date: Date;
+  date: string;
   count: number;
 }
 
