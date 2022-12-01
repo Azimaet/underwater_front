@@ -1,8 +1,8 @@
 import { ApolloQueryResult } from "@apollo/client";
-import { ChartData } from "../../types/charts/globalChart";
-import { Colors } from "../../plugins/utils/colors";
+import { ChartData } from "@/types/charts/globalChart";
+import { Colors } from "@/plugins/utils/colors";
+import { DivingThemeInterface } from "@/types/global/divingTheme";
 import { FormatedThemeQueryResult } from "../utils/gqlResultFormatter";
-import { PanelRow } from "../../types/charts/panel";
 import { ThemesData } from "@/types/charts/themes";
 import { useDivesCollectionLoader } from "../utils/divesCollectionLoader";
 
@@ -16,19 +16,24 @@ export function useThemesDataProvider(
   collection: ApolloQueryResult<any>,
   queries: FormatedThemeQueryResult[]
 ): ThemesData {
-  function getLabels(data: object, query: FormatedThemeQueryResult) {
+  function getLabels(
+    data: Record<string, number>,
+    query: FormatedThemeQueryResult
+  ) {
     const labels: string[] = [];
 
     Object.keys(data).forEach((key) => {
       const token = "%" + key + "%";
-      const theme = query.filter((theme: any) => token === theme.token);
+      const theme = query.filter(
+        (theme: DivingThemeInterface) => token === theme.token
+      );
       labels.push(theme[0].label);
     });
 
     return labels;
   }
 
-  function getKeys(data: object) {
+  function getKeys(data: Record<string, number>) {
     const keys: string[] = [];
 
     Object.keys(data).forEach((key) => {
@@ -38,7 +43,7 @@ export function useThemesDataProvider(
     return keys;
   }
 
-  function getColors(data: object) {
+  function getColors(data: Record<string, number>) {
     const values: string[] = [];
 
     Object.keys(data).forEach((key) => {
@@ -49,7 +54,7 @@ export function useThemesDataProvider(
     return values;
   }
 
-  function getDatas(data: object) {
+  function getDatas(data: Record<string, number>) {
     const values: number[] = [];
 
     Object.keys(data).forEach((key) => {
@@ -59,7 +64,7 @@ export function useThemesDataProvider(
     return values;
   }
 
-  function getProgressDatas(data: object) {
+  function getProgressDatas(data: Record<string, number>) {
     const values: number[] = [];
     const sumValues = Object.values(data).reduce((a, b) => a + b, 0);
 
@@ -71,94 +76,56 @@ export function useThemesDataProvider(
     return values;
   }
 
-  function loadDoughnutEnvironmentsData(data: any): ChartData {
+  function loadData(context: string): ChartData {
     return {
-      labels: getLabels(data, queries[0]),
+      labels:
+        context === "divingEnvironment"
+          ? getLabels(dataEnvs, queries[0])
+          : context === "divingRole"
+          ? getLabels(dataRoles, queries[1])
+          : getLabels(dataTypes, queries[2]),
       datasets: [
         {
-          backgroundColor: getColors(data),
-          data: getDatas(data),
+          backgroundColor:
+            context === "divingEnvironment"
+              ? getColors(dataEnvs)
+              : context === "divingRole"
+              ? getColors(dataRoles)
+              : getColors(dataTypes),
+          data:
+            context === "divingEnvironment"
+              ? getDatas(dataEnvs)
+              : context === "divingRole"
+              ? getDatas(dataRoles)
+              : getDatas(dataTypes),
+          percentage:
+            context === "divingType" ? getProgressDatas(dataTypes) : undefined,
+          token: context === "divingType" ? getKeys(dataTypes) : undefined,
         },
       ],
     };
-  }
-
-  function loadDoughnutRolesData(data: any): ChartData {
-    return {
-      labels: getLabels(data, queries[1]),
-      datasets: [
-        {
-          backgroundColor: getColors(data),
-          data: getDatas(data),
-        },
-      ],
-    };
-  }
-
-  function loadProgressData(data: any): ChartData {
-    return {
-      labels: getLabels(data, queries[2]),
-      datasets: [
-        {
-          backgroundColor: getColors(data),
-          data: getDatas(data),
-          percentage: getProgressDatas(data),
-          token: getKeys(data),
-        },
-      ],
-    };
-  }
-
-  function loadPanelData(data: any): PanelRow[] {
-    return [
-      {
-        cols: [
-          {
-            title: "Deepest Dive",
-            subtitle: ["-"],
-            highlight: true,
-          },
-        ],
-      },
-      {
-        cols: [
-          {
-            title: "Average Depths",
-            subtitle: ["-m"],
-          },
-        ],
-      },
-    ];
   }
 
   const dataEnvs = Object.fromEntries(
     Object.entries(
       useDivesCollectionLoader(collection, "themesTokens", "divingEnvironment")
     ).sort(([, a], [, b]) => b - a)
-  );
+  ) as Record<string, number>;
 
   const dataRoles = Object.fromEntries(
     Object.entries(
       useDivesCollectionLoader(collection, "themesTokens", "divingRole")
     ).sort(([, a], [, b]) => b - a)
-  );
+  ) as Record<string, number>;
 
   const dataTypes = Object.fromEntries(
     Object.entries(
       useDivesCollectionLoader(collection, "themesTokens", "divingType")
     ).sort(([, a], [, b]) => b - a)
-  );
-
-  console.log(collection);
+  ) as Record<string, number>;
 
   return {
-    doughnuts: [
-      loadDoughnutEnvironmentsData(dataEnvs),
-      loadDoughnutRolesData(dataRoles),
-    ],
-    progress: loadProgressData(dataTypes),
-    panel: {
-      rows: loadPanelData(dataTypes),
-    },
+    doughnuts: [loadData("divingEnvironment"), loadData("divingRole")],
+    progress: loadData("divingType"),
   };
 }

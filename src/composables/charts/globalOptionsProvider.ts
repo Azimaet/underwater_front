@@ -1,6 +1,17 @@
+import { ChartData } from "@/types/charts/globalChart";
 import { Colors } from "@/plugins/utils/colors";
+import { GasConsumptionItem } from "@/types/charts/gas";
 
-export function globalOptionsProvider(context: string, data: any): object {
+/**
+ * Global Option Provider function.
+ * @param {string} context string
+ * @param {ChartData} data ChartData
+ * @return {GasData}
+ */
+export function globalOptionsProvider(
+  context: string,
+  data: ChartData
+): object {
   const itemsToDisplay = context === "gas_bar" ? 10 : 15;
 
   function getTitle() {
@@ -77,29 +88,34 @@ export function globalOptionsProvider(context: string, data: any): object {
           }
         },
         afterLabel: (item: any) => {
-          switch (context) {
-            case "gas_bar":
-              return (
-                "Pressure consumed: " +
-                data.datasets[item.datasetIndex].customData[item.dataIndex]
-                  .pressure +
-                "bar. " +
-                "\n" +
-                "Number of Tanks: " +
-                data.datasets[item.datasetIndex].customData[item.dataIndex]
-                  .tanks +
-                "\n" +
-                "Mix: " +
-                data.datasets[item.datasetIndex].customData[item.dataIndex]
-                  .label +
-                "\n" +
-                "Total Time: " +
-                data.datasets[item.datasetIndex].customData[item.dataIndex]
-                  .totalTime +
-                "mn."
-              );
-            default:
-              return null;
+          const customData = data.datasets[item.datasetIndex]
+            .customData as Partial<GasConsumptionItem>[];
+
+          if (customData) {
+            const gasConsumptionItem = customData[item.dataIndex];
+
+            switch (context) {
+              case "gas_bar":
+                return (
+                  "Pressure consumed: " +
+                  gasConsumptionItem.pressure +
+                  "bar. " +
+                  "\n" +
+                  "Number of Tanks: " +
+                  gasConsumptionItem.tanks +
+                  "\n" +
+                  "Mix: " +
+                  gasConsumptionItem.label +
+                  "\n" +
+                  "Total Time: " +
+                  gasConsumptionItem.totalTime +
+                  "mn."
+                );
+              default:
+                return null;
+            }
+          } else {
+            return null;
           }
         },
       },

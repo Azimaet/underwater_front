@@ -113,7 +113,7 @@ export function useGasDataProvider(
     const labels: string[] = [];
     const endPressure: number[] = [];
     const startPressure: number[] = [];
-    const customData: object[] = [];
+    const customData: Partial<GasConsumptionItem>[] = [];
 
     consumptions.forEach((consumption) => {
       labels.push(consumption.date);

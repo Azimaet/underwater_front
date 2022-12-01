@@ -1,3 +1,5 @@
+import { GasConsumptionItem } from "./gas";
+
 export interface ChartDatasets {
   id?: string;
   label?: string;
@@ -6,7 +8,7 @@ export interface ChartDatasets {
   borderColor?: string[];
   pointBackgroundColor?: string[];
   data: number[];
-  customData?: object[];
+  customData?: Partial<GasConsumptionItem>[];
   percentage?: number[];
   fill?: boolean;
 }
