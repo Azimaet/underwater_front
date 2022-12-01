@@ -15,17 +15,3 @@ export interface DiveInterface {
   divingRole: DivingThemeInterface | null;
   owner: string | null;
 }
-
-// type DiveDeserialized = Partial<DiveInterface> & {
-//   __typename: string;
-// };
-
-interface DiveEdge {
-  __typename: string;
-  node: Partial<DiveInterface>;
-}
-
-export interface DivesCollection {
-  __typename: string;
-  edges: DiveEdge[];
-}

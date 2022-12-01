@@ -6,7 +6,7 @@ import {
 
 import { ApolloQueryResult } from "@apollo/client";
 import { Colors } from "@/plugins/utils/colors";
-import { DiveInterface } from "../types/dive";
+import { DiveInterface } from "@/types/global/dive";
 import { PanelRow } from "@/types/charts/panel";
 import { months } from "@/types/utils/months";
 import { useDivesCollectionLoader } from "../utils/divesCollectionLoader";

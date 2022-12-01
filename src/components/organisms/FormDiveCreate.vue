@@ -5,7 +5,7 @@ import { FormActions } from "@/composables/types/form";
 import { useMutation } from "@vue/apollo-composable";
 import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
 import router from "@/router";
-import { DiveInterface } from "@/composables/types/dive";
+import { DiveInterface } from "@/types/global/dive";
 import { DivingThemeInterface } from "@/composables/types/divingTheme";
 import { GasMix } from "@/composables/types/gas";
 import { useAlertFactory } from "@/composables/alertFactory";

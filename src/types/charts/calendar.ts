@@ -11,7 +11,6 @@ export interface CalendarHighlightItem {
   subtitle: number;
 }
 
-/** Global Interfaces */
 export interface CalendarData {
   heatmap: {
     items: DateItem[];

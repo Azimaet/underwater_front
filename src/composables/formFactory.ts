@@ -5,7 +5,7 @@ import {
   FormControlProps,
 } from "@/composables/types/form";
 
-import { DiveInterface } from "@/composables/types/dive";
+import { DiveInterface } from "@/types/global/dive";
 import { GraphqlActions } from "@/composables/types/graphql";
 import { translations } from "@/i18n/index";
 
