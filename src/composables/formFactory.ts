@@ -3,10 +3,10 @@ import {
   FormActions,
   FormControl,
   FormControlProps,
-} from "@/composables/types/form";
+} from "@/types/models/form";
 
 import { DiveInterface } from "@/types/global/dive";
-import { GraphqlActions } from "@/composables/types/graphql";
+import { GraphqlActions } from "@/types/models/graphql";
 import { translations } from "@/i18n/index";
 
 const { FORM_DIVING, FORM_WORDING } = translations.en;

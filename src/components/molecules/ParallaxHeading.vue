@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FormActions } from "@/composables/types/form";
+import { FormActions } from "@/types/models/form";
 import { isLogged } from "@/composables/auth";
 
 const props = defineProps<{

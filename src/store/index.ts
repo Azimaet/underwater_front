@@ -1,5 +1,5 @@
-import { AlertInterface } from "./../composables/types/storeUser";
-import { StoreUserInterface } from "@/composables/types/storeUser";
+import { AlertInterface } from "@/types/models/alerts";
+import { StoreUserInterface } from "@/types/models/storeUser";
 import { createStore } from "vuex";
 
 const user: StoreUserInterface = {

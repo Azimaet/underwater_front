@@ -1,6 +1,6 @@
 import Axios from "@/plugins/axios";
-import { FormUserCredentials } from "@/composables/types/form";
-import { StoreUserDataInterface } from "./types/storeUser";
+import { FormUserCredentials } from "@/types/models/form";
+import { StoreUserDataInterface } from "@/types/models/storeUser";
 import router from "@/router";
 import store from "@/store";
 import { useAlertFactory } from "./alertFactory";

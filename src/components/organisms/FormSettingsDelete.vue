@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { ref } from "vue";
-import { Form, FormActions } from "@/composables/types/form";
+import { Form, FormActions } from "@/types/models/form";
 import { useFormFactory } from "@/composables/formFactory";
 import FormControlText from "@/components/molecules/FormControlText.vue";
 import { MUTATION_DELETE_USER } from "@/graphql/mutations/deleteUser";

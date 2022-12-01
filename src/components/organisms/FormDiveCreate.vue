@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, watch, defineAsyncComponent } from "vue";
 import { useFormFactory } from "@/composables/formFactory";
-import { FormActions } from "@/composables/types/form";
+import { FormActions } from "@/types/models/form";
 import { useMutation } from "@vue/apollo-composable";
 import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
 import router from "@/router";

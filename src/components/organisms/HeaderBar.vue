@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { isLogged, useAuthLogout } from "@/composables/auth";
 import store from "@/store";
-import { FormActions } from "@/composables/types/form";
+import { FormActions } from "@/types/models/form";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { onMounted, ref } from "vue";
 import ButtonComponent from "@/components/atoms/ButtonComponent.vue";

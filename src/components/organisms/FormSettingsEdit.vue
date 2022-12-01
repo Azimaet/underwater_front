@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import { Form, FormActions } from "@/composables/types/form";
+import { Form, FormActions } from "@/types/models/form";
 import { useFormFactory } from "@/composables/formFactory";
 import FormControlText from "@/components/molecules/FormControlText.vue";
 import FormControlDoubleText from "@/components/molecules/FormControlDoubleText.vue";

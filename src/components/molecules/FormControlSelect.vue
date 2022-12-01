@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
-import { GraphqlActions } from "@/composables/types/graphql";
+import { GraphqlActions } from "@/types/models/graphql";
 import { useGQLFormatter } from "@/composables/utils/gqlResultFormatter";
 import { DivingThemeInterface } from "@/types/global/divingTheme";
 

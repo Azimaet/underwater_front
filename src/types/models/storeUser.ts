@@ -13,8 +13,3 @@ export interface StoreUserDataInterface {
   username: string | null;
   avatar: string | null;
 }
-
-export interface AlertInterface {
-  type: string;
-  message: string;
-}

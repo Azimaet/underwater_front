@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { reactive } from "vue";
-import { FormActions, FormUserCredentials } from "@/composables/types/form";
+import { FormActions, FormUserCredentials } from "@/types/models/form";
 import { useAuthLogin } from "@/composables/auth";
 import { useFormFactory } from "@/composables/formFactory";
 import { MUTATION_CREATE_USER } from "@/graphql/mutations/createUser";

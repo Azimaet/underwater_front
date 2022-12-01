@@ -4,7 +4,7 @@ import {
   createHttpLink,
 } from "@apollo/client/core";
 
-import { StoreUserDataInterface } from "@/composables/types/storeUser";
+import { StoreUserDataInterface } from "@/types/models/storeUser";
 import { isLogged } from "../composables/auth";
 import { setContext } from "@apollo/client/link/context";
 import store from "@/store";

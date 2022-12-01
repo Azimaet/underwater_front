@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useDepthDataProvider } from "@/composables/charts/depthDataProvider";
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
-import { GraphqlActions } from "@/composables/types/graphql";
+import { GraphqlActions } from "@/types/models/graphql";
 import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
 import { ref } from "vue";
