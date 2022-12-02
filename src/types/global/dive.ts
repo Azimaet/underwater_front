@@ -1,4 +1,8 @@
-import { DivingThemeInterface } from "@/types/global/divingTheme";
+import {
+  DivingThemeEdgeInterface,
+  DivingThemeInterface,
+} from "@/types/global/divingTheme";
+
 import { GasTank } from "@/types/global/gas";
 
 export interface DiveInterface {
@@ -10,7 +14,9 @@ export interface DiveInterface {
   totalTime: number;
   maxDepth: number;
   gasTanks: GasTank[];
-  divingType: DivingThemeInterface[];
+  divingType: {
+    edges: DivingThemeEdgeInterface[];
+  };
   divingEnvironment: DivingThemeInterface | null;
   divingRole: DivingThemeInterface | null;
   owner: string | null;

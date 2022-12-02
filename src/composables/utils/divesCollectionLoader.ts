@@ -1,5 +1,6 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { DiveInterface } from "@/types/global/dive";
+import { DivingThemeInterface } from "@/types/global/divingTheme";
 import { GasTank } from "@/types/global/gas";
 
 /**
@@ -7,7 +8,7 @@ import { GasTank } from "@/types/global/gas";
  * @param {ApolloQueryResult} collection ApolloQueryResult
  * @param {string} context string
  * @param {string} subProp string
- * @return {Partial<DiveInterface>[] | Record<string, number>}
+ * @return {Partial<DiveInterface>[] | GasTank[] | Record<string, number>}
  */
 export function useDivesCollectionLoader(
   collection: ApolloQueryResult<any>,
@@ -16,30 +17,45 @@ export function useDivesCollectionLoader(
 ): Partial<DiveInterface>[] | GasTank[] | Record<string, number> {
   const key = "dives";
   const tokens: string[] = [];
-  const items: Partial<DiveInterface>[] | GasTank[] = [];
-  const themesTokensItems: Record<string, any> = {};
+  const itemsDives: Partial<DiveInterface>[] = [];
+  const itemsGasTanks: GasTank[] = [];
+  const themesTokensItems: Record<string, number> = {};
 
   collection[key as keyof typeof collection].edges
     .map((item: { node: unknown }) => item.node)
-    .forEach((dive: any) => {
-      if (context && context === "gasTanks") {
+    .forEach((dive: Partial<DiveInterface>) => {
+      if (
+        context &&
+        context === "gasTanks" &&
+        (dive as Pick<DiveInterface, "gasTanks">)
+      ) {
         const gasTanks = dive.gasTanks;
 
-        gasTanks.forEach((tank: GasTank) => {
-          items.push(tank);
+        gasTanks?.forEach((tank: GasTank) => {
+          itemsGasTanks.push(tank);
         });
-      } else if (context && context === "themesTokens") {
-        if (dive[subProp as keyof typeof dive].token) {
-          tokens.push(dive[subProp as keyof typeof dive].token);
+      } else if (
+        context &&
+        context === "themesTokens" &&
+        dive[subProp as keyof typeof dive]
+      ) {
+        console.log(dive);
+        if (subProp === "divingEnvironment" || subProp === "divingRole") {
+          const theme = dive[
+            subProp as keyof typeof dive
+          ] as DivingThemeInterface;
+
+          tokens.push(theme.token);
         } else {
-          dive[subProp as keyof typeof dive].edges
-            .map((item: { node: unknown }) => item.node)
-            .forEach((object: any) => {
-              tokens.push(object.token);
+          dive.divingType?.edges
+            ?.map((item: { node: DivingThemeInterface }) => item.node)
+            .forEach((theme) => {
+              console.log(theme);
+              tokens.push(theme?.token);
             });
         }
       } else {
-        items.push(dive);
+        itemsDives.push(dive);
       }
     });
 
@@ -52,5 +68,9 @@ export function useDivesCollectionLoader(
     });
   }
 
-  return context && context === "themesTokens" ? themesTokensItems : items;
+  return context && context === "themesTokens"
+    ? themesTokensItems
+    : context && context === "gasTanks"
+    ? itemsGasTanks
+    : itemsDives;
 }
