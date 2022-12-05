@@ -2,9 +2,14 @@ import { ApolloQueryResult } from "@apollo/client";
 import { ChartData } from "@/types/charts/globalChart";
 import { Colors } from "@/plugins/utils/colors";
 import { DivingThemeInterface } from "@/types/global/divingTheme";
-import { FormatedThemeQueryResult } from "../utils/gqlResultFormatter";
 import { ThemesData } from "@/types/charts/themes";
 import { useDivesCollectionLoader } from "../utils/divesCollectionLoader";
+interface FormatedThemeQueryResult {
+  [x: string]: any;
+  id: string;
+  label: string;
+  token: string;
+}
 
 /**
  * Themes Data Provider function.

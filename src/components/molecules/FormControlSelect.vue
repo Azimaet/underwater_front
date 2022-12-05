@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { GraphqlActions } from "@/types/models/graphql";
-import { useGQLFormatter } from "@/composables/utils/gqlResultFormatter";
 import { DivingThemeInterface } from "@/types/global/divingTheme";
 
 const props = defineProps<{
@@ -20,7 +19,9 @@ const key: string =
     : "";
 
 const items = await useGqlQueryManager(props.action).then((result) => {
-  return useGQLFormatter(result, key);
+  return result[key as keyof typeof result].edges.map(
+    (item: { node: DivingThemeInterface }) => item.node
+  );
 });
 
 const value = ref();

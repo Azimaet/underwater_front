@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import { GraphqlActions } from "@/types/models/graphql";
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
-import { useGQLFormatter } from "@/composables/utils/gqlResultFormatter";
 import { DivingThemeInterface } from "@/types/global/divingTheme";
 
 const props = defineProps<{
@@ -12,11 +11,10 @@ const props = defineProps<{
   action: GraphqlActions;
 }>();
 
-const key: string =
-  props.action === GraphqlActions.DIVING_TYPES ? "divingTypes" : "";
-
 const items = await useGqlQueryManager(props.action).then((result) => {
-  return useGQLFormatter(result, key);
+  return result["divingTypes" as keyof typeof result].edges.map(
+    (item: { node: DivingThemeInterface }) => item.node
+  );
 });
 
 const types = ref();

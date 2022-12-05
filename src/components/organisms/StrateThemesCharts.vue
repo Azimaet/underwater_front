@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { GraphqlActions } from "@/types/models/graphql";
+import { DivingThemeInterface } from "@/types/global/divingTheme";
 import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
-import { useGQLFormatter } from "@/composables/utils/gqlResultFormatter";
 import { useThemesDataProvider } from "@/composables/charts/themesDataProvider";
 import { ref } from "vue";
 
@@ -12,19 +12,25 @@ const isDives = ref(false);
 const divingEnvironmentsItems = await useGqlQueryManager(
   GraphqlActions.DIVING_ENVIRONMENTS
 ).then((result) => {
-  return useGQLFormatter(result, "divingEnvironments");
+  return result["divingEnvironments" as keyof typeof result].edges.map(
+    (item: { node: DivingThemeInterface }) => item.node
+  );
 });
 
 const divingRolesItems = await useGqlQueryManager(
   GraphqlActions.DIVING_ROLES
 ).then((result) => {
-  return useGQLFormatter(result, "divingRoles");
+  return result["divingRoles" as keyof typeof result].edges.map(
+    (item: { node: DivingThemeInterface }) => item.node
+  );
 });
 
 const divingTypesItems = await useGqlQueryManager(
   GraphqlActions.DIVING_TYPES
 ).then((result) => {
-  return useGQLFormatter(result, "divingTypes");
+  return result["divingTypes" as keyof typeof result].edges.map(
+    (item: { node: DivingThemeInterface }) => item.node
+  );
 });
 
 const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(

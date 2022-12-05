@@ -39,7 +39,6 @@ export function useDivesCollectionLoader(
         context === "themesTokens" &&
         dive[subProp as keyof typeof dive]
       ) {
-        console.log(dive);
         if (subProp === "divingEnvironment" || subProp === "divingRole") {
           const theme = dive[
             subProp as keyof typeof dive
@@ -50,7 +49,6 @@ export function useDivesCollectionLoader(
           dive.divingType?.edges
             ?.map((item: { node: DivingThemeInterface }) => item.node)
             .forEach((theme) => {
-              console.log(theme);
               tokens.push(theme?.token);
             });
         }
