@@ -4,26 +4,20 @@ import { Colors } from "@/plugins/utils/colors";
 import { DivingThemeInterface } from "@/types/global/divingTheme";
 import { ThemesData } from "@/types/charts/themes";
 import { useDivesCollectionLoader } from "../utils/divesCollectionLoader";
-interface FormatedThemeQueryResult {
-  [x: string]: any;
-  id: string;
-  label: string;
-  token: string;
-}
 
 /**
  * Themes Data Provider function.
  * @param {ApolloQueryResult} collection ApolloQueryResult
- * @param {FormatedThemeQueryResult[]} queries FormatedThemeQueryResult[]
+ * @param {[DivingThemeInterface[]]} queries [DivingThemeInterface[]]
  * @return {ThemesData}
  */
 export function useThemesDataProvider(
   collection: ApolloQueryResult<unknown>,
-  queries: FormatedThemeQueryResult[]
+  queries: DivingThemeInterface[][]
 ): ThemesData {
   function getLabels(
     data: Record<string, number>,
-    query: FormatedThemeQueryResult
+    query: DivingThemeInterface[]
   ) {
     const labels: string[] = [];
 

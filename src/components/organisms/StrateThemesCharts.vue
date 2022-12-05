@@ -9,15 +9,16 @@ import { ref } from "vue";
 
 const isDives = ref(false);
 
-const divingEnvironmentsItems = await useGqlQueryManager(
-  GraphqlActions.DIVING_ENVIRONMENTS
-).then((result) => {
-  return result["divingEnvironments" as keyof typeof result].edges.map(
-    (item: { node: DivingThemeInterface }) => item.node
+const divingEnvironmentsItems: DivingThemeInterface[] =
+  await useGqlQueryManager(GraphqlActions.DIVING_ENVIRONMENTS).then(
+    (result) => {
+      return result["divingEnvironments" as keyof typeof result].edges.map(
+        (item: { node: DivingThemeInterface }) => item.node
+      );
+    }
   );
-});
 
-const divingRolesItems = await useGqlQueryManager(
+const divingRolesItems: DivingThemeInterface[] = await useGqlQueryManager(
   GraphqlActions.DIVING_ROLES
 ).then((result) => {
   return result["divingRoles" as keyof typeof result].edges.map(
@@ -25,7 +26,7 @@ const divingRolesItems = await useGqlQueryManager(
   );
 });
 
-const divingTypesItems = await useGqlQueryManager(
+const divingTypesItems: DivingThemeInterface[] = await useGqlQueryManager(
   GraphqlActions.DIVING_TYPES
 ).then((result) => {
   return result["divingTypes" as keyof typeof result].edges.map(
@@ -42,6 +43,8 @@ const divesCollection: ApolloQueryResult<unknown> = await useGqlQueryManager(
   isDives.value = result.dives.edges.length;
   return result;
 });
+
+console.log(divingEnvironmentsItems);
 
 const themesChartData = isDives.value
   ? useThemesDataProvider(divesCollection, [
