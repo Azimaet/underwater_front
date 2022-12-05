@@ -18,7 +18,7 @@ export function useThemesDataProvider(
   function getLabels(
     data: Record<string, number>,
     query: DivingThemeInterface[]
-  ) {
+  ): string[] {
     const labels: string[] = [];
 
     Object.keys(data).forEach((key) => {
@@ -32,7 +32,7 @@ export function useThemesDataProvider(
     return labels;
   }
 
-  function getKeys(data: Record<string, number>) {
+  function getKeys(data: Record<string, number>): string[] {
     const keys: string[] = [];
 
     Object.keys(data).forEach((key) => {
@@ -42,7 +42,7 @@ export function useThemesDataProvider(
     return keys;
   }
 
-  function getColors(data: Record<string, number>) {
+  function getColors(data: Record<string, number>): string[] {
     const values: string[] = [];
 
     Object.keys(data).forEach((key) => {
@@ -53,7 +53,7 @@ export function useThemesDataProvider(
     return values;
   }
 
-  function getDatas(data: Record<string, number>) {
+  function getDatas(data: Record<string, number>): number[] {
     const values: number[] = [];
 
     Object.keys(data).forEach((key) => {
@@ -63,7 +63,7 @@ export function useThemesDataProvider(
     return values;
   }
 
-  function getProgressDatas(data: Record<string, number>) {
+  function getProgressDatas(data: Record<string, number>): number[] {
     const values: number[] = [];
     const sumValues = Object.values(data).reduce((a, b) => a + b, 0);
 
