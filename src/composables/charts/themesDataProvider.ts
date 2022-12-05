@@ -18,7 +18,7 @@ interface FormatedThemeQueryResult {
  * @return {ThemesData}
  */
 export function useThemesDataProvider(
-  collection: ApolloQueryResult<any>,
+  collection: ApolloQueryResult<unknown>,
   queries: FormatedThemeQueryResult[]
 ): ThemesData {
   function getLabels(

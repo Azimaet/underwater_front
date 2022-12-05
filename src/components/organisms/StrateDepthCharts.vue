@@ -8,7 +8,7 @@ import { ref } from "vue";
 
 const isDives = ref(false);
 
-const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
+const divesCollection: ApolloQueryResult<unknown> = await useGqlQueryManager(
   GraphqlActions.DEPTH_BY_DIVES,
   {
     owner: "api/users/" + store.state.user.data.id,

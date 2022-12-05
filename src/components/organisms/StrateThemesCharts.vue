@@ -33,7 +33,7 @@ const divingTypesItems = await useGqlQueryManager(
   );
 });
 
-const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
+const divesCollection: ApolloQueryResult<unknown> = await useGqlQueryManager(
   GraphqlActions.THEMES_BY_DIVES,
   {
     owner: "api/users/" + store.state.user.data.id,

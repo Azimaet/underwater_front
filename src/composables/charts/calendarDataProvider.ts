@@ -18,7 +18,7 @@ import { useTimeSinceFormatter } from "../timeSinceFormatter";
  * @return {CalendarData}
  */
 export function useCalendarDataProvider(
-  collection: ApolloQueryResult<any>
+  collection: ApolloQueryResult<unknown>
 ): CalendarData {
   type ReduceAccumulator = Record<
     string,
