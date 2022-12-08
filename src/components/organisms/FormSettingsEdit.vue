@@ -11,6 +11,10 @@ import store from "@/store";
 import { useAuthLogout } from "@/composables/auth";
 import router from "@/router";
 import { useAlertFactory } from "@/composables/alertFactory";
+import { translations } from "@/i18n/index";
+
+const { EDIT_ACCOUNT } = translations.en.ALERTS;
+const { SUBMIT } = translations.en.FORM_WORDING;
 
 const form: Form = useFormFactory(FormActions.ACCOUNT_UPDATE);
 
@@ -51,10 +55,7 @@ onError((error) => {
 
 onDone(() => {
   useAuthLogout();
-  useAlertFactory(
-    "success",
-    "Your account settings have been updated. Please re-login!"
-  );
+  useAlertFactory("success", EDIT_ACCOUNT);
   router.push({ name: "home" });
 });
 </script>
@@ -95,7 +96,7 @@ onDone(() => {
     </v-card-text>
     <v-card-actions>
       <ButtonComponent
-        :label="'Submit'"
+        :label="SUBMIT"
         :color="'success'"
         :size="'x-large'"
         :class="['my-5', 'mx-5']"

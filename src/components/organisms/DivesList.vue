@@ -6,6 +6,10 @@ import { ref } from "vue";
 import { useDivesCollectionLoader } from "../../composables/utils/divesCollectionLoader";
 import { useGasNameProvider } from "@/composables/gasNameProvider";
 import { Colors } from "@/plugins/utils/colors";
+import { translations } from "@/i18n/index";
+
+const { EDIT } = translations.en.FORM_WORDING;
+
 const props = defineProps<{
   title: string;
   subtitle?: string;
@@ -98,7 +102,7 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
                     </v-col>
                     <v-col :cols="2">
                       <ButtonComponent
-                        :label="'Edit'"
+                        :label="EDIT"
                         :color="'warning'"
                         :responsive="true"
                         :class="['ml-2']"

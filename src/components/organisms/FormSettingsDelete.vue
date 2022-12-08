@@ -10,6 +10,10 @@ import store from "@/store";
 import { useAuthLogout } from "@/composables/auth";
 import router from "@/router";
 import { useAlertFactory } from "@/composables/alertFactory";
+import { translations } from "@/i18n/index";
+
+const { REMOVE_ACCOUNT } = translations.en.ALERTS;
+const { DELETE } = translations.en.FORM_WORDING;
 
 const form: Form = useFormFactory(FormActions.ACCOUNT_DELETE);
 
@@ -32,7 +36,7 @@ onError((error) => {
 
 onDone(() => {
   useAuthLogout();
-  useAlertFactory("success", "Your account have been completely removed!");
+  useAlertFactory("success", REMOVE_ACCOUNT);
   router.push({ name: "home" });
 });
 </script>
@@ -64,7 +68,7 @@ onDone(() => {
     </v-card-text>
     <v-card-actions>
       <ButtonComponent
-        :label="'Delete'"
+        :label="DELETE"
         :color="'error'"
         :size="'x-large'"
         :class="['my-5', 'mx-5']"

@@ -2,6 +2,9 @@
 import { menu } from "@/store/menu";
 import { isLogged } from "@/composables/auth";
 import store from "@/store";
+import { translations } from "@/i18n/index";
+
+const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS } = translations.en.PAGES;
 </script>
 
 <template>
@@ -27,7 +30,7 @@ import store from "@/store";
     <v-list density="compact" nav>
       <v-list-item
         prepend-icon="mdi-view-dashboard"
-        title="Home"
+        :title="HOME"
         value="home"
         link
         @click="$router.push('/')"
@@ -35,7 +38,7 @@ import store from "@/store";
       <v-list-item
         v-if="isLogged()"
         prepend-icon="mdi-diving-scuba"
-        title="Profile"
+        :title="PROFILE"
         value="profile"
         link
         @click="$router.push('profile')"
@@ -43,7 +46,7 @@ import store from "@/store";
       <v-list-item
         v-if="isLogged()"
         prepend-icon="mdi-format-list-bulleted"
-        title="Dives List"
+        :title="DIVES_LIST"
         value="dive_list"
         link
         @click="$router.push('dives')"
@@ -51,7 +54,7 @@ import store from "@/store";
       <v-list-item
         v-if="isLogged()"
         prepend-icon="mdi-plus"
-        title="Add Dive"
+        :title="ADD_DIVE"
         value="add-dive"
         link
         @click="$router.push('dive_form')"
@@ -59,7 +62,7 @@ import store from "@/store";
       <v-list-item
         v-if="isLogged()"
         prepend-icon="mdi-cog"
-        title="Settings"
+        :title="SETTINGS"
         value="settings"
         link
         @click="$router.push('settings')"

@@ -3,7 +3,7 @@ import { translations } from "@/i18n/index";
 import { GasTank, GasMix } from "@/types/global/gas";
 import { isMobile } from "@/composables/utils/isMobile";
 
-const { PRESSURE_END, PRESSURE_START } = translations.en.GAS;
+const { PRESSURE_END, PRESSURE_START, GAS_MIX } = translations.en.GAS;
 
 const props = defineProps<{
   id: string;
@@ -31,7 +31,7 @@ const handleChange = (
 </script>
 
 <template>
-  <v-card :title="'Gas Mix'" border rounded :elevation="5">
+  <v-card :title="GAS_MIX" border rounded :elevation="5">
     <v-row>
       <template v-for="(item, index) in value" :key="index">
         <v-col :cols="isMobile.value ? 12 : 6">

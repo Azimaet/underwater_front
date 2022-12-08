@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { translations } from "@/i18n/index";
+
+const { RULE_PASSWORD } = translations.en.FORM_WORDING;
 
 const props = defineProps<{
   id: string;
@@ -20,7 +23,7 @@ const matchingPasswords = () => {
   if (text.value === text_verifier.value) {
     return true;
   } else {
-    return "Passwords does not match.";
+    return RULE_PASSWORD;
   }
 };
 </script>

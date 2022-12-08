@@ -8,12 +8,11 @@ import {
   ArcElement,
   CategoryScale,
 } from "chart.js";
-import { ThemesData } from "@/types/charts/themes";
 import { DepthData } from "@/types/charts/depth";
 import { globalOptionsProvider } from "@/composables/charts/globalOptionsProvider";
 
 const props = defineProps<{
-  data: ThemesData["pie"] | DepthData["pie"];
+  data: DepthData["pie"];
   context: string;
 }>();
 

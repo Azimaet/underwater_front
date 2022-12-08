@@ -8,6 +8,9 @@ import { MUTATION_CREATE_USER } from "@/graphql/mutations/createUser";
 import { useMutation } from "@vue/apollo-composable";
 import router from "@/router";
 import { useAlertFactory } from "../../composables/alertFactory";
+import { translations } from "@/i18n/index";
+
+const { CREATE_USER, ERROR_CREATE_USER } = translations.en.ALERTS;
 
 const props = defineProps<{
   action: FormActions;
@@ -51,12 +54,12 @@ const { mutate, onDone, onError } = useMutation(MUTATION_CREATE_USER, {
 });
 
 onError((error) => {
-  useAlertFactory("error", "Error on create User: " + error.toString());
+  useAlertFactory("error", ERROR_CREATE_USER + error.toString());
   router.push({ name: "home" });
 });
 
 onDone(() => {
-  useAlertFactory("success", "A new user have been created!");
+  useAlertFactory("success", CREATE_USER);
   router.push({ name: "home" });
 });
 </script>

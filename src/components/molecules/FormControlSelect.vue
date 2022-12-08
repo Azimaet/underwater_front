@@ -11,8 +11,6 @@ const props = defineProps<{
   action: GraphqlActions;
 }>();
 
-console.log(props.value);
-
 const key: string =
   props.action === GraphqlActions.DIVING_ROLES
     ? "divingRoles"

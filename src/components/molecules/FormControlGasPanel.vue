@@ -3,6 +3,9 @@ import { useGasNameProvider } from "@/composables/gasNameProvider";
 import { computed, reactive, ref } from "vue";
 import { GasMix } from "@/types/global/gas";
 import { useGasMixUpdater } from "@/composables/gasMixUpdater";
+import { translations } from "@/i18n/index";
+
+const { OXYGEN, NITROGEN, HELIUM, LOCK_GAS, CURRENT_GAS } = translations.en.GAS;
 
 const props = defineProps<{
   id: string;
@@ -71,14 +74,16 @@ const checkChange = (value: boolean, context: string) => {
 
 <template>
   <v-card>
-    <v-card-title :class="['d-inline']">Current Gas:</v-card-title>
+    <v-card-title :class="['d-inline']">
+      {{ CURRENT_GAS }}
+    </v-card-title>
     <v-card-subtitle :class="['d-inline']">
       {{ state.name.title + state.name.subtitle }}
     </v-card-subtitle>
     <v-card-text>
       <v-slider
         v-model="state.oxygen"
-        :label="'Oxygen'"
+        :label="OXYGEN"
         @update:model-value="handleChange(state.oxygen, 'oxygen')"
         :readonly="oxygenIsLocked"
         :max="100"
@@ -100,14 +105,14 @@ const checkChange = (value: boolean, context: string) => {
           <v-checkbox
             v-model="oxygenIsLocked"
             @change="checkChange(oxygenIsLocked, 'oxygen')"
-            :label="`Lock gas`"
+            :label="LOCK_GAS"
           ></v-checkbox>
         </template>
       </v-slider>
 
       <v-slider
         v-model="state.nitrogen"
-        :label="'Nitrogen'"
+        :label="NITROGEN"
         @update:model-value="handleChange(state.nitrogen, 'nitrogen')"
         :readonly="nitrogenIsLocked"
         :max="100"
@@ -129,14 +134,14 @@ const checkChange = (value: boolean, context: string) => {
           <v-checkbox
             v-model="nitrogenIsLocked"
             @change="checkChange(nitrogenIsLocked, 'nitrogen')"
-            :label="`Lock gas`"
+            :label="LOCK_GAS"
           ></v-checkbox>
         </template>
       </v-slider>
 
       <v-slider
         v-model="state.helium"
-        :label="'Helium'"
+        :label="HELIUM"
         @update:model-value="handleChange(state.helium, 'helium')"
         :readonly="heliumIsLocked"
         :max="100"
@@ -158,7 +163,7 @@ const checkChange = (value: boolean, context: string) => {
           <v-checkbox
             v-model="heliumIsLocked"
             @change="checkChange(heliumIsLocked, 'helium')"
-            :label="`Lock gas`"
+            :label="LOCK_GAS"
           ></v-checkbox>
         </template>
       </v-slider>

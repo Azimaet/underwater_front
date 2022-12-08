@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { translations } from "@/i18n/index";
+
+const { MADE, CREDITS, GITHUB } = translations.en.FOOTER;
 
 const scrolledToBottom = ref(false);
 
@@ -33,9 +36,9 @@ onMounted(() => {
       ]"
     >
       <span :class="['mr-1', 'd-none', 'd-sm-flex']">
-        2022 - Underwwwater -
+        {{ CREDITS }}
       </span>
-      <span> made with</span>
+      <span> {{ MADE }}</span>
       <v-icon :class="['mx-1']">mdi-symfony</v-icon>
       <v-icon :class="['mx-1']">mdi-graphql</v-icon>
       <v-icon :class="['mx-1']">mdi-vuejs</v-icon>
@@ -51,7 +54,7 @@ onMounted(() => {
       }"
       :size="'small'"
       :href="'https://github.com/Azimaet'"
-      :label="'Visit my Github'"
+      :label="GITHUB"
       :class="['d-flex']"
       :responsive="true"
     />

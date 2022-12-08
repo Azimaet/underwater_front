@@ -14,6 +14,10 @@ import {
 import { GasMix } from "@/types/global/gas";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { isMobile } from "@/composables/utils/isMobile";
+import { translations } from "@/i18n/index";
+
+const { NEW_DIVE, UPDATE_DIVE } = translations.en.ALERTS;
+const { BUTTON_ADD, BUTTON_UPDATE } = translations.en.FORM_DIVING;
 
 const FormControlDate = defineAsyncComponent(
   () => import("@/components/molecules/FormControlDate.vue")
@@ -143,7 +147,7 @@ onError((error) => {
 });
 
 onDone(() => {
-  useAlertFactory("success", "New dive added!");
+  useAlertFactory("success", isUpdating ? UPDATE_DIVE : NEW_DIVE);
   router.push({ name: "dive_form" });
 });
 
@@ -155,9 +159,6 @@ watch(dive, async () => {
   payload.divingType = dive.divingType.edges.map((item) => item.node.id);
   payload.divingEnvironment = dive.divingEnvironment?.id;
   payload.divingRole = dive.divingRole?.id;
-
-  console.log("payload");
-  console.log(payload.date);
 });
 </script>
 
@@ -224,7 +225,7 @@ watch(dive, async () => {
       </v-card-text>
       <v-card-actions>
         <ButtonComponent
-          :label="'Add dive'"
+          :label="isUpdating ? BUTTON_UPDATE : BUTTON_ADD"
           :color="'success'"
           :size="'x-large'"
           :class="['my-5', 'mx-5']"

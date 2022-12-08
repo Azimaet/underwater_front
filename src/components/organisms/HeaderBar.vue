@@ -7,6 +7,10 @@ import { onMounted, ref } from "vue";
 import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { menu } from "@/store/menu";
 import { isMobile } from "@/composables/utils/isMobile";
+import { translations } from "@/i18n/index";
+
+const { LOGOUT } = translations.en.FORM_WORDING;
+const { LOGOUT_ACCOUNT } = translations.en.ALERTS;
 
 const scrollPosition = ref(0);
 
@@ -70,7 +74,7 @@ onMounted(() => {
             </v-avatar>
           </v-badge>
           <ButtonComponent
-            :label="'Logout'"
+            :label="LOGOUT"
             :color="'error'"
             :icon="{
               name: 'mdi-exit-to-app',
@@ -79,10 +83,7 @@ onMounted(() => {
             }"
             :responsive="true"
             :class="['ml-2']"
-            @click="
-              useAuthLogout(),
-                useAlertFactory('success', 'You have been correctly logout.')
-            "
+            @click="useAuthLogout(), useAlertFactory('success', LOGOUT_ACCOUNT)"
           />
         </div>
         <div v-else :class="['d-flex', 'justify-center', 'align-center']">
