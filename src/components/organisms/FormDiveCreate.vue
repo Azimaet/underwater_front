@@ -4,6 +4,7 @@ import { useFormFactory } from "@/composables/formFactory";
 import { FormActions } from "@/types/models/form";
 import { useMutation } from "@vue/apollo-composable";
 import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
+import { MUTATION_UPDATE_DIVE } from "@/graphql/mutations/updateDive";
 import router from "@/router";
 import { DiveInterface } from "@/types/global/dive";
 import {
@@ -118,20 +119,24 @@ const load = () => {
 };
 
 const payload = reactive({
+  id: isUpdating ? dive.id : null,
   date: dive.date,
   totalTime: dive.totalTime,
   maxDepth: dive.maxDepth,
   gasTanks: dive.gasTanks,
-  divingType: dive.divingType,
-  divingEnvironment: dive.divingEnvironment,
-  divingRole: dive.divingRole,
+  divingType: dive.divingType.edges.map((item) => item.node.id),
+  divingEnvironment: dive.divingEnvironment?.id,
+  divingRole: dive.divingRole?.id,
 });
 
-const { mutate, onDone, onError } = useMutation(MUTATION_CREATE_DIVE, {
-  variables: {
-    input: payload,
-  },
-});
+const { mutate, onDone, onError } = useMutation(
+  isUpdating ? MUTATION_UPDATE_DIVE : MUTATION_CREATE_DIVE,
+  {
+    variables: {
+      input: payload,
+    },
+  }
+);
 
 onError((error) => {
   useAlertFactory("error", error.toString());
@@ -143,13 +148,16 @@ onDone(() => {
 });
 
 watch(dive, async () => {
-  payload.date = dive.date;
+  payload.date = new Date(dive.date);
   payload.totalTime = dive.totalTime;
   payload.maxDepth = dive.maxDepth;
   payload.gasTanks = dive.gasTanks;
-  payload.divingType = dive.divingType;
-  payload.divingEnvironment = dive.divingEnvironment;
-  payload.divingRole = dive.divingRole;
+  payload.divingType = dive.divingType.edges.map((item) => item.node.id);
+  payload.divingEnvironment = dive.divingEnvironment?.id;
+  payload.divingRole = dive.divingRole?.id;
+
+  console.log("payload");
+  console.log(payload.date);
 });
 </script>
 
