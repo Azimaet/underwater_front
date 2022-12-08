@@ -2,12 +2,17 @@
 import { ref } from "vue";
 import { GraphqlActions } from "@/types/models/graphql";
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
-import { DivingThemeInterface } from "@/types/global/divingTheme";
+import {
+  DivingThemeEdgeInterface,
+  DivingThemeInterface,
+} from "@/types/global/divingTheme";
 
 const props = defineProps<{
   id: string;
   label: string;
-  value: DivingThemeInterface[];
+  value: {
+    edges: DivingThemeEdgeInterface[];
+  };
   action: GraphqlActions;
 }>();
 
@@ -17,7 +22,7 @@ const items = await useGqlQueryManager(props.action).then((result) => {
   );
 });
 
-const types = ref();
+const types = ref(props.value.edges.map((item) => item.node));
 </script>
 
 <template>

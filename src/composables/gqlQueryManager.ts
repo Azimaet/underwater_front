@@ -1,6 +1,7 @@
 import {
   QUERY_DATES_BY_DIVES,
   QUERY_DEPTH_BY_DIVES,
+  QUERY_DIVES,
   QUERY_DIVES_BY_DATES,
   QUERY_FIRST_DIVE,
   QUERY_GASTANKS_BY_DIVES,
@@ -94,6 +95,8 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
         ? THEMES_BY_DIVES
         : action === GraphqlActions.DATES_BY_DIVES
         ? QUERY_DATES_BY_DIVES
+        : action === GraphqlActions.DIVES
+        ? QUERY_DIVES
         : null;
 
     if (
@@ -101,7 +104,7 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
       query === null ||
       !Object.values(GraphqlActions).includes(action)
     ) {
-      throw "GraphQL action to process is not unknown!";
+      throw "GraphQL action to process is unknown!";
     }
 
     const { apolloQuery } = processPromisedQuery(query as DocumentNode);

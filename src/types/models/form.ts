@@ -26,6 +26,7 @@ export enum FormActions {
   ACCOUNT_UPDATE = "ACCOUNT_UPDATE",
   ACCOUNT_DELETE = "ACCOUNT_DELETE",
   DIVE_CREATE = "FORM_ACTION_DIVE_CREATE",
+  DIVE_UPDATE = "FORM_ACTION_DIVE_UPDATE",
 }
 
 export interface FormUserCredentials {

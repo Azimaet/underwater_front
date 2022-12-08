@@ -44,8 +44,6 @@ const divesCollection: ApolloQueryResult<unknown> = await useGqlQueryManager(
   return result;
 });
 
-console.log(divingEnvironmentsItems);
-
 const themesChartData = isDives.value
   ? useThemesDataProvider(divesCollection, [
       divingEnvironmentsItems,

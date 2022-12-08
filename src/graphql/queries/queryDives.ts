@@ -26,11 +26,33 @@ export const QUERY_LAST_DIVE = gql`
 
 export const QUERY_DIVES = gql`
   query ($owner: String) {
-    dives(owner: $owner) {
+    dives(owner: $owner, order: { date: "DESC" }) {
       edges {
         node {
           id
-          label
+          gasTanks
+          totalTime
+          maxDepth
+          date
+          divingType {
+            edges {
+              node {
+                label
+                token
+                id
+              }
+            }
+          }
+          divingEnvironment {
+            label
+            token
+            id
+          }
+          divingRole {
+            label
+            token
+            id
+          }
         }
       }
     }

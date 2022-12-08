@@ -6,7 +6,10 @@ import { useMutation } from "@vue/apollo-composable";
 import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
 import router from "@/router";
 import { DiveInterface } from "@/types/global/dive";
-import { DivingThemeInterface } from "@/types/global/divingTheme";
+import {
+  DivingThemeEdgeInterface,
+  DivingThemeInterface,
+} from "@/types/global/divingTheme";
 import { GasMix } from "@/types/global/gas";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { isMobile } from "@/composables/utils/isMobile";
@@ -27,32 +30,38 @@ const FormControlGasGroup = defineAsyncComponent(
   () => import("@/components/molecules/FormControlGasGroup.vue")
 );
 
+const isUpdating = !!window.history.state.dive;
+
 const dive: DiveInterface = reactive({
-  id: null,
-  uuid: null,
-  createdAt: null,
-  updatedAt: null,
-  date: new Date(),
-  totalTime: 0,
-  maxDepth: 0,
-  gasTanks: [
-    {
-      gasMix: {
-        helium: 0,
-        oxygen: 21,
-        nitrogen: 79,
-      },
-      pressureStart: 200,
-      pressureEnd: 50,
-    },
-  ],
-  divingType: [],
-  divingEnvironment: null,
-  divingRole: null,
+  id: isUpdating ? window.history.state.dive.id : null,
+  date: isUpdating ? new Date(window.history.state.dive.date) : new Date(),
+  totalTime: isUpdating ? window.history.state.dive.totalTime : 0,
+  maxDepth: isUpdating ? window.history.state.dive.maxDepth : 0,
+  gasTanks: isUpdating
+    ? window.history.state.dive.gasTanks
+    : [
+        {
+          gasMix: {
+            helium: 0,
+            oxygen: 21,
+            nitrogen: 79,
+          },
+          pressureStart: 200,
+          pressureEnd: 50,
+        },
+      ],
+  divingType: isUpdating ? window.history.state.dive.divingType : { edges: [] },
+  divingEnvironment: isUpdating
+    ? window.history.state.dive.divingEnvironment
+    : null,
+  divingRole: isUpdating ? window.history.state.dive.divingRole : null,
   owner: null,
 });
 
-const form = useFormFactory(FormActions.DIVE_CREATE, dive);
+const form = useFormFactory(
+  isUpdating ? FormActions.DIVE_UPDATE : FormActions.DIVE_CREATE,
+  dive
+);
 const valid = ref(false);
 const loading = ref(false);
 
@@ -81,7 +90,9 @@ const handleChange = (
       dive[id] = value as DivingThemeInterface | null;
       break;
     case "divingType":
-      dive[id] = value as DivingThemeInterface[];
+      dive[id] = value as {
+        edges: DivingThemeEdgeInterface[];
+      };
       break;
     case "gasTanks":
       switch (subId) {

@@ -19,6 +19,8 @@ declare module '@vue/runtime-core' {
     ChartProgress: typeof import('./src/components/molecules/ChartProgress.vue')['default']
     CreditsImages: typeof import('./src/components/atoms/CreditsImages.vue')['default']
     DiveFormView: typeof import('./src/components/views/DiveFormView.vue')['default']
+    DivesList: typeof import('./src/components/organisms/DivesList.vue')['default']
+    DivesListView: typeof import('./src/components/views/DivesListView.vue')['default']
     FooterBar: typeof import('./src/components/molecules/FooterBar.vue')['default']
     FormControlComboBox: typeof import('./src/components/molecules/FormControlComboBox.vue')['default']
     FormControlDate: typeof import('./src/components/molecules/FormControlDate.vue')['default']

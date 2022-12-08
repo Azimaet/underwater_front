@@ -17,6 +17,14 @@ const routes: Array<RouteRecordRaw> = [
       ),
   },
   {
+    path: "/dives",
+    name: "dives",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "@/components/views/DivesListView.vue"
+      ),
+  },
+  {
     path: "/settings",
     name: "settings",
     component: () =>

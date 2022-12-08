@@ -15,7 +15,8 @@ export const en = {
     SELECT_AVATAR: "Select avatar",
   },
   FORM_DIVING: {
-    TITLE: "Add a new Dive!",
+    TITLE_ADD: "Add a new Dive!",
+    TITLE_UPDATE: "Update Dive!",
     DATE: "Date",
     TOTALTIME: "Total time (in minutes.)",
     MAXDEPTH: "Maximum depth (in meters.)",

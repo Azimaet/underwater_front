@@ -62,8 +62,12 @@ export function useFormFactory(
           : "",
       icon: context === "password" ? "mdi-lock-outline" : null,
       rules: [
-        (action === FormActions.DIVE_CREATE && context === "totalTime") ||
-        (action === FormActions.DIVE_CREATE && context === "maxDepth")
+        ((action === FormActions.DIVE_CREATE ||
+          action === FormActions.DIVE_UPDATE) &&
+          context === "totalTime") ||
+        ((action === FormActions.DIVE_CREATE ||
+          action === FormActions.DIVE_UPDATE) &&
+          context === "maxDepth")
           ? (v: string) => !!v || "Field is required"
           : action === FormActions.ACCOUNT_UPDATE && context === "password"
           ? (v: string) => !!v || "Field is required"
@@ -203,7 +207,9 @@ export function useFormFactory(
     const form: Form = {
       title:
         action === FormActions.DIVE_CREATE && dive
-          ? FORM_DIVING.TITLE
+          ? FORM_DIVING.TITLE_ADD
+          : action === FormActions.DIVE_UPDATE && dive
+          ? FORM_DIVING.TITLE_UPDATE
           : action === FormActions.LOGIN
           ? FORM_WORDING.LOGIN
           : action === FormActions.REGISTER
@@ -217,7 +223,9 @@ export function useFormFactory(
     };
 
     const formProps: string[] =
-      action === FormActions.DIVE_CREATE && dive
+      (action === FormActions.DIVE_CREATE ||
+        action === FormActions.DIVE_UPDATE) &&
+      dive
         ? Object.getOwnPropertyNames(dive)
         : action === FormActions.LOGIN
         ? ["email", "password"]

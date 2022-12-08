@@ -42,6 +42,14 @@ import store from "@/store";
       ></v-list-item>
       <v-list-item
         v-if="isLogged()"
+        prepend-icon="mdi-format-list-bulleted"
+        title="Dives List"
+        value="dive_list"
+        link
+        @click="$router.push('dives')"
+      ></v-list-item>
+      <v-list-item
+        v-if="isLogged()"
         prepend-icon="mdi-plus"
         title="Add Dive"
         value="add-dive"

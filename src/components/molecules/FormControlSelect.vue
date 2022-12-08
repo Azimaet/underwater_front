@@ -11,6 +11,8 @@ const props = defineProps<{
   action: GraphqlActions;
 }>();
 
+console.log(props.value);
+
 const key: string =
   props.action === GraphqlActions.DIVING_ROLES
     ? "divingRoles"
@@ -24,7 +26,7 @@ const items = await useGqlQueryManager(props.action).then((result) => {
   );
 });
 
-const value = ref();
+const value = ref(props.value);
 </script>
 
 <template>
