@@ -18,9 +18,9 @@ const emit = defineEmits<{
   (e: string, id: string, value: GasMix, index?: number, subId?: string): void;
 }>();
 
-let oxygenIsLocked = ref(false);
-let nitrogenIsLocked = ref(false);
-let heliumIsLocked = ref(true);
+const oxygenIsLocked = ref(false);
+const nitrogenIsLocked = ref(false);
+const heliumIsLocked = ref(true);
 
 const lockedGas = computed(() => {
   return oxygenIsLocked.value

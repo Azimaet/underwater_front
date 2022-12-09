@@ -49,9 +49,9 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
               :lines="'one'"
             >
               <v-list-item-content>
-                <v-list-item-title
-                  v-text="'#' + (divesCollection.length - index)"
-                />
+                <v-list-item-title>
+                  {{ "#" + (divesCollection.length - index) }}
+                </v-list-item-title>
                 <v-list-item-subtitle
                   :class="[
                     'd-flex',
