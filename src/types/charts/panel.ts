@@ -1,12 +1,16 @@
 import { CalendarHighlightItem } from "./calendar";
 
-export interface PanelCol {
+interface PanelCol {
   title: string;
   subtitle: string[] | CalendarHighlightItem[];
   highlight?: boolean;
   dropdown?: boolean;
 }
 
-export interface PanelRow {
+interface PanelRow {
   cols: PanelCol[];
+}
+
+export interface PanelData {
+  rows: PanelRow[];
 }

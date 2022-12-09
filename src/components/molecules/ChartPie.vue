@@ -16,13 +16,15 @@ const props = defineProps<{
   context: string;
 }>();
 
+console.log(props.data);
+
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 </script>
 
 <template>
   <Pie
-    :chart-options="globalOptionsProvider(context, props.data)"
-    :chart-data="props.data"
+    :options="globalOptionsProvider(context, props.data)"
+    :data="props.data"
     :chart-id="'pie-chart'"
   />
 </template>

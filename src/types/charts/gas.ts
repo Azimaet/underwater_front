@@ -1,5 +1,5 @@
 import { ChartData } from "./globalChart";
-import { PanelRow } from "./panel";
+import { PanelData } from "./panel";
 
 export interface GasConsumptionItem {
   startPressure: number;
@@ -20,7 +20,5 @@ export interface GasDoughnutItem {
 export interface GasData {
   doughnut: ChartData;
   bar: ChartData;
-  panel: {
-    rows: PanelRow[];
-  };
+  panel: PanelData;
 }

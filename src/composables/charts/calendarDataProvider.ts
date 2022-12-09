@@ -7,7 +7,7 @@ import {
 import { ApolloQueryResult } from "@apollo/client";
 import { Colors } from "@/plugins/utils/colors";
 import { DiveInterface } from "@/types/global/dive";
-import { PanelRow } from "@/types/charts/panel";
+import { PanelData } from "@/types/charts/panel";
 import { months } from "@/types/utils/months";
 import { useDivesCollectionLoader } from "../utils/divesCollectionLoader";
 import { useTimeSinceFormatter } from "../timeSinceFormatter";
@@ -86,7 +86,7 @@ export function useCalendarDataProvider(
     );
   }
 
-  function loadPanelData(): PanelRow[] {
+  function loadPanelData(): PanelData {
     const statYears: CalendarHighlightItem[] = [];
     const datesGroups = groupDates();
     const highlightMonth: CalendarHighlightItem = {
@@ -132,47 +132,49 @@ export function useCalendarDataProvider(
       );
     };
 
-    return [
-      {
-        cols: [
-          {
-            title: "Last Dive",
-            subtitle: [useTimeSinceFormatter(dives[dives.length - 1].date)],
-          },
-          {
-            title: "First Dive",
-            subtitle: [useTimeSinceFormatter(dives[0].date)],
-          },
-        ],
-      },
-      {
-        cols: [
-          {
-            title: "Most Dived Month",
-            subtitle: [mostDivedMonth()],
-            highlight: true,
-          },
-          {
-            title: "Most Dived Year",
-            subtitle: [mostDivedYear()],
-            highlight: true,
-          },
-        ],
-      },
-      {
-        cols: [
-          {
-            title: "Dives Per Months",
-            subtitle: [computeDivesPerMonth().toFixed(2) + " dives."],
-          },
-          {
-            title: "Year Stats",
-            subtitle: statYears,
-            dropdown: true,
-          },
-        ],
-      },
-    ];
+    return {
+      rows: [
+        {
+          cols: [
+            {
+              title: "Last Dive",
+              subtitle: [useTimeSinceFormatter(dives[dives.length - 1].date)],
+            },
+            {
+              title: "First Dive",
+              subtitle: [useTimeSinceFormatter(dives[0].date)],
+            },
+          ],
+        },
+        {
+          cols: [
+            {
+              title: "Most Dived Month",
+              subtitle: [mostDivedMonth()],
+              highlight: true,
+            },
+            {
+              title: "Most Dived Year",
+              subtitle: [mostDivedYear()],
+              highlight: true,
+            },
+          ],
+        },
+        {
+          cols: [
+            {
+              title: "Dives Per Months",
+              subtitle: [computeDivesPerMonth().toFixed(2) + " dives."],
+            },
+            {
+              title: "Year Stats",
+              subtitle: statYears,
+              dropdown: true,
+            },
+          ],
+        },
+      ],
+    };
   }
 
   const dives = useDivesCollectionLoader(collection) as Pick<
@@ -192,8 +194,6 @@ export function useCalendarDataProvider(
         Colors.heatmap_05,
       ],
     },
-    panel: {
-      rows: loadPanelData(),
-    },
+    panel: loadPanelData(),
   };
 }

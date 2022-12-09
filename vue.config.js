@@ -3,7 +3,9 @@ const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   configureWebpack: {
     plugins: [
-      require('unplugin-vue-components/webpack')({ /* options */ }),
+      require("unplugin-vue-components/webpack")({
+        /* options */
+      }),
     ],
   },
   transpileDependencies: true,
@@ -20,5 +22,8 @@ module.exports = defineConfig({
     vuetify: {
       // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
     },
+  },
+  devServer: {
+    https: true,
   },
 });

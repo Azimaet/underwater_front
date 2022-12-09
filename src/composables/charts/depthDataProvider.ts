@@ -3,7 +3,7 @@ import { ChartData } from "../../types/charts/globalChart";
 import { Colors } from "@/plugins/utils/colors";
 import { DepthData } from "@/types/charts/depth";
 import { DiveInterface } from "@/types/global/dive";
-import { PanelRow } from "@/types/charts/panel";
+import { PanelData } from "@/types/charts/panel";
 import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoader";
 
 /**
@@ -97,7 +97,7 @@ export function useDepthDataProvider(
     };
   }
 
-  function loadPanelData(): PanelRow[] {
+  function loadPanelData(): PanelData {
     const averageDepths = Math.floor(
       dives.reduce((total: number, next) => total + next.maxDepth, 0) /
         dives.length
@@ -119,25 +119,27 @@ export function useDepthDataProvider(
       return subtitles;
     };
 
-    return [
-      {
-        cols: [
-          {
-            title: "Deepest Dives",
-            subtitle: deepestDives(),
-            highlight: true,
-          },
-        ],
-      },
-      {
-        cols: [
-          {
-            title: "Average Depths",
-            subtitle: ["-" + averageDepths + "m"],
-          },
-        ],
-      },
-    ];
+    return {
+      rows: [
+        {
+          cols: [
+            {
+              title: "Deepest Dives",
+              subtitle: deepestDives(),
+              highlight: true,
+            },
+          ],
+        },
+        {
+          cols: [
+            {
+              title: "Average Depths",
+              subtitle: ["-" + averageDepths + "m"],
+            },
+          ],
+        },
+      ],
+    };
   }
 
   const dives = useDivesCollectionLoader(collection) as Pick<
@@ -148,8 +150,6 @@ export function useDepthDataProvider(
   return {
     pie: loadPieData(),
     line: loadLineData(),
-    panel: {
-      rows: loadPanelData(),
-    },
+    panel: loadPanelData(),
   };
 }

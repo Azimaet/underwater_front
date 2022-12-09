@@ -21,8 +21,8 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 
 <template>
   <Doughnut
-    :chart-options="globalOptionsProvider(context, props.data)"
-    :chart-data="props.data"
+    :options="globalOptionsProvider(context, props.data)"
+    :data="props.data"
     :chart-id="'doughnut'"
   />
 </template>

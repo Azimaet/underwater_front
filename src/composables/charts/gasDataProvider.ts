@@ -9,7 +9,7 @@ import { ChartData } from "@/types/charts/globalChart";
 import { Colors } from "@/plugins/utils/colors";
 import { DiveInterface } from "@/types/global/dive";
 import { GasTank } from "@/types/global/gas";
-import { PanelRow } from "@/types/charts/panel";
+import { PanelData } from "@/types/charts/panel";
 import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoader";
 import { useGasColorGenerator } from "../gasColorGenerator";
 import { useGasNameProvider } from "../gasNameProvider";
@@ -147,7 +147,7 @@ export function useGasDataProvider(
     };
   }
 
-  function loadPanelData(): PanelRow[] {
+  function loadPanelData(): PanelData {
     const average =
       Math.floor(
         consumptions.reduce((total, next) => total + next.barPerHour, 0) /
@@ -170,33 +170,35 @@ export function useGasDataProvider(
       return consumption.barPerHour + "bar/hour, with " + consumption.label;
     };
 
-    return [
-      {
-        cols: [
-          {
-            title: "Average Consumption",
-            subtitle: [average],
-          },
-        ],
-      },
-      {
-        cols: [
-          {
-            title: "Highest Consumption",
-            subtitle: [highest()],
-          },
-        ],
-      },
-      {
-        cols: [
-          {
-            title: "Lowest Consumption",
-            subtitle: [lowest()],
-            highlight: true,
-          },
-        ],
-      },
-    ];
+    return {
+      rows: [
+        {
+          cols: [
+            {
+              title: "Average Consumption",
+              subtitle: [average],
+            },
+          ],
+        },
+        {
+          cols: [
+            {
+              title: "Highest Consumption",
+              subtitle: [highest()],
+            },
+          ],
+        },
+        {
+          cols: [
+            {
+              title: "Lowest Consumption",
+              subtitle: [lowest()],
+              highlight: true,
+            },
+          ],
+        },
+      ],
+    };
   }
 
   const dives = useDivesCollectionLoader(collection) as Pick<
@@ -214,8 +216,6 @@ export function useGasDataProvider(
   return {
     doughnut: loadDoughnutData(),
     bar: loadBarData(),
-    panel: {
-      rows: loadPanelData(),
-    },
+    panel: loadPanelData(),
   };
 }

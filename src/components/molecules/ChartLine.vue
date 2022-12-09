@@ -35,8 +35,8 @@ ChartJS.register(
 
 <template>
   <Line
-    :chart-options="globalOptionsProvider(context, props.data)"
-    :chart-data="props.data"
+    :options="globalOptionsProvider(context, props.data)"
+    :data="props.data"
     :chart-id="'line-chart'"
     :style="{ cursor: 'pointer' }"
   />

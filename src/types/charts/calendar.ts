@@ -1,4 +1,4 @@
-import { PanelRow } from "./panel";
+import { PanelData } from "./panel";
 
 /** Locals Items */
 export interface DateItem {
@@ -17,7 +17,5 @@ export interface CalendarData {
     endDate: Date;
     colors: any[];
   };
-  panel: {
-    rows: PanelRow[];
-  };
+  panel: PanelData;
 }
