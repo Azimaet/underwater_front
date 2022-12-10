@@ -25,11 +25,7 @@ import { useQuery } from "@vue/apollo-composable";
  * @param {object} variables object
  */
 export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
-  /**
-   * Process Promise Query function helper
-   * @param {DocumentNode} gqlAction {DocumentNode}
-   */
-  function processPromisedQuery<TResult = any>(
+  function processPromisedQuery<TResult = unknown>(
     gqlAction: DocumentParameter<TResult>
   ) {
     const enableQuery = ref(false);
@@ -70,9 +66,6 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
     };
   }
 
-  /**
-   * Processor function
-   */
   async function __process() {
     const query: DocumentNode | false | null =
       action === GraphqlActions.DIVING_TYPES

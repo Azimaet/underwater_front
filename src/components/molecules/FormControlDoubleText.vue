@@ -10,7 +10,7 @@ const props = defineProps<{
   type: string;
   subtitle?: string;
   icon?: string | null;
-  rules?: any[];
+  rules?: [];
 }>();
 
 const emit = defineEmits(["formInputChange"]);

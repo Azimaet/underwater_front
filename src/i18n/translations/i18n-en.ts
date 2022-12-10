@@ -16,7 +16,7 @@ export const en = {
     PASSWORD_RENEW: "Renew password",
     SUBMIT: "Submit",
     LOGIN: "Login",
-    LOGOUT: "Login",
+    LOGOUT: "Logout",
     REGISTER: "Register",
     EDIT: "Edit",
     DELETE: "Delete",

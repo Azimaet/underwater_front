@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { CalendarData } from "@/types/charts/calendar";
 import { CalendarHeatmap } from "vue3-calendar-heatmap";
 
 const props = defineProps<{
-  data: any;
+  data: CalendarData["heatmap"];
 }>();
 </script>
 

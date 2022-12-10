@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { Colors } from "@/plugins/utils/colors";
+import { PanelData } from "../../types/charts/panel";
 
 const props = defineProps<{
-  data: any;
+  data: PanelData;
 }>();
 </script>
 
 <template>
   <v-card rounded border>
     <v-list :style="{ overflow: 'hidden' }">
-      <v-row v-for="row in props.data.rows" :key="row" dense>
-        <v-col v-for="col in row.cols" :key="col">
+      <v-row v-for="(row, rowIndex) in props.data.rows" :key="rowIndex" dense>
+        <v-col v-for="(col, colIndex) in row.cols" :key="colIndex">
           <template v-if="!col.dropdown">
             <v-list-item v-if="col.highlight" :title="col.title">
               <v-list-item-subtitle

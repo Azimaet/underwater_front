@@ -23,14 +23,19 @@ const authLink = setContext((_, { headers }) => {
   const { token, refresh_token } = store.state.user;
 
   if (isLogged()) {
-    const parsedToken = useJWTParser(token!);
+    const parsedToken = token ? useJWTParser(token) : null;
 
-    if (parsedToken && parsedToken.exp && parsedToken.exp * 1000 < Date.now()) {
+    if (
+      refresh_token &&
+      parsedToken &&
+      parsedToken.exp &&
+      parsedToken.exp * 1000 < Date.now()
+    ) {
       fetch(httpRefreshLink, {
         method: "POST",
         // mode: "no-cors",
         body: new URLSearchParams({
-          refresh_token: refresh_token!,
+          refresh_token: refresh_token,
         }),
       })
         .then((response) => response.json())

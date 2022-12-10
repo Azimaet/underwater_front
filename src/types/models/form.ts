@@ -16,7 +16,7 @@ export interface FormControlProps {
   type?: string;
   subtitle?: string;
   icon?: string | null;
-  rules?: any[];
+  rules?: unknown[];
   query?: GraphqlActions;
 }
 
