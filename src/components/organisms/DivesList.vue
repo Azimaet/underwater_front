@@ -48,75 +48,73 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
               active-color="primary"
               :lines="'one'"
             >
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ "#" + (divesCollection.length - index) }}
-                </v-list-item-title>
-                <v-list-item-subtitle
-                  :class="[
-                    'd-flex',
-                    'justify-space-between',
-                    'align-self-center',
-                  ]"
-                >
-                  <v-row>
-                    <v-col :cols="1">
-                      {{ dive.date.toString().split("T")[0] }}
-                    </v-col>
-                    <v-col :cols="1">
-                      <v-icon icon="mdi-clock-outline" />
-                      {{ dive.totalTime }}mn
-                    </v-col>
-                    <v-col :cols="1">
-                      <v-icon icon="mdi-chart-bell-curve-cumulative" />
-                      {{ dive.maxDepth }}mt
-                    </v-col>
-                    <v-col :cols="1">
-                      <v-icon icon="mdi-gas-cylinder" />
-                      {{ useGasNameProvider(dive.gasTanks[0].gasMix).title }}
-                    </v-col>
-                    <v-col :cols="6">
-                      <v-chip
-                        size="small"
-                        :variant="'outlined'"
-                        :color="Colors['theme_' + dive.divingEnvironment.token.replaceAll('%', '') as keyof typeof Colors]"
-                      >
-                        {{ dive.divingEnvironment.label }}
-                      </v-chip>
-                      <v-chip
-                        size="small"
-                        :color="Colors['theme_' + dive.divingRole.token.replaceAll('%', '') as keyof typeof Colors]"
-                        :variant="'text'"
-                      >
-                        {{ dive.divingRole.label }}
-                      </v-chip>
-                      <v-chip
-                        v-for="theme in dive.divingType.edges"
-                        :key="theme"
-                        size="small"
-                        :color="Colors['theme_' + theme.node.token.replaceAll('%', '') as keyof typeof Colors]"
-                        :variant="'tonal'"
-                      >
-                        {{ theme.node.label }}
-                      </v-chip>
-                    </v-col>
-                    <v-col :cols="2">
-                      <ButtonComponent
-                        :label="EDIT"
-                        :color="'warning'"
-                        :responsive="true"
-                        :class="['ml-2']"
-                        @click="
-                          $router.push({
-                            name: 'dive_form',
-                            state: { dive: dive },
-                          })
-                        "
-                      />
-                    </v-col>
-                  </v-row>
-                </v-list-item-subtitle>
-              </v-list-item-content>
+              <v-list-item-title>
+                {{ "#" + (divesCollection.length - index) }}
+              </v-list-item-title>
+              <v-list-item-subtitle
+                :class="[
+                  'd-flex',
+                  'justify-space-between',
+                  'align-self-center',
+                ]"
+              >
+                <v-row>
+                  <v-col :cols="1">
+                    {{ dive.date.toString().split("T")[0] }}
+                  </v-col>
+                  <v-col :cols="1">
+                    <v-icon icon="mdi-clock-outline" />
+                    {{ dive.totalTime }}mn
+                  </v-col>
+                  <v-col :cols="1">
+                    <v-icon icon="mdi-chart-bell-curve-cumulative" />
+                    {{ dive.maxDepth }}mt
+                  </v-col>
+                  <v-col :cols="1">
+                    <v-icon icon="mdi-gas-cylinder" />
+                    {{ useGasNameProvider(dive.gasTanks[0].gasMix).title }}
+                  </v-col>
+                  <v-col :cols="6">
+                    <v-chip
+                      size="small"
+                      :variant="'outlined'"
+                      :color="Colors['theme_' + dive.divingEnvironment.token.replaceAll('%', '') as keyof typeof Colors]"
+                    >
+                      {{ dive.divingEnvironment.label }}
+                    </v-chip>
+                    <v-chip
+                      size="small"
+                      :color="Colors['theme_' + dive.divingRole.token.replaceAll('%', '') as keyof typeof Colors]"
+                      :variant="'text'"
+                    >
+                      {{ dive.divingRole.label }}
+                    </v-chip>
+                    <v-chip
+                      v-for="theme in dive.divingType.edges"
+                      :key="theme"
+                      size="small"
+                      :color="Colors['theme_' + theme.node.token.replaceAll('%', '') as keyof typeof Colors]"
+                      :variant="'tonal'"
+                    >
+                      {{ theme.node.label }}
+                    </v-chip>
+                  </v-col>
+                  <v-col :cols="2">
+                    <ButtonComponent
+                      :label="EDIT"
+                      :color="'warning'"
+                      :responsive="true"
+                      :class="['ml-2']"
+                      @click="
+                        $router.push({
+                          name: 'dive_form',
+                          state: { dive: dive },
+                        })
+                      "
+                    />
+                  </v-col>
+                </v-row>
+              </v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-card-text>

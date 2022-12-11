@@ -29,30 +29,32 @@ const matchingPasswords = () => {
 </script>
 
 <template>
-  <v-text-field
-    v-model="text"
-    :prepend-icon="icon"
-    :label="props.label"
-    :type="type"
-    @change="emit('formInputChange', props.id, text)"
-    :rules="props.rules"
-    variant="outlined"
-  >
-  </v-text-field>
-  <br />
-  <v-text-field
-    v-model="text_verifier"
-    :prepend-icon="icon"
-    :label="props.label"
-    :type="type"
-    :rules="props.rules?.concat(matchingPasswords)"
-    variant="outlined"
-  >
-  </v-text-field>
+  <div>
+    <v-text-field
+      v-model="text"
+      :prepend-icon="icon"
+      :label="props.label"
+      :type="type"
+      @change="emit('formInputChange', props.id, text)"
+      :rules="props.rules"
+      variant="outlined"
+    >
+    </v-text-field>
+    <br />
+    <v-text-field
+      v-model="text_verifier"
+      :prepend-icon="icon"
+      :label="props.label"
+      :type="type"
+      :rules="props.rules?.concat(matchingPasswords)"
+      variant="outlined"
+    >
+    </v-text-field>
 
-  <p v-if="props.subtitle" :class="['text-center', 'mt-5']">
-    {{ props.subtitle }}
-  </p>
+    <p v-if="props.subtitle" :class="['text-center', 'mt-5']">
+      {{ props.subtitle }}
+    </p>
 
-  <v-divider :class="['my-10']"></v-divider>
+    <v-divider :class="['my-10']"></v-divider>
+  </div>
 </template>

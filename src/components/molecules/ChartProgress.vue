@@ -4,7 +4,6 @@ import { computed } from "vue";
 
 const props = defineProps<{
   data: ThemesData["progress"];
-  context: string;
 }>();
 
 const height = computed(() => {

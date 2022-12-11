@@ -16,8 +16,6 @@ const props = defineProps<{
   context: string;
 }>();
 
-console.log(props.data);
-
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 </script>
 
