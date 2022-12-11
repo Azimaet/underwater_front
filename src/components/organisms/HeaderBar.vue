@@ -64,7 +64,7 @@ onMounted(() => {
               :image="
                 require('@/assets/avatars/avatar' +
                   store.state.user.data.avatar +
-                  '.svg')
+                  '.png')
               "
               :size="isMobile.value ? 30 : 45"
             >

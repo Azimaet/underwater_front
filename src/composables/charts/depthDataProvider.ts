@@ -12,7 +12,7 @@ import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoa
  * @return {DepthData}
  */
 export function useDepthDataProvider(
-  collection: ApolloQueryResult<unknown>
+  collection: ApolloQueryResult<any>
 ): DepthData {
   function getDepthGroups(): number[] {
     const depthGroup = [0, 0, 0, 0, 0, 0, 0];

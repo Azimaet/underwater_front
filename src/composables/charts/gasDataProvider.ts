@@ -20,7 +20,7 @@ import { useGasNameProvider } from "../gasNameProvider";
  * @return {GasData}
  */
 export function useGasDataProvider(
-  collection: ApolloQueryResult<unknown>
+  collection: ApolloQueryResult<any>
 ): GasData {
   function getConsumptions(): GasConsumptionItem[] {
     const consumptions: GasConsumptionItem[] = [];

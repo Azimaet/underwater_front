@@ -12,7 +12,7 @@ import { useDivesCollectionLoader } from "../utils/divesCollectionLoader";
  * @return {ThemesData}
  */
 export function useThemesDataProvider(
-  collection: ApolloQueryResult<unknown>,
+  collection: ApolloQueryResult<any>,
   queries: DivingThemeInterface[][]
 ): ThemesData {
   function getLabels(

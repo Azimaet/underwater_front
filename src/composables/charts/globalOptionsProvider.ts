@@ -183,7 +183,6 @@ export function globalOptionsProvider(
 
   return {
     responsive: true,
-    maintainAspectRatio: false,
     layout: {
       padding: {
         top: 0,

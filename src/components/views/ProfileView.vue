@@ -14,6 +14,7 @@ import store from "@/store";
             :class="['text-white']"
           >
             <v-card-title>Profile</v-card-title>
+
             <v-list-item
               v-if="
                 store.state.user.data.avatar && store.state.user.data.username
@@ -21,10 +22,10 @@ import store from "@/store";
               :prepend-avatar="
                 require('@/assets/avatars/avatar' +
                   store.state.user.data.avatar +
-                  '.svg')
+                  '.png')
               "
               :title="store.state.user.data.username"
-            ></v-list-item>
+            />
           </v-img>
 
           <v-container fluid>

@@ -21,7 +21,7 @@ import store from "@/store";
               :prepend-avatar="
                 require('@/assets/avatars/avatar' +
                   store.state.user.data.avatar +
-                  '.svg')
+                  '.png')
               "
               :title="store.state.user.data.username"
             ></v-list-item>

@@ -28,7 +28,7 @@ const props = defineProps<{
       >
         <v-radio :value="index" :class="['mt-2', 'mb-5']"></v-radio>
         <v-avatar
-          :image="require('@/assets/avatars/avatar' + index + '.svg')"
+          :image="require('@/assets/avatars/avatar' + index + '.png')"
           size="75"
         >
         </v-avatar>

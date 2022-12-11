@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Colors } from "@/plugins/utils/colors";
+import { CalendarHighlightItem } from "@/types/charts/calendar";
 import { PanelData } from "../../types/charts/panel";
 
 const props = defineProps<{
@@ -35,7 +36,7 @@ const props = defineProps<{
             <v-list-item
               v-else
               :title="col.title"
-              :subtitle="col.subtitle"
+              :subtitle="(col.subtitle[0] as string)"
             ></v-list-item>
           </template>
           <template v-else>
@@ -47,7 +48,10 @@ const props = defineProps<{
                 <v-btn color="primary" v-bind="props"> Years Stats </v-btn>
               </template>
               <v-list>
-                <v-list-item v-for="item in col.subtitle" :key="item">
+                <v-list-item
+                  v-for="(item, index) in (col.subtitle as CalendarHighlightItem[])"
+                  :key="index"
+                >
                   <v-list-item-title>{{
                     item.title +
                     " (" +

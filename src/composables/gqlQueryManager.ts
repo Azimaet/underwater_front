@@ -25,7 +25,7 @@ import { useQuery } from "@vue/apollo-composable";
  * @param {object} variables object
  */
 export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
-  function processPromisedQuery<TResult = unknown>(
+  function processPromisedQuery<TResult = any>(
     gqlAction: DocumentParameter<TResult>
   ) {
     const enableQuery = ref(false);

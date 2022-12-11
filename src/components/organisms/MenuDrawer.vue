@@ -20,7 +20,7 @@ const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS } = translations.en.PAGES;
         :prepend-avatar="
           require('@/assets/avatars/avatar' +
             store.state.user.data.avatar +
-            '.svg')
+            '.png')
         "
         :title="store.state.user.data.username"
       ></v-list-item>
