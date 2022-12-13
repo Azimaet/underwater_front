@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { reactive } from "vue";
-import { format, formatISO, parseISO } from "date-fns";
+import { reactive, ref } from "vue";
+import { format } from "date-fns";
+import { translations } from "@/i18n/index";
 
 const props = defineProps<{
   id: string;
@@ -9,9 +10,25 @@ const props = defineProps<{
   value: Date;
 }>();
 
+const emit = defineEmits<{
+  (e: string, id: string, value: Date): void;
+}>();
+
+const { RULE_DATE } = translations.en.FORM_WORDING;
+
+const errorText = ref("");
+
 const date = reactive({
   value: format(props.value, "yyyy-MM-dd'T'HH:mm"),
 });
+
+const handleChange = () => {
+  if (new Date(date.value).getTime() > new Date().getTime()) {
+    date.value = format(new Date(), "yyyy-MM-dd'T'HH:mm");
+    errorText.value = RULE_DATE;
+  }
+  emit("formInputChange", props.id, new Date(date.value));
+};
 </script>
 
 <template>
@@ -28,11 +45,8 @@ const date = reactive({
     >
       {{ props.label }}
     </span>
-    <input
-      v-model="date.value"
-      :type="props.type"
-      @change="$emit('formInputChange', props.id, date.value)"
-    />
+    <input v-model="date.value" :type="props.type" @change="handleChange()" />
+    <span>{{ errorText }}</span>
   </div>
 </template>
 

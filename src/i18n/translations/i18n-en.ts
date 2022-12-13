@@ -25,6 +25,7 @@ export const en = {
     RULE_BE_NUMBER: "Field must be number",
     RULE_BE_EMAIL: "Field must be email",
     RULE_PASSWORD: "Passwords does not match.",
+    RULE_DATE: "Date picked must be anterior of now.",
     SELECT_AVATAR: "Select avatar",
   },
   FORM_DIVING: {

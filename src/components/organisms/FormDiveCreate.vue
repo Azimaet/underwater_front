@@ -63,7 +63,6 @@ const dive: DiveInterface = reactive({
   divingRole: isUpdating ? window.history.state.dive.divingRole : null,
   owner: null,
 });
-console.log("(FormDive)- Existing dive date: " + dive.date);
 
 const form = useFormFactory(
   isUpdating ? FormActions.DIVE_UPDATE : FormActions.DIVE_CREATE,
@@ -166,8 +165,6 @@ watch(dive, async () => {
   payload.divingType = dive.divingType.edges.map((item) => item.node.id);
   payload.divingEnvironment = dive.divingEnvironment?.id;
   payload.divingRole = dive.divingRole?.id;
-
-  console.log(payload.date);
 });
 </script>
 
