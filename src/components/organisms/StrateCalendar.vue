@@ -21,8 +21,6 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
 const calendarChartDatas = isDives.value
   ? useCalendarDataProvider(divesCollection)
   : null;
-
-console.log(calendarChartDatas);
 </script>
 
 <template>
@@ -36,13 +34,7 @@ console.log(calendarChartDatas);
           <PanelTemplate :data="calendarChartDatas.panel" />
         </v-col>
       </v-row>
-      <v-card
-        v-else
-        title="Warning!"
-        subtitle="Missing Dives"
-        text="Impossible loading datas, because you didn't post dives yet."
-        variant="tonal"
-      ></v-card>
+      <CardErrorData v-else />
     </template>
   </StrateTemplate>
 </template>

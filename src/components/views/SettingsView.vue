@@ -4,7 +4,7 @@
       <CardTemplate>
         <template #card>
           <FormSettingsEdit />
-          <v-divider :class="'my-10'"></v-divider>
+          <v-divider :class="['my-10']"></v-divider>
           <FormSettingsDelete />
         </template>
       </CardTemplate>

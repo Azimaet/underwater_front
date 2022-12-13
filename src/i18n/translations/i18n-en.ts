@@ -76,4 +76,31 @@ export const en = {
     ADD_DIVE: "Add Dive",
     SETTINGS: "Settings",
   },
+  PROFILE: {
+    STRATE_CALENDAR: {
+      TITLE: "Dates",
+      SUBTITLE: "Here is the calendar of your recent dives, and more data.",
+    },
+    STRATE_DEPTH: {
+      TITLE: "Depths",
+      SUBTITLE: "Data of yours dives depth.",
+    },
+    STRATE_GAS: {
+      TITLE: "Gas & Consumption",
+      SUBTITLE: "Data of gasTanks used.",
+    },
+    STRATE_THEMES: {
+      TITLE: "Themes",
+      SUBTITLE: "Data of the types of dives you made.",
+    },
+    ERROR_DATA: {
+      TITLE: "Warning!",
+      SUBTITLE: "Missing Dives",
+      TEXT: "Impossible loading datas, because you didn't post dives yet.",
+    },
+  },
+  DIVES_LIST: {
+    TITLE: "Dives List",
+    SUBTITLE: "All your dives. You can access each dive, delete or update it.",
+  },
 };

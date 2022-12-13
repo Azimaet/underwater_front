@@ -73,13 +73,7 @@ const themesChartData = isDives.value
           <ChartProgress :data="themesChartData.progress" />
         </v-col>
       </v-row>
-      <v-card
-        v-else
-        title="Warning!"
-        subtitle="Missing Dives"
-        text="Impossible loading datas, because you didn't post dives yet."
-        variant="tonal"
-      ></v-card>
+      <CardErrorData v-else />
     </template>
   </StrateTemplate>
 </template>

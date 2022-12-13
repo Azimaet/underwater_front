@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import store from "@/store";
+import { translations } from "@/i18n/index";
+
+const { TITLE, SUBTITLE } = translations.en.DIVES_LIST;
 </script>
 
 <template>
@@ -30,8 +33,8 @@ import store from "@/store";
           <v-container fluid>
             <Suspense>
               <DivesList
-                :title="'Dives List'"
-                :subtitle="'All your dives. You can access each dive, delete or update it.'"
+                :title="TITLE"
+                :subtitle="SUBTITLE"
                 :icon="'mdi-mdi-format-list-bulleted'"
               />
             </Suspense>

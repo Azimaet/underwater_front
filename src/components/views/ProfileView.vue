@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import store from "@/store";
+import { translations } from "@/i18n/index";
+
+const { STRATE_CALENDAR, STRATE_DEPTH, STRATE_GAS, STRATE_THEMES } =
+  translations.en.PROFILE;
 </script>
 
 <template>
@@ -31,29 +35,29 @@ import store from "@/store";
           <v-container fluid>
             <Suspense>
               <StrateCalendar
-                :title="'Dates'"
-                :subtitle="'Here is the calendar of your recent dives, and more data.'"
+                :title="STRATE_CALENDAR.TITLE"
+                :subtitle="STRATE_CALENDAR.SUBTITLE"
                 :icon="'mdi-calendar'"
               />
             </Suspense>
             <Suspense>
               <StrateDepthCharts
-                :title="'Depths'"
-                :subtitle="'Data of yours dives depth.'"
+                :title="STRATE_DEPTH.TITLE"
+                :subtitle="STRATE_DEPTH.SUBTITLE"
                 :icon="'mdi-chart-bell-curve-cumulative'"
               />
             </Suspense>
             <Suspense>
               <StrateGasCharts
-                :title="'Gas & Consumption'"
-                :subtitle="'Data of gasTanks used.'"
+                :title="STRATE_GAS.TITLE"
+                :subtitle="STRATE_GAS.SUBTITLE"
                 :icon="'mdi-gas-cylinder'"
               />
             </Suspense>
             <Suspense>
               <StrateThemesCharts
-                :title="'Themes'"
-                :subtitle="'Data of the types of dives you made.'"
+                :title="STRATE_THEMES.TITLE"
+                :subtitle="STRATE_THEMES.SUBTITLE"
                 :icon="'mdi-shape'"
               />
             </Suspense>

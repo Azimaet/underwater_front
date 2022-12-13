@@ -37,13 +37,7 @@ const gasChartData = isDives.value ? useGasDataProvider(divesCollection) : null;
           <ChartBar :data="gasChartData.bar" :context="'gas_bar'" />
         </v-col>
       </v-row>
-      <v-card
-        v-else
-        title="Warning!"
-        subtitle="Missing Dives"
-        text="Impossible loading datas, because you didn't post dives yet."
-        variant="tonal"
-      ></v-card>
+      <CardErrorData v-else />
     </template>
   </StrateTemplate>
 </template>
