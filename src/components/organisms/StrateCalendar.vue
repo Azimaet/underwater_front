@@ -21,6 +21,8 @@ const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
 const calendarChartDatas = isDives.value
   ? useCalendarDataProvider(divesCollection)
   : null;
+
+console.log(calendarChartDatas);
 </script>
 
 <template>

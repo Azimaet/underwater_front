@@ -7,6 +7,7 @@ import { useDivesCollectionLoader } from "../../composables/utils/divesCollectio
 import { useGasNameProvider } from "@/composables/gasNameProvider";
 import { Colors } from "@/plugins/utils/colors";
 import { translations } from "@/i18n/index";
+import { format } from "date-fns";
 
 const { EDIT } = translations.en.FORM_WORDING;
 
@@ -60,7 +61,7 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
               >
                 <v-row>
                   <v-col :cols="1">
-                    {{ dive.date.toString().split("T")[0] }}
+                    {{ format(new Date(dive.date), "PP") }}
                   </v-col>
                   <v-col :cols="1">
                     <v-icon icon="mdi-clock-outline" />

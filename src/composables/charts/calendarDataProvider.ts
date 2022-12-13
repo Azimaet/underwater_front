@@ -8,9 +8,9 @@ import { ApolloQueryResult } from "@apollo/client";
 import { Colors } from "@/plugins/utils/colors";
 import { DiveInterface } from "@/types/global/dive";
 import { PanelData } from "@/types/charts/panel";
-import { months } from "@/types/utils/months";
+import format from "date-fns/format";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useDivesCollectionLoader } from "../utils/divesCollectionLoader";
-import { useTimeSinceFormatter } from "../timeSinceFormatter";
 
 /**
  * Date Highlighter function.
@@ -104,8 +104,10 @@ export function useCalendarDataProvider(
 
         if (month.length > highlightMonth.subtitle) {
           highlightMonth.subtitle = month.length;
-          highlightMonth.title =
-            (months[subKey as keyof typeof months] as string) + " " + key;
+          highlightMonth.title = format(
+            new Date(parseInt(key), parseInt(subKey), 1),
+            "MMM, yyyy"
+          );
         }
       });
 
@@ -138,11 +140,16 @@ export function useCalendarDataProvider(
           cols: [
             {
               title: "Last Dive",
-              subtitle: [useTimeSinceFormatter(dives[dives.length - 1].date)],
+              subtitle: [
+                formatDistanceToNow(new Date(dives[dives.length - 1].date)) +
+                  " ago.",
+              ],
             },
             {
               title: "First Dive",
-              subtitle: [useTimeSinceFormatter(dives[0].date)],
+              subtitle: [
+                formatDistanceToNow(new Date(dives[0].date)) + " ago.",
+              ],
             },
           ],
         },

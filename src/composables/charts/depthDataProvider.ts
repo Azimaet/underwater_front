@@ -4,6 +4,7 @@ import { Colors } from "@/plugins/utils/colors";
 import { DepthData } from "@/types/charts/depth";
 import { DiveInterface } from "@/types/global/dive";
 import { PanelData } from "@/types/charts/panel";
+import format from "date-fns/format";
 import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoader";
 
 /**
@@ -72,7 +73,7 @@ export function useDepthDataProvider(
 
     dives.forEach((dive) => {
       data.push(-Math.abs(dive.maxDepth));
-      labels.push(dive.date.toString().split("T")[0]);
+      labels.push(format(new Date(dive.date), "PP"));
     });
 
     highlight = Math.min(...Object.values(data));
@@ -104,15 +105,15 @@ export function useDepthDataProvider(
     );
 
     const deepestDives = () => {
-      const top3 = dives
+      const topThree = dives
         .sort((previous, next) => next.maxDepth - previous.maxDepth)
         .slice(0, 3);
 
       const subtitles: string[] = [];
 
-      top3.forEach((dive) => {
+      topThree.forEach((dive) => {
         subtitles.push(
-          "-" + dive.maxDepth + "m : " + dive.date.toString().split("T")[0]
+          "-" + dive.maxDepth + "m : " + format(new Date(dive.date), "PPP")
         );
       });
 

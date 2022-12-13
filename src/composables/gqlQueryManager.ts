@@ -103,6 +103,7 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
     const { apolloQuery } = processPromisedQuery(query as DocumentNode);
 
     const { data } = await apolloQuery();
+
     return data;
   }
 

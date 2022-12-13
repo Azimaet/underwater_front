@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { reactive } from "vue";
+import { format, formatISO, parseISO } from "date-fns";
 
 const props = defineProps<{
   id: string;
@@ -9,11 +10,7 @@ const props = defineProps<{
 }>();
 
 const date = reactive({
-  value: new Date(
-    props.value.getTime() - props.value.getTimezoneOffset() * 60000
-  )
-    .toISOString()
-    .substring(0, 19),
+  value: format(props.value, "yyyy-MM-dd'T'HH:mm"),
 });
 </script>
 
@@ -34,9 +31,7 @@ const date = reactive({
     <input
       v-model="date.value"
       :type="props.type"
-      @change="
-        $emit('formInputChange', props.id, new Date(Date.parse(date.value)))
-      "
+      @change="$emit('formInputChange', props.id, date.value)"
     />
   </div>
 </template>

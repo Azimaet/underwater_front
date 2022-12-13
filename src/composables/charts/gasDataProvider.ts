@@ -10,6 +10,7 @@ import { Colors } from "@/plugins/utils/colors";
 import { DiveInterface } from "@/types/global/dive";
 import { GasTank } from "@/types/global/gas";
 import { PanelData } from "@/types/charts/panel";
+import { format } from "date-fns";
 import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoader";
 import { useGasColorGenerator } from "../gasColorGenerator";
 import { useGasNameProvider } from "../gasNameProvider";
@@ -34,7 +35,7 @@ export function useGasDataProvider(
         pressure: 0,
         label: "",
         barPerHour: 0,
-        date: dive.date.toString().split("T")[0],
+        date: format(new Date(dive.date), "PP"),
         tanks: 0,
         totalTime: dive.totalTime,
       };

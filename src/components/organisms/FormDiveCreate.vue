@@ -15,9 +15,7 @@ import { GasMix } from "@/types/global/gas";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { isMobile } from "@/composables/utils/isMobile";
 import { translations } from "@/i18n/index";
-
-const { NEW_DIVE, UPDATE_DIVE } = translations.en.ALERTS;
-const { BUTTON_ADD, BUTTON_UPDATE } = translations.en.FORM_DIVING;
+import { formatISO } from "date-fns";
 
 const FormControlDate = defineAsyncComponent(
   () => import("@/components/molecules/FormControlDate.vue")
@@ -34,6 +32,9 @@ const FormControlNumber = defineAsyncComponent(
 const FormControlGasGroup = defineAsyncComponent(
   () => import("@/components/molecules/FormControlGasGroup.vue")
 );
+
+const { NEW_DIVE, UPDATE_DIVE } = translations.en.ALERTS;
+const { BUTTON_ADD, BUTTON_UPDATE } = translations.en.FORM_DIVING;
 
 const isUpdating = !!window.history.state.dive;
 
@@ -62,6 +63,7 @@ const dive: DiveInterface = reactive({
   divingRole: isUpdating ? window.history.state.dive.divingRole : null,
   owner: null,
 });
+console.log("(FormDive)- Existing dive date: " + dive.date);
 
 const form = useFormFactory(
   isUpdating ? FormActions.DIVE_UPDATE : FormActions.DIVE_CREATE,
@@ -124,7 +126,9 @@ const load = () => {
 
 const payload = reactive({
   id: isUpdating ? dive.id : null,
-  date: dive.date,
+  date: formatISO(new Date(dive.date), {
+    representation: "complete",
+  }),
   totalTime: dive.totalTime,
   maxDepth: dive.maxDepth,
   gasTanks: dive.gasTanks,
@@ -149,16 +153,21 @@ onError((error) => {
 onDone(() => {
   useAlertFactory("success", isUpdating ? UPDATE_DIVE : NEW_DIVE);
   router.push({ name: "dive_form" });
+  console.log("(FormDive)- On request: " + payload.date);
 });
 
 watch(dive, async () => {
-  payload.date = new Date(dive.date);
+  payload.date = formatISO(new Date(dive.date), {
+    representation: "complete",
+  });
   payload.totalTime = dive.totalTime;
   payload.maxDepth = dive.maxDepth;
   payload.gasTanks = dive.gasTanks;
   payload.divingType = dive.divingType.edges.map((item) => item.node.id);
   payload.divingEnvironment = dive.divingEnvironment?.id;
   payload.divingRole = dive.divingRole?.id;
+
+  console.log(payload.date);
 });
 </script>
 
