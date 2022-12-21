@@ -1,27 +1,40 @@
-# underwater_front
+# Underwwwater Front
 
-## Project setup
-```
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+
+## Requirements
+
+Underwwwater Front uses somes requirements to work properly:
+
+- Yarn - https://classic.yarnpkg.com
+- Node - https://nodejs.org/en/download/
+
+## Installation
+
+1/ Install Project:
+```sh
 yarn install
 ```
 
-### Compiles and hot-reloads for development
-```
+## Development
+
+1/ Run project:
+```sh
 yarn serve
 ```
 
-### Compiles and minifies for production
-```
+2/ Compiles and minifies for production
+```sh
 yarn build
 ```
 
-### Run your unit tests
-```
+3/ Run your unit tests
+```sh
 yarn test:unit
 ```
 
-### Lints and fixes files
-```
+4/ Lints and fixes files
+```sh
 yarn lint
 ```
 
