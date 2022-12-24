@@ -107,6 +107,11 @@ export function useFormFactory(
           : context === "totalTime"
           ? FORM_DIVING.TOTALTIME
           : "",
+      rules: [
+        (v: number) => !!v || FORM_WORDING.RULE_IS_REQUIRED,
+        (v: number) => Math.sign(v) === 1 || FORM_WORDING.RULE_BE_POS_NUMBER,
+        (v: number) => Number.isInteger(v) || FORM_WORDING.RULE_BE_INT_NUMBER,
+      ],
     };
   }
 
@@ -117,61 +122,35 @@ export function useFormFactory(
         label: FORM_DIVING.SELECT_DIVING_ENV,
         query: GraphqlActions.DIVING_ENVIRONMENTS,
       };
-    } else if (context === "divingRole") {
+    } else {
       return {
         name: "FormControlSelect",
         label: FORM_DIVING.SELECT_DIVING_ROLES,
         query: GraphqlActions.DIVING_ROLES,
       };
-    } else {
-      return {
-        name: "",
-        label: "",
-      };
     }
   }
 
-  function getControlComboBox(context: string): FormControlProps {
-    if (context === "divingType") {
-      return {
-        name: "FormControlComboBox",
-        label: FORM_DIVING.SELECT_DIVING_TYPES,
-        query: GraphqlActions.DIVING_TYPES,
-      };
-    } else {
-      return {
-        name: "",
-        label: "",
-      };
-    }
+  function getControlComboBox(): FormControlProps {
+    return {
+      name: "FormControlComboBox",
+      label: FORM_DIVING.SELECT_DIVING_TYPES,
+      query: GraphqlActions.DIVING_TYPES,
+    };
   }
 
-  function getControlGasGroup(context: string): FormControlProps {
-    if (context === "gasTanks") {
-      return {
-        name: "FormControlGasGroup",
-        label: FORM_DIVING.SELECT_GAS_TANK,
-      };
-    } else {
-      return {
-        name: "",
-        label: "",
-      };
-    }
+  function getControlGasGroup(): FormControlProps {
+    return {
+      name: "FormControlGasGroup",
+      label: FORM_DIVING.SELECT_GAS_TANK,
+    };
   }
 
-  function getControlRadioList(context: string): FormControlProps {
-    if (context === "avatar") {
-      return {
-        name: "FormControlRadioList",
-        label: FORM_WORDING.SELECT_AVATAR,
-      };
-    } else {
-      return {
-        name: "",
-        label: "",
-      };
-    }
+  function getControlRadioList(): FormControlProps {
+    return {
+      name: "FormControlRadioList",
+      label: FORM_WORDING.SELECT_AVATAR,
+    };
   }
 
   function buildProps(propId: string, action: FormActions): FormControlProps {
@@ -188,13 +167,13 @@ export function useFormFactory(
       case "divingRole":
         return getControlSelect(propId);
       case "divingType":
-        return getControlComboBox(propId);
+        return getControlComboBox();
       case "date":
         return getControlDate();
       case "gasTanks":
-        return getControlGasGroup(propId);
+        return getControlGasGroup();
       case "avatar":
-        return getControlRadioList(propId);
+        return getControlRadioList();
       default:
         return {
           name: "",

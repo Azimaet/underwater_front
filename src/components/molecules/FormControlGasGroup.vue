@@ -3,8 +3,6 @@ import { translations } from "@/i18n/index";
 import { GasTank, GasMix } from "@/types/global/gas";
 import { isMobile } from "@/composables/utils/isMobile";
 
-const { PRESSURE_END, PRESSURE_START, GAS_MIX } = translations.en.GAS;
-
 const props = defineProps<{
   id: string;
   label: string;
@@ -20,6 +18,11 @@ const emit = defineEmits<{
     subId?: string
   ): void;
 }>();
+
+const { RULE_IS_REQUIRED, RULE_BE_POS_NUMBER, RULE_BE_INT_NUMBER } =
+  translations.en.FORM_WORDING;
+
+const { PRESSURE_END, PRESSURE_START, GAS_MIX } = translations.en.GAS;
 
 const handleChange = (
   subId: string,
@@ -41,6 +44,11 @@ const handleChange = (
                 :id="'pressureStart'"
                 :index="index"
                 :label="PRESSURE_START"
+                :rules="[
+                  (v: number) => !!v || RULE_IS_REQUIRED,
+                  (v: number) => Math.sign(v) === 1 || RULE_BE_POS_NUMBER,
+                  (v: number) => Number.isInteger(v) || RULE_BE_INT_NUMBER,
+                ]"
                 :value="props.value[index as number].pressureStart"
                 @form-input-change="handleChange"
               />
@@ -50,6 +58,11 @@ const handleChange = (
                 :id="'pressureEnd'"
                 :index="index"
                 :label="PRESSURE_END"
+                :rules="[
+                  (v: number) => !!v || RULE_IS_REQUIRED,
+                  (v: number) => Math.sign(v) === 1 || RULE_BE_POS_NUMBER,
+                  (v: number) => Number.isInteger(v) || RULE_BE_INT_NUMBER,
+                ]"
                 :value="props.value[index as number].pressureEnd"
                 @form-input-change="handleChange"
               />

@@ -23,9 +23,12 @@ export const en = {
     UPDATE_ACCOUNT: "Update Account",
     RULE_IS_REQUIRED: "Field is required",
     RULE_BE_NUMBER: "Field must be number",
+    RULE_BE_POS_NUMBER: "Number must be positive.",
+    RULE_BE_INT_NUMBER: "Number must be integer, please round it.",
     RULE_BE_EMAIL: "Field must be email",
     RULE_PASSWORD: "Passwords does not match.",
-    RULE_DATE: "Date picked must be anterior of now.",
+    RULE_DATE:
+      "Date picked must be anterior of now. It has been automatically replaced.",
     SELECT_AVATAR: "Select avatar",
   },
   FORM_DIVING: {

@@ -32,6 +32,8 @@ const types = ref(props.value.edges.map((item) => item.node));
     :item-title="'label'"
     :item-value="'id'"
     :label="label"
+    :hint="label"
+    persistent-hint
     multiple
     chips
     @update:modelValue="

@@ -46,7 +46,16 @@ const handleChange = () => {
       {{ props.label }}
     </span>
     <input v-model="date.value" :type="props.type" @change="handleChange()" />
-    <span v-show="errorText">{{ errorText }}</span>
+    <div :class="['v-input__details']" v-show="errorText">
+      <div :class="['v-messages']">
+        <div
+          :class="['v-messages__message', 'ml-4', 'color-white']"
+          :style="{ 'transform-origin': 'center top 0px' }"
+        >
+          {{ errorText }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

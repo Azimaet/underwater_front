@@ -6,6 +6,7 @@ const props = defineProps<{
   label: string;
   value: number;
   index?: number;
+  rules: [];
 }>();
 
 const number = reactive({
@@ -17,7 +18,7 @@ const number = reactive({
   <v-text-field
     v-model.number="number.value"
     :label="props.label"
-    :type="'number'"
+    :rules="props.rules"
     persistent-hint
     variant="outlined"
     @change="$emit('formInputChange', props.id, number.value, props.index)"
