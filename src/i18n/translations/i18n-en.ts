@@ -27,8 +27,7 @@ export const en = {
     RULE_BE_INT_NUMBER: "Number must be integer, please round it.",
     RULE_BE_EMAIL: "Field must be email",
     RULE_PASSWORD: "Passwords does not match.",
-    RULE_DATE:
-      "Date picked must be anterior of now. It has been automatically replaced.",
+    RULE_DATE: "Date has been replaced because it must be before now.",
     SELECT_AVATAR: "Select avatar",
   },
   FORM_DIVING: {

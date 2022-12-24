@@ -49,7 +49,7 @@ const handleChange = () => {
     <div :class="['v-input__details']" v-show="errorText">
       <div :class="['v-messages']">
         <div
-          :class="['v-messages__message', 'ml-4', 'color-white']"
+          :class="['v-messages__message', 'ml-4', 'color-warning']"
           :style="{ 'transform-origin': 'center top 0px' }"
         >
           {{ errorText }}

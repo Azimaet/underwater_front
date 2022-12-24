@@ -16,6 +16,7 @@ const {
 interface GasName {
   title: string;
   subtitle: string;
+  breathable: boolean;
 }
 
 /**
@@ -27,12 +28,14 @@ export function useGasNameProvider(mix: GasMix): GasName {
   const gasName: GasName = {
     title: "",
     subtitle: "",
+    breathable: true,
   };
 
   if (mix.oxygen === 100) {
     gasName.title = OXYGEN;
   } else if (mix.nitrogen === 100 || mix.helium === 100) {
     gasName.title = UNBREATHABLE;
+    gasName.breathable = false;
   } else if (mix.oxygen === 21 && mix.nitrogen === 79) {
     gasName.title = AIR;
   } else if (
@@ -58,11 +61,17 @@ export function useGasNameProvider(mix: GasMix): GasName {
   } else if (mix.oxygen > 21 && mix.helium > 0 && mix.nitrogen > 0) {
     gasName.title = TRIMIX;
     gasName.subtitle = HYPEROXIC + "(" + mix.oxygen + "/" + mix.helium + ")";
-  } else if (mix.oxygen < 18 && mix.helium > 0 && mix.nitrogen > 0) {
+  } else if (
+    mix.oxygen < 18 &&
+    mix.oxygen > 1 &&
+    mix.helium > 0 &&
+    mix.nitrogen > 0
+  ) {
     gasName.title = TRIMIX;
     gasName.subtitle = HYPOXIC + "(" + mix.oxygen + "/" + mix.helium + ")";
   } else {
     gasName.title = UNBREATHABLE;
+    gasName.breathable = false;
   }
   return gasName;
 }

@@ -9,9 +9,8 @@ const props = defineProps<{
   label: string;
   value: DivingThemeInterface;
   action: GraphqlActions;
+  rules: ((v: number) => boolean)[];
 }>();
-
-console.log(props.value);
 
 const key: string =
   props.action === GraphqlActions.DIVING_ROLES
@@ -26,7 +25,7 @@ const items = await useGqlQueryManager(props.action).then((result) => {
   );
 });
 
-const value = ref(props.value ?? items[0]);
+const value = ref(props.value);
 </script>
 
 <template>
@@ -36,11 +35,13 @@ const value = ref(props.value ?? items[0]);
     :item-title="'label'"
     :item-value="'value'"
     :label="label"
-    variant="outlined"
+    :rules="props.rules"
     :hint="label"
+    variant="outlined"
     persistent-hint
     return-object
     single-line
+    required
     @update:modelValue="$emit('formInputChange', props.id, value.id)"
   ></v-select>
 </template>

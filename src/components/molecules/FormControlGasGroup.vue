@@ -2,6 +2,7 @@
 import { translations } from "@/i18n/index";
 import { GasTank, GasMix } from "@/types/global/gas";
 import { isMobile } from "@/composables/utils/isMobile";
+import { useGasNameProvider } from "@/composables/gasNameProvider";
 
 const props = defineProps<{
   id: string;

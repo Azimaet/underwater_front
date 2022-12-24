@@ -124,16 +124,16 @@ const load = () => {
 };
 
 const payload = reactive({
-  id: isUpdating ? dive.id : null,
+  ...(isUpdating && { id: dive.id }),
   date: formatISO(new Date(dive.date), {
     representation: "complete",
   }),
   totalTime: dive.totalTime,
   maxDepth: dive.maxDepth,
   gasTanks: dive.gasTanks,
-  divingType: dive.divingType.edges.map((item) => item.node.id),
-  divingEnvironment: dive.divingEnvironment?.id,
-  divingRole: dive.divingRole?.id,
+  divingType: dive.divingType,
+  divingEnvironment: dive.divingEnvironment,
+  divingRole: dive.divingRole,
 });
 
 const { mutate, onDone, onError } = useMutation(
@@ -152,25 +152,38 @@ onError((error) => {
 onDone(() => {
   useAlertFactory("success", isUpdating ? UPDATE_DIVE : NEW_DIVE);
   router.push({ name: "dive_form" });
-  console.log("(FormDive)- On request: " + payload.date);
 });
 
+const formTemplate = ref(null);
+
+const onSubmit = async () => {
+  const { valid } = await formTemplate.value!.validate();
+
+  console.log(payload);
+
+  if (valid) {
+    mutate();
+    load();
+  }
+};
+
 watch(dive, async () => {
+  console.log(dive.divingType);
   payload.date = formatISO(new Date(dive.date), {
     representation: "complete",
   });
   payload.totalTime = dive.totalTime;
   payload.maxDepth = dive.maxDepth;
   payload.gasTanks = dive.gasTanks;
-  payload.divingType = dive.divingType.edges.map((item) => item.node.id);
-  payload.divingEnvironment = dive.divingEnvironment?.id;
-  payload.divingRole = dive.divingRole?.id;
+  payload.divingType = dive.divingType;
+  payload.divingEnvironment = dive.divingEnvironment;
+  payload.divingRole = dive.divingRole;
 });
 </script>
 
 <template>
   <Suspense>
-    <v-form v-model="valid">
+    <v-form v-model="valid" ref="formTemplate" lazy-validation>
       <v-card-title :class="['pb-8']">
         {{ form.title }}
       </v-card-title>
@@ -237,7 +250,7 @@ watch(dive, async () => {
           :class="['my-5', 'mx-5']"
           :loading="loading"
           :disabled="loading"
-          @click="mutate(), load()"
+          @click="onSubmit"
         />
       </v-card-actions>
     </v-form>

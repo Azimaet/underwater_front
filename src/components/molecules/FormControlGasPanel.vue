@@ -77,96 +77,108 @@ const checkChange = (value: boolean, context: string) => {
     <v-card-title :class="['d-inline']">
       {{ CURRENT_GAS }}
     </v-card-title>
-    <v-card-subtitle :class="['d-inline']">
+    <v-card-subtitle
+      :class="[
+        'd-inline',
+        state.name.breathable ? 'color-white' : 'color-error',
+      ]"
+    >
       {{ state.name.title + state.name.subtitle }}
     </v-card-subtitle>
     <v-card-text>
-      <v-slider
-        v-model="state.oxygen"
-        :label="OXYGEN"
-        @update:model-value="handleChange(state.oxygen, 'oxygen')"
-        :readonly="oxygenIsLocked"
-        :max="100"
-        :min="0"
-        :step="1"
+      <v-input
+        :rules="[ (v: boolean) => (state.name.breathable === true )
+          || 'Mustb  be breathable', ]"
       >
-        <template v-slot:append>
-          <v-text-field
+        <div :class="['d-flex', 'flex-wrap']">
+          <v-slider
             v-model="state.oxygen"
-            @change="handleChange(state.oxygen, 'oxygen')"
+            :label="OXYGEN"
+            @update:model-value="handleChange(state.oxygen, 'oxygen')"
             :readonly="oxygenIsLocked"
-            type="number"
-            style="width: 80px"
-            density="compact"
-            hide-details
-            variant="outlined"
-          ></v-text-field>
+            :max="100"
+            :min="0"
+            :step="1"
+          >
+            <template v-slot:append>
+              <v-text-field
+                v-model="state.oxygen"
+                @change="handleChange(state.oxygen, 'oxygen')"
+                :readonly="oxygenIsLocked"
+                type="number"
+                style="width: 80px"
+                density="compact"
+                hide-details
+                variant="outlined"
+              ></v-text-field>
 
-          <v-checkbox
-            v-model="oxygenIsLocked"
-            @change="checkChange(oxygenIsLocked, 'oxygen')"
-            :label="LOCK_GAS"
-          ></v-checkbox>
-        </template>
-      </v-slider>
+              <v-checkbox
+                v-model="oxygenIsLocked"
+                @change="checkChange(oxygenIsLocked, 'oxygen')"
+                :label="LOCK_GAS"
+              ></v-checkbox>
+            </template>
+          </v-slider>
 
-      <v-slider
-        v-model="state.nitrogen"
-        :label="NITROGEN"
-        @update:model-value="handleChange(state.nitrogen, 'nitrogen')"
-        :readonly="nitrogenIsLocked"
-        :max="100"
-        :min="0"
-        :step="1"
-      >
-        <template v-slot:append>
-          <v-text-field
+          <v-slider
             v-model="state.nitrogen"
-            @change="handleChange(state.nitrogen, 'nitrogen')"
+            :label="NITROGEN"
+            @update:model-value="handleChange(state.nitrogen, 'nitrogen')"
             :readonly="nitrogenIsLocked"
-            type="number"
-            style="width: 80px"
-            density="compact"
-            hide-details
-            variant="outlined"
-          ></v-text-field>
+            :max="100"
+            :min="0"
+            :step="1"
+          >
+            <template v-slot:append>
+              <v-text-field
+                v-model="state.nitrogen"
+                @change="handleChange(state.nitrogen, 'nitrogen')"
+                :readonly="nitrogenIsLocked"
+                type="number"
+                style="width: 80px"
+                density="compact"
+                hide-details
+                variant="outlined"
+              ></v-text-field>
 
-          <v-checkbox
-            v-model="nitrogenIsLocked"
-            @change="checkChange(nitrogenIsLocked, 'nitrogen')"
-            :label="LOCK_GAS"
-          ></v-checkbox>
-        </template>
-      </v-slider>
+              <v-checkbox
+                v-model="nitrogenIsLocked"
+                @change="checkChange(nitrogenIsLocked, 'nitrogen')"
+                :label="LOCK_GAS"
+              ></v-checkbox>
+            </template>
+          </v-slider>
 
-      <v-slider
-        v-model="state.helium"
-        :label="HELIUM"
-        @update:model-value="handleChange(state.helium, 'helium')"
-        :readonly="heliumIsLocked"
-        :max="100"
-        :min="0"
-        :step="1"
-      >
-        <template v-slot:append>
-          <v-text-field
+          <v-slider
             v-model="state.helium"
-            @change="handleChange(state.helium, 'helium')"
+            :label="HELIUM"
+            @update:model-value="handleChange(state.helium, 'helium')"
             :readonly="heliumIsLocked"
-            type="number"
-            style="width: 80px"
-            density="compact"
-            hide-details
-            variant="outlined"
-          ></v-text-field>
+            :max="100"
+            :min="0"
+            :step="1"
+          >
+            <template v-slot:append>
+              <v-text-field
+                v-model="state.helium"
+                @change="handleChange(state.helium, 'helium')"
+                :readonly="heliumIsLocked"
+                type="number"
+                style="width: 80px"
+                density="compact"
+                hide-details
+                variant="outlined"
+              ></v-text-field>
 
-          <v-checkbox
-            v-model="heliumIsLocked"
-            @change="checkChange(heliumIsLocked, 'helium')"
-            :label="LOCK_GAS"
-          ></v-checkbox>
-        </template>
-      </v-slider>
+              <v-checkbox
+                v-model="heliumIsLocked"
+                @change="checkChange(heliumIsLocked, 'helium')"
+                :label="LOCK_GAS"
+              ></v-checkbox>
+            </template>
+          </v-slider>
+        </div>
+      </v-input>
     </v-card-text>
   </v-card>
 </template>

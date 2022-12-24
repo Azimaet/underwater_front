@@ -121,12 +121,14 @@ export function useFormFactory(
         name: "FormControlSelect",
         label: FORM_DIVING.SELECT_DIVING_ENV,
         query: GraphqlActions.DIVING_ENVIRONMENTS,
+        rules: [(v: Text) => !!v || FORM_WORDING.RULE_IS_REQUIRED],
       };
     } else {
       return {
         name: "FormControlSelect",
         label: FORM_DIVING.SELECT_DIVING_ROLES,
         query: GraphqlActions.DIVING_ROLES,
+        rules: [(v: Text) => !!v || FORM_WORDING.RULE_IS_REQUIRED],
       };
     }
   }

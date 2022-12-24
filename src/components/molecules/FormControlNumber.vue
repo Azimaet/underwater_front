@@ -6,7 +6,7 @@ const props = defineProps<{
   label: string;
   value: number;
   index?: number;
-  rules: [];
+  rules: ((v: number) => boolean)[];
 }>();
 
 const number = reactive({
