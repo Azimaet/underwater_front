@@ -137,8 +137,9 @@ const payload = reactive({
     : Array.isArray(dive.divingType.edges) && dive.divingType.edges.length
     ? dive.divingType.edges.map((type) => type.node.id)
     : dive.divingType.edges,
-  divingEnvironment: dive.divingEnvironment,
-  divingRole: dive.divingRole,
+  divingEnvironment:
+    dive.divingEnvironment !== null ? dive.divingEnvironment.id : null,
+  divingRole: dive.divingRole !== null ? dive.divingRole.id : null,
 });
 
 const { mutate, onDone, onError } = useMutation(
@@ -178,8 +179,9 @@ watch(dive, async () => {
   payload.divingType = Array.isArray(dive.divingType)
     ? dive.divingType
     : dive.divingType.edges;
-  payload.divingEnvironment = dive.divingEnvironment;
-  payload.divingRole = dive.divingRole;
+  payload.divingEnvironment =
+    dive.divingEnvironment !== null ? dive.divingEnvironment.id : null;
+  payload.divingRole = dive.divingRole !== null ? dive.divingRole.id : null;
 });
 </script>
 

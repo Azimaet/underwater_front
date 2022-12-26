@@ -42,6 +42,6 @@ const value = ref(props.value);
     return-object
     single-line
     required
-    @update:modelValue="$emit('formInputChange', props.id, value.id)"
+    @update:modelValue="$emit('formInputChange', props.id, value)"
   ></v-select>
 </template>
