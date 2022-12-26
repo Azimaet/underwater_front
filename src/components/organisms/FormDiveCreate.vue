@@ -37,6 +37,9 @@ const { NEW_DIVE, UPDATE_DIVE } = translations.en.ALERTS;
 const { BUTTON_ADD, BUTTON_UPDATE } = translations.en.FORM_DIVING;
 
 const isUpdating = !!window.history.state.dive;
+const valid = ref(false);
+const loading = ref(false);
+const formTemplate = ref(null);
 
 const dive: DiveInterface = reactive({
   id: isUpdating ? window.history.state.dive.id : null,
@@ -68,8 +71,6 @@ const form = useFormFactory(
   isUpdating ? FormActions.DIVE_UPDATE : FormActions.DIVE_CREATE,
   dive
 );
-const valid = ref(false);
-const loading = ref(false);
 
 const handleChange = (
   id: string,
@@ -131,7 +132,11 @@ const payload = reactive({
   totalTime: dive.totalTime,
   maxDepth: dive.maxDepth,
   gasTanks: dive.gasTanks,
-  divingType: dive.divingType,
+  divingType: Array.isArray(dive.divingType)
+    ? dive.divingType
+    : Array.isArray(dive.divingType.edges) && dive.divingType.edges.length
+    ? dive.divingType.edges.map((type) => type.node.id)
+    : dive.divingType.edges,
   divingEnvironment: dive.divingEnvironment,
   divingRole: dive.divingRole,
 });
@@ -154,12 +159,8 @@ onDone(() => {
   router.push({ name: "dive_form" });
 });
 
-const formTemplate = ref(null);
-
 const onSubmit = async () => {
   const { valid } = await formTemplate.value!.validate();
-
-  console.log(payload);
 
   if (valid) {
     mutate();
@@ -168,14 +169,15 @@ const onSubmit = async () => {
 };
 
 watch(dive, async () => {
-  console.log(dive.divingType);
   payload.date = formatISO(new Date(dive.date), {
     representation: "complete",
   });
   payload.totalTime = dive.totalTime;
   payload.maxDepth = dive.maxDepth;
   payload.gasTanks = dive.gasTanks;
-  payload.divingType = dive.divingType;
+  payload.divingType = Array.isArray(dive.divingType)
+    ? dive.divingType
+    : dive.divingType.edges;
   payload.divingEnvironment = dive.divingEnvironment;
   payload.divingRole = dive.divingRole;
 });

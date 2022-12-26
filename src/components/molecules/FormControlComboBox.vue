@@ -26,7 +26,7 @@ const types = ref(props.value.edges.map((item) => item.node));
 </script>
 
 <template>
-  <v-combobox
+  <v-select
     v-model="types"
     :items="items"
     :item-title="'label'"
@@ -36,12 +36,6 @@ const types = ref(props.value.edges.map((item) => item.node));
     persistent-hint
     multiple
     chips
-    @update:modelValue="
-      $emit(
-        'formInputChange',
-        props.id,
-        types.map((type: any) => type.id)
-      )
-    "
-  ></v-combobox>
+    @update:modelValue="$emit('formInputChange', props.id, types)"
+  ></v-select>
 </template>

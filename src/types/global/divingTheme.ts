@@ -2,7 +2,7 @@ export interface DivingThemeEdgeInterface {
   node: DivingThemeInterface;
 }
 export interface DivingThemeInterface {
-  readonly id?: number;
+  readonly id?: string;
   label: string;
   token: string;
   edges?: {
