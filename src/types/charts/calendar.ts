@@ -3,7 +3,7 @@ import { PanelData } from "./panel";
 /** Locals Items */
 export interface DateItem {
   date: string;
-  count: number;
+  count: number | unknown;
 }
 
 export interface CalendarHighlightItem {

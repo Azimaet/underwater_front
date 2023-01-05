@@ -26,36 +26,21 @@ export function useCalendarDataProvider(
   >;
 
   function countPerDays(): DateItem[] {
-    const items: DateItem[] = [];
+    return Object.entries(
+      dives.reduce(
+        (
+          acc: { [date: string]: number },
+          dive: Pick<DiveInterface, "date">
+        ) => {
+          const date = format(new Date(dive.date), "yyyy-MM-dd");
 
-    dives.forEach((dive) => {
-      if (dive.date) {
-        const date = dive.date.toString().split("T")[0];
+          acc[date] = (acc[date] || 0) + 1;
 
-        const isFound = items.some((element) => {
-          if (element.date.toString() === date) {
-            return element;
-          }
-
-          return false;
-        });
-
-        if (isFound) {
-          const item = items.find((item) => item.date.toString() === date);
-
-          if (item) {
-            item.count++;
-          }
-        } else {
-          items.push({
-            date: date,
-            count: 1,
-          });
-        }
-      }
-    });
-
-    return items;
+          return acc;
+        },
+        {}
+      )
+    ).map(([date, count]) => ({ date, count }));
   }
 
   function groupDates(): ReduceAccumulator {
