@@ -1,3 +1,4 @@
+import { ApolloError, ApolloQueryResult } from "@apollo/client";
 import {
   QUERY_DATES_BY_DIVES,
   QUERY_DEPTH_BY_DIVES,
@@ -9,7 +10,7 @@ import {
   THEMES_BY_DIVES,
 } from "@/graphql/queries/queryDives";
 
-import { ApolloQueryResult } from "@apollo/client";
+import Axios from "@/plugins/axios";
 import { DocumentNode } from "graphql";
 import { DocumentParameter } from "@vue/apollo-composable/dist/useQuery";
 import { GraphqlActions } from "@/types/models/graphql";
@@ -17,6 +18,7 @@ import { QUERY_DIVING_ENVIRONMENTS } from "@/graphql/queries/queryDivingEnvironm
 import { QUERY_DIVING_ROLES } from "@/graphql/queries/queryDivingRole";
 import { QUERY_DIVING_TYPES } from "@/graphql/queries/queryDivingType";
 import { ref } from "vue";
+import store from "@/store";
 import { useQuery } from "@vue/apollo-composable";
 
 /**
@@ -33,6 +35,7 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
       onResult,
       loading: queryLoading,
       onError,
+      refetch,
     } = useQuery(gqlAction, variables ? variables : {}, () => ({
       enabled: enableQuery.value,
       notifyOnNetworkStatusChange: false,
@@ -53,10 +56,18 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
           }
         });
 
-        onError((err) => {
-          enableQuery.value = false;
-          console.error(err);
-          reject(err);
+        onError((err: ApolloError) => {
+          const statusCode = err.message.match(/\b\d{3}\b/);
+
+          if (statusCode && statusCode[0] === "401") {
+            Axios.post("/api/refresh_token").then((response) => {
+              store.commit("setRefreshUserToken", response.data.refresh_token);
+            });
+            refetch();
+          } else {
+            enableQuery.value = false;
+            reject(err);
+          }
         });
       });
 
