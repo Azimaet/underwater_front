@@ -5,6 +5,7 @@ import { GraphqlActions } from "@/types/models/graphql";
 import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
 import { ref } from "vue";
+import { isMobile } from "@/composables/utils/isMobile";
 
 const isDives = ref(false);
 
@@ -26,19 +27,44 @@ const depthChartData = isDives.value
 <template>
   <StrateTemplate>
     <template #strate>
-      <v-row v-if="depthChartData">
-        <v-col cols="3">
-          <ChartPie
-            :data="depthChartData.pie"
-            :context="'depth_pie'"
-            :height="277"
-          />
-          <PanelTemplate :data="depthChartData.panel" :class="['mb-4']" />
-        </v-col>
-        <v-col cols="9">
-          <ChartLine :data="depthChartData.line" :context="'depth_line'" />
-        </v-col>
-      </v-row>
+      <template v-if="depthChartData">
+        <template v-if="!isMobile.value">
+          <v-row>
+            <v-col cols="3">
+              <ChartPie
+                :data="depthChartData.pie"
+                :context="'depth_pie'"
+                :height="277"
+              />
+              <PanelTemplate :data="depthChartData.panel" :class="['mb-4']" />
+            </v-col>
+            <v-col cols="9">
+              <ChartLine :data="depthChartData.line" :context="'depth_line'" />
+            </v-col>
+          </v-row>
+        </template>
+        <template v-else>
+          <v-row>
+            <v-col>
+              <PanelTemplate :data="depthChartData.panel" :class="['mb-4']" />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="9" :class="['mx-auto']">
+              <ChartPie
+                :data="depthChartData.pie"
+                :context="'depth_pie'"
+                :height="277"
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <ChartLine :data="depthChartData.line" :context="'depth_line'" />
+            </v-col>
+          </v-row>
+        </template>
+      </template>
       <CardErrorData v-else />
     </template>
   </StrateTemplate>

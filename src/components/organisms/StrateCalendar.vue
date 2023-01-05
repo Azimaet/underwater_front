@@ -5,6 +5,7 @@ import { GraphqlActions } from "@/types/models/graphql";
 import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
 import { ref } from "vue";
+import { isMobile } from "@/composables/utils/isMobile";
 
 const isDives = ref(false);
 
@@ -26,14 +27,30 @@ const calendarChartDatas = isDives.value
 <template>
   <StrateTemplate>
     <template #strate>
-      <v-row v-if="calendarChartDatas">
-        <v-col cols="8">
-          <ChartCalendar :data="calendarChartDatas.heatmap" />
-        </v-col>
-        <v-col cols="4">
-          <PanelTemplate :data="calendarChartDatas.panel" />
-        </v-col>
-      </v-row>
+      <template v-if="calendarChartDatas">
+        <template v-if="!isMobile.value">
+          <v-row>
+            <v-col cols="8">
+              <ChartCalendar :data="calendarChartDatas.heatmap" />
+            </v-col>
+            <v-col cols="4">
+              <PanelTemplate :data="calendarChartDatas.panel" />
+            </v-col>
+          </v-row>
+        </template>
+        <template v-else>
+          <v-row>
+            <v-col>
+              <ChartCalendar :data="calendarChartDatas.heatmap" />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <PanelTemplate :data="calendarChartDatas.panel" />
+            </v-col>
+          </v-row>
+        </template>
+      </template>
       <CardErrorData v-else />
     </template>
   </StrateTemplate>

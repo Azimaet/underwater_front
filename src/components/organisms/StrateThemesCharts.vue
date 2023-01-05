@@ -6,6 +6,7 @@ import store from "@/store";
 import { ApolloQueryResult } from "@apollo/client";
 import { useThemesDataProvider } from "@/composables/charts/themesDataProvider";
 import { ref } from "vue";
+import { isMobile } from "@/composables/utils/isMobile";
 
 const isDives = ref(false);
 
@@ -56,23 +57,50 @@ const themesChartData = isDives.value
 <template>
   <StrateTemplate>
     <template #strate>
-      <v-row v-if="themesChartData">
-        <v-col cols="3">
-          <ChartDoughnut
-            :data="themesChartData.doughnuts[0]"
-            :context="'themes_doughnut'"
-          />
-        </v-col>
-        <v-col cols="3">
-          <ChartDoughnut
-            :data="themesChartData.doughnuts[1]"
-            :context="'themes_doughnut'"
-          />
-        </v-col>
-        <v-col cols="6">
-          <ChartProgress :data="themesChartData.progress" />
-        </v-col>
-      </v-row>
+      <template v-if="themesChartData">
+        <template v-if="!isMobile.value">
+          <v-row>
+            <v-col cols="3">
+              <ChartDoughnut
+                :data="themesChartData.doughnuts[0]"
+                :context="'themes_doughnut'"
+              />
+            </v-col>
+            <v-col cols="3">
+              <ChartDoughnut
+                :data="themesChartData.doughnuts[1]"
+                :context="'themes_doughnut'"
+              />
+            </v-col>
+            <v-col cols="6">
+              <ChartProgress :data="themesChartData.progress" />
+            </v-col>
+          </v-row>
+        </template>
+        <template v-else>
+          <v-row>
+            <v-col cols="9" :class="['mx-auto']">
+              <ChartDoughnut
+                :data="themesChartData.doughnuts[0]"
+                :context="'themes_doughnut'"
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="9" :class="['mx-auto']">
+              <ChartDoughnut
+                :data="themesChartData.doughnuts[1]"
+                :context="'themes_doughnut'"
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <ChartProgress :data="themesChartData.progress" />
+            </v-col>
+          </v-row>
+        </template>
+      </template>
       <CardErrorData v-else />
     </template>
   </StrateTemplate>
