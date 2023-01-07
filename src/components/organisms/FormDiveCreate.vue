@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { ref, reactive, watch, defineAsyncComponent } from "vue";
-import { useFormFactory } from "@/composables/formFactory";
+import { defineAsyncComponent, ref, reactive, watch } from "vue";
 import { FormActions } from "@/types/models/form";
-import { useMutation } from "@vue/apollo-composable";
-import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
-import { MUTATION_UPDATE_DIVE } from "@/graphql/mutations/updateDive";
-import router from "@/router";
 import { DiveInterface } from "@/types/global/dive";
 import {
   DivingThemeEdgeInterface,
   DivingThemeInterface,
 } from "@/types/global/divingTheme";
 import { GasMix } from "@/types/global/gas";
-import { useAlertFactory } from "@/composables/alertFactory";
-import { isMobile } from "@/composables/utils/isMobile";
-import { translations } from "@/i18n/index";
+import router from "@/router";
 import { formatISO } from "date-fns";
+import { useAlertFactory } from "@/composables/alertFactory";
+import { useFormFactory } from "@/composables/formFactory";
+import { useMutation } from "@vue/apollo-composable";
+import { isMobile } from "@/composables/utils/isMobile";
+import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
+import { MUTATION_UPDATE_DIVE } from "@/graphql/mutations/updateDive";
+import { translations } from "@/i18n/index";
 
 const FormControlDate = defineAsyncComponent(
   () => import("@/components/molecules/FormControlDate.vue")
@@ -163,6 +163,8 @@ onDone(() => {
 const onSubmit = async () => {
   const { valid } = await formTemplate.value!.validate();
 
+  console.log(payload);
+
   if (valid) {
     mutate();
     load();
@@ -176,11 +178,13 @@ watch(dive, async () => {
   payload.totalTime = dive.totalTime;
   payload.maxDepth = dive.maxDepth;
   payload.gasTanks = dive.gasTanks;
-  payload.divingType = Array.isArray(dive.divingType)
+  (payload.divingType = Array.isArray(dive.divingType)
     ? dive.divingType
-    : dive.divingType.edges;
-  payload.divingEnvironment =
-    dive.divingEnvironment !== null ? dive.divingEnvironment.id : null;
+    : Array.isArray(dive.divingType.edges) && dive.divingType.edges.length
+    ? dive.divingType.edges.map((type) => type.node.id)
+    : dive.divingType.edges),
+    (payload.divingEnvironment =
+      dive.divingEnvironment !== null ? dive.divingEnvironment.id : null);
   payload.divingRole = dive.divingRole !== null ? dive.divingRole.id : null;
 });
 </script>
