@@ -8,6 +8,8 @@ import { useGasNameProvider } from "@/composables/gasNameProvider";
 import { Colors } from "@/plugins/utils/colors";
 import { translations } from "@/i18n/index";
 import { format } from "date-fns";
+import FormDiveDeleteModal from "./FormDiveDeleteModal.vue";
+import { DiveInterface } from "@/types/global/dive";
 
 const { EDIT } = translations.en.FORM_WORDING;
 
@@ -23,7 +25,7 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
   owner: "api/users/" + store.state.user.data.id,
 }).then((result) => {
   isDives.value = result.dives.edges.length;
-  return useDivesCollectionLoader(result);
+  return useDivesCollectionLoader(result) as DiveInterface[];
 });
 </script>
 
@@ -79,16 +81,16 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
                     <v-chip
                       size="small"
                       :variant="'outlined'"
-                      :color="Colors['theme_' + dive.divingEnvironment.token.replaceAll('%', '') as keyof typeof Colors]"
+                      :color="Colors['theme_' + dive.divingEnvironment?.token.replaceAll('%', '') as keyof typeof Colors]"
                     >
-                      {{ dive.divingEnvironment.label }}
+                      {{ dive.divingEnvironment?.label }}
                     </v-chip>
                     <v-chip
                       size="small"
-                      :color="Colors['theme_' + dive.divingRole.token.replaceAll('%', '') as keyof typeof Colors]"
+                      :color="Colors['theme_' + dive.divingRole?.token.replaceAll('%', '') as keyof typeof Colors]"
                       :variant="'text'"
                     >
-                      {{ dive.divingRole.label }}
+                      {{ dive.divingRole?.label }}
                     </v-chip>
                     <v-chip
                       v-for="theme in dive.divingType.edges"
@@ -105,7 +107,6 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
                       :label="EDIT"
                       :color="'warning'"
                       :responsive="true"
-                      :class="['ml-2']"
                       @click="
                         $router.push({
                           name: 'dive_form',
@@ -113,6 +114,7 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
                         })
                       "
                     />
+                    <FormDiveDeleteModal :id="dive.id" />
                   </v-col>
                 </v-row>
               </v-list-item-subtitle>

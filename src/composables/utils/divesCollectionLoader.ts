@@ -14,7 +14,11 @@ export function useDivesCollectionLoader(
   collection: ApolloQueryResult<any>,
   context?: string,
   subProp?: string
-): Partial<DiveInterface>[] | GasTank[] | Record<string, number> {
+):
+  | Partial<DiveInterface>[]
+  | DiveInterface[]
+  | GasTank[]
+  | Record<string, number> {
   const key = "dives";
   const tokens: string[] = [];
   const itemsDives: Partial<DiveInterface>[] = [];

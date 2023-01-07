@@ -2,6 +2,7 @@ export const en = {
   ALERTS: {
     NEW_DIVE: "New dive added!",
     UPDATE_DIVE: "Dive updated!",
+    REMOVE_DIVE: "Dive removed!",
     REMOVE_ACCOUNT: "Your account have been completely removed!",
     EDIT_ACCOUNT: "Your account settings have been updated. Please re-login!",
     LOGOUT_ACCOUNT: "You have been correctly logout.",
@@ -20,6 +21,7 @@ export const en = {
     REGISTER: "Register",
     EDIT: "Edit",
     DELETE: "Delete",
+    CANCEL: "Cancel",
     UPDATE_ACCOUNT: "Update Account",
     RULE_IS_REQUIRED: "Field is required",
     RULE_BE_NUMBER: "Field must be number",

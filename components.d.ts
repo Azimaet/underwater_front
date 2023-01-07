@@ -33,6 +33,7 @@ declare module '@vue/runtime-core' {
     FormControlSelect: typeof import('./src/components/molecules/FormControlSelect.vue')['default']
     FormControlText: typeof import('./src/components/molecules/FormControlText.vue')['default']
     FormDiveCreate: typeof import('./src/components/organisms/FormDiveCreate.vue')['default']
+    FormDiveDeleteModal: typeof import('./src/components/organisms/FormDiveDeleteModal.vue')['default']
     FormSettingsDelete: typeof import('./src/components/organisms/FormSettingsDelete.vue')['default']
     FormSettingsEdit: typeof import('./src/components/organisms/FormSettingsEdit.vue')['default']
     FormUserModal: typeof import('./src/components/organisms/FormUserModal.vue')['default']
