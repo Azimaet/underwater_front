@@ -1,17 +1,13 @@
 <script setup lang="ts">
-import { useGqlQueryManager } from "@/composables/gqlQueryManager";
-import { GraphqlActions } from "@/types/models/graphql";
-import store from "@/store";
 import { ref } from "vue";
-import { useDivesCollectionLoader } from "../../composables/utils/divesCollectionLoader";
-import { useGasNameProvider } from "@/composables/gasNameProvider";
-import { Colors } from "@/plugins/utils/colors";
-import { translations } from "@/i18n/index";
+import store from "@/store";
 import { format } from "date-fns";
-import FormDiveDeleteModal from "./FormDiveDeleteModal.vue";
+import { Colors } from "@/plugins/utils/colors";
 import { DiveInterface } from "@/types/global/dive";
-
-const { EDIT } = translations.en.FORM_WORDING;
+import { GraphqlActions } from "@/types/models/graphql";
+import { useGqlQueryManager } from "@/composables/gqlQueryManager";
+import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoader";
+import { useGasNameProvider } from "@/composables/gasNameProvider";
 
 const props = defineProps<{
   title: string;
@@ -46,8 +42,6 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
               v-for="(dive, index) in divesCollection"
               :key="index"
               :value="dive"
-              active-color="primary"
-              :lines="'one'"
               :tag="'li'"
             >
               <v-list-item-title
@@ -67,65 +61,40 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
                   'align-self-center',
                 ]"
               >
-                <v-container :class="['d-none', 'd-md-flex']">
-                  <v-row>
-                    <v-col :cols="1">
+                <v-container fluid :class="['px-0']">
+                  <v-row dense :align="'center'">
+                    <v-col :cols="1" :class="['d-none', 'd-md-flex']">
                       <v-icon icon="mdi-clock-outline" />
                       {{ dive.totalTime }}mn
                     </v-col>
-                    <v-col :cols="1">
+                    <v-col :cols="1" :class="['d-none', 'd-md-flex']">
                       <v-icon icon="mdi-chart-bell-curve-cumulative" />
                       {{ dive.maxDepth }}mt
                     </v-col>
-                    <v-col :cols="1">
+                    <v-col :cols="1" :class="['d-none', 'd-md-flex']">
                       <v-icon icon="mdi-gas-cylinder" />
                       {{ useGasNameProvider(dive.gasTanks[0].gasMix).title }}
                     </v-col>
-                    <v-col :cols="7">
-                      <v-chip
-                        size="small"
+                    <v-col :cols="7" :class="['d-none', 'd-md-block']">
+                      <ChipTheme
                         :variant="'outlined'"
+                        :label="dive.divingEnvironment?.label"
                         :color="Colors['theme_' + dive.divingEnvironment?.token.replaceAll('%', '') as keyof typeof Colors]"
-                      >
-                        {{ dive.divingEnvironment?.label }}
-                      </v-chip>
-                      <v-chip
-                        size="small"
-                        :color="Colors['theme_' + dive.divingRole?.token.replaceAll('%', '') as keyof typeof Colors]"
-                        :variant="'text'"
-                      >
-                        {{ dive.divingRole?.label }}
-                      </v-chip>
-                      <v-chip
-                        v-for="theme in dive.divingType.edges"
-                        :key="theme"
-                        size="small"
-                        :color="Colors['theme_' + theme.node.token.replaceAll('%', '') as keyof typeof Colors]"
-                        :variant="'tonal'"
-                      >
-                        {{ theme.node.label }}
-                      </v-chip>
-                    </v-col>
-                    <v-col :cols="2">
-                      <ButtonComponent
-                        :label="EDIT"
-                        :color="'warning'"
-                        :responsive="true"
-                        @click="
-                          $router.push({
-                            name: 'dive_form',
-                            state: { dive: dive },
-                          })
-                        "
                       />
-                      <FormDiveDeleteModal :id="dive.id" />
+                      <ChipTheme
+                        :variant="'text'"
+                        :label="dive.divingRole?.label"
+                        :color="Colors['theme_' + dive.divingRole?.token.replaceAll('%', '') as keyof typeof Colors]"
+                      />
+                      <ChipTheme
+                        v-for="(theme, index) in dive.divingType.edges"
+                        :key="index"
+                        :variant="'tonal'"
+                        :label="theme.node.label"
+                        :color="Colors['theme_' + theme.node.token.replaceAll('%', '') as keyof typeof Colors]"
+                      />
                     </v-col>
-                  </v-row>
-                </v-container>
-
-                <v-container :class="['d-md-none']">
-                  <v-row>
-                    <v-col :cols="9">
+                    <v-col :cols="10" :class="['d-md-none']">
                       <div>
                         <v-row>
                           <v-col :class="['d-flex', 'flex-row']">
@@ -148,42 +117,37 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
                         </v-row>
                         <v-row>
                           <v-col>
-                            <v-chip
-                              size="small"
+                            <ChipTheme
                               :variant="'outlined'"
+                              :label="dive.divingEnvironment?.label"
                               :color="Colors['theme_' + dive.divingEnvironment?.token.replaceAll('%', '') as keyof typeof Colors]"
-                            >
-                              {{ dive.divingEnvironment?.label }}
-                            </v-chip>
-                            <v-chip
-                              size="small"
-                              :color="Colors['theme_' + dive.divingRole?.token.replaceAll('%', '') as keyof typeof Colors]"
+                            />
+                            <ChipTheme
                               :variant="'text'"
-                            >
-                              {{ dive.divingRole?.label }}
-                            </v-chip>
-                            <v-chip
-                              v-for="theme in dive.divingType.edges"
-                              :key="theme"
-                              size="small"
-                              :color="Colors['theme_' + theme.node.token.replaceAll('%', '') as keyof typeof Colors]"
+                              :label="dive.divingRole?.label"
+                              :color="Colors['theme_' + dive.divingRole?.token.replaceAll('%', '') as keyof typeof Colors]"
+                            />
+                            <ChipTheme
+                              v-for="(theme, index) in dive.divingType.edges"
+                              :key="index"
                               :variant="'tonal'"
-                            >
-                              {{ theme.node.label }}
-                            </v-chip>
+                              :label="theme.node.label"
+                              :color="Colors['theme_' + theme.node.token.replaceAll('%', '') as keyof typeof Colors]"
+                            />
                           </v-col>
                         </v-row>
                       </div>
                     </v-col>
-                    <v-col :cols="3">
-                      <ButtonComponent
-                        :label="EDIT"
-                        :color="'warning'"
-                        :responsive="true"
+                    <v-col :cols="2" :class="['d-flex', 'justify-end']">
+                      <v-btn
+                        icon="mdi-pencil"
+                        color="success"
+                        size="x-small"
+                        :class="['mr-2']"
                         @click="
                           $router.push({
                             name: 'dive_form',
-                            state: { dive: dive },
+                            state: { dive: JSON.stringify(dive) },
                           })
                         "
                       />

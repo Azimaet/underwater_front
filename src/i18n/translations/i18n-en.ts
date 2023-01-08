@@ -106,6 +106,7 @@ export const en = {
   },
   DIVES_LIST: {
     TITLE: "Dives List",
+    CONSENT: "Are you sure to delete item ?",
     SUBTITLE: "All your dives. You can access each dive, delete or update it.",
   },
 };

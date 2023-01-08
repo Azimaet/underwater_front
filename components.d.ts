@@ -18,6 +18,7 @@ declare module '@vue/runtime-core' {
     ChartLine: typeof import('./src/components/molecules/ChartLine.vue')['default']
     ChartPie: typeof import('./src/components/molecules/ChartPie.vue')['default']
     ChartProgress: typeof import('./src/components/molecules/ChartProgress.vue')['default']
+    ChipTheme: typeof import('./src/components/atoms/ChipTheme.vue')['default']
     CreditsImages: typeof import('./src/components/atoms/CreditsImages.vue')['default']
     DiveFormView: typeof import('./src/components/views/DiveFormView.vue')['default']
     DivesList: typeof import('./src/components/organisms/DivesList.vue')['default']

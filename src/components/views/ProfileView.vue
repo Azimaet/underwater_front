@@ -4,6 +4,8 @@ import { translations } from "@/i18n/index";
 
 const { STRATE_CALENDAR, STRATE_DEPTH, STRATE_GAS, STRATE_THEMES } =
   translations.en.PROFILE;
+
+const { PROFILE } = translations.en.PAGES;
 </script>
 
 <template>
@@ -17,7 +19,7 @@ const { STRATE_CALENDAR, STRATE_DEPTH, STRATE_GAS, STRATE_THEMES } =
             cover
             :class="['text-white']"
           >
-            <v-card-title>Profile</v-card-title>
+            <v-card-title> {{ PROFILE }}</v-card-title>
 
             <v-list-item
               v-if="

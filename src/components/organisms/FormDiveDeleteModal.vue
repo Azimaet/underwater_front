@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { translations } from "@/i18n/index";
-import { MUTATION_DELETE_DIVE } from "@/graphql/mutations/deleteDive";
 import { useMutation } from "@vue/apollo-composable";
+import { translations } from "@/i18n/index";
 import { useAlertFactory } from "@/composables/alertFactory";
+import { MUTATION_DELETE_DIVE } from "@/graphql/mutations/deleteDive";
 
 const props = defineProps<{
   id: string;
@@ -12,6 +12,7 @@ const props = defineProps<{
 const dialog = ref(false);
 const { DELETE, CANCEL } = translations.en.FORM_WORDING;
 const { REMOVE_DIVE } = translations.en.ALERTS;
+const { CONSENT } = translations.en.DIVES_LIST;
 
 const { mutate, onDone, onError } = useMutation(MUTATION_DELETE_DIVE, {
   variables: {
@@ -31,29 +32,23 @@ onDone(() => {
 
 <template>
   <span class="text-center">
-    <ButtonComponent
-      :label="DELETE"
-      :color="'error'"
-      :responsive="true"
+    <v-btn
+      icon="mdi-trash-can-outline"
+      color="error"
+      size="x-small"
       @click="dialog = true"
     />
 
     <v-dialog v-model="dialog">
       <v-card>
-        <v-card-text> Are you sure to delete item ? </v-card-text>
+        <v-card-text>{{ CONSENT }}</v-card-text>
         <v-card-actions>
-          <ButtonComponent
-            :label="CANCEL"
-            :color="'primary'"
-            :responsive="true"
-            @click="dialog = false"
-          />
-          <ButtonComponent
-            :label="DELETE"
-            :color="'error'"
-            :responsive="true"
-            @click="mutate()"
-          />
+          <v-btn color="primary" :variant="'tonal'" @click="dialog = false">
+            {{ CANCEL }}
+          </v-btn>
+          <v-btn color="error" :variant="'flat'" @click="mutate()">
+            {{ DELETE }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
