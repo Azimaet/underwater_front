@@ -3,7 +3,7 @@
     <template #main>
       <CardTemplate>
         <template #card>
-          <FormDiveCreate />
+          <FormDive />
         </template>
       </CardTemplate>
     </template>

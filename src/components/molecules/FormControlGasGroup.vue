@@ -2,7 +2,6 @@
 import { translations } from "@/i18n/index";
 import { GasTank, GasMix } from "@/types/global/gas";
 import { isMobile } from "@/composables/utils/isMobile";
-import { useGasNameProvider } from "@/composables/gasNameProvider";
 
 const props = defineProps<{
   id: string;
@@ -37,8 +36,8 @@ const handleChange = (
 <template>
   <v-card :title="GAS_MIX" border rounded :elevation="5">
     <v-row>
-      <template v-for="(item, index) in value" :key="index">
-        <v-col :cols="isMobile.value ? 12 : 6">
+      <template v-for="(tank, index) in value" :key="index">
+        <v-col cols="12" md="6" :align-self="'center'">
           <v-card>
             <v-card-text>
               <FormControlNumber
@@ -70,7 +69,7 @@ const handleChange = (
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col :cols="isMobile.value ? 12 : 6">
+        <v-col cols="12" md="6">
           <FormControlGasPanel
             :id="'gasMix'"
             :index="index"

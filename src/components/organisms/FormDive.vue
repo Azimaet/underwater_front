@@ -12,7 +12,6 @@ import { formatISO } from "date-fns";
 import { useDiveInitializer } from "@/composables/diveInitializer";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { useFormFactory } from "@/composables/formFactory";
-import { isMobile } from "@/composables/utils/isMobile";
 import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
 import { MUTATION_UPDATE_DIVE } from "@/graphql/mutations/updateDive";
 import { useMutation } from "@vue/apollo-composable";
@@ -171,8 +170,8 @@ watch(dive, async () => {
 
 <template>
   <Suspense>
-    <v-form v-model="valid" ref="formTemplate" lazy-validation>
-      <v-card-title :class="['pb-8']">
+    <v-form v-model="valid" ref="formTemplate" lazy-validation action="#">
+      <v-card-title :tag="'h2'" :class="['pb-8']">
         {{ form.title }}
       </v-card-title>
       <v-card-text>
@@ -193,15 +192,8 @@ watch(dive, async () => {
                   ? 5
                   : 10
               "
-              :cols="
-                !isMobile.value &&
-                (component.props?.name === 'FormControlDate' ||
-                  component.props?.name === 'FormControlNumber' ||
-                  component.props?.name === 'FormControlSelect' ||
-                  component.props?.name === 'FormControlComboBox')
-                  ? 4
-                  : 12
-              "
+              :cols="12"
+              :md="component.props?.name !== 'FormControlGasGroup' ? 4 : 12"
             >
               <component
                 :is="
@@ -231,15 +223,18 @@ watch(dive, async () => {
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <ButtonComponent
-          :label="isUpdating ? BUTTON_UPDATE : BUTTON_ADD"
-          :color="'success'"
-          :size="'x-large'"
-          :class="['my-5', 'mx-5']"
-          :loading="loading"
-          :disabled="loading"
-          @click="onSubmit"
-        />
+        <v-container>
+          <v-btn
+            variant="flat"
+            color="success"
+            :size="'x-large'"
+            :loading="loading"
+            :disabled="loading"
+            @click="onSubmit"
+          >
+            {{ isUpdating ? BUTTON_UPDATE : BUTTON_ADD }}
+          </v-btn>
+        </v-container>
       </v-card-actions>
     </v-form>
   </Suspense>

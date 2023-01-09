@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { useGasNameProvider } from "@/composables/gasNameProvider";
 import { computed, reactive, ref } from "vue";
 import { GasMix } from "@/types/global/gas";
-import { useGasMixUpdater } from "@/composables/gasMixUpdater";
 import { translations } from "@/i18n/index";
-
-const { OXYGEN, NITROGEN, HELIUM, LOCK_GAS, CURRENT_GAS } = translations.en.GAS;
+import { useGasMixUpdater } from "@/composables/gasMixUpdater";
+import { useGasNameProvider } from "@/composables/gasNameProvider";
 
 const props = defineProps<{
   id: string;
@@ -21,6 +19,9 @@ const emit = defineEmits<{
 const oxygenIsLocked = ref(false);
 const nitrogenIsLocked = ref(false);
 const heliumIsLocked = ref(true);
+
+const { OXYGEN, NITROGEN, HELIUM, LOCK_GAS, CURRENT_GAS } = translations.en.GAS;
+const { RULE_MUST_BE_BREATHABLE } = translations.en.FORM_WORDING;
 
 const lockedGas = computed(() => {
   return oxygenIsLocked.value
@@ -87,94 +88,135 @@ const checkChange = (value: boolean, context: string) => {
     </v-card-subtitle>
     <v-card-text>
       <v-input
-        :rules="[ (v: boolean) => (state.name.breathable === true )
-          || 'Mustb  be breathable', ]"
+        :rules="[ (v: boolean) => (state.name.breathable === true ) || RULE_MUST_BE_BREATHABLE, ]"
       >
-        <div :class="['d-flex', 'flex-wrap']">
+        <div :class="['d-flex', 'flex-wrap', 'flex-column', 'w-100']">
           <v-slider
             v-model="state.oxygen"
             :label="OXYGEN"
-            @update:model-value="handleChange(state.oxygen, 'oxygen')"
             :readonly="oxygenIsLocked"
             :max="100"
             :min="0"
             :step="1"
+            :class="[
+              'form_controls--slider',
+              'd-flex',
+              'flex-wrap',
+              'flex-column',
+            ]"
+            hide-details
+            @update:model-value="handleChange(state.oxygen, 'oxygen')"
           >
             <template v-slot:append>
-              <v-text-field
-                v-model="state.oxygen"
-                @change="handleChange(state.oxygen, 'oxygen')"
-                :readonly="oxygenIsLocked"
-                type="number"
-                style="width: 80px"
-                density="compact"
-                hide-details
-                variant="outlined"
-              ></v-text-field>
-
-              <v-checkbox
-                v-model="oxygenIsLocked"
-                @change="checkChange(oxygenIsLocked, 'oxygen')"
-                :label="LOCK_GAS"
-              ></v-checkbox>
+              <v-row>
+                <v-col cols="5" :class="['pt-4']">
+                  <v-text-field
+                    v-model="state.oxygen"
+                    :readonly="oxygenIsLocked"
+                    type="number"
+                    density="compact"
+                    hide-details
+                    variant="outlined"
+                    style="width: 100px"
+                    @change="handleChange(state.oxygen, 'oxygen')"
+                  />
+                </v-col>
+                <v-col cols="7" :align-self="'center'">
+                  <v-checkbox
+                    v-model="oxygenIsLocked"
+                    :label="LOCK_GAS"
+                    :class="['mx-0', 'align-center']"
+                    hide-details
+                    @change="checkChange(oxygenIsLocked, 'oxygen')"
+                  />
+                </v-col>
+              </v-row>
             </template>
           </v-slider>
 
           <v-slider
             v-model="state.nitrogen"
             :label="NITROGEN"
-            @update:model-value="handleChange(state.nitrogen, 'nitrogen')"
             :readonly="nitrogenIsLocked"
             :max="100"
             :min="0"
             :step="1"
+            :class="[
+              'form_controls--slider',
+              'd-flex',
+              'flex-wrap',
+              'flex-column',
+            ]"
+            hide-details
+            @update:model-value="handleChange(state.nitrogen, 'nitrogen')"
           >
             <template v-slot:append>
-              <v-text-field
-                v-model="state.nitrogen"
-                @change="handleChange(state.nitrogen, 'nitrogen')"
-                :readonly="nitrogenIsLocked"
-                type="number"
-                style="width: 80px"
-                density="compact"
-                hide-details
-                variant="outlined"
-              ></v-text-field>
-
-              <v-checkbox
-                v-model="nitrogenIsLocked"
-                @change="checkChange(nitrogenIsLocked, 'nitrogen')"
-                :label="LOCK_GAS"
-              ></v-checkbox>
+              <v-row>
+                <v-col cols="5" :class="['pt-4']">
+                  <v-text-field
+                    v-model="state.nitrogen"
+                    :readonly="nitrogenIsLocked"
+                    type="number"
+                    density="compact"
+                    hide-details
+                    variant="outlined"
+                    style="width: 100px"
+                    @change="handleChange(state.nitrogen, 'nitrogen')"
+                  />
+                </v-col>
+                <v-col cols="7" :align-self="'center'">
+                  <v-checkbox
+                    v-model="nitrogenIsLocked"
+                    :label="LOCK_GAS"
+                    :class="['mx-0', 'align-center']"
+                    hide-details
+                    @change="checkChange(nitrogenIsLocked, 'nitrogen')"
+                  />
+                </v-col>
+              </v-row>
             </template>
           </v-slider>
 
           <v-slider
             v-model="state.helium"
             :label="HELIUM"
-            @update:model-value="handleChange(state.helium, 'helium')"
             :readonly="heliumIsLocked"
             :max="100"
             :min="0"
             :step="1"
+            :class="[
+              'form_controls--slider',
+              'd-flex',
+              'flex-wrap',
+              'flex-column',
+            ]"
+            hide-details
+            @update:model-value="handleChange(state.helium, 'helium')"
           >
             <template v-slot:append>
-              <v-text-field
-                v-model="state.helium"
-                @change="handleChange(state.helium, 'helium')"
-                :readonly="heliumIsLocked"
-                type="number"
-                style="width: 80px"
-                density="compact"
-                hide-details
-                variant="outlined"
-              ></v-text-field>
-
-              <v-checkbox
-                v-model="heliumIsLocked"
-                @change="checkChange(heliumIsLocked, 'helium')"
-                :label="LOCK_GAS"
-              ></v-checkbox>
+              <v-row>
+                <v-col cols="5" :class="['pt-4']">
+                  <v-text-field
+                    v-model="state.helium"
+                    :readonly="heliumIsLocked"
+                    type="number"
+                    density="compact"
+                    hide-details
+                    variant="outlined"
+                    style="width: 100px"
+                    @change="handleChange(state.helium, 'helium')"
+                  />
+                </v-col>
+                <v-col cols="7" :align-self="'center'">
+                  <v-checkbox
+                    v-model="heliumIsLocked"
+                    :label="LOCK_GAS"
+                    :class="['mx-0', 'align-center']"
+                    hide-details
+                    @change="checkChange(heliumIsLocked, 'helium')"
+                  />
+                </v-col>
+              </v-row>
             </template>
           </v-slider>
         </div>

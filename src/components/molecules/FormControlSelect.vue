@@ -12,6 +12,8 @@ const props = defineProps<{
   rules: ((v: number) => boolean)[];
 }>();
 
+const value = ref(props.value);
+
 const key: string =
   props.action === GraphqlActions.DIVING_ROLES
     ? "divingRoles"
@@ -24,8 +26,6 @@ const items = await useGqlQueryManager(props.action).then((result) => {
     (item: { node: DivingThemeInterface }) => item.node
   );
 });
-
-const value = ref(props.value);
 </script>
 
 <template>

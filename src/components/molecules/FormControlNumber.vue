@@ -21,6 +21,7 @@ const number = reactive({
     :rules="props.rules"
     persistent-hint
     variant="outlined"
+    required
     @change="$emit('formInputChange', props.id, number.value, props.index)"
   ></v-text-field>
 </template>

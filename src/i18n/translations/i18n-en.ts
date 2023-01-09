@@ -30,6 +30,7 @@ export const en = {
     RULE_BE_EMAIL: "Field must be email",
     RULE_PASSWORD: "Passwords does not match.",
     RULE_DATE: "Date has been replaced because it must be before now.",
+    RULE_MUST_BE_BREATHABLE: "GasMix must be breatable.",
     SELECT_AVATAR: "Select avatar",
   },
   FORM_DIVING: {

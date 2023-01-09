@@ -14,9 +14,9 @@ const emit = defineEmits<{
   (e: string, id: string, value: Date): void;
 }>();
 
-const { RULE_DATE } = translations.en.FORM_WORDING;
-
 const errorText = ref("");
+
+const { RULE_DATE } = translations.en.FORM_WORDING;
 
 const date = reactive({
   value: format(props.value, "yyyy-MM-dd'T'HH:mm"),
@@ -32,8 +32,8 @@ const handleChange = () => {
 </script>
 
 <template>
-  <div :class="['position-relative', 'pb-5']">
-    <span
+  <fieldset :class="['form_controls--date', 'position-relative', 'pb-5']">
+    <legend
       :class="[
         'position-absolute',
         'bg-primary',
@@ -44,40 +44,17 @@ const handleChange = () => {
       ]"
     >
       {{ props.label }}
-    </span>
+    </legend>
     <input v-model="date.value" :type="props.type" @change="handleChange()" />
     <div :class="['v-input__details']" v-show="errorText">
       <div :class="['v-messages']">
-        <div
+        <p
           :class="['v-messages__message', 'ml-4', 'color-warning']"
           :style="{ 'transform-origin': 'center top 0px' }"
         >
           {{ errorText }}
-        </div>
+        </p>
       </div>
     </div>
-  </div>
+  </fieldset>
 </template>
-
-<style lang="scss" scoped>
-span {
-  top: -10px;
-  &:active {
-    color: white;
-  }
-}
-
-input {
-  border: 1px solid #757575;
-  border-radius: 5px;
-  padding: 17.5px;
-  width: 100%;
-  transition: 0.5s;
-
-  &:active,
-  &:hover {
-    border: 1px solid white;
-    transition: 0.5s;
-  }
-}
-</style>
