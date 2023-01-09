@@ -16,4 +16,5 @@ export interface GasTank {
   gasMix: GasMix;
   pressureStart: number;
   pressureEnd: number;
+  [key: string]: any;
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineAsyncComponent, ref, reactive, watch } from "vue";
+import { defineAsyncComponent, ref, reactive, watch, Suspense } from "vue";
 import { FormActions } from "@/types/models/form";
 import { DiveInterface } from "@/types/global/dive";
 import {
@@ -9,12 +9,13 @@ import {
 import { GasMix } from "@/types/global/gas";
 import router from "@/router";
 import { formatISO } from "date-fns";
+import { useDiveInitializer } from "@/composables/diveInitializer";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { useFormFactory } from "@/composables/formFactory";
-import { useMutation } from "@vue/apollo-composable";
 import { isMobile } from "@/composables/utils/isMobile";
 import { MUTATION_CREATE_DIVE } from "@/graphql/mutations/createDive";
 import { MUTATION_UPDATE_DIVE } from "@/graphql/mutations/updateDive";
+import { useMutation } from "@vue/apollo-composable";
 import { translations } from "@/i18n/index";
 
 const FormControlDate = defineAsyncComponent(
@@ -39,33 +40,14 @@ const { BUTTON_ADD, BUTTON_UPDATE } = translations.en.FORM_DIVING;
 const isUpdating = !!window.history.state.dive;
 const valid = ref(false);
 const loading = ref(false);
-const formTemplate = ref(null);
+const formTemplate = ref();
 
-const dive: DiveInterface = reactive({
-  id: isUpdating ? window.history.state.dive.id : null,
-  date: isUpdating ? new Date(window.history.state.dive.date) : new Date(),
-  totalTime: isUpdating ? window.history.state.dive.totalTime : 0,
-  maxDepth: isUpdating ? window.history.state.dive.maxDepth : 0,
-  gasTanks: isUpdating
-    ? window.history.state.dive.gasTanks
-    : [
-        {
-          gasMix: {
-            helium: 0,
-            oxygen: 21,
-            nitrogen: 79,
-          },
-          pressureStart: 200,
-          pressureEnd: 50,
-        },
-      ],
-  divingType: isUpdating ? window.history.state.dive.divingType : { edges: [] },
-  divingEnvironment: isUpdating
-    ? window.history.state.dive.divingEnvironment
-    : null,
-  divingRole: isUpdating ? window.history.state.dive.divingRole : null,
-  owner: null,
-});
+const dive: DiveInterface = isUpdating
+  ? reactive({
+      ...JSON.parse(window.history.state.dive),
+      date: new Date(Date.parse(JSON.parse(window.history.state.dive).date)),
+    })
+  : reactive(useDiveInitializer());
 
 const form = useFormFactory(
   isUpdating ? FormActions.DIVE_UPDATE : FormActions.DIVE_CREATE,
@@ -161,9 +143,7 @@ onDone(() => {
 });
 
 const onSubmit = async () => {
-  const { valid } = await formTemplate.value!.validate();
-
-  console.log(payload);
+  const { valid } = await formTemplate.value.validate();
 
   if (valid) {
     mutate();

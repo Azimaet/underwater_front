@@ -16,5 +16,5 @@ export interface DiveInterface {
   };
   divingEnvironment: DivingThemeInterface | null;
   divingRole: DivingThemeInterface | null;
-  owner: string | null;
+  owner?: string;
 }
