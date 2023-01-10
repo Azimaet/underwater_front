@@ -82,6 +82,29 @@ export const en = {
     ADD_DIVE: "Add Dive",
     SETTINGS: "Settings",
   },
+  HOME: {
+    TITLE: "Welcome to underwwwater",
+    SUBTITLE:
+      "the ultimate platform for tracking and analyzing your dive performance.",
+    DIVE_LOGGING: {
+      TITLE:
+        "A Comprehensive and User-Friendly Dive Logging and Progress Tracking Platform.",
+      TEXT: `Our goal is to provide divers with a comprehensive and user-friendly
+      way to record and evaluate their dive data, including dive time, gas
+      usage, dive location, and more.
+      With underwwwater, you can easily track your progress and set new dive goals, all while sharing
+      your dive experiences with the wider diving community.`,
+    },
+    GET_STARTED: {
+      TITLE: "Get Started:",
+      TEXT: `To get started, simply create a free account and begin logging your
+      dives. You'll have access to a variety of data visualization tools
+      to help you make sense of your dive data and identify areas for
+      improvement. And with our community features, you can connect with
+      other divers and share your experiences, tips, and advice.`,
+      MORE: "Join us on DiveLog and take your diving to the next level!",
+    },
+  },
   PROFILE: {
     STRATE_CALENDAR: {
       TITLE: "Dates",

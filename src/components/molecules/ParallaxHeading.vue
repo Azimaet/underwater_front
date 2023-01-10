@@ -26,18 +26,19 @@ const props = defineProps<{
         'align-center',
       ]"
     >
-      <div :class="'text-center'" :style="{ maxWidth: '1280px' }">
+      <v-container :class="['text-center']" :tag="'article'">
         <h1 :class="['text-h2', 'font-weight-bold', 'mb-4']">
           {{ props.title }}
         </h1>
         <h2 :class="['text-h5', 'font-weight-light']">
           {{ props.subtitle }}
         </h2>
-        <nav :class="['mt-15 d-flex']">
+
+        <nav :class="['mt-15', 'd-flex', 'flex-wrap', 'justify-center']">
           <FormUserModal v-if="!isLogged()" :action="FormActions.REGISTER" />
           <FormUserModal v-if="!isLogged()" :action="FormActions.LOGIN" />
         </nav>
-      </div>
+      </v-container>
     </div>
   </v-parallax>
 </template>

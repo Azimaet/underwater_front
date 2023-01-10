@@ -40,6 +40,7 @@ onMounted(() => {
   >
     <template v-slot:prepend>
       <v-btn
+        v-if="isLogged()"
         variant="plain"
         icon="mdi-menu"
         :size="'large'"
@@ -73,7 +74,7 @@ onMounted(() => {
         <v-btn
           v-if="isLogged()"
           color="error"
-          :class="['ml-2', 'd-none', 'd-md-flex']"
+          :class="['mx-4', 'd-none', 'd-md-flex']"
           :size="'default'"
           @click="useAuthLogout(), useAlertFactory('success', LOGOUT_ACCOUNT)"
         >
@@ -83,7 +84,7 @@ onMounted(() => {
           v-if="isLogged()"
           color="error"
           icon="mdi-exit-to-app"
-          :class="['ml-2', 'd-md-none']"
+          :class="['mx-4', 'd-md-none']"
           :size="'default'"
           @click="useAuthLogout(), useAlertFactory('success', LOGOUT_ACCOUNT)"
         />

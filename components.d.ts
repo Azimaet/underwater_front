@@ -39,6 +39,7 @@ declare module '@vue/runtime-core' {
     FormTitle: typeof import('./src/components/atoms/FormTitle.vue')['default']
     FormUserModal: typeof import('./src/components/organisms/FormUserModal.vue')['default']
     HeaderBar: typeof import('./src/components/organisms/HeaderBar.vue')['default']
+    HomeParagraph: typeof import('./src/components/atoms/HomeParagraph.vue')['default']
     HomeView: typeof import('./src/components/views/HomeView.vue')['default']
     LogoType: typeof import('./src/components/atoms/LogoType.vue')['default']
     MenuDrawer: typeof import('./src/components/organisms/MenuDrawer.vue')['default']

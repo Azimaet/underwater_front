@@ -10,19 +10,16 @@ import router from "@/router";
 import { useAlertFactory } from "../../composables/alertFactory";
 import { translations } from "@/i18n/index";
 
-const { CREATE_USER, ERROR_CREATE_USER } = translations.en.ALERTS;
-
 const props = defineProps<{
   action: FormActions;
 }>();
 
-const form = useFormFactory(props.action);
-
-const label = props.action === FormActions.LOGIN ? "Login" : "Register";
-
-const color = props.action === FormActions.LOGIN ? "success" : "primary";
-
 const dialog = ref(false);
+const form = useFormFactory(props.action);
+const label = props.action === FormActions.LOGIN ? "Login" : "Register";
+const color = props.action === FormActions.LOGIN ? "success" : "secondary";
+
+const { CREATE_USER, ERROR_CREATE_USER } = translations.en.ALERTS;
 
 const credentials: FormUserCredentials = reactive(
   props.action === FormActions.LOGIN
@@ -67,7 +64,13 @@ onDone(() => {
 <template>
   <v-dialog v-model="dialog" persistent>
     <template v-slot:activator="{ props }">
-      <v-btn variant="flat" :size="'default'" :color="color" v-bind="props">
+      <v-btn
+        variant="flat"
+        :size="'default'"
+        :color="color"
+        v-bind="props"
+        :class="'mx-4'"
+      >
         {{ label }}
       </v-btn>
     </template>
