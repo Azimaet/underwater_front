@@ -66,15 +66,17 @@ onDone(() => {
 
 <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" persistent transition="dialog-bottom-transition">
+    <v-dialog v-model="dialog" persistent>
       <template v-slot:activator="{ props }">
-        <ButtonComponent
-          :label="label"
-          :color="color"
-          :size="'x-large'"
+        <v-btn
+          variant="flat"
+          :size="'large'"
           :class="['my-5', 'mx-5']"
+          :color="color"
           v-bind="props"
-        />
+        >
+          {{ label }}
+        </v-btn>
       </template>
       <v-card>
         <v-card-title>
@@ -105,25 +107,25 @@ onDone(() => {
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue-darken-1" text @click="dialog = false">
+          <v-btn variant="text" :size="'large'" @click="dialog = false">
             Close
           </v-btn>
-          <ButtonComponent
-            v-if="props.action === FormActions.LOGIN"
-            :label="label"
-            :color="color"
-            :size="'x-large'"
-            :class="['my-5', 'mx-5']"
-            @click="useAuthLogin(credentials), (dialog = false)"
-          />
-          <ButtonComponent
-            v-else
-            :label="label"
-            :color="color"
-            :size="'x-large'"
-            :class="['my-5', 'mx-5']"
-            @click="mutate(), (dialog = false)"
-          />
+          <v-btn
+            variant="flat"
+            :size="'large'"
+            :class="['my-2', 'mx-2']"
+            :color="
+              props.action === FormActions.LOGIN ? 'success' : 'secondary'
+            "
+            @click="
+              props.action === FormActions.LOGIN
+                ? useAuthLogin(credentials)
+                : mutate(),
+                (dialog = false)
+            "
+          >
+            {{ label }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

@@ -92,15 +92,17 @@ onDone(() => {
       </v-row>
     </v-card-text>
     <v-card-actions>
-      <ButtonComponent
-        :label="SUBMIT"
-        :color="'success'"
-        :size="'x-large'"
-        :class="['my-5', 'mx-5']"
+      <v-btn
+        variant="flat"
+        color="success"
+        :size="'large'"
+        :class="['my-2', 'mx-2']"
         :loading="loading"
         :disabled="loading"
         @click="mutate(), load()"
-      />
+      >
+        {{ SUBMIT }}
+      </v-btn>
     </v-card-actions>
   </v-form>
 </template>

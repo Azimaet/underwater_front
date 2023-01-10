@@ -4,7 +4,6 @@ import store from "@/store";
 import { FormActions } from "@/types/models/form";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { onMounted, ref } from "vue";
-import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { menu } from "@/store/menu";
 import { isMobile } from "@/composables/utils/isMobile";
 import { translations } from "@/i18n/index";
@@ -42,12 +41,12 @@ onMounted(() => {
       :class="['text-center', 'px-4', 'mx-auto']"
     >
       <template v-slot:prepend>
-        <ButtonComponent
-          :variant="'plain'"
-          :icon="{ name: 'mdi-menu', placement: 'primary', size: 'x-large' }"
-          :responsive="true"
+        <v-btn
+          variant="plain"
+          icon="mdi-menu"
+          :size="'large'"
           @click="menu.toggleAction()"
-        />
+        ></v-btn>
       </template>
       <v-app-bar-title>
         <LogoType />
@@ -73,18 +72,21 @@ onMounted(() => {
               <v-icon icon="mdi-account-circle"></v-icon>
             </v-avatar>
           </v-badge>
-          <ButtonComponent
-            :label="LOGOUT"
-            :color="'error'"
-            :icon="{
-              name: 'mdi-exit-to-app',
-              placement: 'responsive',
-              size: 'x-large',
-            }"
-            :responsive="true"
-            :class="['ml-2']"
+          <v-btn
+            color="error"
+            :class="['ml-2', 'd-none', 'd-md-flex']"
+            :size="'default'"
             @click="useAuthLogout(), useAlertFactory('success', LOGOUT_ACCOUNT)"
-          />
+          >
+            {{ LOGOUT }}
+          </v-btn>
+          <v-btn
+            color="error"
+            icon="mdi-exit-to-app"
+            :class="['ml-2', 'd-md-none']"
+            :size="'default'"
+            @click="useAuthLogout(), useAlertFactory('success', LOGOUT_ACCOUNT)"
+          ></v-btn>
         </div>
         <div v-else :class="['d-flex', 'justify-center', 'align-center']">
           <FormUserModal :action="FormActions.LOGIN" />

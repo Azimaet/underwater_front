@@ -45,18 +45,14 @@ onMounted(() => {
       <v-icon :class="['mx-1']">mdi-vuetify</v-icon>
       |
     </div>
-
-    <ButtonComponent
+    <v-btn
       :variant="'text'"
-      :icon="{
-        name: 'mdi-github',
-        placement: 'responsive',
-      }"
       :size="'small'"
-      :href="'https://github.com/Azimaet'"
-      :label="GITHUB"
+      :prepend-icon="'mdi-github'"
       :class="['d-flex']"
-      :responsive="true"
-    />
+      :href="'https://github.com/Azimaet'"
+    >
+      {{ GITHUB }}
+    </v-btn>
   </v-bottom-navigation>
 </template>
