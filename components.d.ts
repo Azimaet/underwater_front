@@ -9,7 +9,6 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AlertsBucket: typeof import('./src/components/organisms/AlertsBucket.vue')['default']
     BaseTemplate: typeof import('./src/components/templates/BaseTemplate.vue')['default']
-    ButtonComponent: typeof import('./src/components/atoms/ButtonComponent.vue')['default']
     CardErrorData: typeof import('./src/components/molecules/CardErrorData.vue')['default']
     CardTemplate: typeof import('./src/components/templates/CardTemplate.vue')['default']
     ChartBar: typeof import('./src/components/molecules/ChartBar.vue')['default']

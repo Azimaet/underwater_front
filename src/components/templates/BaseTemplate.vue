@@ -1,10 +1,10 @@
 <template>
   <div
     :style="{
-      'background-image':
-        'url(' + require(`@/assets/background-animate.svg`) + ')',
       'background-size': 'cover',
       'background-position': 'top',
+      'background-image':
+        'url(' + require(`@/assets/background-animate.svg`) + ')',
     }"
   >
     <HeaderBar />

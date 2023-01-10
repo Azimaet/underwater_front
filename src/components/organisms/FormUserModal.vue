@@ -65,69 +65,59 @@ onDone(() => {
 </script>
 
 <template>
-  <v-row justify="center">
-    <v-dialog v-model="dialog" persistent>
-      <template v-slot:activator="{ props }">
+  <v-dialog v-model="dialog" persistent>
+    <template v-slot:activator="{ props }">
+      <v-btn variant="flat" :size="'default'" :color="color" v-bind="props">
+        {{ label }}
+      </v-btn>
+    </template>
+    <v-card>
+      <v-card-title>
+        <span class="text-h5"> {{ label }}</span>
+      </v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-col
+              v-for="(component, index) in form.controls"
+              cols="12"
+              :key="index"
+            >
+              <FormControlText
+                :id="component.id"
+                :label="component.props!.label + '*'"
+                :type="component.props!.type"
+                :rules="component.props?.rules"
+                :icon="component.props?.icon"
+                @form-input-change="handleChange"
+                required
+              >
+              </FormControlText
+            ></v-col>
+          </v-row>
+        </v-container>
+        <small>*indicates required field</small>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn variant="text" :size="'large'" @click="dialog = false">
+          Close
+        </v-btn>
         <v-btn
           variant="flat"
           :size="'large'"
-          :class="['my-5', 'mx-5']"
-          :color="color"
-          v-bind="props"
+          :class="['my-2', 'mx-2']"
+          :color="props.action === FormActions.LOGIN ? 'success' : 'secondary'"
+          @click="
+            props.action === FormActions.LOGIN
+              ? useAuthLogin(credentials)
+              : mutate(),
+              (dialog = false)
+          "
         >
           {{ label }}
         </v-btn>
-      </template>
-      <v-card>
-        <v-card-title>
-          <span class="text-h5"> {{ label }}</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col
-                v-for="(component, index) in form.controls"
-                cols="12"
-                :key="index"
-              >
-                <FormControlText
-                  :id="component.id"
-                  :label="component.props!.label + '*'"
-                  :type="component.props!.type"
-                  :rules="component.props?.rules"
-                  :icon="component.props?.icon"
-                  @form-input-change="handleChange"
-                  required
-                >
-                </FormControlText
-              ></v-col>
-            </v-row>
-          </v-container>
-          <small>*indicates required field</small>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn variant="text" :size="'large'" @click="dialog = false">
-            Close
-          </v-btn>
-          <v-btn
-            variant="flat"
-            :size="'large'"
-            :class="['my-2', 'mx-2']"
-            :color="
-              props.action === FormActions.LOGIN ? 'success' : 'secondary'
-            "
-            @click="
-              props.action === FormActions.LOGIN
-                ? useAuthLogin(credentials)
-                : mutate(),
-                (dialog = false)
-            "
-          >
-            {{ label }}
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-row>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
