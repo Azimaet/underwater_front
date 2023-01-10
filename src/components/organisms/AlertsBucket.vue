@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import store from "@/store";
-
-const divClasses = ["alerts--container"];
-const alertClasses = ["px-4", "py-4"];
 </script>
 
 <template>
-  <div :class="divClasses">
+  <ul :class="['alerts_container', 'position-fixed']">
     <v-alert
       v-for="(component, index) in store.state.alerts"
-      :class="alertClasses"
+      :tag="'li'"
+      :class="['px-4', 'py-4']"
       :key="index"
       :type="component.type"
       closable
@@ -18,14 +16,13 @@ const alertClasses = ["px-4", "py-4"];
     >
       {{ component.message }}
     </v-alert>
-  </div>
+  </ul>
 </template>
 
 <style lang="scss" scoped>
-.alerts--container {
-  position: fixed;
+.alerts_container {
   width: 100%;
-  top: 64px; // header height
+  top: 64px;
   z-index: 10;
 }
 </style>
