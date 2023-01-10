@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { defineAsyncComponent, ref } from "vue";
 import { Form, FormActions } from "@/types/models/form";
 import { useFormFactory } from "@/composables/formFactory";
-import FormControlText from "@/components/molecules/FormControlText.vue";
 import { MUTATION_DELETE_USER } from "@/graphql/mutations/deleteUser";
 import { useMutation } from "@vue/apollo-composable";
 import store from "@/store";
@@ -10,6 +9,10 @@ import { useAuthLogout } from "@/composables/auth";
 import router from "@/router";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { translations } from "@/i18n/index";
+
+const FormControlText = defineAsyncComponent(
+  () => import("@/components/molecules/FormControlText.vue")
+);
 
 const loading = ref(false);
 const valid = ref(false);
@@ -61,9 +64,7 @@ const onSubmit = async () => {
           :key="index"
         >
           <component
-            :is="
-              component.props?.name === 'FormControlText' ? FormControlText : ''
-            "
+            :is="FormControlText"
             :id="component.id"
             :label="component.props?.label"
             :action="component.props?.query"

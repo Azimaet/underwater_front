@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { defineAsyncComponent, ref, reactive } from "vue";
 import { Form, FormActions } from "@/types/models/form";
 import { useFormFactory } from "@/composables/formFactory";
-import FormControlText from "@/components/molecules/FormControlText.vue";
-import FormControlDoubleText from "@/components/molecules/FormControlDoubleText.vue";
-import FormControlRadioList from "@/components/molecules/FormControlRadioList.vue";
 import { MUTATION_UPDATE_USER } from "@/graphql/mutations/updateUser";
 import { useMutation } from "@vue/apollo-composable";
 import store from "@/store";
@@ -12,6 +9,16 @@ import { useAuthLogout } from "@/composables/auth";
 import router from "@/router";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { translations } from "@/i18n/index";
+
+const FormControlText = defineAsyncComponent(
+  () => import("@/components/molecules/FormControlText.vue")
+);
+const FormControlDoubleText = defineAsyncComponent(
+  () => import("@/components/molecules/FormControlDoubleText.vue")
+);
+const FormControlRadioList = defineAsyncComponent(
+  () => import("@/components/molecules/FormControlRadioList.vue")
+);
 
 const loading = ref(false);
 const { EDIT_ACCOUNT } = translations.en.ALERTS;
