@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { FormActions } from "@/types/models/form";
 import { isLogged } from "@/composables/auth";
+import { isMobile } from "@/composables/utils/isMobile";
 
 const props = defineProps<{
   title: string;
@@ -27,7 +28,13 @@ const props = defineProps<{
       ]"
     >
       <v-container :class="['text-center']" :tag="'article'">
-        <h1 :class="['text-h2', 'font-weight-bold', 'mb-4']">
+        <h1
+          :class="[
+            'font-weight-bold',
+            'mb-4',
+            isMobile.value ? 'text-h4' : 'text-h2',
+          ]"
+        >
           {{ props.title }}
         </h1>
         <h2 :class="['text-h5', 'font-weight-light']">
