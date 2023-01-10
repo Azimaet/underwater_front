@@ -21,6 +21,8 @@ const FormControlRadioList = defineAsyncComponent(
 );
 
 const loading = ref(false);
+const valid = ref(false);
+const formTemplate = ref();
 const { EDIT_ACCOUNT } = translations.en.ALERTS;
 const { SUBMIT } = translations.en.FORM_WORDING;
 
@@ -64,10 +66,19 @@ onDone(() => {
   useAlertFactory("success", EDIT_ACCOUNT);
   router.push({ name: "home" });
 });
+
+const onSubmit = async () => {
+  const { valid } = await formTemplate.value.validate();
+
+  if (valid) {
+    mutate();
+    load();
+  }
+};
 </script>
 
 <template>
-  <v-form action="#">
+  <v-form v-model="valid" ref="formTemplate" lazy-validation action="#">
     <FormTitle :label="form.title" />
     <v-card-text>
       <v-row>
@@ -106,7 +117,7 @@ onDone(() => {
         :class="['my-2', 'mx-2']"
         :loading="loading"
         :disabled="loading"
-        @click="mutate(), load()"
+        @click="onSubmit"
       >
         {{ SUBMIT }}
       </v-btn>
