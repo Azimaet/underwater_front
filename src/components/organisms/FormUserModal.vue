@@ -88,7 +88,7 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <v-dialog v-model="dialog" persistent absolute>
+  <v-dialog v-model="dialog" persistent>
     <template v-slot:activator="{ props }">
       <v-btn
         variant="flat"

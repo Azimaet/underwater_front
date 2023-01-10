@@ -8,6 +8,8 @@ export const en = {
     LOGOUT_ACCOUNT: "You have been correctly logout.",
     CREATE_USER: "A new user have been created!",
     ERROR_CREATE_USER: "Error on create User: ",
+    WARNING_ANON:
+      "Page you tried to reach is restricted to users only. Please log-in before.",
   },
   FORM_WORDING: {
     EMAIL: "E-mail",
