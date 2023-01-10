@@ -22,6 +22,7 @@ export const en = {
     EDIT: "Edit",
     CLOSE: "Close",
     DELETE: "Delete",
+    DELETE_ACCOUNT: "Delete Account",
     CANCEL: "Cancel",
     UPDATE_ACCOUNT: "Update Account",
     RULE_IS_REQUIRED: "Field is required",
