@@ -46,13 +46,12 @@ export function useFormFactory(
       context === "maxDepth" ||
       context === "totalTime"
     ) {
-      rules.push((v: string) => !!v || "Field is required");
+      rules.push((v: string) => !!v || FORM_WORDING.RULE_IS_REQUIRED);
     }
 
     if (action === FormActions.ACCOUNT_DELETE) {
       rules.push(
-        (v: string) =>
-          v === "DELETE" || "Field is required and to be equal 'DELETE'"
+        (v: string) => v === "DELETE" || FORM_WORDING.RULE_IS_EQUAL_TO_DELETE
       );
     }
 
@@ -62,25 +61,20 @@ export function useFormFactory(
       context === "password"
     ) {
       rules.push(
-        (v: string) =>
-          regexPassword.test(v) ||
-          "Password should contain at 8-32chars, at least a symbol, a number, and upper and lower case letters."
+        (v: string) => regexPassword.test(v) || FORM_WORDING.RULE_PASSWORD_REGEX
       );
     }
 
     if (action === FormActions.REGISTER && context === "email") {
       rules.push(
-        (v: string) =>
-          regexEmail.test(v) ||
-          "Field must be of type email: 'example@something.com' ."
+        (v: string) => regexEmail.test(v) || FORM_WORDING.RULE_BE_EMAIL
       );
     }
 
     if (context === "username") {
       rules.push(
         (v: string) =>
-          (v.length > 3 && v.length < 33) ||
-          "Username should contain between 4 and 32chars."
+          (v.length > 3 && v.length < 33) || FORM_WORDING.RULE_USERNAME
       );
     }
 
@@ -104,13 +98,13 @@ export function useFormFactory(
           : context === "username"
           ? FORM_WORDING.USERNAME
           : context === "security_passphrase"
-          ? "Are you sure to delete your account ?"
+          ? FORM_WORDING.CONSENT
           : "",
       icon: context === "password" ? "mdi-lock-outline" : null,
       rules: rules,
       subtitle:
         action === FormActions.ACCOUNT_UPDATE && context === "password"
-          ? " To update your account settings, please enter your current password, or renew it. "
+          ? FORM_WORDING.PASSWORD_VERIF
           : "",
     };
   }
@@ -216,7 +210,7 @@ export function useFormFactory(
           : action === FormActions.ACCOUNT_UPDATE
           ? FORM_WORDING.UPDATE_ACCOUNT
           : action === FormActions.ACCOUNT_DELETE
-          ? "Delete Account"
+          ? FORM_WORDING.DELETE_ACCOUNT
           : "",
       controls: [],
     };

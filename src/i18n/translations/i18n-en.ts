@@ -26,14 +26,21 @@ export const en = {
     UPDATE_ACCOUNT: "Update Account",
     RULE_IS_REQUIRED: "Field is required",
     RULE_BE_NUMBER: "Field must be number",
+    RULE_IS_EQUAL_TO_DELETE: "Field is required and to be equal 'DELETE'",
     RULE_BE_POS_NUMBER: "Number must be positive.",
     RULE_BE_INT_NUMBER: "Number must be integer, please round it.",
-    RULE_BE_EMAIL: "Field must be email",
+    RULE_PASSWORD_REGEX:
+      "Password should contain at 8-32chars, at least a symbol, a number, and upper and lower case letters.",
+    RULE_USERNAME: "Username should contain between 4 and 32char",
+    RULE_BE_EMAIL: "Field must be of type email: 'example@something.com' .",
     RULE_PASSWORD: "Passwords does not match.",
     RULE_DATE: "Date has been replaced because it must be before now.",
     RULE_MUST_BE_BREATHABLE: "GasMix must be breatable.",
     SELECT_AVATAR: "Select avatar",
     REQUIRED_FIELDS: "*indicates required field",
+    CONSENT: "Are you sure to delete your account?",
+    PASSWORD_VERIF:
+      " To update your account settings, please enter your current password, or renew it. ",
   },
   FORM_DIVING: {
     TITLE_ADD: "Add a new Dive!",
