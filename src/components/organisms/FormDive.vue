@@ -33,13 +33,12 @@ const FormControlGasGroup = defineAsyncComponent(
   () => import("@/components/molecules/FormControlGasGroup.vue")
 );
 
-const { NEW_DIVE, UPDATE_DIVE } = translations.en.ALERTS;
-const { BUTTON_ADD, BUTTON_UPDATE } = translations.en.FORM_DIVING;
-
 const isUpdating = !!window.history.state.dive;
 const valid = ref(false);
 const loading = ref(false);
 const formTemplate = ref();
+const { NEW_DIVE, UPDATE_DIVE } = translations.en.ALERTS;
+const { BUTTON_ADD, BUTTON_UPDATE } = translations.en.FORM_DIVING;
 
 const dive: DiveInterface = isUpdating
   ? reactive({
@@ -171,9 +170,7 @@ watch(dive, async () => {
 <template>
   <Suspense>
     <v-form v-model="valid" ref="formTemplate" lazy-validation action="#">
-      <v-card-title :tag="'h2'" :class="['pb-8']">
-        {{ form.title }}
-      </v-card-title>
+      <FormTitle :label="form.title" />
       <v-card-text>
         <v-row>
           <template v-for="component in form.controls" :key="component">

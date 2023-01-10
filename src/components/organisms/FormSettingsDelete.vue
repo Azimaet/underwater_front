@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import ButtonComponent from "@/components/atoms/ButtonComponent.vue";
 import { ref } from "vue";
 import { Form, FormActions } from "@/types/models/form";
 import { useFormFactory } from "@/composables/formFactory";
@@ -12,12 +11,13 @@ import router from "@/router";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { translations } from "@/i18n/index";
 
+const loading = ref(false);
+const valid = ref(false);
+const formTemplate = ref();
 const { REMOVE_ACCOUNT } = translations.en.ALERTS;
 const { DELETE } = translations.en.FORM_WORDING;
 
 const form: Form = useFormFactory(FormActions.ACCOUNT_DELETE);
-
-const loading = ref(false);
 
 const { mutate, onDone, onError } = useMutation(MUTATION_DELETE_USER, {
   variables: {
@@ -39,13 +39,20 @@ onDone(() => {
   useAlertFactory("success", REMOVE_ACCOUNT);
   router.push({ name: "home" });
 });
+
+const onSubmit = async () => {
+  const { valid } = await formTemplate.value.validate();
+
+  if (valid) {
+    mutate();
+    load();
+  }
+};
 </script>
 
 <template>
-  <v-form>
-    <v-card-title :class="['pb-8']">
-      {{ form.title }}
-    </v-card-title>
+  <v-form v-model="valid" ref="formTemplate" lazy-validation action="#">
+    <FormTitle :label="form.title" />
     <v-card-text>
       <v-row>
         <v-col
@@ -67,15 +74,16 @@ onDone(() => {
       </v-row>
     </v-card-text>
     <v-card-actions>
-      <ButtonComponent
-        :label="DELETE"
-        :color="'error'"
+      <v-btn
+        variant="flat"
+        color="error"
         :size="'x-large'"
-        :class="['my-5', 'mx-5']"
         :loading="loading"
         :disabled="loading"
-        @click="mutate(), load()"
-      />
+        @click="onSubmit"
+      >
+        {{ DELETE }}
+      </v-btn>
     </v-card-actions>
   </v-form>
 </template>

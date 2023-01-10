@@ -22,7 +22,7 @@ const text = ref(
 <template>
   <v-text-field
     v-model="text"
-    :prepend-icon="icon"
+    :prepend-icon="icon || undefined"
     :label="props.label"
     :rules="props.rules"
     :type="type"

@@ -13,6 +13,7 @@ import router from "@/router";
 import { useAlertFactory } from "@/composables/alertFactory";
 import { translations } from "@/i18n/index";
 
+const loading = ref(false);
 const { EDIT_ACCOUNT } = translations.en.ALERTS;
 const { SUBMIT } = translations.en.FORM_WORDING;
 
@@ -26,7 +27,11 @@ const payload = reactive({
   username: store.state.user.data.username,
 });
 
-const loading = ref(false);
+const { mutate, onDone, onError } = useMutation(MUTATION_UPDATE_USER, {
+  variables: {
+    input: payload,
+  },
+});
 
 const handleChange = (id: string, value: string) => {
   if (id === "avatar") {
@@ -37,12 +42,6 @@ const handleChange = (id: string, value: string) => {
     payload.username = value;
   }
 };
-
-const { mutate, onDone, onError } = useMutation(MUTATION_UPDATE_USER, {
-  variables: {
-    input: payload,
-  },
-});
 
 const load = () => {
   loading.value = true;
@@ -61,10 +60,8 @@ onDone(() => {
 </script>
 
 <template>
-  <v-form>
-    <v-card-title :class="['pb-8']">
-      {{ form.title }}
-    </v-card-title>
+  <v-form action="#">
+    <FormTitle :label="form.title" />
     <v-card-text>
       <v-row>
         <v-col
