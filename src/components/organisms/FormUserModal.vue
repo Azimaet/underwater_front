@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { defineAsyncComponent, ref } from "vue";
 import { reactive } from "vue";
 import { FormActions, FormUserCredentials } from "@/types/models/form";
 import { useAuthLogin } from "@/composables/auth";
@@ -10,16 +10,28 @@ import router from "@/router";
 import { useAlertFactory } from "../../composables/alertFactory";
 import { translations } from "@/i18n/index";
 
+const FormControlText = defineAsyncComponent(
+  () => import("@/components/molecules/FormControlText.vue")
+);
+
+const FormControlDoubleText = defineAsyncComponent(
+  () => import("@/components/molecules/FormControlDoubleText.vue")
+);
+
 const props = defineProps<{
   action: FormActions;
 }>();
 
 const dialog = ref(false);
+const valid = ref(false);
+const formTemplate = ref();
+
 const form = useFormFactory(props.action);
 const label = props.action === FormActions.LOGIN ? "Login" : "Register";
 const color = props.action === FormActions.LOGIN ? "success" : "secondary";
 
 const { CREATE_USER, ERROR_CREATE_USER } = translations.en.ALERTS;
+const { CLOSE, REQUIRED_FIELDS } = translations.en.FORM_WORDING;
 
 const credentials: FormUserCredentials = reactive(
   props.action === FormActions.LOGIN
@@ -59,34 +71,53 @@ onDone(() => {
   useAlertFactory("success", CREATE_USER);
   router.push({ name: "home" });
 });
+
+const onSubmit = async () => {
+  if (props.action === FormActions.LOGIN) {
+    useAuthLogin(credentials);
+    dialog.value = false;
+  } else {
+    const { valid } = await formTemplate.value.validate();
+
+    if (valid) {
+      mutate();
+      dialog.value = false;
+    }
+  }
+};
 </script>
 
 <template>
-  <v-dialog v-model="dialog" persistent>
+  <v-dialog v-model="dialog" persistent absolute>
     <template v-slot:activator="{ props }">
       <v-btn
         variant="flat"
         :size="'default'"
         :color="color"
         v-bind="props"
-        :class="'mx-4'"
+        :class="['mx-4']"
       >
         {{ label }}
       </v-btn>
     </template>
     <v-card>
-      <v-card-title>
-        <span class="text-h5"> {{ label }}</span>
-      </v-card-title>
-      <v-card-text>
-        <v-container>
+      <v-form v-model="valid" ref="formTemplate" lazy-validation action="#">
+        <FormTitle :label="label" />
+        <v-card-text :tag="'fieldset'">
           <v-row>
             <v-col
               v-for="(component, index) in form.controls"
               cols="12"
+              sm="8"
+              :class="['mx-auto']"
               :key="index"
             >
-              <FormControlText
+              <component
+                :is="
+                  component.props?.name === 'FormControlDoubleText'
+                    ? FormControlDoubleText
+                    : FormControlText
+                "
                 :id="component.id"
                 :label="component.props!.label + '*'"
                 :type="component.props!.type"
@@ -94,33 +125,37 @@ onDone(() => {
                 :icon="component.props?.icon"
                 @form-input-change="handleChange"
                 required
-              >
-              </FormControlText
-            ></v-col>
+              ></component>
+            </v-col>
           </v-row>
-        </v-container>
-        <small>*indicates required field</small>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn variant="text" :size="'large'" @click="dialog = false">
-          Close
-        </v-btn>
-        <v-btn
-          variant="flat"
-          :size="'large'"
-          :class="['my-2', 'mx-2']"
-          :color="props.action === FormActions.LOGIN ? 'success' : 'secondary'"
-          @click="
-            props.action === FormActions.LOGIN
-              ? useAuthLogin(credentials)
-              : mutate(),
-              (dialog = false)
-          "
-        >
-          {{ label }}
-        </v-btn>
-      </v-card-actions>
+        </v-card-text>
+        <v-card-actions :class="['mx-auto']">
+          <v-row>
+            <v-col cols="12" sm="8" :class="['mx-auto']">
+              <small>{{ REQUIRED_FIELDS }}</small>
+            </v-col>
+            <v-col cols="12" sm="8" :class="['mx-auto', 'text-center']">
+              <v-btn
+                variant="text"
+                :size="'default'"
+                :class="['my-2', 'mx-2']"
+                @click="dialog = false"
+              >
+                {{ CLOSE }}
+              </v-btn>
+              <v-btn
+                variant="flat"
+                :size="'default'"
+                :class="['my-2', 'mx-2']"
+                :color="color"
+                @click="onSubmit"
+              >
+                {{ label }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-card-actions>
+      </v-form>
     </v-card>
   </v-dialog>
 </template>

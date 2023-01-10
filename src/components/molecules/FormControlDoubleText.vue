@@ -2,22 +2,22 @@
 import { ref } from "vue";
 import { translations } from "@/i18n/index";
 
-const { RULE_PASSWORD } = translations.en.FORM_WORDING;
-
 const props = defineProps<{
   id: string;
   label: string;
   type: string;
   subtitle?: string;
-  icon?: string | null;
+  icon?: string | undefined;
   rules?: [];
 }>();
 
 const emit = defineEmits(["formInputChange"]);
 
 const text = ref("");
-
 const text_verifier = ref("");
+const { RULE_PASSWORD } = translations.en.FORM_WORDING;
+
+console.log(props.rules);
 
 const matchingPasswords = () => {
   if (text.value === text_verifier.value) {
@@ -35,9 +35,9 @@ const matchingPasswords = () => {
       :prepend-icon="icon"
       :label="props.label"
       :type="type"
-      @change="emit('formInputChange', props.id, text)"
       :rules="props.rules"
       variant="outlined"
+      @change="emit('formInputChange', props.id, text)"
     >
     </v-text-field>
     <br />
@@ -46,7 +46,7 @@ const matchingPasswords = () => {
       :prepend-icon="icon"
       :label="props.label"
       :type="type"
-      :rules="props.rules?.concat(matchingPasswords)"
+      :rules="[...(props.rules || []), matchingPasswords]"
       variant="outlined"
     >
     </v-text-field>

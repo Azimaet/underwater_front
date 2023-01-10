@@ -37,7 +37,7 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
         rounded
       >
         <v-card-text>
-          <v-list :tag="'ul'" density="compact">
+          <v-list v-if="isDives" :tag="'ul'" density="compact">
             <v-list-item
               v-for="(dive, index) in divesCollection"
               :key="index"
@@ -158,6 +158,7 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
               </v-list-item-subtitle>
             </v-list-item>
           </v-list>
+          <CardErrorData v-else />
         </v-card-text>
       </v-card>
     </v-col>

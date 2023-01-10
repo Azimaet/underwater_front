@@ -95,7 +95,7 @@ onDone(() => {
       <v-btn
         variant="flat"
         color="success"
-        :size="'large'"
+        :size="'default'"
         :class="['my-2', 'mx-2']"
         :loading="loading"
         :disabled="loading"

@@ -39,9 +39,55 @@ export function useFormFactory(
     const regexEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+    const rules = [];
+
+    if (
+      (action === FormActions.ACCOUNT_UPDATE && context === "password") ||
+      context === "maxDepth" ||
+      context === "totalTime"
+    ) {
+      rules.push((v: string) => !!v || "Field is required");
+    }
+
+    if (action === FormActions.ACCOUNT_DELETE) {
+      rules.push(
+        (v: string) =>
+          v === "DELETE" || "Field is required and to be equal 'DELETE'"
+      );
+    }
+
+    if (
+      (action === FormActions.ACCOUNT_UPDATE ||
+        action === FormActions.REGISTER) &&
+      context === "password"
+    ) {
+      rules.push(
+        (v: string) =>
+          regexPassword.test(v) ||
+          "Password should contain at 8-32chars, at least a symbol, a number, and upper and lower case letters."
+      );
+    }
+
+    if (action === FormActions.REGISTER && context === "email") {
+      rules.push(
+        (v: string) =>
+          regexEmail.test(v) ||
+          "Field must be of type email: 'example@something.com' ."
+      );
+    }
+
+    if (context === "username") {
+      rules.push(
+        (v: string) =>
+          (v.length > 3 && v.length < 33) ||
+          "Username should contain between 4 and 32chars."
+      );
+    }
+
     return {
       name:
-        action === FormActions.ACCOUNT_UPDATE && context === "password"
+        (action === FormActions.ACCOUNT_UPDATE && context === "password") ||
+        (action === FormActions.REGISTER && context === "password")
           ? "FormControlDoubleText"
           : "FormControlText",
       type:
@@ -61,35 +107,7 @@ export function useFormFactory(
           ? "Are you sure to delete your account ?"
           : "",
       icon: context === "password" ? "mdi-lock-outline" : null,
-      rules: [
-        ((action === FormActions.DIVE_CREATE ||
-          action === FormActions.DIVE_UPDATE) &&
-          context === "totalTime") ||
-        ((action === FormActions.DIVE_CREATE ||
-          action === FormActions.DIVE_UPDATE) &&
-          context === "maxDepth")
-          ? (v: string) => !!v || "Field is required"
-          : action === FormActions.ACCOUNT_UPDATE && context === "password"
-          ? (v: string) => !!v || "Field is required"
-          : null,
-        context === "password"
-          ? (v: string) =>
-              regexPassword.test(v) ||
-              "Password should contain at 8-32chars, at least a symbol, a number, and upper and lower case letters."
-          : null,
-        context === "email"
-          ? (v: string) =>
-              regexEmail.test(v) ||
-              "Field must be of type email: 'example@something.com' ."
-          : context === "username"
-          ? (v: string) =>
-              (v.length > 3 && v.length < 33) ||
-              "Username should contain between 4 and 32chars."
-          : action === FormActions.ACCOUNT_DELETE
-          ? (v: string) =>
-              v === "DELETE" || "Field is required and to be equal 'DELETE'"
-          : null,
-      ],
+      rules: rules,
       subtitle:
         action === FormActions.ACCOUNT_UPDATE && context === "password"
           ? " To update your account settings, please enter your current password, or renew it. "

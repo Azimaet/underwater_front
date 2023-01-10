@@ -20,6 +20,7 @@ export const en = {
     LOGOUT: "Logout",
     REGISTER: "Register",
     EDIT: "Edit",
+    CLOSE: "Close",
     DELETE: "Delete",
     CANCEL: "Cancel",
     UPDATE_ACCOUNT: "Update Account",
@@ -32,6 +33,7 @@ export const en = {
     RULE_DATE: "Date has been replaced because it must be before now.",
     RULE_MUST_BE_BREATHABLE: "GasMix must be breatable.",
     SELECT_AVATAR: "Select avatar",
+    REQUIRED_FIELDS: "*indicates required field",
   },
   FORM_DIVING: {
     TITLE_ADD: "Add a new Dive!",
@@ -129,7 +131,7 @@ export const en = {
     },
   },
   DIVES_LIST: {
-    TITLE: "Dives List",
+    TITLE: "Dives",
     CONSENT: "Are you sure to delete item ?",
     SUBTITLE: "All your dives. You can access each dive, delete or update it.",
   },

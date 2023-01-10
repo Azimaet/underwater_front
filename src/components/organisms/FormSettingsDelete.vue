@@ -77,7 +77,7 @@ const onSubmit = async () => {
       <v-btn
         variant="flat"
         color="error"
-        :size="'large'"
+        :size="'default'"
         :class="['my-2', 'mx-2']"
         :loading="loading"
         :disabled="loading"
