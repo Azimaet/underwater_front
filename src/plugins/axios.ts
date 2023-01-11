@@ -2,7 +2,11 @@ import axios from "axios";
 import store from "@/store";
 
 const Axios = axios.create({
-  baseURL: "https://127.0.0.1:8000/api",
+  baseURL:
+    process.env.VUE_APP_BACKEND_BASE_URL +
+    ":" +
+    process.env.VUE_APP_BACKEND_PORT +
+    "/api",
 });
 
 Axios.interceptors.request.use((request) => {

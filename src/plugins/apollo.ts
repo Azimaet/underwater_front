@@ -11,13 +11,21 @@ import store from "@/store";
 import { useJWTParser } from "@/composables/utils/jwtParser";
 
 const httpLink = createHttpLink({
-  uri: "https://127.0.0.1:8000/api/graphql",
+  uri:
+    process.env.VUE_APP_BACKEND_BASE_URL +
+    ":" +
+    process.env.VUE_APP_BACKEND_PORT +
+    "/api/graphql",
   // fetchOptions: {
   //   mode: "no-cors",
   // },
 });
 
-const httpRefreshLink = "https://127.0.0.1:8000/api/refresh_token";
+const httpRefreshLink =
+  process.env.VUE_APP_BACKEND_BASE_URL +
+  ":" +
+  process.env.VUE_APP_BACKEND_PORT +
+  "/api/refresh_token";
 
 const authLink = setContext((_, { headers }) => {
   const { token, refresh_token } = store.state.user;

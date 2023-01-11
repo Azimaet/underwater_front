@@ -60,7 +60,7 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
           const statusCode = err.message.match(/\b\d{3}\b/);
 
           if (statusCode && statusCode[0] === "401") {
-            Axios.post("/api/refresh_token").then((response) => {
+            Axios.post("/refresh_token").then((response) => {
               store.commit("setRefreshUserToken", response.data.refresh_token);
             });
             refetch();

@@ -12,31 +12,39 @@ Underwwwater Front uses somes requirements to work properly:
 ## Installation
 
 1/ Install Project:
+
 ```sh
 yarn install
 ```
 
+2/ Update .env.local and module.exports.devServer variables in vue.config.js according to API Underwwwater.
+
 ## Development
 
 1/ Run project:
+
 ```sh
 yarn serve
 ```
 
 2/ Compiles and minifies for production
+
 ```sh
 yarn build
 ```
 
 3/ Run your unit tests
+
 ```sh
 yarn test:unit
 ```
 
 4/ Lints and fixes files
+
 ```sh
 yarn lint
 ```
 
 ### Customize configuration
+
 See [Configuration Reference](https://cli.vuejs.org/config/).
