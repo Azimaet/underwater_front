@@ -94,8 +94,10 @@ export const en = {
     ADD_DIVE: "Add Dive",
     SETTINGS: "Settings",
   },
-  HOME: {
+  GENERAL: {
     TITLE: "Welcome to underwwwater",
+  },
+  HOME: {
     SUBTITLE:
       "the ultimate platform for tracking and analyzing your dive performance.",
     DIVE_LOGGING: {

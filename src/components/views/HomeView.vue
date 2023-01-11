@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { translations } from "@/i18n/index";
 
-const { TITLE, SUBTITLE, DIVE_LOGGING, GET_STARTED } = translations.en.HOME;
+const { SUBTITLE, DIVE_LOGGING, GET_STARTED } = translations.en.HOME;
+const { TITLE } = translations.en.GENERAL;
 </script>
 
 <template>

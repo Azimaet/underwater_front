@@ -2,6 +2,7 @@
 import store from "@/store";
 import { translations } from "@/i18n/index";
 
+const { DIVES_LIST } = translations.en.PAGES;
 const { TITLE, SUBTITLE } = translations.en.DIVES_LIST;
 </script>
 
@@ -16,7 +17,7 @@ const { TITLE, SUBTITLE } = translations.en.DIVES_LIST;
             cover
             :class="['text-white']"
           >
-            <v-card-title>Dives List</v-card-title>
+            <PageTitle :label="DIVES_LIST" />
             <v-list-item
               v-if="
                 store.state.user.data.avatar && store.state.user.data.username

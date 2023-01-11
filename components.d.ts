@@ -43,6 +43,7 @@ declare module '@vue/runtime-core' {
     HomeView: typeof import('./src/components/views/HomeView.vue')['default']
     LogoType: typeof import('./src/components/atoms/LogoType.vue')['default']
     MenuDrawer: typeof import('./src/components/organisms/MenuDrawer.vue')['default']
+    PageTitle: typeof import('./src/components/atoms/PageTitle.vue')['default']
     PanelTemplate: typeof import('./src/components/templates/PanelTemplate.vue')['default']
     ParallaxHeading: typeof import('./src/components/molecules/ParallaxHeading.vue')['default']
     ProfileView: typeof import('./src/components/views/ProfileView.vue')['default']

@@ -19,8 +19,7 @@ const { PROFILE } = translations.en.PAGES;
             cover
             :class="['text-white']"
           >
-            <v-card-title> {{ PROFILE }}</v-card-title>
-
+            <PageTitle :label="PROFILE" />
             <v-list-item
               v-if="
                 store.state.user.data.avatar && store.state.user.data.username
