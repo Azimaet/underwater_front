@@ -17,7 +17,7 @@ const { TITLE, SUBTITLE } = translations.en.DIVES_LIST;
             cover
             :class="['text-white']"
           >
-            <PageTitle :label="DIVES_LIST" />
+            <PageTitle :label="DIVES_LIST" :tag="'h2'" />
             <v-list-item
               v-if="
                 store.state.user.data.avatar && store.state.user.data.username

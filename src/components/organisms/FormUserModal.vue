@@ -102,7 +102,7 @@ const onSubmit = async () => {
     </template>
     <v-card>
       <v-form v-model="valid" ref="formTemplate" lazy-validation action="#">
-        <FormTitle :label="label" />
+        <PageTitle :label="label" />
         <v-card-text :tag="'fieldset'">
           <v-row>
             <v-col

@@ -66,7 +66,6 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
             refetch();
           } else {
             enableQuery.value = false;
-            reject(err);
           }
         });
       });
