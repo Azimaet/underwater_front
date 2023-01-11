@@ -36,7 +36,6 @@ declare module '@vue/runtime-core' {
     FormDiveDeleteModal: typeof import('./src/components/organisms/FormDiveDeleteModal.vue')['default']
     FormSettingsDelete: typeof import('./src/components/organisms/FormSettingsDelete.vue')['default']
     FormSettingsEdit: typeof import('./src/components/organisms/FormSettingsEdit.vue')['default']
-    FormTitle: typeof import('./src/components/atoms/FormTitle.vue')['default']
     FormUserModal: typeof import('./src/components/organisms/FormUserModal.vue')['default']
     HeaderBar: typeof import('./src/components/organisms/HeaderBar.vue')['default']
     HomeParagraph: typeof import('./src/components/atoms/HomeParagraph.vue')['default']
