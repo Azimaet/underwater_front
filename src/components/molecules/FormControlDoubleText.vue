@@ -17,8 +17,6 @@ const text = ref("");
 const text_verifier = ref("");
 const { RULE_PASSWORD } = translations.en.FORM_WORDING;
 
-console.log(props.rules);
-
 const matchingPasswords = () => {
   if (text.value === text_verifier.value) {
     return true;

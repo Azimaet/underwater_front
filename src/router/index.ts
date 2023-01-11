@@ -2,6 +2,7 @@ import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
 
 import HomeView from "@/components/views/HomeView.vue";
 import { isLogged } from "@/composables/auth";
+import { menu } from "@/store/menu";
 import { translations } from "@/i18n/index";
 import { useAlertFactory } from "@/composables/alertFactory";
 
@@ -54,6 +55,7 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   if (!isLogged() && to.name !== "home") {
     useAlertFactory("warning", WARNING_ANON);
+
     return { name: "home" };
   }
 });
