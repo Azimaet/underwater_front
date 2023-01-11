@@ -14,21 +14,12 @@ const { TITLE, SUBTITLE, DIVE_LOGGING, GET_STARTED } = translations.en.HOME;
       />
     </template>
     <template #main>
-      <section>
-        <article>
-          <HomeParagraph
-            :title="DIVE_LOGGING.TITLE"
-            :texts="[DIVE_LOGGING.TEXT]"
-          />
-        </article>
-        <br />
-        <article>
-          <HomeParagraph
-            :title="GET_STARTED.TITLE"
-            :texts="[GET_STARTED.TEXT, GET_STARTED.MORE]"
-          />
-        </article>
-      </section>
+      <HomeParagraph :title="DIVE_LOGGING.TITLE" :texts="[DIVE_LOGGING.TEXT]" />
+      <br />
+      <HomeParagraph
+        :title="GET_STARTED.TITLE"
+        :texts="[GET_STARTED.TEXT, GET_STARTED.MORE]"
+      />
     </template>
   </BaseTemplate>
 </template>

@@ -9,7 +9,7 @@ const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS } = translations.en.PAGES;
 
 <template>
   <v-navigation-drawer v-model="menu.isOpen" :temporary="true">
-    <div
+    <template
       v-if="
         isLogged() &&
         store.state.user.data.avatar &&
@@ -23,10 +23,9 @@ const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS } = translations.en.PAGES;
             '.png')
         "
         :title="store.state.user.data.username"
-      ></v-list-item>
-
-      <v-divider></v-divider>
-    </div>
+      />
+      <v-divider />
+    </template>
     <v-list density="compact" nav>
       <v-list-item
         prepend-icon="mdi-view-dashboard"

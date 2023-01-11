@@ -34,6 +34,6 @@ ChartJS.register(
     :options="globalOptionsProvider(context, props.data)"
     :data="props.data"
     :chart-id="'bar'"
-    :style="{ cursor: 'pointer' }"
+    :class="['chart_zoomable']"
   />
 </template>

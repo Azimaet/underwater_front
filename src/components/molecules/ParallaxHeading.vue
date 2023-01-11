@@ -15,7 +15,7 @@ const props = defineProps<{
     :src="props.image"
     :scale="0.8"
     height="650"
-    :style="{ top: '-64px' }"
+    :class="['parallax_heading']"
   >
     <div
       :class="[

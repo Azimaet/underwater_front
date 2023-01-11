@@ -1,8 +1,7 @@
 <template>
   <div
+    :class="['template_base']"
     :style="{
-      'background-size': 'cover',
-      'background-position': 'top',
       'background-image':
         'url(' + require(`@/assets/background-animate.svg`) + ')',
     }"
@@ -11,7 +10,7 @@
     <AlertsBucket />
     <v-main>
       <slot name="parallax"> </slot>
-      <v-container :style="{ maxWidth: '1280px' }">
+      <v-container :class="['template_base--container']">
         <slot name="main"> </slot>
       </v-container>
     </v-main>

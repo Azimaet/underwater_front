@@ -29,16 +29,10 @@ onMounted(() => {
       scrollPosition > 0 ? 'bg-background' : 'bg-transparent',
       'bg-transition',
       'px-4',
+      'header',
     ]"
-    :style="{
-      position: 'fixed',
-      height: '64px',
-      left: 0,
-      right: 0,
-      zIndex: 1,
-    }"
   >
-    <template v-slot:prepend>
+    <template #prepend>
       <v-btn
         v-if="isLogged()"
         variant="plain"
@@ -50,7 +44,7 @@ onMounted(() => {
     <v-app-bar-title>
       <LogoType />
     </v-app-bar-title>
-    <template v-slot:append>
+    <template #append>
       <div :class="['d-flex', 'justify-center', 'align-center']">
         <p
           v-if="isLogged()"

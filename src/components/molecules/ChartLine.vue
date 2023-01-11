@@ -38,6 +38,6 @@ ChartJS.register(
     :options="globalOptionsProvider(context, props.data)"
     :data="props.data"
     :chart-id="'line-chart'"
-    :style="{ cursor: 'pointer' }"
+    :class="['chart_zoomable']"
   />
 </template>

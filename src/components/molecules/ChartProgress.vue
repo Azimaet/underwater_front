@@ -25,15 +25,15 @@ const height = computed(() => {
           :bg-opacity="0.35"
           rounded
           rounded-bar
+          :class="['chart_progress']"
           :style="{
             'background-image':
               'url(' +
               require(`@/assets/progress_banners/bar_${token}.png`) +
               ')',
-            'background-size': 'cover',
           }"
         >
-          <template v-slot:default="{ value }">
+          <template #default="{ value }">
             <div :class="['position-absolute']">
               <span>
                 {{ props.data.labels[index] }} -
@@ -45,13 +45,7 @@ const height = computed(() => {
           </template>
         </v-progress-linear>
       </div>
-      <v-divider class="mb-1"></v-divider>
+      <v-divider :class="['mb-1']"></v-divider>
     </div>
   </div>
 </template>
-
-<style lang="scss">
-.v-progress-linear__determinate {
-  opacity: 0.7;
-}
-</style>

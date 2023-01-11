@@ -10,8 +10,8 @@ const props = defineProps<{
 </script>
 
 <template>
-  <v-card rounded border>
-    <v-list :style="{ overflow: 'hidden' }">
+  <v-card rounded border :class="['template_panel']">
+    <v-list :class="['template_panel--list']">
       <template v-if="!isMobile.value">
         <v-row v-for="(row, rowIndex) in props.data.rows" :key="rowIndex" dense>
           <v-col v-for="(col, colIndex) in row.cols" :key="colIndex">
@@ -46,7 +46,7 @@ const props = defineProps<{
                 :align-self="'center'"
                 :class="['text-center', 'align-middle']"
               >
-                <template v-slot:activator="{ props }">
+                <template #activator="{ props }">
                   <v-btn color="primary" v-bind="props"> Years Stats </v-btn>
                 </template>
                 <v-list>
@@ -108,7 +108,7 @@ const props = defineProps<{
                   :align-self="'center'"
                   :class="['text-center', 'align-middle']"
                 >
-                  <template v-slot:activator="{ props }">
+                  <template #activator="{ props }">
                     <v-btn color="primary" v-bind="props"> Years Stats </v-btn>
                   </template>
                   <v-list>

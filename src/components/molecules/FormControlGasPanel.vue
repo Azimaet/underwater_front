@@ -107,7 +107,7 @@ const checkChange = (value: boolean, context: string) => {
             hide-details
             @update:model-value="handleChange(state.oxygen, 'oxygen')"
           >
-            <template v-slot:append>
+            <template #append>
               <v-row>
                 <v-col cols="5" :class="['pt-4']">
                   <v-text-field
@@ -117,7 +117,7 @@ const checkChange = (value: boolean, context: string) => {
                     density="compact"
                     hide-details
                     variant="outlined"
-                    style="width: 100px"
+                    :class="['w-100']"
                     @change="handleChange(state.oxygen, 'oxygen')"
                   />
                 </v-col>
@@ -150,7 +150,7 @@ const checkChange = (value: boolean, context: string) => {
             hide-details
             @update:model-value="handleChange(state.nitrogen, 'nitrogen')"
           >
-            <template v-slot:append>
+            <template #append>
               <v-row>
                 <v-col cols="5" :class="['pt-4']">
                   <v-text-field
@@ -160,7 +160,7 @@ const checkChange = (value: boolean, context: string) => {
                     density="compact"
                     hide-details
                     variant="outlined"
-                    style="width: 100px"
+                    :class="['w-100']"
                     @change="handleChange(state.nitrogen, 'nitrogen')"
                   />
                 </v-col>
@@ -193,7 +193,7 @@ const checkChange = (value: boolean, context: string) => {
             hide-details
             @update:model-value="handleChange(state.helium, 'helium')"
           >
-            <template v-slot:append>
+            <template #append>
               <v-row>
                 <v-col cols="5" :class="['pt-4']">
                   <v-text-field
@@ -203,7 +203,7 @@ const checkChange = (value: boolean, context: string) => {
                     density="compact"
                     hide-details
                     variant="outlined"
-                    style="width: 100px"
+                    :class="['w-100']"
                     @change="handleChange(state.helium, 'helium')"
                   />
                 </v-col>

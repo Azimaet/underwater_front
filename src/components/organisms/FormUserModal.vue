@@ -89,7 +89,7 @@ const onSubmit = async () => {
 
 <template>
   <v-dialog v-model="dialog" persistent>
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn
         variant="flat"
         :size="'default'"
