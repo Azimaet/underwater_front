@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { translations } from "@/i18n/index";
 import { GasTank, GasMix } from "@/types/global/gas";
-import { isMobile } from "@/composables/utils/isMobile";
 
 const props = defineProps<{
   id: string;

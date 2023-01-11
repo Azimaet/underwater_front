@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from "@apollo/client";
+import { ApolloResponse } from "@/types/utils/apollo";
 import { ChartData } from "../../types/charts/globalChart";
 import { Colors } from "@/plugins/utils/colors";
 import { DepthData } from "@/types/charts/depth";
@@ -9,12 +9,10 @@ import { useDivesCollectionLoader } from "@/composables/utils/divesCollectionLoa
 
 /**
  * Depth Data Provider function.
- * @param {ApolloQueryResult} collection ApolloQueryResult
+ * @param {ApolloResponse} collection ApolloResponse
  * @return {DepthData}
  */
-export function useDepthDataProvider(
-  collection: ApolloQueryResult<any>
-): DepthData {
+export function useDepthDataProvider(collection: ApolloResponse): DepthData {
   function getDepthGroups(): number[] {
     const depthGroup = [0, 0, 0, 0, 0, 0, 0];
 

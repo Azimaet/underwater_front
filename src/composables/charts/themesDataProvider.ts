@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from "@apollo/client";
+import { ApolloResponse } from "@/types/utils/apollo";
 import { ChartData } from "@/types/charts/globalChart";
 import { Colors } from "@/plugins/utils/colors";
 import { DivingThemeInterface } from "@/types/global/divingTheme";
@@ -12,7 +12,7 @@ import { useDivesCollectionLoader } from "../utils/divesCollectionLoader";
  * @return {ThemesData}
  */
 export function useThemesDataProvider(
-  collection: ApolloQueryResult<any>,
+  collection: ApolloResponse,
   queries: DivingThemeInterface[][]
 ): ThemesData {
   function getLabels(

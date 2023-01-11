@@ -1,6 +1,7 @@
 import { ChartData } from "@/types/charts/globalChart";
 import { Colors } from "@/plugins/utils/colors";
 import { GasConsumptionItem } from "@/types/charts/gas";
+import { TooltipItem } from "chart.js";
 
 /**
  * Global Option Provider function.
@@ -36,7 +37,7 @@ export function globalOptionsProvider(
         family: "Helvetica",
       },
       callbacks: {
-        title: (item: any) => {
+        title: (item: TooltipItem<any>[]) => {
           switch (context) {
             case "depth_pie":
               return item[0].label + " zone:";
@@ -52,7 +53,7 @@ export function globalOptionsProvider(
               return "";
           }
         },
-        label: (item: any) => {
+        label: (item: TooltipItem<any>) => {
           switch (context) {
             case "depth_pie":
             case "themes_doughnut":
@@ -87,7 +88,7 @@ export function globalOptionsProvider(
                 : " dive.";
           }
         },
-        afterLabel: (item: any) => {
+        afterLabel: (item: TooltipItem<any>) => {
           const customData = data.datasets[item.datasetIndex]
             .customData as Partial<GasConsumptionItem>[];
 

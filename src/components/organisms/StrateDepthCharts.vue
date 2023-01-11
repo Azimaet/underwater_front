@@ -3,13 +3,13 @@ import { useDepthDataProvider } from "@/composables/charts/depthDataProvider";
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { GraphqlActions } from "@/types/models/graphql";
 import store from "@/store";
-import { ApolloQueryResult } from "@apollo/client";
+import { ApolloResponse } from "@/types/utils/apollo";
 import { ref } from "vue";
 import { isMobile } from "@/composables/utils/isMobile";
 
 const isDives = ref(false);
 
-const divesCollection: ApolloQueryResult<any> = await useGqlQueryManager(
+const divesCollection: ApolloResponse = await useGqlQueryManager(
   GraphqlActions.DEPTH_BY_DIVES,
   {
     owner: "api/users/" + store.state.user.data.id,

@@ -1,17 +1,17 @@
-import { ApolloQueryResult } from "@apollo/client";
+import { ApolloResponse } from "@/types/utils/apollo";
 import { DiveInterface } from "@/types/global/dive";
 import { DivingThemeInterface } from "@/types/global/divingTheme";
 import { GasTank } from "@/types/global/gas";
 
 /**
  * Dives Collection Loader util
- * @param {ApolloQueryResult} collection ApolloQueryResult
+ * @param {ApolloResponse} collection ApolloResponse
  * @param {string} context string
  * @param {string} subProp string
  * @return {Partial<DiveInterface>[] | GasTank[] | Record<string, number>}
  */
 export function useDivesCollectionLoader(
-  collection: ApolloQueryResult<any>,
+  collection: ApolloResponse,
   context?: string,
   subProp?: string
 ):

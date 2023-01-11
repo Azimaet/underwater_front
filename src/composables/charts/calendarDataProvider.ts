@@ -4,7 +4,7 @@ import {
   DateItem,
 } from "@/types/charts/calendar";
 
-import { ApolloQueryResult } from "@apollo/client";
+import { ApolloResponse } from "@/types/utils/apollo";
 import { Colors } from "@/plugins/utils/colors";
 import { DiveInterface } from "@/types/global/dive";
 import { PanelData } from "@/types/charts/panel";
@@ -14,11 +14,11 @@ import { useDivesCollectionLoader } from "../utils/divesCollectionLoader";
 
 /**
  * Date Highlighter function.
- * @param {ApolloQueryResult} collection ApolloQueryResult
+ * @param {ApolloResponse} collection ApolloResponse
  * @return {CalendarData}
  */
 export function useCalendarDataProvider(
-  collection: ApolloQueryResult<any>
+  collection: ApolloResponse
 ): CalendarData {
   type ReduceAccumulator = Record<
     string,

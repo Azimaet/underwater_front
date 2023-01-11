@@ -4,7 +4,7 @@ import {
   GasDoughnutItem,
 } from "@/types/charts/gas";
 
-import { ApolloQueryResult } from "@apollo/client";
+import { ApolloResponse } from "@/types/utils/apollo";
 import { ChartData } from "@/types/charts/globalChart";
 import { Colors } from "@/plugins/utils/colors";
 import { DiveInterface } from "@/types/global/dive";
@@ -17,12 +17,10 @@ import { useGasNameProvider } from "../gasNameProvider";
 
 /**
  * Gas Data Provider function.
- * @param {ApolloQueryResult} collection ApolloQueryResult
+ * @param {ApolloResponse} collection ApolloResponse
  * @return {GasData}
  */
-export function useGasDataProvider(
-  collection: ApolloQueryResult<any>
-): GasData {
+export function useGasDataProvider(collection: ApolloResponse): GasData {
   function getConsumptions(): GasConsumptionItem[] {
     const consumptions: GasConsumptionItem[] = [];
 

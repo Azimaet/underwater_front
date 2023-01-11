@@ -45,6 +45,12 @@ yarn test:unit
 yarn lint
 ```
 
+5/ Run Html Validate
+
+```sh
+yarn html-validate
+```
+
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
