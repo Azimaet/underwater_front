@@ -4,7 +4,8 @@ import { isLogged } from "@/composables/auth";
 import store from "@/store";
 import { translations } from "@/i18n/index";
 
-const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS } = translations.en.PAGES;
+const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS, STATS } =
+  translations.en.PAGES;
 </script>
 
 <template>
@@ -65,6 +66,14 @@ const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS } = translations.en.PAGES;
         value="settings"
         link
         @click="$router.push('settings')"
+      ></v-list-item>
+      <v-list-item
+        v-if="isLogged()"
+        prepend-icon="mdi-podium"
+        :title="STATS"
+        value="stats"
+        link
+        @click="$router.push('stats')"
       ></v-list-item>
     </v-list>
   </v-navigation-drawer>

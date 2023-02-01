@@ -44,6 +44,14 @@ const routes: Array<RouteRecordRaw> = [
         /* webpackChunkName: "about" */ "@/components/views/DiveFormView.vue"
       ),
   },
+  {
+    path: "/stats",
+    name: "stats",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "@/components/views/StatsView.vue"
+      ),
+  },
 ];
 
 const router = createRouter({

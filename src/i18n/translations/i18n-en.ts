@@ -93,6 +93,7 @@ export const en = {
     DIVES_LIST: "Dives List",
     ADD_DIVE: "Add Dive",
     SETTINGS: "Settings",
+    STATS: "Stats",
   },
   GENERAL: {
     TITLE: "Welcome to underwwwater",
@@ -146,5 +147,8 @@ export const en = {
     TITLE: "Dives",
     CONSENT: "Are you sure to delete item ?",
     SUBTITLE: "All your dives. You can access each dive, delete or update it.",
+  },
+  STATS: {
+    TITLE: "Global Stats",
   },
 };

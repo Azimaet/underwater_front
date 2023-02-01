@@ -1,6 +1,6 @@
-import Axios from "@/plugins/axios";
 import { FormUserCredentials } from "@/types/models/form";
 import { StoreUserDataInterface } from "@/types/models/storeUser";
+import { apiAxios } from "@/plugins/axios";
 import router from "@/router";
 import store from "@/store";
 import { useAlertFactory } from "./alertFactory";
@@ -15,7 +15,7 @@ export async function useAuthLogin(
   credentials: FormUserCredentials
 ): Promise<void> {
   try {
-    const response = await Axios.post("/login", credentials);
+    const response = await apiAxios.post("/login", credentials);
 
     if (response.data.token) {
       const parsedToken: StoreUserDataInterface = useJWTParser(

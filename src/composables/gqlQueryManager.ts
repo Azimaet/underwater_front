@@ -10,13 +10,13 @@ import {
   THEMES_BY_DIVES,
 } from "@/graphql/queries/queryDives";
 
-import Axios from "@/plugins/axios";
 import { DocumentNode } from "graphql";
 import { DocumentParameter } from "@vue/apollo-composable/dist/useQuery";
 import { GraphqlActions } from "@/types/models/graphql";
 import { QUERY_DIVING_ENVIRONMENTS } from "@/graphql/queries/queryDivingEnvironment";
 import { QUERY_DIVING_ROLES } from "@/graphql/queries/queryDivingRole";
 import { QUERY_DIVING_TYPES } from "@/graphql/queries/queryDivingType";
+import { apiAxios } from "@/plugins/axios";
 import { ref } from "vue";
 import store from "@/store";
 import { useQuery } from "@vue/apollo-composable";
@@ -60,7 +60,7 @@ export function useGqlQueryManager(action: GraphqlActions, variables?: object) {
           const statusCode = err.message.match(/\b\d{3}\b/);
 
           if (statusCode && statusCode[0] === "401") {
-            Axios.post("/refresh_token").then((response) => {
+            apiAxios.post("/refresh_token").then((response) => {
               store.commit("setRefreshUserToken", response.data.refresh_token);
             });
             refetch();
