@@ -36,6 +36,8 @@ export function useFormFactory(
     const regexPassword =
       /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
 
+    const regexUsername = /^[A-Za-z0-9_-]*$/;
+
     const regexEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -73,8 +75,7 @@ export function useFormFactory(
 
     if (context === "username") {
       rules.push(
-        (v: string) =>
-          (v.length > 3 && v.length < 33) || FORM_WORDING.RULE_USERNAME
+        (v: string) => regexUsername.test(v) || FORM_WORDING.RULE_USERNAME
       );
     }
 

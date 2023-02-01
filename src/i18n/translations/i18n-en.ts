@@ -34,7 +34,8 @@ export const en = {
     RULE_BE_INT_NUMBER: "Number must be integer, please round it.",
     RULE_PASSWORD_REGEX:
       "Password should contain at 8-32chars, at least a symbol, a number, and upper and lower case letters.",
-    RULE_USERNAME: "Username should contain between 4 and 32char",
+    RULE_USERNAME:
+      "Username should contain between 4 and 32char, and alphanumerical characters only!",
     RULE_BE_EMAIL: "Field must be of type email: 'example@something.com' .",
     RULE_PASSWORD: "Passwords does not match.",
     RULE_DATE: "Date has been replaced because it must be before now.",
