@@ -40,19 +40,19 @@ onMounted(() => {
         {{ CREDITS }}
       </span>
       <span>{{ MADE }}</span>
-      <v-icon :class="['mx-1']">mdi-symfony</v-icon>
-      <v-icon :class="['mx-1']">mdi-graphql</v-icon>
-      <v-icon :class="['mx-1']">mdi-vuejs</v-icon>
-      <v-icon :class="['mx-1']">mdi-vuetify</v-icon>
+      <v-icon icon="$symfony" :class="['mx-1']" />
+      <v-icon icon="$graphql" :class="['mx-1']" />
+      <v-icon icon="$vuejs" :class="['mx-1']" />
+      <v-icon icon="$vuetify" :class="['mx-1']" />
       |
     </div>
     <v-btn
       :variant="'text'"
       :size="'small'"
-      :prepend-icon="'mdi-github'"
       :class="['d-flex']"
       :href="'https://github.com/Azimaet'"
     >
+      <v-icon icon="$github" start />
       {{ GITHUB }}
     </v-btn>
   </v-bottom-navigation>

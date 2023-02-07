@@ -7,6 +7,8 @@ import { isMobile } from "@/composables/utils/isMobile";
 const props = defineProps<{
   data: PanelData;
 }>();
+
+console.log(typeof Colors.gold);
 </script>
 
 <template>
@@ -22,7 +24,7 @@ const props = defineProps<{
                   :key="index"
                 >
                   <v-icon
-                    :icon="'mdi-star'"
+                    icon="$star"
                     :size="16"
                     :color="
                       index === 0
@@ -31,7 +33,7 @@ const props = defineProps<{
                         ? Colors.silver
                         : Colors.bronze
                     "
-                  ></v-icon>
+                  />
                   {{ subtitle }}
                 </v-list-item-subtitle>
               </v-list-item>
@@ -84,7 +86,7 @@ const props = defineProps<{
                     :key="index"
                   >
                     <v-icon
-                      :icon="'mdi-star'"
+                      icon="$star"
                       :size="16"
                       :color="
                         index === 0
@@ -93,7 +95,7 @@ const props = defineProps<{
                           ? Colors.silver
                           : Colors.bronze
                       "
-                    ></v-icon>
+                    />
                     {{ subtitle }}
                   </v-list-item-subtitle>
                 </v-list-item>

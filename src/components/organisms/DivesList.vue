@@ -64,15 +64,15 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
                 <v-container fluid :class="['px-0']">
                   <v-row dense :align="'center'">
                     <v-col :cols="1" :class="['d-none', 'd-md-flex']">
-                      <v-icon icon="mdi-clock-outline" />
+                      <v-icon icon="$clockOutline" />
                       {{ dive.totalTime }}mn
                     </v-col>
                     <v-col :cols="1" :class="['d-none', 'd-md-flex']">
-                      <v-icon icon="mdi-chart-bell-curve-cumulative" />
+                      <v-icon icon="$chartBellCurveCumulative" />
                       {{ dive.maxDepth }}mt
                     </v-col>
                     <v-col :cols="1" :class="['d-none', 'd-md-flex']">
-                      <v-icon icon="mdi-gas-cylinder" />
+                      <v-icon icon="$gasCylinder" />
                       {{ useGasNameProvider(dive.gasTanks[0].gasMix).title }}
                     </v-col>
                     <v-col :cols="7" :class="['d-none', 'd-md-block']">
@@ -99,15 +99,15 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
                         <v-row>
                           <v-col :class="['d-flex', 'flex-row']">
                             <div :class="['mr-4']">
-                              <v-icon icon="mdi-clock-outline" />
+                              <v-icon icon="$clockOutline" />
                               {{ dive.totalTime }}mn
                             </div>
                             <div :class="['mr-4']">
-                              <v-icon icon="mdi-chart-bell-curve-cumulative" />
+                              <v-icon icon="$chartBellCurveCumulative" />
                               {{ dive.maxDepth }}mt
                             </div>
                             <div :class="['mr-4']">
-                              <v-icon icon="mdi-gas-cylinder" />
+                              <v-icon icon="$gasCylinder" />
                               {{
                                 useGasNameProvider(dive.gasTanks[0].gasMix)
                                   .title
@@ -140,7 +140,7 @@ const divesCollection = await useGqlQueryManager(GraphqlActions.DIVES, {
                     </v-col>
                     <v-col :cols="2" :class="['d-flex', 'justify-end']">
                       <v-btn
-                        icon="mdi-pencil"
+                        icon="$pencil"
                         color="success"
                         size="x-small"
                         :class="['mr-2']"

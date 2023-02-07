@@ -36,7 +36,7 @@ onMounted(() => {
       <v-btn
         v-if="isLogged()"
         variant="plain"
-        icon="mdi-menu"
+        icon="$menu"
         :size="'large'"
         @click="menu.toggleAction()"
       />
@@ -62,7 +62,7 @@ onMounted(() => {
             :size="isMobile.value ? 30 : 45"
           />
           <v-avatar v-else color="info" :size="isMobile.value ? 30 : 45">
-            <v-icon icon="mdi-account-circle" />
+            <v-icon icon="$accountCircle" />
           </v-avatar>
         </v-badge>
         <v-btn
@@ -77,7 +77,7 @@ onMounted(() => {
         <v-btn
           v-if="isLogged()"
           color="error"
-          icon="mdi-exit-to-app"
+          icon="$exitToApp"
           :class="['mx-4', 'd-md-none']"
           :size="'default'"
           @click="useAuthLogout(), useAlertFactory('success', LOGOUT_ACCOUNT)"

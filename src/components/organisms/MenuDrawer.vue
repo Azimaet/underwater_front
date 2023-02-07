@@ -29,7 +29,7 @@ const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS, STATS } =
     </template>
     <v-list density="compact" nav>
       <v-list-item
-        prepend-icon="mdi-view-dashboard"
+        prepend-icon="$viewDashboard"
         :title="HOME"
         value="home"
         link
@@ -37,7 +37,7 @@ const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS, STATS } =
       ></v-list-item>
       <v-list-item
         v-if="isLogged()"
-        prepend-icon="mdi-diving-scuba"
+        prepend-icon="$divingScuba"
         :title="PROFILE"
         value="profile"
         link
@@ -45,7 +45,7 @@ const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS, STATS } =
       ></v-list-item>
       <v-list-item
         v-if="isLogged()"
-        prepend-icon="mdi-format-list-bulleted"
+        prepend-icon="$formatListBulleted"
         :title="DIVES_LIST"
         value="dive_list"
         link
@@ -53,7 +53,7 @@ const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS, STATS } =
       ></v-list-item>
       <v-list-item
         v-if="isLogged()"
-        prepend-icon="mdi-plus"
+        prepend-icon="$plus"
         :title="ADD_DIVE"
         value="add-dive"
         link
@@ -61,7 +61,7 @@ const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS, STATS } =
       ></v-list-item>
       <v-list-item
         v-if="isLogged()"
-        prepend-icon="mdi-cog"
+        prepend-icon="$cog"
         :title="SETTINGS"
         value="settings"
         link
@@ -69,7 +69,7 @@ const { HOME, PROFILE, DIVES_LIST, ADD_DIVE, SETTINGS, STATS } =
       ></v-list-item>
       <v-list-item
         v-if="isLogged()"
-        prepend-icon="mdi-podium"
+        prepend-icon="$podium"
         :title="STATS"
         value="stats"
         link

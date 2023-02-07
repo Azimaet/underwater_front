@@ -101,7 +101,7 @@ export function useFormFactory(
           : context === "security_passphrase"
           ? FORM_WORDING.CONSENT
           : "",
-      icon: context === "password" ? "mdi-lock-outline" : null,
+      icon: context === "password" ? "$lockOutline" : null,
       rules: rules,
       subtitle:
         action === FormActions.ACCOUNT_UPDATE && context === "password"

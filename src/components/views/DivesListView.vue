@@ -36,7 +36,7 @@ const { TITLE, SUBTITLE } = translations.en.DIVES_LIST;
               <DivesList
                 :title="TITLE"
                 :subtitle="SUBTITLE"
-                :icon="'mdi-mdi-format-list-bulleted'"
+                :icon="'$formatListBulleted'"
               />
             </Suspense>
           </v-container>

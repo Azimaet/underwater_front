@@ -33,7 +33,7 @@ onDone(() => {
 <template>
   <span class="text-center">
     <v-btn
-      icon="mdi-trash-can-outline"
+      icon="$trashCanOutline"
       color="error"
       size="x-small"
       @click="dialog = true"

@@ -38,28 +38,28 @@ const { PROFILE } = translations.en.PAGES;
               <StrateCalendar
                 :title="STRATE_CALENDAR.TITLE"
                 :subtitle="STRATE_CALENDAR.SUBTITLE"
-                :icon="'mdi-calendar'"
+                :icon="'$calendar'"
               />
             </Suspense>
             <Suspense>
               <StrateDepthCharts
                 :title="STRATE_DEPTH.TITLE"
                 :subtitle="STRATE_DEPTH.SUBTITLE"
-                :icon="'mdi-chart-bell-curve-cumulative'"
+                :icon="'$chartBellCurveCumulative'"
               />
             </Suspense>
             <Suspense>
               <StrateGasCharts
                 :title="STRATE_GAS.TITLE"
                 :subtitle="STRATE_GAS.SUBTITLE"
-                :icon="'mdi-gas-cylinder'"
+                :icon="'$gasCylinder'"
               />
             </Suspense>
             <Suspense>
               <StrateThemesCharts
                 :title="STRATE_THEMES.TITLE"
                 :subtitle="STRATE_THEMES.SUBTITLE"
-                :icon="'mdi-shape'"
+                :icon="'$shape'"
               />
             </Suspense>
           </v-container>
