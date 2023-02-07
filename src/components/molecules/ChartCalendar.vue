@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { CalendarData } from "@/types/charts/calendar";
 import { CalendarHeatmap } from "vue3-calendar-heatmap";
+import { translations } from "@/i18n/index";
 
 const props = defineProps<{
   data: CalendarData["heatmap"];
 }>();
+
+const { LABEL } = translations.en.PROFILE.STRATE_CALENDAR;
 </script>
 
 <template>
-  <div>Current Year</div>
+  <div>{{ LABEL }}</div>
   <calendar-heatmap
     :values="props.data.items"
     :range-color="props.data.colors"

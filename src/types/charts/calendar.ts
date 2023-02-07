@@ -1,9 +1,8 @@
 import { PanelData } from "./panel";
 
-/** Locals Items */
 export interface DateItem {
   date: string;
-  count: number | unknown;
+  count: number;
 }
 
 export interface CalendarHighlightItem {
@@ -15,7 +14,7 @@ export interface CalendarData {
   heatmap: {
     items: DateItem[];
     endDate: Date;
-    colors: any[];
+    colors: string[];
   };
   panel: PanelData;
 }

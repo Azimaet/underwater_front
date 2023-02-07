@@ -125,6 +125,7 @@ export const en = {
     STRATE_CALENDAR: {
       TITLE: "Dates",
       SUBTITLE: "Here is the calendar of your recent dives, and more data.",
+      LABEL: "Current Year",
     },
     STRATE_DEPTH: {
       TITLE: "Depths",
