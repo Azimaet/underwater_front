@@ -5,8 +5,6 @@ import { translations } from "@/i18n/index";
 const { TITLE } = translations.en.PAGES.STATS;
 
 const response = await statsAxios.post("/stats");
-
-console.log(response);
 </script>
 
 <template>

@@ -7,8 +7,6 @@ import { isMobile } from "@/composables/utils/isMobile";
 const props = defineProps<{
   data: PanelData;
 }>();
-
-console.log(typeof Colors.gold);
 </script>
 
 <template>
