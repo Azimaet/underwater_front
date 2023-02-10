@@ -1,4 +1,6 @@
+import { Apollo } from "./plugins/apollo";
 import App from "./App.vue";
+import VueApolloComponents from "@vue/apollo-components";
 import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
 import { loadFonts } from "./plugins/webfontloader";
@@ -19,4 +21,11 @@ store.subscribe((mutation, state) => {
   localStorage.setItem("store", JSON.stringify(state));
 });
 
-createApp(App).use(router).use(store).use(vuetify).use(i18n).mount("#app");
+createApp(App)
+  .use(router)
+  .use(store)
+  .use(vuetify)
+  .use(Apollo)
+  .use(VueApolloComponents)
+  .use(i18n)
+  .mount("#app");

@@ -24,7 +24,7 @@
   resolved "https://registry.yarnpkg.com/@antfu/utils/-/utils-0.7.2.tgz#3bb6f37a6b188056fe9e2f363b6aa735ed65d7ca"
   integrity sha512-vy9fM3pIxZmX07dL+VX1aZe7ynZ+YyB0jY+jE6r3hOK6GNY2t6W8rzpFC4tgpbXUYABkFQwgJq2XYXlxbXAI0g==
 
-"@apollo/client@^3.7.2":
+"@apollo/client@^3.7.7":
   version "3.7.7"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.7.7.tgz#5eb6e8af24fb809c97c8f66c3faf9524f83c412b"
   integrity sha512-Rp/pCWuJSjLN7Xl5Qi2NoeURmZYEU/TIUz0n/LOwEo1tGdU2W7/fGVZ8+5um58JeVYq4UoTGBKFxSVeG4s411A==
@@ -2086,6 +2086,13 @@
     "@typescript-eslint/types" "5.51.0"
     eslint-visitor-keys "^3.3.0"
 
+"@vue/apollo-components@^4.0.0-beta.2":
+  version "4.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@vue/apollo-components/-/apollo-components-4.0.0-beta.2.tgz#80cd569f4d49831f6c99b726c7727b2b17f6d263"
+  integrity sha512-o2lR4guPzj7i2tZfPk3aLydv3C4ImivWpvBU+qPsozOu+2yBLJdZat3nQDPyyDrZPSl8T3Q9BIVx//CW9Z5FDg==
+  dependencies:
+    "@vue/apollo-option" "^4.0.0-beta.2"
+
 "@vue/apollo-composable@^4.0.0-alpha.19":
   version "4.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/@vue/apollo-composable/-/apollo-composable-4.0.0-beta.2.tgz#4614ac9bd8b545a91c7e2b9f8b86b82351454789"
@@ -2094,6 +2101,13 @@
     throttle-debounce "^3.0.1"
     ts-essentials "^9.1.2"
     vue-demi "^0.13.1"
+
+"@vue/apollo-option@^4.0.0-beta.2":
+  version "4.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@vue/apollo-option/-/apollo-option-4.0.0-beta.2.tgz#393abd3bad4766172d808a5e3dd3992b39c6f33c"
+  integrity sha512-1SIW8/XwBmo3/FDhu3d4QdI9RUMglZ9bVdza6Z+MboJc8J0xQbkWp3jL6T9rNP9Pnt+y2UKsFKYN7QBpP92A+g==
+  dependencies:
+    throttle-debounce "^3.0.1"
 
 "@vue/babel-helper-vue-jsx-merge-props@^1.4.0":
   version "1.4.0"

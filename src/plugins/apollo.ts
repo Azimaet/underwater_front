@@ -5,7 +5,8 @@ import {
 } from "@apollo/client/core";
 
 import { StoreUserDataInterface } from "@/types/models/storeUser";
-import { isLogged } from "../composables/auth";
+import { createApolloProvider } from "@vue/apollo-option";
+import { isLogged } from "@/composables/auth";
 import { setContext } from "@apollo/client/link/context";
 import store from "@/store";
 import { useJWTParser } from "@/composables/utils/jwtParser";
@@ -16,9 +17,6 @@ const httpLink = createHttpLink({
     ":" +
     process.env.VUE_APP_BACKEND_PORT +
     "/api/graphql",
-  // fetchOptions: {
-  //   mode: "no-cors",
-  // },
 });
 
 const httpRefreshLink =
@@ -41,7 +39,6 @@ const authLink = setContext((_, { headers }) => {
     ) {
       fetch(httpRefreshLink, {
         method: "POST",
-        // mode: "no-cors",
         body: new URLSearchParams({
           refresh_token: refresh_token,
         }),
@@ -60,14 +57,6 @@ const authLink = setContext((_, { headers }) => {
             store.commit("setUserId", newParsedToken.id);
           }
         });
-      // .catch((error) => {
-      //   useAlertFactory("warning", error.toString());
-
-      //   useAuthLogout();
-
-      //   router.push({ name: "home" });
-      //   return;
-      // });
     }
   }
 
@@ -81,7 +70,11 @@ const authLink = setContext((_, { headers }) => {
 
 const cache = new InMemoryCache();
 
-export const Apollo = new ApolloClient({
-  link: authLink.concat(httpLink),
+const apolloClient = new ApolloClient({
   cache,
+  link: authLink.concat(httpLink),
+});
+
+export const Apollo = createApolloProvider({
+  defaultClient: apolloClient,
 });

@@ -2,11 +2,30 @@ const { defineConfig } = require("@vue/cli-service");
 
 module.exports = defineConfig({
   configureWebpack: {
-    plugins: [
-      require("unplugin-vue-components/webpack")({
-        /* options */
-      }),
-    ],
+    plugins: [require("unplugin-vue-components/webpack")({})],
+    module: {
+      rules: [
+        {
+          test: /\.(graphql|gql)$/,
+          exclude: /node_modules/,
+          loader: "graphql-tag/loader",
+        },
+      ],
+    },
+  },
+  chainWebpack: (config) => {
+    config.module
+      .rule("vue")
+      .use("vue-loader")
+      .loader("vue-loader")
+      .tap((options) => {
+        options.transpileOptions = {
+          transforms: {
+            dangerousTaggedTemplateString: true,
+          },
+        };
+        return options;
+      });
   },
   transpileDependencies: true,
   css: {

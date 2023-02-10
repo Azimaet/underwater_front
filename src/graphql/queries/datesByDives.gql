@@ -1,0 +1,9 @@
+query DatesByDives($owner: String) {
+  dives(owner: $owner) {
+    edges {
+      node {
+        date
+      }
+    }
+  }
+}

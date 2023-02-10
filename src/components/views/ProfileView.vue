@@ -41,7 +41,7 @@ const { PROFILE } = translations.en.PAGES;
                 :icon="'$calendar'"
               />
             </Suspense>
-            <Suspense>
+            <!-- <Suspense>
               <StrateDepthCharts
                 :title="STRATE_DEPTH.TITLE"
                 :subtitle="STRATE_DEPTH.SUBTITLE"
@@ -61,7 +61,7 @@ const { PROFILE } = translations.en.PAGES;
                 :subtitle="STRATE_THEMES.SUBTITLE"
                 :icon="'$shape'"
               />
-            </Suspense>
+            </Suspense> -->
           </v-container>
         </template>
       </CardTemplate>
