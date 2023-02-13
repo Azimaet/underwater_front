@@ -45,6 +45,7 @@ declare module '@vue/runtime-core' {
     PageTitle: typeof import('./src/components/atoms/PageTitle.vue')['default']
     PanelTemplate: typeof import('./src/components/templates/PanelTemplate.vue')['default']
     ParallaxHeading: typeof import('./src/components/molecules/ParallaxHeading.vue')['default']
+    PlaceholderStrateQuery: typeof import('./src/components/atoms/PlaceholderStrateQuery.vue')['default']
     ProfileView: typeof import('./src/components/views/ProfileView.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

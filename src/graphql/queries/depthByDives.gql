@@ -1,0 +1,10 @@
+query depthByDives($owner: String) {
+  dives(owner: $owner, order: { date: "ASC" }) {
+    edges {
+      node {
+        maxDepth
+        date
+      }
+    }
+  }
+}

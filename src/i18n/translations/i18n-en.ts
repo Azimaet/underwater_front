@@ -140,9 +140,17 @@ export const en = {
       SUBTITLE: "Data of the types of dives you made.",
     },
     ERROR_DATA: {
-      TITLE: "Warning!",
-      SUBTITLE: "Missing Dives",
-      TEXT: "Impossible loading datas, because you didn't post dives yet.",
+      TITLE: {
+        ERROR: "Error!",
+        LOADING: "Loading Dives...",
+        MISSING: "Missing Dives.",
+      },
+      TEXT: {
+        ERROR: "An error occured!",
+        LOADING:
+          "Dives are currently fetching from the server, please waits few seconds...",
+        MISSING: "You don't have any dives yet. You can add it here.",
+      },
     },
   },
   DIVES_LIST: {

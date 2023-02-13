@@ -4,12 +4,10 @@ import {
   createHttpLink,
 } from "@apollo/client/core";
 
-import { StoreUserDataInterface } from "@/types/models/storeUser";
+import { apiAxios } from "@/plugins/axios";
 import { createApolloProvider } from "@vue/apollo-option";
-import { isLogged } from "@/composables/auth";
-import { setContext } from "@apollo/client/link/context";
+import { onError } from "@apollo/client/link/error";
 import store from "@/store";
-import { useJWTParser } from "@/composables/utils/jwtParser";
 
 const httpLink = createHttpLink({
   uri:
@@ -19,60 +17,31 @@ const httpLink = createHttpLink({
     "/api/graphql",
 });
 
-const httpRefreshLink =
-  process.env.VUE_APP_BACKEND_BASE_URL +
-  ":" +
-  process.env.VUE_APP_BACKEND_PORT +
-  "/api/refresh_token";
-
-const authLink = setContext((_, { headers }) => {
-  const { token, refresh_token } = store.state.user;
-
-  if (isLogged()) {
-    const parsedToken = token ? useJWTParser(token) : null;
-
-    if (
-      refresh_token &&
-      parsedToken &&
-      parsedToken.exp &&
-      parsedToken.exp * 1000 < Date.now()
-    ) {
-      fetch(httpRefreshLink, {
-        method: "POST",
-        body: new URLSearchParams({
-          refresh_token: refresh_token,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          const newParsedToken: StoreUserDataInterface =
-            useJWTParser(data.token) ?? null;
-
-          if (newParsedToken) {
-            store.commit("setUserToken", data.token);
-            store.commit("setRefreshUserToken", data.refresh_token);
-            store.commit("setUserEmail", newParsedToken.email);
-            store.commit("setUserRoles", newParsedToken.roles);
-            store.commit("setUserName", newParsedToken.username);
-            store.commit("setUserId", newParsedToken.id);
-          }
-        });
-    }
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    graphQLErrors.forEach(({ message, locations, path }) => {
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      );
+    });
   }
 
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    },
-  };
+  if (networkError) {
+    const statusCode = networkError.message.match(/\b\d{3}\b/);
+
+    if (statusCode && statusCode[0] === "401") {
+      apiAxios.post("/refresh_token").then((response) => {
+        store.commit("setRefreshUserToken", response.data.refresh_token);
+      });
+    }
+  }
 });
 
 const cache = new InMemoryCache();
 
 const apolloClient = new ApolloClient({
   cache,
-  link: authLink.concat(httpLink),
+  link: errorLink.concat(httpLink),
 });
 
 export const Apollo = createApolloProvider({

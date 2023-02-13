@@ -41,14 +41,14 @@ const { PROFILE } = translations.en.PAGES;
                 :icon="'$calendar'"
               />
             </Suspense>
-            <!-- <Suspense>
+            <Suspense>
               <StrateDepthCharts
                 :title="STRATE_DEPTH.TITLE"
                 :subtitle="STRATE_DEPTH.SUBTITLE"
                 :icon="'$chartBellCurveCumulative'"
               />
             </Suspense>
-            <Suspense>
+            <!--<Suspense>
               <StrateGasCharts
                 :title="STRATE_GAS.TITLE"
                 :subtitle="STRATE_GAS.SUBTITLE"

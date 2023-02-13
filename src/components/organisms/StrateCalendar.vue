@@ -5,6 +5,8 @@ import { isMobile } from "@/composables/utils/isMobile";
 import { translations } from "@/i18n/index";
 
 const { ADD_DIVE } = translations.en.PAGES;
+const { TITLE, TEXT } = translations.en.PROFILE.ERROR_DATA;
+
 const owner = "api/users/" + store.state.user.data.id;
 </script>
 
@@ -46,42 +48,32 @@ const owner = "api/users/" + store.state.user.data.id;
             </template>
           </template>
 
-          <template v-else-if="loading">
-            <v-alert
-              type="info"
-              title="Loading Dives..."
-              text="Dives are currently fetching from the server, please waits few seconds..."
-              variant="outlined"
-              :class="['text-center']"
-            >
-              <v-progress-linear
-                color="secondary"
-                indeterminate
-                :class="['my-4']"
-              />
-            </v-alert>
-          </template>
-
-          <template v-else-if="error">An error occurred</template>
-
           <template v-else>
-            <v-alert
-              type="info"
-              title="Missing Dives!"
-              text="You don't have any dives yet. You can add it here."
-              variant="outlined"
-              :class="['text-center']"
+            <PlaceholderStrateQuery
+              :type="error ? 'error' : 'info'"
+              :title="
+                error ? TITLE.ERROR : loading ? TITLE.LOADING : TITLE.MISSING
+              "
+              :text="error ? TEXT.ERROR : loading ? TEXT.LOADING : TEXT.MISSING"
             >
-              <v-btn
-                variant="outlined"
-                value="add-dive"
-                link
-                :class="['mx-4']"
-                @click="$router.push('dive_form')"
-              >
-                {{ ADD_DIVE }}</v-btn
-              >
-            </v-alert>
+              <template #progress v-if="loading">
+                <v-progress-linear
+                  color="secondary"
+                  indeterminate
+                  :class="['my-4']"
+              /></template>
+              <template #button v-if="!error && !loading">
+                <v-btn
+                  variant="outlined"
+                  value="add-dive"
+                  link
+                  :class="['mx-4']"
+                  @click="$router.push('dive_form')"
+                >
+                  {{ ADD_DIVE }}
+                </v-btn>
+              </template>
+            </PlaceholderStrateQuery>
           </template>
         </template>
       </ApolloQuery>
