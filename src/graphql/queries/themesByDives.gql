@@ -1,0 +1,21 @@
+query themesByDives($owner: String) {
+  dives(owner: $owner, order: { date: "ASC" }) {
+    edges {
+      node {
+        divingType {
+          edges {
+            node {
+              token
+            }
+          }
+        }
+        divingEnvironment {
+          token
+        }
+        divingRole {
+          token
+        }
+      }
+    }
+  }
+}

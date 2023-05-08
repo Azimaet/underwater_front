@@ -48,7 +48,7 @@ const { PROFILE } = translations.en.PAGES;
                 :icon="'$chartBellCurveCumulative'"
               />
             </Suspense>
-            <!--<Suspense>
+            <Suspense>
               <StrateGasCharts
                 :title="STRATE_GAS.TITLE"
                 :subtitle="STRATE_GAS.SUBTITLE"
@@ -61,7 +61,7 @@ const { PROFILE } = translations.en.PAGES;
                 :subtitle="STRATE_THEMES.SUBTITLE"
                 :icon="'$shape'"
               />
-            </Suspense> -->
+            </Suspense>
           </v-container>
         </template>
       </CardTemplate>

@@ -2,13 +2,14 @@
 import { useGqlQueryManager } from "@/composables/gqlQueryManager";
 import { GraphqlActions } from "@/types/models/graphql";
 import { DivingThemeInterface } from "@/types/global/divingTheme";
-import store from "@/store";
-import { ApolloQueryResult } from "@apollo/client";
 import { useThemesDataProvider } from "@/composables/charts/themesDataProvider";
-import { ref } from "vue";
+import store from "@/store";
 import { isMobile } from "@/composables/utils/isMobile";
+import { translations } from "@/i18n/index";
 
-const isDives = ref(false);
+const { ADD_DIVE } = translations.en.PAGES;
+const { TITLE, TEXT } = translations.en.PROFILE.ERROR_DATA;
+const owner = "api/users/" + store.state.user.data.id;
 
 const divingEnvironmentsItems: DivingThemeInterface[] =
   await useGqlQueryManager(GraphqlActions.DIVING_ENVIRONMENTS).then(
@@ -35,73 +36,102 @@ const divingTypesItems: DivingThemeInterface[] = await useGqlQueryManager(
   );
 });
 
-const divesCollection: ApolloQueryResult<unknown> = await useGqlQueryManager(
-  GraphqlActions.THEMES_BY_DIVES,
-  {
-    owner: "api/users/" + store.state.user.data.id,
-  }
-).then((result) => {
-  isDives.value = result.dives.edges.length;
-  return result;
-});
+const taxonomies = [
+  divingEnvironmentsItems,
+  divingRolesItems,
+  divingTypesItems,
+];
 
-const themesChartData = isDives.value
-  ? useThemesDataProvider(divesCollection, [
-      divingEnvironmentsItems,
-      divingRolesItems,
-      divingTypesItems,
-    ])
-  : null;
+console.log(taxonomies);
 </script>
 
 <template>
   <StrateTemplate>
     <template #strate>
-      <template v-if="themesChartData">
-        <template v-if="!isMobile.value">
-          <v-row>
-            <v-col cols="3">
-              <ChartDoughnut
-                :data="themesChartData.doughnuts[0]"
-                :context="'themes_doughnut'"
-              />
-            </v-col>
-            <v-col cols="3">
-              <ChartDoughnut
-                :data="themesChartData.doughnuts[1]"
-                :context="'themes_doughnut'"
-              />
-            </v-col>
-            <v-col cols="6">
-              <ChartProgress :data="themesChartData.progress" />
-            </v-col>
-          </v-row>
+      <ApolloQuery
+        :query="require('@/graphql/queries/themesByDives.gql')"
+        :variables="{ owner }"
+        notifyOnNetworkStatusChange
+      >
+        <template v-slot="{ result: { loading, error, data } }">
+          <template v-if="data && data?.dives?.edges?.length">
+            <template v-if="!isMobile.value">
+              <v-row>
+                <v-col cols="3">
+                  <ChartDoughnut
+                    :data="useThemesDataProvider(data, taxonomies).doughnuts[0]"
+                    :context="'themes_doughnut'"
+                  />
+                </v-col>
+                <v-col cols="3">
+                  <ChartDoughnut
+                    :data="useThemesDataProvider(data, taxonomies).doughnuts[1]"
+                    :context="'themes_doughnut'"
+                  />
+                </v-col>
+                <v-col cols="6">
+                  <ChartProgress
+                    :data="useThemesDataProvider(data, taxonomies).progress"
+                  />
+                </v-col>
+              </v-row>
+            </template>
+            <template v-else>
+              <v-row>
+                <v-col cols="9" :class="['mx-auto']">
+                  <ChartDoughnut
+                    :data="useThemesDataProvider(data, taxonomies).doughnuts[0]"
+                    :context="'themes_doughnut'"
+                  />
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="9" :class="['mx-auto']">
+                  <ChartDoughnut
+                    :data="useThemesDataProvider(data, taxonomies).doughnuts[1]"
+                    :context="'themes_doughnut'"
+                  />
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <ChartProgress
+                    :data="useThemesDataProvider(data, taxonomies).progress"
+                  />
+                </v-col>
+              </v-row>
+            </template>
+          </template>
+
+          <template v-else>
+            <PlaceholderStrateQuery
+              :type="error ? 'error' : 'info'"
+              :title="
+                error ? TITLE.ERROR : loading ? TITLE.LOADING : TITLE.MISSING
+              "
+              :text="error ? TEXT.ERROR : loading ? TEXT.LOADING : TEXT.MISSING"
+            >
+              <template #progress v-if="loading">
+                <v-progress-linear
+                  color="secondary"
+                  indeterminate
+                  :class="['my-4']"
+              /></template>
+              <template #button v-if="!error && !loading">
+                <v-btn
+                  variant="outlined"
+                  value="add-dive"
+                  link
+                  :class="['mx-4']"
+                  @click="$router.push('dive_form')"
+                >
+                  {{ ADD_DIVE }}
+                </v-btn>
+              </template>
+            </PlaceholderStrateQuery>
+          </template>
         </template>
-        <template v-else>
-          <v-row>
-            <v-col cols="9" :class="['mx-auto']">
-              <ChartDoughnut
-                :data="themesChartData.doughnuts[0]"
-                :context="'themes_doughnut'"
-              />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="9" :class="['mx-auto']">
-              <ChartDoughnut
-                :data="themesChartData.doughnuts[1]"
-                :context="'themes_doughnut'"
-              />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <ChartProgress :data="themesChartData.progress" />
-            </v-col>
-          </v-row>
-        </template>
-      </template>
-      <CardErrorData v-else />
+      </ApolloQuery>
     </template>
   </StrateTemplate>
 </template>

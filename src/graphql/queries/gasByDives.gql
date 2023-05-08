@@ -1,0 +1,11 @@
+query gasByDives($owner: String) {
+  dives(owner: $owner, order: { date: "ASC" }) {
+    edges {
+      node {
+        gasTanks
+        totalTime
+        date
+      }
+    }
+  }
+}
