@@ -34,7 +34,7 @@ const { PROFILE } = translations.en.PAGES;
           </v-img>
 
           <v-container fluid>
-            <Suspense>
+            <!-- <Suspense>
               <StrateCalendar
                 :title="STRATE_CALENDAR.TITLE"
                 :subtitle="STRATE_CALENDAR.SUBTITLE"
@@ -54,7 +54,7 @@ const { PROFILE } = translations.en.PAGES;
                 :subtitle="STRATE_GAS.SUBTITLE"
                 :icon="'$gasCylinder'"
               />
-            </Suspense>
+            </Suspense> -->
             <Suspense>
               <StrateThemesCharts
                 :title="STRATE_THEMES.TITLE"

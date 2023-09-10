@@ -1,0 +1,11 @@
+query divingTypes {
+  divingTypes {
+    edges {
+      node {
+        id
+        label
+        token
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+query divingEnvironments {
+  divingEnvironments {
+    edges {
+      node {
+        id
+        label
+        token
+      }
+    }
+  }
+}

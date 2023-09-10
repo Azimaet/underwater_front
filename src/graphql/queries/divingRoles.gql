@@ -1,0 +1,11 @@
+query divingRoles {
+  divingRoles {
+    edges {
+      node {
+        id
+        label
+        token
+      }
+    }
+  }
+}
